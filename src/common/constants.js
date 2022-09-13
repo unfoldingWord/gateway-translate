@@ -1,12 +1,12 @@
 import packagefile from '../../package.json'
 
 export const APP_VERSION = packagefile.version
-export const APP_NAME = 'next-js-template'
+export const APP_NAME = 'gateway-translate'
 export const BASE_URL = 'https://git.door43.org'
 export const QA_BASE_URL = 'https://qa.door43.org'
 export const QA = 'QA'
 export const PROD = 'PROD'
-export const TOKEN_ID = 'gatewayEdit'
+export const TOKEN_ID = 'gatewayTranslate'
 export const FEEDBACK_PAGE = '/feedback'
 export const SERVER_KEY = 'server'
 

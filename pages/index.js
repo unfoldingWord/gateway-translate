@@ -22,13 +22,13 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
-          <Link href='/documentation'>
+          <Link href='/workspace-rcl-demo'>
             <a className={styles.card}>
               <h2>Documentation &rarr;</h2>
               <p>Find in-depth information about this Next.js template app.</p>
             </a>
           </Link>
-
+ 
           <Link href='/workspace-rcl-demo'>
             <a className={styles.card}>
               <h2>Resource Workspace RCL &rarr;</h2>
@@ -36,7 +36,7 @@ export default function Home() {
             </a>
           </Link>
 
-          <Link href='/example'>
+          <Link href='/workspace-rcl-demo'>
             <a className={styles.card}>
               <h2>Example &rarr;</h2>
               <p>Example description.</p>
