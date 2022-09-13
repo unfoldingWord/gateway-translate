@@ -1,0 +1,45 @@
+{
+  "name": "next-js-template",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next export",
+    "postinstall": "husky install",
+    "increment-build": "bash scripts/increment-build.sh && git add -A"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@sendgrid/mail": "^7.7.0",
+    "autoprefixer": "^10.4.7",
+    "core-js": "^3.22.8",
+    "deep-equal": "^2.0.5",
+    "gitea-react-toolkit": "^2.1.2",
+    "localforage": "^1.10.0",
+    "markdown-translatable": "^2.0.0",
+    "next": "^12.1.6",
+    "postcss": "^8.4.14",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "regenerator-runtime": "^0.13.9",
+    "resource-workspace-rcl": "^2.1.0",
+    "scripture-resources-rcl": "^5.2.1",
+    "single-scripture-rcl": "^3.2.0",
+    "tailwindcss": "^3.1.2",
+    "tc-ui-toolkit": "^6.1.0",
+    "translation-helps-rcl": "^3.3.0",
+    "use-deep-compare-effect": "^1.8.1",
+    "word-aligner": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.17.0",
+    "eslint-config-next": "12.1.6",
+    "husky": "^8.0.1",
+    "prettier": "^2.6.2",
+    "prop-types": "^15.8.1"
+  }
+}

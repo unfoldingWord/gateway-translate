@@ -1,0 +1,63 @@
+@import './resource-workspace-rcl.css';
+@tailwind base;
+
+@layer base {
+  .wrap-anywhere {
+    overflow-wrap: anywhere;
+  }
+}
+
+@font-face {
+  font-family: Noto Sans;
+  src: url("/static/NotoSans-Regular.ttf");
+  font-weight: normal;
+}
+@font-face {
+  font-family: Noto Sans;
+  font-style: italic;
+  src: url("/static/NotoSans-Italic.ttf");
+}
+@font-face {
+  font-family: Noto Sans;
+  font-weight: bold;
+  src: url("/static/NotoSans-Bold.ttf");
+}
+
+@font-face {
+  font-family: Noto Sans;
+  font-style: italic;
+  font-weight: bold;
+  src: url("/static/NotoSans-BoldItalic.ttf");
+}
+
+/*
+  special font for Hebrew
+*/
+@font-face {
+  font-family: Ezra;
+  src: url("/static/SILEOTSR.ttf");
+  font-weight: normal;
+  unicode-range: U+0590-05FF;
+  font-display: swap;
+}
+
+/*
+  use Ezra for Hebrew characters and then Noto Sans for other characters
+*/
+* {
+  font-family: Ezra, Noto Sans;
+}
+
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+hr {
+  border-style: solid;
+  border-width: 0;
+}
