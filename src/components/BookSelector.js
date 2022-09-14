@@ -53,6 +53,7 @@ export default function BookSelector() {
   const defaultProps = {
     options: bookSelectList(),
     getOptionLabel: (option) => option.name,
+    getOptionSelected: (option, value) => option.id === value.id,
   };
 
   return (
