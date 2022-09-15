@@ -9,6 +9,7 @@ import AppHead from '@components/AppHead'
 import Layout from '@components/Layout'
 import theme from '../src/theme'
 import '@styles/globals.css'
+import NonSSRWrapper from '@components/NonSSRWrapper'
 
 export default function Application({ Component, pageProps }) {
   useEffect(() => {
@@ -21,7 +22,8 @@ export default function Application({ Component, pageProps }) {
   }, [])
 
   return (
-    <>
+    <div>
+      <NonSSRWrapper>
       <AppHead title={APP_NAME} />
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
@@ -34,7 +36,8 @@ export default function Application({ Component, pageProps }) {
           </StoreContextProvider>
         </AuthContextProvider>
       </ThemeProvider>
-    </>
+      </NonSSRWrapper>
+    </div>
   )
 }
 
