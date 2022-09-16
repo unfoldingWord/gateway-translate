@@ -7,16 +7,14 @@ import IconButton from '@material-ui/core/IconButton'
 import Toolbar from '@material-ui/core/Toolbar'
 import MenuIcon from '@material-ui/icons/Menu'
 import AppBar from '@material-ui/core/AppBar'
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 import Drawer from '@components/Drawer'
-//import BibleReference from '@components/BibleReference'
 import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
+import { AppContext } from '@context/AppContext'
 import FeedbackPopup from '@components/FeedbackPopup'
-// TODO: Enable buttons once ready to fully implement functionality
-// import LinkIcon from '@material-ui/icons/Link'
-// import Button from '@material-ui/core/Button'
-// import SubmitButton from '@components/SubmitButton'
-// import ShareIcon from '@material-ui/icons/Share'
+import SelectBookPopup from './SelectBookPopup'
 
 const useStyles = makeStyles(theme => ({
   root: { flexGrow: 1 },
@@ -31,6 +29,12 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     cursor: 'pointer',
   },
+  margin: {
+    margin: theme.spacing(1),
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
 }))
 
 export default function Header({
@@ -42,9 +46,14 @@ export default function Header({
 }) {
   const classes = useStyles()
   const router = useRouter()
+  const [showModal, setShowModal] = useState(false)
+
   const [drawerOpen, setOpen] = useState(false)
   const { actions: { logout } } = useContext(AuthContext)
-  const { actions: { checkUnsavedChanges } } = useContext(StoreContext)
+  const { state: { owner }, actions: { checkUnsavedChanges } } = useContext(StoreContext)
+  const { state } = useContext(AppContext)
+  console.log("appContext state=", state)
+  const { state: { books }, actions: { setBooks } } = useContext(AppContext)
 
   const handleDrawerOpen = () => {
     if (!drawerOpen) {
@@ -65,6 +74,17 @@ export default function Header({
   const doHideFeedback = () => {
     setFeedback && setFeedback(false)
   }
+
+  const onNext = (value) => {
+    if ( books && setBooks ) {
+      let _books = books
+      _books.push(value.id)
+      setBooks(_books)
+      // after a bit update the books and see what happens
+      //setTimeout( () => console.log("Header() after setBooks, books:",books), 1 );
+    }
+  }
+
 
   return (
     <header>
@@ -88,23 +108,24 @@ export default function Header({
               {title}
             </Typography>
           </div>
-          <div className='flex flex-1 justify-end'>
-            {/* <Button
-              className={classes.button}
-              variant='outlined'
-              onClick={() => {}}
-            >
-              <LinkIcon classes={{ root: classes.icon }} htmlColor='#ffffff' />
-            </Button>
-            <Button
-              className={classes.button}
-              variant='outlined'
-              onClick={() => {}}
-            >
-              <ShareIcon classes={{ root: classes.icon }} htmlColor='#ffffff' />
-            </Button>
-            <SubmitButton variant='contained' disableElevation active={false} /> */}
-          </div>
+          <>
+            {
+              user && owner && (router.pathname === '/') &&
+              <Fab color="primary" aria-label="add" variant="extended"
+                onClick={() => { setShowModal(true)} }
+              >
+                <AddIcon className={classes.extendedIcon}  />
+                Book
+              </Fab>
+            }
+          </>
+          <> 
+            <SelectBookPopup 
+              onNext={(value) => onNext(value)} 
+              showModal={showModal}
+              setShowModal={setShowModal}
+            /> 
+          </>
         </Toolbar>
       </AppBar>
       <Drawer

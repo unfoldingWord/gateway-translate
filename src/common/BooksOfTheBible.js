@@ -1,7 +1,7 @@
 /**
  * Nested version of the books of the bible object.
  */
-export const BIBLE_BOOKS = {
+ export const BIBLE_BOOKS = {
   oldTestament: {
     'gen': 'Genesis',
     'exo': 'Exodus',
@@ -74,8 +74,8 @@ export const BIBLE_BOOKS = {
   },
 }
 
-export const NT_BOOKS = Object.keys(BIBLE_BOOKS.newTestament)
-export const OT_BOOKS = Object.keys(BIBLE_BOOKS.oldTestament)
+export const NT_BOOKS = BIBLE_BOOKS.newTestament
+export const OT_BOOKS = BIBLE_BOOKS.oldTestament
 
 export const BIBLES_ABBRV_INDEX = {
   'gen': '01',
@@ -151,6 +151,8 @@ export const ALL_BIBLE_BOOKS = {
   ...BIBLE_BOOKS.newTestament,
 }
 
+export const BIBLE_AND_OBS = { ...ALL_BIBLE_BOOKS, obs: 'Open Bible Stories (OBS)' }
+
 export const TN_FILENAMES = {
   'gen': '_tn_01-GEN',
   'exo': '_tn_02-EXO',
@@ -220,6 +222,72 @@ export const TN_FILENAMES = {
   'rev': '_tn_67-REV',
 }
 
+export const OBS_FILENAMES = {
+  'back-intro': 'back/intro.md',
+  'front-intro': 'front/intro.md',
+  'front-title': 'front/title.md',
+  '01': '01.md',
+  '02': '02.md',
+  '03': '03.md',
+  '04': '04.md',
+  '05': '05.md',
+  '06': '06.md',
+  '07': '07.md',
+  '08': '08.md',
+  '09': '09.md',
+  '10': '10.md',
+  '11': '11.md',
+  '12': '12.md',
+  '13': '13.md',
+  '14': '14.md',
+  '15': '15.md',
+  '16': '16.md',
+  '17': '17.md',
+  '18': '18.md',
+  '19': '19.md',
+  '20': '20.md',
+  '21': '21.md',
+  '22': '22.md',
+  '23': '23.md',
+  '24': '24.md',
+  '25': '25.md',
+  '26': '26.md',
+  '27': '27.md',
+  '28': '28.md',
+  '29': '29.md',
+  '30': '30.md',
+  '31': '31.md',
+  '32': '32.md',
+  '33': '33.md',
+  '34': '34.md',
+  '35': '35.md',
+  '36': '36.md',
+  '37': '37.md',
+  '38': '38.md',
+  '39': '39.md',
+  '40': '40.md',
+  '41': '41.md',
+  '42': '42.md',
+  '43': '43.md',
+  '44': '44.md',
+  '45': '45.md',
+  '46': '46.md',
+  '47': '47.md',
+  '48': '48.md',
+  '49': '40.md',
+  '50': '50.md',
+}
+
 export function isNT(bookId) {
-  return NT_BOOKS.includes(bookId)
+  return !!NT_BOOKS[bookId]
+}
+
+export function isOT(bookId) {
+  return !!OT_BOOKS[bookId]
+}
+
+export function bookSelectList() {
+  return Object.keys(BIBLE_AND_OBS).map(
+    (bookId) => ({ id: bookId, name: BIBLE_AND_OBS[bookId] }),
+  )
 }
