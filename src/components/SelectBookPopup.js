@@ -28,6 +28,7 @@ export default function SelectBookPopup(
   const defaultProps = {
     options: bookSelectList(),
     getOptionLabel: (option) => option.name,
+    getOptionSelected: (option, value) => option.id === value.id,
   };
 
   return (
