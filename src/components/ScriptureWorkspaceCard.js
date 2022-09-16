@@ -7,10 +7,12 @@ import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import React from 'react';
+import ReactJson from 'react-json-view';
 //import { makeStyles } from '@material-ui/core/styles';
 
 export default function ScriptureWorkspaceCard({
   bookId,
+  content,
   classes,
   onClose: removeBook,
 }) {
@@ -46,17 +48,6 @@ export default function ScriptureWorkspaceCard({
     }
   } = useContext(AppContext)
 
-
-  let _ltRepo = languageId
-  let _stRepo = languageId
-  if ( owner === "unfoldingWord" || owner === "unfoldingword" ) {
-    _ltRepo += "_ult"
-    _stRepo += "_ust"
-  } else {
-    _ltRepo += "_glt"
-    _stRepo += "_gst"
-  }
-
   return (
     <Card title={BIBLE_AND_OBS[bookId]} 
       classes={classes} 
@@ -65,7 +56,11 @@ export default function ScriptureWorkspaceCard({
       onClose={() => removeBook(bookId)}
       key={bookId}
     >
-        <p>hello</p>
+      <ReactJson
+        style={{ maxHeight: '500px', overflow: 'scroll', whiteSpace: 'pre' }}
+        src={content ? content: {}}
+        // theme="monokai"
+      />    
     </Card>
   )
 }

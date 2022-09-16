@@ -76,7 +76,9 @@ export default function Header({
   const onNext = (value) => {
     if ( books && setBooks ) {
       let _books = books
-      _books.push(value.id)
+      let _entry = { id: null, content: null }
+      _entry.id = value.id
+      _books.push(_entry)
       setBooks(_books)
       // after a bit update the books and see what happens
       //setTimeout( () => console.log("Header() after setBooks, books:",books), 1 );

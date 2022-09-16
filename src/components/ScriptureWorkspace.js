@@ -21,7 +21,6 @@ import {
   import { HTTP_CONFIG } from '@common/constants'
   import NetworkErrorPopup from '@components/NetworkErrorPopUp'
   import ScriptureWorkspaceCard from './ScriptureWorkspaceCard'
-//   import { clearCaches } from '@utils/fetchCache'
   
   const useStyles = makeStyles(() => ({
     root: {
@@ -56,7 +55,7 @@ import {
   
     const removeBook = (bookId) => {
       const _books = books.filter( (b) => {
-        return b !== bookId
+        return b.id !== bookId
       })
       setBooks(_books)
     }
@@ -234,9 +233,10 @@ import {
   
           >
             {
-              books.map( (bookId) =>        
+              books.map( (data) =>        
                 <ScriptureWorkspaceCard 
-                  bookId={bookId} 
+                  bookId={data.id} 
+                  content={data.content}
                   classes={classes} 
                   onClose={removeBook}
                 />
