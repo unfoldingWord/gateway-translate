@@ -52,7 +52,6 @@ export default function Header({
   const { actions: { logout } } = useContext(AuthContext)
   const { state: { owner }, actions: { checkUnsavedChanges } } = useContext(StoreContext)
   const { state: { books }, actions: { setBooks } } = useContext(AppContext)
-  console.log("selected books:", books)
   const handleDrawerOpen = () => {
     if (!drawerOpen) {
       setOpen(true)

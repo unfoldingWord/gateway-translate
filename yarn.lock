@@ -1210,6 +1210,11 @@ base-64@0.1.0:
   resolved "https://registry.yarnpkg.com/base-64/-/base-64-0.1.0.tgz#780a99c84e7d600260361511c4877613bf24f6bb"
   integrity sha512-Y5gU45svrR5tI2Vt/X9GPd3L0HNIKzGu202EjxrXMpuc2V2CiKgemAbUUsqYmZJvPtCXoUKjNZwBJzsNScUbXA==
 
+base-64@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/base-64/-/base-64-1.0.0.tgz#09d0f2084e32a3fd08c2475b973788eee6ae8f4a"
+  integrity sha512-kwDPIFCGx0NZHog36dj+tHiwP4QMzsZ3AgMViUBKI0+V5n4U0ufTCUMhnQ04diaRI8EX/QcPfql7zlhZ7j4zgg==
+
 base16@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/base16/-/base16-1.0.0.tgz#e297f60d7ec1014a7a971a39ebc8a98c0b681e70"
@@ -5466,10 +5471,10 @@ resolve@^2.0.0-next.3:
     is-core-module "^2.2.0"
     path-parse "^1.0.6"
 
-resource-workspace-rcl@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/resource-workspace-rcl/-/resource-workspace-rcl-2.1.0.tgz#ce86d674f7aa2147edd260a46c522799a06dede6"
-  integrity sha512-4ThBZ3ZqXLfG+dx5a2rS92fZ+hhwCB2EHL/UtFIj6hlbdlxemVLmjQ170T675M20NUny062TreZ9I1sRhVHrHg==
+resource-workspace-rcl@^2.1.1-rc.1:
+  version "2.1.1-rc.1"
+  resolved "https://registry.yarnpkg.com/resource-workspace-rcl/-/resource-workspace-rcl-2.1.1-rc.1.tgz#f69cca6d75dbc65c5669f58483027c60597f61d4"
+  integrity sha512-2JETmXmemAmM8QaFjbc/XD0Mrs/a3l+bA+og6FOMvLjDtlEI6hjmChxg8HnODdBIKab3d5qoQCyRhBvisOU8VQ==
   dependencies:
     prop-types "^15.7.2"
     react-grid-layout "1.2.0"
