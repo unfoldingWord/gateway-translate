@@ -7,21 +7,18 @@ import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import React from 'react';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import ReactJson from 'react-json-view';
 //import { makeStyles } from '@material-ui/core/styles';
 
 export default function ScriptureWorkspaceCard({
   bookId,
+  data,
   classes,
   onClose: removeBook,
 }) {
-  // LT (GLT or ULT)
-  const [ltBookErrorMsg, setLtBookErrorMsg] = useState(null)
-  const [ltFilename, setLtFilename] = useState(null)
-  const [ltCv, setLtCv] = useState(null)
-  // ST (GST or UST)
-  const [stBookErrorMsg, setStBookErrorMsg] = useState(null)
-  const [stFilename, setStFilename] = useState(null)
-  const [stCv, setStCv] = useState(null)
+
+  const [usfmContent, setUsfmContent] = useState("Waiting...")
 
   const {
     state: {
@@ -42,20 +39,9 @@ export default function ScriptureWorkspaceCard({
         books,
     },
     actions: {
-      setBooks,
     }
   } = useContext(AppContext)
 
-
-  let _ltRepo = languageId
-  let _stRepo = languageId
-  if ( owner === "unfoldingWord" || owner === "unfoldingword" ) {
-    _ltRepo += "_ult"
-    _stRepo += "_ust"
-  } else {
-    _ltRepo += "_glt"
-    _stRepo += "_gst"
-  }
 
   return (
     <Card title={BIBLE_AND_OBS[bookId]} 
@@ -65,7 +51,21 @@ export default function ScriptureWorkspaceCard({
       onClose={() => removeBook(bookId)}
       key={bookId}
     >
-        <p>hello</p>
+      <div className="text-sm max-w-prose">
+        <pre>{data.usfmText}</pre>
+      </div>
+      {/* <TextareaAutosize
+        // maxRows={4}
+        aria-label="maximum height"
+        placeholder="Empty - try another book"
+        defaultValue={data.usfmText}
+        style={{ width: 600 }}
+      /> */}
+      {/* <ReactJson
+        style={{ maxHeight: '500px', overflow: 'scroll', whiteSpace: 'pre' }}
+        src={content ? content: {}}
+        // theme="monokai"
+      />     */}
     </Card>
   )
 }

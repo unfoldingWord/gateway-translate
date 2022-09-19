@@ -291,3 +291,9 @@ export function bookSelectList() {
     (bookId) => ({ id: bookId, name: BIBLE_AND_OBS[bookId] }),
   )
 }
+
+export function usfmFilename(bookId) {
+  const numPrefix = BIBLES_ABBRV_INDEX[bookId]
+  const upperCaseBookId = bookId.toUpperCase()
+  return `${numPrefix}-${upperCaseBookId}.usfm`
+}
