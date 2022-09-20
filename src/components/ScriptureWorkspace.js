@@ -238,7 +238,8 @@ import {
               books.map( (data) =>        
                 <ScriptureWorkspaceCard 
                   key={data.id}
-                  bookId={data.id} 
+                  id={data.id}
+                  bookId={data.bookId} 
                   data={data}
                   classes={classes} 
                   onClose={removeBook}

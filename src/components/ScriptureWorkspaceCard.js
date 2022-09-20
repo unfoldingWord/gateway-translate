@@ -12,6 +12,7 @@ import ReactJson from 'react-json-view';
 //import { makeStyles } from '@material-ui/core/styles';
 
 export default function ScriptureWorkspaceCard({
+  id,
   bookId,
   data,
   classes,
@@ -44,7 +45,7 @@ export default function ScriptureWorkspaceCard({
 
 
   return (
-    <Card title={BIBLE_AND_OBS[bookId]} 
+    <Card title={`${BIBLE_AND_OBS[bookId]} (${id.split('-')[1]})`} 
       classes={classes} 
       hideMarkdownToggle={true} 
       closeable={true}
