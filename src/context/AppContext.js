@@ -6,6 +6,7 @@ import useLocalStorage from '@hooks/useLocalStorage'
 import { useRepoClient } from 'dcs-react-hooks';
 import {usfmFilename} from '@common/BooksOfTheBible'
 import { decodeBase64ToUtf8 } from '@utils/base64Decode';
+import { LITERAL, SIMPLIFIED } from '@common/constants';
 
 export const AppContext = React.createContext({});
 
@@ -13,9 +14,9 @@ export default function AppContextProvider({
   children,
 }) {
 
-  const [books, setBooks] = useLocalStorage('books',[])
+  const [books, setBooks] = useLocalStorage('gt-books',[])
+  const [ltStState, setLtStState] = useLocalStorage('gt-LtSt', '')
   const [refresh, setRefresh] = useState(true)
-  const [reload, setReload] = useState(false)
 
   const {
     state: {
@@ -45,14 +46,24 @@ export default function AppContextProvider({
   useEffect(() => {
     async function getContent() {
       let _books = books
-      let _repoSuffix = '_glt'
+      let _repoSuffix;
       if ( owner.toLowerCase() === 'unfoldingword' ) {
-        _repoSuffix = '_ult'
+        if ( ltStState === LITERAL ) {
+          _repoSuffix = '_ult'
+        } else {
+          _repoSuffix = '_ust'
+        }
+      } else {
+        if ( ltStState === LITERAL ) {
+          _repoSuffix = '_glt'
+        } else {
+          _repoSuffix = '_gst'
+        }
       }
       const _repo = languageId + _repoSuffix
       for (let i=0; i<_books.length; i++) {
         if ( ! _books[i].content ) {
-          const _filename = usfmFilename(_books[i].id)
+          const _filename = usfmFilename(_books[i].bookId)
           const _content = await repoClient.repoGetContents(
             owner,_repo,_filename
           ).then(({ data }) => data)
@@ -67,6 +78,7 @@ export default function AppContextProvider({
               _usfmText = _content.content
             }
             _books[i].usfmText = _usfmText
+            _books[i].type = ltStState
           } else {
           _books[i].usfmText = null
           }
@@ -74,24 +86,25 @@ export default function AppContextProvider({
       }
       setBooks(_books)
       setRefresh(false)
-      setReload(true)
+      setLtStState('')
     }
-
-    if (refresh && authentication && owner && server && languageId) {
-      getContent()
+    if ( ltStState === LITERAL || ltStState === SIMPLIFIED ) {
+      if (refresh && authentication && owner && server && languageId) {
+        getContent()
+      }
     }
-  }, [authentication, owner, server, languageId, refresh, books])
+  }, [authentication, owner, server, languageId, refresh, books, ltStState])
 
 
   // create the value for the context provider
   const context = {
     state: {
       books,
-      reload,
+      ltStState,
     },
     actions: {
       setBooks: _setBooks,
-      setReload,
+      setLtStState,
     }
   };
 

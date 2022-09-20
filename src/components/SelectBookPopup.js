@@ -1,5 +1,10 @@
 import React, { useState } from 'react'
 import TextField from '@material-ui/core/TextField'
+import FormControl from '@material-ui/core/FormControl'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormLabel from '@material-ui/core/FormLabel'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import Radio from '@material-ui/core/Radio'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
@@ -15,13 +20,19 @@ export default function SelectBookPopup(
 }) {
 
   const [value, setValue] = useState(null)
+  const [ltStState, setLtStState] = useState('literal')
+
+  const handleLtStStateChange = event => {
+    setLtStState(event.target.value)
+  }
+
 
   const handleClickClose = () => {
     setShowModal(false)
   }
 
   const handleClickNext = () => {
-    onNext(value)
+    onNext(value, ltStState)
     handleClickClose()
   }
 
@@ -45,6 +56,21 @@ export default function SelectBookPopup(
           root: 'w-96'
         }}
       >
+        <FormControl>
+          <FormLabel id="literal-or-simplified">Literal or Simplified Translation?</FormLabel>
+          <RadioGroup
+            aria-labelledby="literal-or-simplified-radio-buttons-group-label"
+            defaultValue="literal"
+            name="literal-or-simplified-radio-buttons-group"
+            row
+            value={ltStState}
+            onChange={handleLtStStateChange}
+          >
+            <FormControlLabel value="literal" control={<Radio />} label="Literal" />
+            <FormControlLabel value="simplified" control={<Radio />} label="Simplified" />
+          </RadioGroup>
+        </FormControl>
+
         <Autocomplete
           {...defaultProps}
           id="select-book"
