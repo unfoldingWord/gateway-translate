@@ -51,7 +51,7 @@ export default function Header({
   const [drawerOpen, setOpen] = useState(false)
   const { actions: { logout } } = useContext(AuthContext)
   const { state: { owner }, actions: { checkUnsavedChanges } } = useContext(StoreContext)
-  const { state: { books }, actions: { setBooks } } = useContext(AppContext)
+  const { state: { books }, actions: { setBooks, setLtStState } } = useContext(AppContext)
   const handleDrawerOpen = () => {
     if (!drawerOpen) {
       setOpen(true)
@@ -72,15 +72,21 @@ export default function Header({
     setFeedback && setFeedback(false)
   }
 
-  const onNext = (value) => {
+  const onNext = (value, ltStState) => {
     if ( books && setBooks ) {
       let _books = books
-      let _entry = { id: null, content: null }
-      _entry.id = value.id
+      let _entry = { id: null, bookId: null, type: null, content: null }
+      _entry.id = `${value.id}-${ltStState}`
+      _entry.bookId = value.id
+      _entry.type = ltStState
       _books.push(_entry)
       setBooks(_books)
+      console.log("onNext() _books:",_books)
       // after a bit update the books and see what happens
       //setTimeout( () => console.log("Header() after setBooks, books:",books), 1 );
+    }
+    if ( setLtStState ) {
+      setLtStState( ltStState )
     }
   }
 
@@ -120,7 +126,7 @@ export default function Header({
           </>
           <> 
             <SelectBookPopup 
-              onNext={(value) => onNext(value)} 
+              onNext={(value, ltStState) => onNext(value, ltStState)} 
               showModal={showModal}
               setShowModal={setShowModal}
             /> 
