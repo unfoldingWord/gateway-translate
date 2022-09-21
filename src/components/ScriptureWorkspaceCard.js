@@ -49,7 +49,7 @@ export default function ScriptureWorkspaceCard({
       classes={classes} 
       hideMarkdownToggle={true} 
       closeable={true}
-      onClose={() => removeBook(bookId)}
+      onClose={() => removeBook(id)}
       key={bookId}
     >
       <div className="text-sm max-w-prose">
