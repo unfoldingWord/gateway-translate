@@ -55,9 +55,9 @@ import {
       }
     } = useContext(AppContext)
   
-    const removeBook = (bookId) => {
+    const removeBook = (id) => {
       const _books = books.filter( (b) => {
-        return b.id !== bookId
+        return b.id !== id
       })
       setBooks(_books)
     }
