@@ -7,6 +7,7 @@ import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import React from 'react';
+import Editor from "./Editor";
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import ReactJson from 'react-json-view';
 //import { makeStyles } from '@material-ui/core/styles';
@@ -52,10 +53,12 @@ export default function ScriptureWorkspaceCard({
       onClose={() => removeBook(bookId)}
       key={bookId}
     >
+      <Editor/>
+      {/*
       <div className="text-sm max-w-prose">
         <pre>{data.usfmText}</pre>
       </div>
-      {/* <TextareaAutosize
+       <TextareaAutosize
         // maxRows={4}
         aria-label="maximum height"
         placeholder="Empty - try another book"
