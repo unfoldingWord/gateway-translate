@@ -44,7 +44,7 @@ export default function ScriptureWorkspaceCard({
     }
   } = useContext(AppContext)
 
-
+console.log(data)
   return (
     <Card title={`${BIBLE_AND_OBS[bookId]} (${id.split('-')[1]})`} 
       classes={classes} 

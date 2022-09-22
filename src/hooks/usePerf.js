@@ -10,11 +10,13 @@ export default function usePerf({ proskomma, ready, docSetId, bookCode, verbose 
   
   const epiteletePerfHtml = useDeepCompareMemo(() => (
     ready && new EpiteletePerfHtml({ proskomma, docSetId, options: { historySize: 100 } })
-    ), [proskomma, ready, docSetId]);
+  ), [proskomma, ready, docSetId]);
     
-    useDeepCompareEffect(() => {
-      if (epiteletePerfHtml) {
-        epiteletePerfHtml.readHtml(bookCode).then((_htmlPerf) => {
+  useDeepCompareEffect(() => {
+    if (epiteletePerfHtml) {
+      const bcvFilterExample = { book: { tit: { ch: { 1: {} } } } }
+      epiteletePerfHtml.readHtml(bookCode,{},bcvFilterExample).then((_htmlPerf) => {
+console.log(_htmlPerf)
         setHtmlPerf(_htmlPerf);
       });
     }
