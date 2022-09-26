@@ -47,6 +47,7 @@ import {
     const {
       state: {
         books,
+        htmlTexts,
         ltStState,
       },
       actions: {
@@ -235,12 +236,13 @@ import {
   
           >
             {
-              books.map( (data) =>        
+              books.map( (data,inx) =>        
                 <ScriptureWorkspaceCard 
                   key={data.id}
                   id={data.id}
                   bookId={data.bookId} 
                   data={data}
+                  htmlText={htmlTexts && htmlTexts[0]}
                   classes={classes} 
                   onClose={removeBook}
                 />

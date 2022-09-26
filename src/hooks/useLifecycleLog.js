@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import { EditorContext } from '../context/EditorContext';
+import { AppContext } from '../context/AppContext';
 
 export default function useLifecycleLog (component, key='') {
-  const { state: { verbose } } = useContext(EditorContext);
+  const { state: { verbose } } = useContext(AppContext);
   const name = component.displayName || component.name;
 
   useEffect(() => {

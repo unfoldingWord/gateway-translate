@@ -10,6 +10,8 @@ export default function useEditorStateReducer({ ...props }) {
     editable: true,
     preview: false,
     verbose: false,
+    bcvQuery: {},
+    pkDocuments: [],
     ...props
   };
 
@@ -46,6 +48,21 @@ export default function useEditorStateReducer({ ...props }) {
     [state.sequenceIds, setSequenceIds]
   );
 
+  const setBcvQuery = useCallback((bcvQuery) => {
+    setState((prev) => ({ ...prev, bcvQuery }));
+  }, []);
+
+  const setPkDocuments = useCallback((pkDocuments) => {
+    setState((prev) => ({ ...prev, pkDocuments }));
+  }, []);
+
+  const addPkDocument = useCallback(
+    (_pkDocument) => {
+      setPkDocuments([...state.pkDocuments, _pkDocument]);
+    },
+    [state.pkDocuments, setPkDocuments]
+  );
+
   const actions = {
     setSectionable,
     setBlockable,
@@ -54,6 +71,9 @@ export default function useEditorStateReducer({ ...props }) {
     setToggles,
     setSequenceIds,
     addSequenceId,
+    setBcvQuery,
+    setPkDocuments,
+    addPkDocument,
   };
 
   return { state, actions };

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Skeleton, Stack } from "@mui/material";
 
-import { EditorContext } from "../context/EditorContext";
+import { AppContext } from '@context/AppContext'
 import useLifecycleLog from "../hooks/useLifecycleLog";
 
 import Section from "./Section";
@@ -23,9 +23,9 @@ export default function Editor() {
       verbose,
     },
     actions: { addSequenceId, saveHtmlPerf },
-  } = useContext(EditorContext);
+  } = useContext(AppContext)
 
-  const sequenceId = sequenceIds.at(-1);
+  const sequenceId = sequenceIds?.at(-1);
 
   useLifecycleLog(Editor);
   const style = (isSaving || isLoading || !sequenceId) ? { cursor: 'progress' } : {};

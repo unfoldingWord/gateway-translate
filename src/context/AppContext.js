@@ -3,28 +3,40 @@ import PropTypes from 'prop-types';
 import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
 import useLocalStorage from '@hooks/useLocalStorage'
-import { useRepoClient } from 'dcs-react-hooks';
 import {usfmFilename} from '@common/BooksOfTheBible'
-import { decodeBase64ToUtf8 } from '@utils/base64Decode';
-import { LITERAL, SIMPLIFIED } from '@common/constants';
+import { LITERAL, SIMPLIFIED } from '@common/constants'
+
+import useEditorState from '../hooks/useEditorState';
+
+const urlDocument = ({ server, selectors, bookCode, bookName, filename, ...props}) => ({
+  selectors,
+  bookCode,
+  chapter: 1,
+  url: `${server}/${selectors.org}/${selectors.lang}_${selectors.abbr}/raw/branch/master/${filename}`,
+});
 
 export const AppContext = React.createContext({});
 
-export default function AppContextProvider({
-  children,
-}) {
+export default function AppContextProvider({children, ...props}) {
 
   const [books, setBooks] = useLocalStorage('gt-books',[])
   const [ltStState, setLtStState] = useLocalStorage('gt-LtSt', '')
   const [refresh, setRefresh] = useState(true)
+
+  const { 
+    state: editorState, 
+    actions: editorActions 
+  } = useEditorState({...props});
+
+  const { pkDocuments } = editorState
+  const { setPkDocuments } = editorActions
 
   const {
     state: {
       authentication,
     },
   } = useContext(AuthContext)
-  const repoClient = useRepoClient()
-
+     
   const {
     state: {
       owner,
@@ -45,46 +57,35 @@ export default function AppContextProvider({
   // monitor the refresh state and act when true
   useEffect(() => {
     async function getContent() {
-      let _books = books
-      let _repoSuffix;
-      if ( owner.toLowerCase() === 'unfoldingword' ) {
+      let _pkDocuments = pkDocuments
+      let abbr;
+      const org = owner
+      if ( org === 'unfoldingWord' ) {
         if ( ltStState === LITERAL ) {
-          _repoSuffix = '_ult'
+          abbr = 'ult'
         } else {
-          _repoSuffix = '_ust'
+          abbr = 'ust'
         }
       } else {
         if ( ltStState === LITERAL ) {
-          _repoSuffix = '_glt'
+          abbr = 'glt'
         } else {
-          _repoSuffix = '_gst'
+          abbr = 'gst'
         }
       }
-      const _repo = languageId + _repoSuffix
-      for (let i=0; i<_books.length; i++) {
-        if ( ! _books[i].content ) {
-          const _filename = usfmFilename(_books[i].bookId)
-          const _content = await repoClient.repoGetContents(
-            owner,_repo,_filename
-          ).then(({ data }) => data)
-          _books[i].content = _content
-          // note that "content" is the JSON returned from DCS. 
-          // the actual content is base64 encoded member element "content"
-          let _usfmText;
-          if (_content && _content.encoding && _content.content) {
-            if ('base64' === _content.encoding) {
-              _usfmText = decodeBase64ToUtf8(_content.content)
-            } else {
-              _usfmText = _content.content
-            }
-            _books[i].usfmText = _usfmText
-            _books[i].type = ltStState
-          } else {
-          _books[i].usfmText = null
-          }
+      for (let i=0; i<books.length; i++) {
+        if ( ! _pkDocuments[i] ) {
+          const filename = usfmFilename(books[i].bookId)
+          const _document = urlDocument({
+            server,
+            selectors: { org, lang: languageId, abbr },
+            bookCode: books[i].bookId, 
+            filename,
+          })
+          _pkDocuments[i] = {..._document }
         }
       }
-      setBooks(_books)
+      setPkDocuments(_pkDocuments)
       setRefresh(false)
       setLtStState('')
     }
@@ -93,16 +94,18 @@ export default function AppContextProvider({
         getContent()
       }
     }
-  }, [authentication, owner, server, languageId, refresh, books, ltStState, setBooks, setLtStState, repoClient])
+  }, [authentication, owner, server, languageId, refresh, books, ltStState, setBooks, setLtStState, setPkDocuments ])
 
 
   // create the value for the context provider
   const context = {
     state: {
+      ...editorState,
       books,
       ltStState,
     },
-    actions: {
+    actions: { 
+      ...editorActions,
       setBooks: _setBooks,
       setLtStState,
     }
