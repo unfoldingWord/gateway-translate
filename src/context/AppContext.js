@@ -23,7 +23,7 @@ export default function AppContextProvider({
       authentication,
     },
   } = useContext(AuthContext)
-  const repoClient = useRepoClient()
+  const repoClient = useRepoClient({ basePath: "https://git.door43.org/api/v1/" })
 
   const {
     state: {
@@ -68,7 +68,7 @@ export default function AppContextProvider({
             owner,_repo,_filename
           ).then(({ data }) => data)
           _books[i].content = _content
-          // note that "content" is the JSON returned from DCS. 
+          // note that "content" is the JSON returned from DCS.
           // the actual content is base64 encoded member element "content"
           let _usfmText;
           if (_content && _content.encoding && _content.content) {

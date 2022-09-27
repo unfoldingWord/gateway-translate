@@ -1,0 +1,138 @@
+.perf #document {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 2em 0;
+}
+
+.perf #headers {
+  margin: 2em 0;
+}
+
+.perf .header {
+  font-style: italic;
+  font-size: 0.8em;
+  text-decoration: underline;
+  margin: 0.5em;
+}
+
+.perf .header:before {
+  content: attr(id)':\0000a0';
+  font-weight: 900;
+  text-decoration: none;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.perf .section {
+  width: 100%;
+}
+
+.perf .section .expand {
+  text-decoration: underline;
+}
+
+.perf .title,
+.perf .introduction {
+  text-align: center;
+}
+
+.perf .title,
+.perf .paragraph.mt,
+.perf .graft.title,
+.perf div[type="title"] .paragraph {
+  font-weight: 700;
+  font-size: 2em;
+  margin: 0.5em 0;
+}
+
+.perf .introduction,
+.perf div[type="introduction"] .paragraph {
+  font-size: 1.5em;
+  margin: 0.5em 0em;
+}
+
+.perf .heading,
+.perf div[type="heading"] .paragraph {
+  font-size: 1.2em;
+  font-weight: 700;
+  text-align: center;
+  padding: 0.5em 0.2em 0.25em;
+}
+
+.perf .heading p.s {
+  font-size: 1.2em;
+}
+
+.perf .heading p.r {
+  font-size: 1.1em;
+  font-weight: 600;
+  padding: 0.25em 0.2em;
+}
+
+.perf .paragraph {
+  padding: 0.5em 0.2em;
+  margin: 0;
+}
+
+.perf .paragraph span.graft {
+  font-weight: 100;
+  font-size: 0.75em;
+  vertical-align: super;
+  color: blue;
+}
+
+.perf .graft:before {
+  content: ' ' attr(data-previewText);
+}
+
+.perf .chapter {
+  font-size: 2.2em;
+  color: initial;
+  float: left;
+  margin-right: 0.1em;
+  line-height: 1.0em;
+}
+
+.perf .rtl .chapter {
+  float: right;
+}
+
+.perf .verses {
+  font-size: 0.8em;
+  font-weight: 600;
+  vertical-align: super;
+}
+
+.perf .q,
+.perf .q2,
+.perf .q3,
+.perf .q4 {
+  font-style: italic;
+}
+
+.perf .q {
+  padding: 0.1em 1em;
+}
+
+.perf .q2 {
+  padding: 0.1em 2em;
+}
+
+.perf .q3 {
+  padding: 0.1em 3em;
+}
+
+.perf .q4 {
+  padding: 0.1em 4em;
+}
+
+span.verses:after {
+  content: ' ';
+}
+
+.perf .preview span.graft:before {
+  content: ' ✝';
+}
+
+.perf .preview #headers {
+  display: none;
+}

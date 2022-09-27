@@ -1,4 +1,6 @@
 @import './resource-workspace-rcl.css';
+@import './HtmlPerfEditor.css';
+@import './HtmlSequenceEditor.css';
 @tailwind base;
 
 @layer base {
