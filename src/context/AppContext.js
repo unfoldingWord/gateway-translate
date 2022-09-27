@@ -93,7 +93,7 @@ export default function AppContextProvider({
         getContent()
       }
     }
-  }, [authentication, owner, server, languageId, refresh, books, ltStState])
+  }, [authentication, owner, server, languageId, refresh, books, ltStState, setBooks, setLtStState, repoClient])
 
 
   // create the value for the context provider

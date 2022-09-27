@@ -1,0 +1,31 @@
+{
+  "*": {
+    "*": {
+      "tagName": "span"
+    },
+    "sequence":{
+      "tagName": "section"
+    }
+  },
+  "paragraph": {
+    "*": {
+      "tagName": "p"
+    }
+  },
+  "mark": {
+    "*": {
+      "tagName": "span"
+    }
+  },
+  "graft":{
+    "heading": {
+      "tagName": "div"
+    },
+    "title": {
+      "tagName": "div"
+    },
+    "introduction": {
+      "tagName": "div"
+    }
+  }
+}
