@@ -8,6 +8,7 @@ import Section from "./Section";
 import SectionHeading from "./SectionHeading";
 import SectionBody from "./sectionBody";
 import { HtmlPerfEditor } from "@xelah/type-perf-html";
+import GraftPopup from "@components/GraftPopup";
 
 export default function Editor() {
   const {
@@ -24,11 +25,12 @@ export default function Editor() {
     },
     actions: { addSequenceId, saveHtmlPerf },
   } = useContext(EditorContext);
-  const [graftSequenceId, setGraftSequenceId] = useState();
+  const [graftSequenceId, setGraftSequenceId] = useState(null);
 
   const handlers = {
     onBlockClick: ({ content: _content, element }) => {
       const _sequenceId = element.dataset.target;
+      console.log(`onblockclick ${_sequenceId}`)
       const { tagName } = element;
       const isInline = tagName === 'SPAN';
       // if (_sequenceId && !isInline) addSequenceId(_sequenceId);
@@ -72,19 +74,14 @@ export default function Editor() {
     ...props,
     options: { ...options, sectionable: false },
     sequenceIds: [graftSequenceId],
+    graftSequenceId,
+    setGraftSequenceId,
   };
-
-    const graftSequenceEditor = (
-    <>
-      <h2>Graft Sequence Editor</h2>
-      <HtmlPerfEditor key="2" {...graftProps} />
-    </>
-  );
 
   return (
     <div className="Editor" style={style}>
       {sequenceId ? <HtmlPerfEditor {...props} /> : skeleton}
-      {graftSequenceId ? graftSequenceEditor : '' }
+      <GraftPopup {...graftProps} />
     </div>
   );
 };
