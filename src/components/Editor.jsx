@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Skeleton, Stack } from "@mui/material";
 
 import { EditorContext } from "../context/EditorContext";
@@ -24,6 +24,17 @@ export default function Editor() {
     },
     actions: { addSequenceId, saveHtmlPerf },
   } = useContext(EditorContext);
+  const [graftSequenceId, setGraftSequenceId] = useState();
+
+  const handlers = {
+    onBlockClick: ({ content: _content, element }) => {
+      const _sequenceId = element.dataset.target;
+      const { tagName } = element;
+      const isInline = tagName === 'SPAN';
+      // if (_sequenceId && !isInline) addSequenceId(_sequenceId);
+      if (_sequenceId) setGraftSequenceId(_sequenceId);
+    },
+  };
 
   const sequenceId = sequenceIds.at(-1);
 
@@ -39,6 +50,8 @@ export default function Editor() {
     </Stack>
   );
 
+  const options = { sectionable, blockable, editable, preview };
+
   const props = {
     htmlPerf: htmlPerf,
     onHtmlPerf: saveHtmlPerf,
@@ -49,23 +62,29 @@ export default function Editor() {
       sectionHeading: SectionHeading,
       sectionBody: SectionBody,
     },
-    options: {
-      sectionable,
-      blockable,
-      editable,
-      preview
-    },
-    // handlers: {
-    //   onSectionClick,
-    //   onBlockClick
-    // },
+    options,
+    handlers,
     decorators: {},
     verbose,
   };
 
+  const graftProps = {
+    ...props,
+    options: { ...options, sectionable: false },
+    sequenceIds: [graftSequenceId],
+  };
+
+    const graftSequenceEditor = (
+    <>
+      <h2>Graft Sequence Editor</h2>
+      <HtmlPerfEditor key="2" {...graftProps} />
+    </>
+  );
+
   return (
     <div className="Editor" style={style}>
       {sequenceId ? <HtmlPerfEditor {...props} /> : skeleton}
+      {graftSequenceId ? graftSequenceEditor : '' }
     </div>
   );
 };
