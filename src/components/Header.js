@@ -115,17 +115,20 @@ export default function Header({
             </Typography>
           </div>
           <>
-          <SearchAndReplace/>
+          
           </>
           <>
             {
               user && owner && (router.pathname === '/') &&
+              <>
+              <SearchAndReplace/>
               <Fab color="primary" aria-label="add" variant="extended"
                 onClick={() => { setShowModal(true)} }
               >
                 <AddIcon className={classes.extendedIcon}  />
                 Book
               </Fab>
+              </>
             }
           </>
           <> 
