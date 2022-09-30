@@ -24,6 +24,7 @@ export default function SearchAndReplace() {
   const [search, setSearch] = React.useState([]);
   const [searchText, setSearchText] = React.useState();
   const [replace, setReplace] = React.useState();
+  const [replaceText, setReplaceText] = React.useState();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,7 +32,6 @@ export default function SearchAndReplace() {
 
   const onNameChange = (e) => {
     setSearch(e.target.value)
-
   }
 
 //   const {replace, setReplace, setSearchText} = useSearchAndReplace(search)
@@ -63,18 +63,25 @@ export default function SearchAndReplace() {
     console.log("current state",replace)
   }
 
-  const getHighlightedText = (text, highlight) => {
-    // Split on highlight term and include term into parts, ignore case
-    const parts = text.split(new RegExp((`${highlight}`), 'gi'));
-    return <span> { parts.map((part, i) => 
-        <span key={i} style={part.toLowerCase() === highlight.toLowerCase() ? { fontWeight: 'bold' } : {} }>
-            { part }
-        </span>)
-    } </span>;
-}
+    const searchAndReplace = (() => {
+
+    })
+
+    const onReplaceText = ((e) => {
+        setReplaceText(e.target.value)
+    })
+
+    const onReplaceAll = (() => {
+
+    })
+
+    const onReplace = ((search, replaceText, item, index) => {
+        console.log("onReplace",search,replaceText,item, index)
+    })
 
   return (
     <div>
+        {console.log("replaceText",replaceText)}
       <Button variant="outlined" onClick={handleClickOpen}>
         Search and Replace
       </Button>
@@ -95,13 +102,21 @@ export default function SearchAndReplace() {
             onChange={onNameChange}
             // classes={{ root: classes.textField }}
           />
+        <TextField
+            id='name-feedback-form'
+            type='given-name'
+            label='Name'
+            autoComplete='name'
+            // defaultValue={state.name}
+            variant='outlined'
+            onChange={onReplaceText}
+            // classes={{ root: classes.textField }}
+          />
         </DialogTitle>
         <DialogContent>
            {replace !== ''? replace?.map((value, index) => (
-            // <Tooltip title={Object.keys(value)}>
             <ListItemButton key={index}>
                 <ListItem disablePadding>
-                {/* {console.log(Object.values(value)[0])} */}
                 <Highlighter
                     highlightClassName="YourHighlightClass"
                     searchWords={[search]}
@@ -110,9 +125,6 @@ export default function SearchAndReplace() {
                     // caseSensitive={true}
                  >
                 </Highlighter>
-                {/* {getHighlightedText('the they there The','the')} */}
-                    {/* {Object.keys(value)}:{Object.values(value)} */}
-                    
                 </ListItem>
                 <Tooltip title="Delete">
                     <ListItemButton onClick={() => {handleDeleteItem(value, index)}}>
@@ -120,7 +132,7 @@ export default function SearchAndReplace() {
                     </ListItemButton>
                 </Tooltip>
                 <Tooltip title="Replace">
-                <ListItemButton >
+                <ListItemButton onClick={() => {onReplace(search,replaceText,value, index)}}>
                     <PublishedWithChangesIcon/>
                 </ListItemButton>
                 </Tooltip>
@@ -129,7 +141,7 @@ export default function SearchAndReplace() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={() => {onReplaceAll()}} autoFocus>
             Replace
           </Button>
         </DialogActions>
