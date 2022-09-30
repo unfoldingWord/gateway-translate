@@ -15,6 +15,7 @@ import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import FeedbackPopup from '@components/FeedbackPopup'
 import SelectBookPopup from './SelectBookPopup'
+import SearchAndReplace from './SearchAndReplace'
 
 const useStyles = makeStyles(theme => ({
   root: { flexGrow: 1 },
@@ -113,6 +114,9 @@ export default function Header({
               {title}
             </Typography>
           </div>
+          <>
+          <SearchAndReplace/>
+          </>
           <>
             {
               user && owner && (router.pathname === '/') &&
