@@ -56,9 +56,9 @@ import {
       }
     } = useContext(AppContext)
   
-    const removeBook = (bookId) => {
+    const removeBook = (id) => {
       const _books = books.filter( (b) => {
-        return b.id !== bookId
+        return b.id !== id
       })
       setBooks(_books)
     }
@@ -242,7 +242,6 @@ import {
                   id={data.id}
                   bookId={data.bookId} 
                   data={data}
-                  htmlText={htmlTexts && htmlTexts[0]}
                   classes={classes} 
                   onClose={removeBook}
                 />

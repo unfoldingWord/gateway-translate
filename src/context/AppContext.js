@@ -1,19 +1,28 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useProskomma, useImport, useCatalog } from "proskomma-react-hooks";
 import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
 import useLocalStorage from '@hooks/useLocalStorage'
-import {usfmFilename} from '@common/BooksOfTheBible'
-import { LITERAL, SIMPLIFIED } from '@common/constants'
-
+import { useRepoClient } from 'dcs-react-hooks';
+import { usfmFilename } from '@common/BooksOfTheBible'
 import useEditorState from '../hooks/useEditorState';
+import { LITERAL, SIMPLIFIED } from '@common/constants';
 
-const urlDocument = ({ server, selectors, bookCode, bookName, filename, ...props}) => ({
-  selectors,
-  bookCode,
-  chapter: 1,
-  url: `${server}/${selectors.org}/${selectors.lang}_${selectors.abbr}/raw/branch/master/${filename}`,
-});
+const pkDocuments = [
+  { 
+    selectors: { org: 'unfoldingWord', lang: 'en', abbr: 'ult' },
+    bookCode: 'tit',
+    chapter: 1,
+    url: 'https://git.door43.org/unfoldingWord/en_ult/raw/branch/master/57-TIT.usfm',
+  },
+  { 
+    selectors: { org: 'unfoldingWord', lang: 'en', abbr: 'ust' },
+    bookCode: 'tit',
+    chapter: 1,
+    url: 'https://git.door43.org/unfoldingWord/en_ust/raw/branch/master/57-TIT.usfm',
+  },
+];
 
 export const AppContext = React.createContext({});
 
@@ -22,21 +31,34 @@ export default function AppContextProvider({children, ...props}) {
   const [books, setBooks] = useLocalStorage('gt-books',[])
   const [ltStState, setLtStState] = useLocalStorage('gt-LtSt', '')
   const [refresh, setRefresh] = useState(true)
+  const [pkCatalog, setPkCatalog] = useState({})
+
+  const repoClient = useRepoClient()
+  const verbose = true
+  const pkHook = useProskomma({verbose})
+
+  const { proskomma, stateId, newStateId } = pkHook;
+  
+  const { done } = useImport({ proskomma, stateId, newStateId, documents: pkDocuments });
+
+  const { catalog } = useCatalog({ proskomma, stateId, verbose });
+
+  useEffect(() => {
+    // Set new catalog value in global state
+    setPkCatalog(catalog)  
+  }, [catalog] )
 
   const { 
     state: editorState, 
     actions: editorActions 
   } = useEditorState({...props});
 
-  const { pkDocuments } = editorState
-  const { setPkDocuments } = editorActions
-
   const {
     state: {
       authentication,
     },
   } = useContext(AuthContext)
-     
+
   const {
     state: {
       owner,
@@ -57,35 +79,53 @@ export default function AppContextProvider({children, ...props}) {
   // monitor the refresh state and act when true
   useEffect(() => {
     async function getContent() {
-      let _pkDocuments = pkDocuments
-      let abbr;
-      const org = owner
-      if ( org === 'unfoldingWord' ) {
+      let _books = books
+      let _repoSuffix;
+      if ( owner.toLowerCase() === 'unfoldingword' ) {
         if ( ltStState === LITERAL ) {
-          abbr = 'ult'
+          _repoSuffix = 'ult'
         } else {
-          abbr = 'ust'
+          _repoSuffix = 'ust'
         }
       } else {
         if ( ltStState === LITERAL ) {
-          abbr = 'glt'
+          _repoSuffix = 'glt'
         } else {
-          abbr = 'gst'
+          _repoSuffix = 'gst'
         }
       }
-      for (let i=0; i<books.length; i++) {
-        if ( ! _pkDocuments[i] ) {
-          const filename = usfmFilename(books[i].bookId)
-          const _document = urlDocument({
-            server,
-            selectors: { org, lang: languageId, abbr },
-            bookCode: books[i].bookId, 
-            filename,
-          })
-          _pkDocuments[i] = {..._document }
+      const _repo = languageId + '_' + _repoSuffix
+      for (let i=0; i<_books.length; i++) {
+        if ( ! _books[i].content ) {
+          _books[i].content = {} // Dummy - for testing
+/*
+          const _filename = usfmFilename(_books[i].bookId)
+          const _content = await repoClient.repoGetContents(
+            owner,_repo,_filename
+          ).then(({ data }) => data)
+          _books[i].content = _content
+          // note that "content" is the JSON returned from DCS. 
+          // the actual content is base64 encoded member element "content"
+          let _usfmText;
+          if (_content && _content.encoding && _content.content) {
+            if ('base64' === _content.encoding) {
+              _usfmText = decodeBase64ToUtf8(_content.content)
+            } else {
+              _usfmText = _content.content
+            }
+            _books[i].usfmText = _usfmText
+            _books[i].type = ltStState
+          } else {
+            _books[i].usfmText = null
+          }
+*/          
+          _books[i].selectors = { org: owner, lang: languageId, abbr: _repoSuffix }
+          _books[i].filename = usfmFilename(_books[i].bookId)
+          _books[i].server = server
+console.log(_books[i])
         }
       }
-      setPkDocuments(_pkDocuments)
+      setBooks(_books)
       setRefresh(false)
       setLtStState('')
     }
@@ -94,8 +134,7 @@ export default function AppContextProvider({children, ...props}) {
         getContent()
       }
     }
-  }, [authentication, owner, server, languageId, refresh, books, ltStState, setBooks, setLtStState, setPkDocuments ])
-
+  }, [authentication, owner, server, languageId, refresh, books, ltStState, setBooks, setLtStState, repoClient])
 
   // create the value for the context provider
   const context = {
@@ -103,11 +142,14 @@ export default function AppContextProvider({children, ...props}) {
       ...editorState,
       books,
       ltStState,
+      pkHook,
+      pkCatalog,
     },
     actions: { 
       ...editorActions,
       setBooks: _setBooks,
       setLtStState,
+      setPkCatalog,
     }
   };
 

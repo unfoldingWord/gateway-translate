@@ -16,7 +16,7 @@ export default function ScriptureWorkspaceCard({
   bookId,
   data,
   classes,
-  htmlText,
+  cardNum,
   onClose: removeBook,
 }) {
 
@@ -49,14 +49,14 @@ export default function ScriptureWorkspaceCard({
       classes={classes} 
       hideMarkdownToggle={true} 
       closeable={true}
-      onClose={() => removeBook(bookId)}
+      onClose={() => removeBook(id)}
       key={bookId}
     >
-      <Editor/>
-      {/*
+      <Editor data={data} cardNum={cardNum}/>
+      {/* 
       <div className="text-sm max-w-prose">
-        <pre>{JSON.stringify(data)}</pre>
-      </div>      
+        <pre>{data.usfmText}</pre>
+      </div>
        <TextareaAutosize
         // maxRows={4}
         aria-label="maximum height"

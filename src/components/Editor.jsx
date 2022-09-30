@@ -3,28 +3,50 @@ import { Skeleton, Stack } from "@mui/material";
 
 import { AppContext } from '@context/AppContext'
 import useLifecycleLog from "../hooks/useLifecycleLog";
+import usePkBcvQuery from "../hooks/usePkBcvQuery";
 
 import Section from "./Section";
 import SectionHeading from "./SectionHeading";
 import SectionBody from "./sectionBody";
 import { HtmlPerfEditor } from "@xelah/type-perf-html";
 
-export default function Editor() {
+export default function Editor(props) {
+
   const {
     state: {
-      sequenceIds,
       isSaving,
       isLoading,
-      htmlPerf,
       sectionable,
       blockable,
       editable,
       preview,
       verbose,
     },
-    actions: { addSequenceId, saveHtmlPerf },
+    actions: { addSequenceId, saveHtmlPerf, },
   } = useContext(AppContext)
 
+  const { data, cardNum } = props
+
+  const bcvQuery = { 
+    book: { 
+      [data?.bookId?.toLowerCase()]: {
+         ch: { 1 : {} } 
+      } 
+    } 
+  }
+console.log(data)
+  const ready = Boolean( data?.bookId && data?.selectors || false )
+
+  const htmlPerf = usePkBcvQuery({ 
+    server: data?.server, 
+    filename: data?.filename, 
+    selectors: data?.selectors, 
+    ready, 
+    bookId: data?.bookId, 
+    bcvQuery
+  })
+
+  const sequenceIds = [htmlPerf?.mainSequenceId]
   const sequenceId = sequenceIds?.at(-1);
 
   useLifecycleLog(Editor);
@@ -39,8 +61,8 @@ export default function Editor() {
     </Stack>
   );
 
-  const props = {
-    htmlPerf: htmlPerf,
+  const htmlEditorProps = {
+    htmlPerf,
     onHtmlPerf: saveHtmlPerf,
     sequenceIds,
     addSequenceId,
@@ -65,7 +87,7 @@ export default function Editor() {
 
   return (
     <div className="Editor" style={style}>
-      {sequenceId ? <HtmlPerfEditor {...props} /> : skeleton}
+      {sequenceId ? <HtmlPerfEditor {...htmlEditorProps} /> : skeleton}
     </div>
   );
 };
