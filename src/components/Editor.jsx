@@ -3,7 +3,7 @@ import { Skeleton, Stack } from "@mui/material";
 
 import { AppContext } from '@context/AppContext'
 import useLifecycleLog from "../hooks/useLifecycleLog";
-import usePkBcvQuery from "../hooks/usePkBcvQuery";
+import usePkQuery from "../hooks/usePkQuery";
 
 import Section from "./Section";
 import SectionHeading from "./SectionHeading";
@@ -25,25 +25,15 @@ export default function Editor(props) {
     actions: { addSequenceId, saveHtmlPerf, },
   } = useContext(AppContext)
 
-  const { data, cardNum } = props
+  const { data } = props
 
-  const bcvQuery = { 
-    book: { 
-      [data?.bookId?.toLowerCase()]: {
-         ch: { 1 : {} } 
-      } 
-    } 
-  }
-console.log(data)
-  const ready = Boolean( data?.bookId && data?.selectors || false )
+  const ready = Boolean( (data?.bookId && data?.bookId) || false )
 
-  const htmlPerf = usePkBcvQuery({ 
-    server: data?.server, 
-    filename: data?.filename, 
-    selectors: data?.selectors, 
+  const htmlPerf = usePkQuery({ 
     ready, 
+    type: data?.type, 
     bookId: data?.bookId, 
-    bcvQuery
+    chapter: 1,
   })
 
   const sequenceIds = [htmlPerf?.mainSequenceId]
