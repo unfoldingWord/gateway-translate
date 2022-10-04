@@ -45,6 +45,15 @@ export default function ScriptureWorkspaceCard({
   } = useContext(AppContext)
 
 
+  const SaveToolbarButton = ({onClick}) => {
+    return <Button variant="contained" onClick={onClick}>💾</Button>
+  }
+  const items = []
+  const onRenderToolbar = ({items}) => [
+    ...items,
+    <SaveToolbarButton key="save-button" onClick={ () => alert("Save Toolbar Button clicked") }/>
+  ]
+
   return (
     <Card title={`${BIBLE_AND_OBS[bookId]} (${id.split('-')[1]})`} 
       classes={classes} 
@@ -52,19 +61,19 @@ export default function ScriptureWorkspaceCard({
       closeable={true}
       onClose={() => removeBook(id)}
       key={bookId}
+      onRenderToolbar={onRenderToolbar}
     >
-      <Editor/>
-      {/*
+      {/* <Editor/> */}
       <div className="text-sm max-w-prose">
         <pre>{data.usfmText}</pre>
       </div>
-       <TextareaAutosize
+       {/* <TextareaAutosize
         // maxRows={4}
         aria-label="maximum height"
         placeholder="Empty - try another book"
         defaultValue={data.usfmText}
         style={{ width: 600 }}
-      /> */}
+      />  */}
       {/* <ReactJson
         style={{ maxHeight: '500px', overflow: 'scroll', whiteSpace: 'pre' }}
         src={content ? content: {}}
