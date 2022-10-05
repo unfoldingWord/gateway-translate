@@ -1,4 +1,6 @@
 import { useState, useContext } from 'react'
+import TextField from '@material-ui/core/TextField'
+
 import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
@@ -48,7 +50,12 @@ export default function Header({
   const classes = useStyles()
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
+const [url, setUrl] = useState(null)
 
+
+  const handleUrlChange = event => {
+    setUrl(event.target.value)
+  }
   const [drawerOpen, setOpen] = useState(false)
   const { actions: { logout } } = useContext(AuthContext)
   const { state: { owner }, actions: { checkUnsavedChanges } } = useContext(StoreContext)
@@ -73,8 +80,19 @@ export default function Header({
     setFeedback && setFeedback(false)
   }
 
-  const onNext = (value, ltStState) => {
-    if ( books && setBooks ) {
+  const onNext = ({ value, ltStState, url }) => {
+    if ( url && books && setBooks ) {
+      let _books = books
+      let _entry = { id: null, bookId: null, type: null, content: null }
+      _entry.id = `${value.id}-${ltStState}`
+      _entry.bookId = value.id
+      _entry.type = ltStState
+      _entry.url = url
+      _books.push(_entry)
+      setBooks(_books)
+      console.log("onNext() _books:",_books)
+      console.log(url)
+    } else if ( books && setBooks ) {
       let _books = books
       let _entry = { id: null, bookId: null, type: null, content: null }
       _entry.id = `${value.id}-${ltStState}`
@@ -114,6 +132,9 @@ export default function Header({
               {title}
             </Typography>
           </div>
+          <div>
+            <TextField label="Url" type="url" value={url} onChange={handleUrlChange} />
+          </div>
           <div className='flex flex-1 justify-center items-center'>
             <Buttons />
           </div>
@@ -130,7 +151,7 @@ export default function Header({
           </>
           <>
             <SelectBookPopup
-              onNext={(value, ltStState) => onNext(value, ltStState)}
+              onNext={onNext}
               showModal={showModal}
               setShowModal={setShowModal}
             />

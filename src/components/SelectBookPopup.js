@@ -21,18 +21,22 @@ export default function SelectBookPopup(
 
   const [value, setValue] = useState(null)
   const [ltStState, setLtStState] = useState('literal')
+  const [url, setUrl] = useState(null)
 
   const handleLtStStateChange = event => {
     setLtStState(event.target.value)
   }
 
+  const handleUrlChange = event => {
+    setUrl(event.target.value)
+  }
 
   const handleClickClose = () => {
     setShowModal(false)
   }
 
   const handleClickNext = () => {
-    onNext(value, ltStState)
+    onNext({value, ltStState, url})
     handleClickClose()
   }
 
@@ -68,9 +72,11 @@ export default function SelectBookPopup(
           >
             <FormControlLabel value="literal" control={<Radio />} label="Literal" />
             <FormControlLabel value="simplified" control={<Radio />} label="Simplified" />
+            <FormControlLabel value="custom" control={<Radio />} label="Custom URL" />
           </RadioGroup>
         </FormControl>
-
+        { ltStState === 'custom' ? <TextField label="Url" type="url" value={url} onChange={handleUrlChange} fullWidth="true" /> : '' }
+        { ltStState !== 'custom' ?
         <Autocomplete
           {...defaultProps}
           id="select-book"
@@ -80,7 +86,7 @@ export default function SelectBookPopup(
             setValue(newValue);
           }}
           renderInput={(params) => <TextField {...params} label="Select" margin="normal" />}
-        />        
+        /> : '' }
         <Button
           size='large'
           color='primary'
