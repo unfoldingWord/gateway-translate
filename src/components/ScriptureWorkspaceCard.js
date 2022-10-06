@@ -1,5 +1,9 @@
 import { useEffect, useState, useContext } from 'react'
-import { Button } from '@material-ui/core'
+import {
+  Save as SaveIcon,
+  Undo as UndoIcon,
+  Redo as RedoIcon
+} from '@mui/icons-material'
 import PropTypes from 'prop-types'
 import { Card } from 'translation-helps-rcl'
 import { BIBLE_AND_OBS } from '@common/BooksOfTheBible'
@@ -8,8 +12,6 @@ import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import React from 'react';
 import Editor from "./Editor";
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import ReactJson from 'react-json-view';
 import CircularProgress from './CircularProgress'
 //import { makeStyles } from '@material-ui/core/styles';
 
@@ -46,13 +48,33 @@ export default function ScriptureWorkspaceCard({
   } = useContext(AppContext)
 
 
-  const SaveToolbarButton = ({onClick}) => {
-    return <Button variant="contained" onClick={onClick}>💾</Button>
+  const SaveToolbarButton = ({onSave}) => {
+    return <SaveIcon
+      id='toolbar-save'
+      className={classes.pointerIcon}
+      onClick={onSave}
+    />
+  }
+  const UndoToolbarButton = ({onUndo}) => {
+    return <UndoIcon
+      id='toolbar-undo'
+      className={classes.pointerIcon}
+      onClick={onUndo}
+    />
+  }
+  const RedoToolbarButton = ({onRedo}) => {
+    return <RedoIcon
+      id='toolbar-redo'
+      className={classes.pointerIcon}
+      onClick={onRedo}
+    />
   }
   const items = []
   const onRenderToolbar = ({items}) => [
     ...items,
-    <SaveToolbarButton key="save-button" onClick={ () => alert("Save Toolbar Button clicked") }/>
+    <SaveToolbarButton key="save-button" onSave={ () => alert("Save Toolbar Button clicked") }/>,
+    <UndoToolbarButton key="undo-button" onUndo={ () => alert("Undo Toolbar Button clicked") }/>,
+    <RedoToolbarButton key="redo-button" onRedo={ () => alert("Redo Toolbar Button clicked") }/>
   ]
 
   return (
@@ -63,6 +85,7 @@ export default function ScriptureWorkspaceCard({
       onClose={() => removeBook(id)}
       key={bookId}
       onRenderToolbar={onRenderToolbar}
+      disableSettingsButton={true}
     >
       {/* <Editor/> */}
       {
