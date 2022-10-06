@@ -13,8 +13,9 @@ export default function usePerf({ proskomma, ready, docSetId, bookCode, bcvQuery
     
     useDeepCompareEffect(() => {
       if (epiteletePerfHtml) {
-        epiteletePerfHtml.readHtml(bookCode,{},bcvQuery).then((_htmlPerf) => {
-        setHtmlPerf(_htmlPerf);
+//        epiteletePerfHtml.readHtml(bookCode,{},bcvQuery).then((_htmlPerf) => {
+        epiteletePerfHtml.readHtml(bookCode).then((_htmlPerf) => {
+  setHtmlPerf(_htmlPerf);
       });
     }
   }, [epiteletePerfHtml, bookCode]);

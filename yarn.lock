@@ -2523,8 +2523,10 @@ entities@^4.2.0, entities@^4.3.0:
   resolved "https://registry.yarnpkg.com/entities/-/entities-4.4.0.tgz#97bdaba170339446495e653cfd2db78962900174"
   integrity sha512-oYp7156SP8LkeGD0GF85ad1X9Ai79WtRsZ2gxJqtBuzH+98YUV6jkHEKlZkMbcrjJjIVJNIDP/3WL9wQkoPbWA==
 
-"epitelete-perf-html@file:.yalc/epitelete-perf-html":
-  version "0.2.5-alpha"
+epitelete-perf-html@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/epitelete-perf-html/-/epitelete-perf-html-0.2.5.tgz#a8f8e41f035289817f22a5afb2f8dd7017f5555f"
+  integrity sha512-W+/6LIzQfPqp78LltkFPFFFUjm0rU8OXK+2cUlz25JrVQNt6L8VrgAw7sY14oBfAvcN1V19zP6CWzVFK6W+VEg==
   dependencies:
     "@babel/core" "^7.17.10"
     epitelete "^0.2.5"
