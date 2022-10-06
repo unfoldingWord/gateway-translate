@@ -5,6 +5,7 @@ import html2perf from "./html2perf"
 export default function DcsHandler({
 }) {
 }
+/*** Commenting out to fix build. Code fails to compile and is currently unused.
 
 const proskomma = new UWProskomma();
 // const succinctJson = fse.readJsonSync(path.resolve(path.join(__dirname, "..", "test_data", "fra_lsg_succinct.json")));
@@ -43,3 +44,4 @@ console.log(epitelete.history["TIT"].stack[0].pipelineData?.strippedAlignment);
         return await this.readHtml(bookCode, {readPipeline});
     }
 
+*/
