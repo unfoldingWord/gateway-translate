@@ -14,8 +14,8 @@ export default function AppContextProvider({
   children,
 }) {
 
-  const [books, setBooks] = useLocalStorage('gt-books',[])
-  const [ltStState, setLtStState] = useLocalStorage('gt-LtSt', '')
+  const [books, setBooks] = useState([])
+  const [ltStState, setLtStState] = useState('')
   const [refresh, setRefresh] = useState(true)
 
   const {

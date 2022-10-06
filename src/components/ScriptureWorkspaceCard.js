@@ -10,6 +10,7 @@ import React from 'react';
 import Editor from "./Editor";
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import ReactJson from 'react-json-view';
+import CircularProgress from './CircularProgress'
 //import { makeStyles } from '@material-ui/core/styles';
 
 export default function ScriptureWorkspaceCard({
@@ -64,21 +65,16 @@ export default function ScriptureWorkspaceCard({
       onRenderToolbar={onRenderToolbar}
     >
       {/* <Editor/> */}
-      <div className="text-sm max-w-prose">
-        <pre>{data.usfmText}</pre>
-      </div>
-       {/* <TextareaAutosize
-        // maxRows={4}
-        aria-label="maximum height"
-        placeholder="Empty - try another book"
-        defaultValue={data.usfmText}
-        style={{ width: 600 }}
-      />  */}
-      {/* <ReactJson
-        style={{ maxHeight: '500px', overflow: 'scroll', whiteSpace: 'pre' }}
-        src={content ? content: {}}
-        // theme="monokai"
-      />     */}
+      {
+        data.usfmText 
+        ?
+        <div className="text-sm max-w-prose">
+          <pre>{data.usfmText}</pre>
+        </div>
+        :
+        <CircularProgress/>
+
+      }
     </Card>
   )
 }
