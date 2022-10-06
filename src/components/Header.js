@@ -1,4 +1,5 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useCallback } from 'react'
+import { useDeepCompareCallback } from "use-deep-compare";
 import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
@@ -16,6 +17,8 @@ import { AppContext } from '@context/AppContext'
 import FeedbackPopup from '@components/FeedbackPopup'
 import SelectBookPopup from './SelectBookPopup'
 import SearchAndReplace from './SearchAndReplace'
+import { EditorContext } from "../context/EditorContext"
+
 
 const useStyles = makeStyles(theme => ({
   root: { flexGrow: 1 },
@@ -53,6 +56,12 @@ export default function Header({
   const { actions: { logout } } = useContext(AuthContext)
   const { state: { owner }, actions: { checkUnsavedChanges } } = useContext(StoreContext)
   const { state: { books }, actions: { setBooks, setLtStState } } = useContext(AppContext)
+  const {
+    state: {
+      htmlPerf,
+    },
+    actions: { addSequenceId, saveHtmlPerf },
+  } = useContext(EditorContext);
   const handleDrawerOpen = () => {
     if (!drawerOpen) {
       setOpen(true)
@@ -72,6 +81,20 @@ export default function Header({
   const doHideFeedback = () => {
     setFeedback && setFeedback(false)
   }
+
+  const onReplace = useDeepCompareCallback((replacedText) => {
+    const sequencesHtml = Object.keys(htmlPerf.sequencesHtml).reduce((sequencesHtml, current)=> {
+      if (current === htmlPerf.mainSequenceId){
+        sequencesHtml[current] = replacedText
+      }else{
+        sequencesHtml[current] = htmlPerf.sequencesHtml[current]
+      }
+      return sequencesHtml
+    },{})
+    const {sequencesHtml: _, ..._htmlPerf} = htmlPerf;
+    _htmlPerf.sequencesHtml = sequencesHtml;
+    saveHtmlPerf(_htmlPerf,{sequenceId: _htmlPerf.mainSequenceId})
+  },[htmlPerf])
 
   const onNext = (value, ltStState) => {
     if ( books && setBooks ) {
@@ -121,7 +144,7 @@ export default function Header({
             {
               user && owner && (router.pathname === '/') &&
               <>
-              <SearchAndReplace/>
+              <SearchAndReplace baseText={htmlPerf?.sequencesHtml[htmlPerf.mainSequenceId]} onReplace={onReplace}/>
               <Fab color="primary" aria-label="add" variant="extended"
                 onClick={() => { setShowModal(true)} }
               >

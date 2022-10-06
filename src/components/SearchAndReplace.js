@@ -7,6 +7,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@material-ui/core/TextField';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import useSearchAndReplace from '../hooks/useSearchAndReplace'
 import searchAndReplaceData from '../data/searchAndReplaceData.json';
 import List from '@mui/material/List';
@@ -23,65 +25,55 @@ import DoneIcon from '@mui/icons-material/Done';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import Grid from "@material-ui/core/Grid";
 import IconButton from '@mui/material/IconButton';
+import searchreplace from 'searchreplace-oce';
 
-export default function SearchAndReplace() {
+
+export default function SearchAndReplace({baseText, onReplace}) {
   const [open, setOpen] = React.useState(false);
-  const [searchWord, setSearchWord] = React.useState([]);
-  const [searchText, setSearchText] = React.useState();
-  const [replace, setReplace] = React.useState();
-
+  const [searchWord, setSearchWord] = React.useState('');
+  const [searchText, setSearchText] = React.useState(baseText);
+  const [replace, setReplace] = React.useState('');
+  const [replaceOccurrences, setReplaceOccurrences ] = React.useState()
+  const [state, setState] = React.useState(replaceOccurrences);
+  const [valueIndecies, setValueIndecies] = React.useState([])
+   
   const handleClickOpen = () => {
     setOpen(true);
   };
-
-  // const onSearch = (e) => {
-  //   setSearchWord(e.target.value)
-
-  // }
-
+  
+  const handleChange = (value, index) => {
+    setValueIndecies((valueIndecies)=>[...valueIndecies, index]);
+  };
+  
   //   const {replace, setReplace, setSearchText} = useSearchAndReplace(searchWord)
-
+  
   const handleClose = () => {
     setSearchWord()
-    setReplace([])
     setOpen(false);
   };
-
+  
   useEffect(() => {
-    // setReplace(searchAndReplaceData.occurences)
-    if (searchAndReplaceData.text === searchWord) {
-      const searchTextOccurences = searchAndReplaceData.occurences
-      // console.log("trigger", searchWord)
-      setReplace(searchTextOccurences)
-      // console.log(searchTextOccurences)
-    } else {
-      setReplace('')
-    }
-  }, [searchWord, replace])
-
-  // useEffect(() => {
-
-  // },[replace])
-
+    const {replacedText, occurrences} = searchreplace({ baseText: searchText, replaceText: replace, searchText: searchWord, replaceIndexes: [] });
+    setReplaceOccurrences(occurrences)
+  }, [searchWord, replace, searchText])
+  
   const handleDeleteItem = (item, index) => {
-    // console.log(item, index)
-    setReplace(replace.splice(index, 1))
-    // console.log("current state", replace)
+    setReplaceOccurrences(replaceOccurrences.splice(index, 1))
   }
 
-  const getHighlightedText = (text, highlight) => {
-    // Split on highlight term and include term into parts, ignore case
-    const parts = text.split(new RegExp((`${highlight}`), 'gi'));
-    return <span> {parts.map((part, i) =>
-      <span key={i} style={part.toLowerCase() === highlight.toLowerCase() ? { fontWeight: 'bold' } : {}}>
-        {part}
-      </span>)
-    } </span>;
+  const onHandleReplace = () => {
+    const {replacedText, occurrences} = searchreplace({ 
+      baseText: searchText, 
+      replaceText: replace, 
+      searchText: searchWord, 
+      replaceIndexes: valueIndecies });
+    setReplaceOccurrences(occurrences);
+    setSearchText(replacedText);
+    onReplace(replacedText);
+    setValueIndecies([]);
   }
-
-  console.log("onSearchKeyWord", searchWord)
-
-  return (
+  
+  return ( 
     <div>
       <FindReplaceIcon variant="outlined" style={{ marginRight: '25px' }} onClick={handleClickOpen} />
       <Dialog
@@ -107,26 +99,15 @@ export default function SearchAndReplace() {
             autoComplete='name'
             // defaultValue={state.name}
             variant='outlined'
-            onChange={(e) => { setSearchWord(e.target.value) }}
+            onChange={(e) => { setReplace(e.target.value) }}
           // classes={{ root: classes.textField }}
           />
-
-          {replace &&
-            // <Grid container justify="center">
-              <IconButton style={{marginRight:'20px', marginBottom:'20px'}}>
-                <Tooltip title="Replace All">
-                  <DoneAllIcon color="primary" fontSize='medium' onClick={handleClose} />
-                </Tooltip>
-              </IconButton>
-            // </Grid>
-          }
         </DialogTitle>
         <DialogContent>
-          {replace !== '' ? replace?.map((value, index) => (
-            // <Tooltip title={Object.keys(value)}>
+          <h4>{replaceOccurrences?.length}</h4>
+          {replaceOccurrences !== '' ? replaceOccurrences?.map((value, index) => (
             <ListItemButton key={index}>
               <ListItem disablePadding>
-                {/* {console.log(Object.values(value)[0])} */}
                 <Highlighter
                   highlightClassName="YourHighlightClass"
                   searchWords={[searchWord]}
@@ -135,13 +116,10 @@ export default function SearchAndReplace() {
                 // caseSensitive={true}
                 >
                 </Highlighter>
-                {/* {getHighlightedText('the they there The','the')} */}
-                {/* {Object.keys(value)}:{Object.values(value)} */}
-
               </ListItem>
               <Tooltip title="Replace">
                 <ListItemButton >
-                  <DoneIcon fontSize='small' />
+                <Checkbox checked={valueIndecies.includes(index)} onChange={()=>{handleChange(value, index)}} />
                 </ListItemButton>
               </Tooltip>
               <Tooltip title="Delete">
@@ -152,16 +130,8 @@ export default function SearchAndReplace() {
             </ListItemButton>
           )) : ''}
         </DialogContent>
-        {/* {replace &&
-          <Grid container justify="center">
-            <IconButton>
-              <Tooltip title="Replace All">
-                <DoneAllIcon color="primary" fontSize='medium' onClick={handleClose} />
-              </Tooltip>
-            </IconButton>
-          </Grid>
-        } */}
         <DialogActions>
+          <Button onClick={onHandleReplace}>Replace</Button>
           <Button onClick={handleClose}>Close</Button>
         </DialogActions>
       </Dialog>
