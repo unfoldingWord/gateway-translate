@@ -87,10 +87,10 @@ export default function ScriptureWorkspaceCard({
       disableSettingsButton={true}
     >
       {
-        data.usfmText 
+        data.perf 
         ?
         <div className="text-sm max-w-prose">
-          <pre>{data.usfmText}</pre>
+          <pre>{JSON.stringify(data.perf,null,4)}</pre>
         </div>
         :
         <CircularProgress/>

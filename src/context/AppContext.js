@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
-import useLocalStorage from '@hooks/useLocalStorage'
+import { usfm2perf } from '@utils/usfm2perf';
 import { useRepoClient } from 'dcs-react-hooks';
 import {usfmFilename} from '@common/BooksOfTheBible'
 import { decodeBase64ToUtf8 } from '@utils/base64Decode';
@@ -80,12 +80,15 @@ export default function AppContextProvider({
             }
             _books[i].usfmText = _usfmText
             _books[i].type = ltStState
+            const _perf = usfm2perf(_usfmText)
+            _books[i].perf = _perf
           } else {
           _books[i].usfmText = null
           }
         }
       }
       setBooks(_books)
+      console.log("setBooks():",_books)
       setRefresh(false)
       setLtStState('')
     }
