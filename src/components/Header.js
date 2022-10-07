@@ -15,7 +15,6 @@ import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import FeedbackPopup from '@components/FeedbackPopup'
 import SelectBookPopup from './SelectBookPopup'
-import Buttons from './Buttons'
 
 const useStyles = makeStyles(theme => ({
   root: { flexGrow: 1 },
@@ -113,9 +112,6 @@ export default function Header({
             >
               {title}
             </Typography>
-          </div>
-          <div className='flex flex-1 justify-center items-center'>
-            <Buttons />
           </div>
           <>
             {

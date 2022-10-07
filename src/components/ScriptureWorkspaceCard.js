@@ -11,7 +11,6 @@ import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import React from 'react';
-import Editor from "./Editor";
 import CircularProgress from './CircularProgress'
 //import { makeStyles } from '@material-ui/core/styles';
 
@@ -87,7 +86,6 @@ export default function ScriptureWorkspaceCard({
       onRenderToolbar={onRenderToolbar}
       disableSettingsButton={true}
     >
-      {/* <Editor/> */}
       {
         data.usfmText 
         ?
