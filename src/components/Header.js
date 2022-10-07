@@ -50,12 +50,7 @@ export default function Header({
   const classes = useStyles()
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
-const [url, setUrl] = useState(null)
 
-
-  const handleUrlChange = event => {
-    setUrl(event.target.value)
-  }
   const [drawerOpen, setOpen] = useState(false)
   const { actions: { logout } } = useContext(AuthContext)
   const { state: { owner }, actions: { checkUnsavedChanges } } = useContext(StoreContext)
@@ -131,9 +126,6 @@ const [url, setUrl] = useState(null)
             >
               {title}
             </Typography>
-          </div>
-          <div>
-            <TextField label="Url" type="url" value={url} onChange={handleUrlChange} />
           </div>
           <div className='flex flex-1 justify-center items-center'>
             <Buttons />
