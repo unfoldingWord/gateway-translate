@@ -23,7 +23,6 @@ export default function AppContextProvider({
       authentication,
     },
   } = useContext(AuthContext)
-  const repoClient = useRepoClient({ basePath: "https://git.door43.org/api/v1/" })
 
   const {
     state: {
@@ -35,6 +34,8 @@ export default function AppContextProvider({
       setCurrentLayout,
     }
   } = useContext(StoreContext)
+
+  const repoClient = useRepoClient({ basePath: `${server}/api/v1/` })
 
   const _setBooks = (value) => {
     setBooks(value)
