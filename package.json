@@ -1,6 +1,6 @@
 {
   "name": "gateway-translation",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "dev": "next",
     "build": "next build",
@@ -25,9 +25,8 @@
     "core-js": "^3.22.8",
     "dcs-js": "^1.2.2-beta.1",
     "dcs-react-hooks": "1.0.1",
-    "deep-copy-all": "^1.3.4",
     "deep-equal": "^2.0.5",
-    "epitelete-perf-html": "^0.2.5",
+    "gitea-react-toolkit": "2.2.2",
     "localforage": "^1.10.0",
     "next": "^12.1.6",
     "postcss": "^8.4.14",
@@ -40,11 +39,9 @@
     "scripture-resources-rcl": "^5.2.1",
     "single-scripture-rcl": "^3.2.0",
     "tailwindcss": "^3.1.2",
-    "tc-ui-toolkit": "^6.1.0",
     "translation-helps-rcl": "^3.3.4-rc.1",
     "use-deep-compare-effect": "^1.8.1",
-    "utf8": "3.0.0",
-    "word-aligner": "^1.0.0"
+    "utf8": "3.0.0"
   },
   "devDependencies": {
     "eslint": "^8.17.0",
