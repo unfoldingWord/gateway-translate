@@ -3,7 +3,7 @@ import {
   Save as SaveIcon,
   Undo as UndoIcon,
   Redo as RedoIcon
-} from '@mui/icons-material'
+} from '@material-ui/icons'
 import PropTypes from 'prop-types'
 import { Card } from 'translation-helps-rcl'
 import { BIBLE_AND_OBS } from '@common/BooksOfTheBible'
