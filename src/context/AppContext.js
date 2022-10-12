@@ -69,6 +69,7 @@ export default function AppContextProvider({
             owner,_repo,_filename
           ).then(({ data }) => data)
           _books[i].content = _content
+          _books[i].repo = _repo
           // note that "content" is the JSON returned from DCS.
           // the actual content is base64 encoded member element "content"
           let _usfmText;

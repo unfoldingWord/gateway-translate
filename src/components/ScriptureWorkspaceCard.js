@@ -12,7 +12,7 @@ import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import React from 'react';
 import CircularProgress from './CircularProgress'
-//import { makeStyles } from '@material-ui/core/styles';
+import { saveToUserBranch } from '@utils/saveToUserBranch'
 
 export default function ScriptureWorkspaceCard({
   id,
@@ -51,7 +51,11 @@ export default function ScriptureWorkspaceCard({
     return <SaveIcon
       id='toolbar-save'
       className={classes.pointerIcon}
-      onClick={onSave}
+      onClick={
+        () => {
+          saveToUserBranch(bookId, server, owner, data, authentication)
+        }
+      }
     />
   }
   const UndoToolbarButton = ({onUndo}) => {
