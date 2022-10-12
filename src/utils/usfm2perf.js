@@ -1,9 +1,9 @@
-import {Proskomma} from 'proskomma'
+import {UWProskomma} from 'uw-proskomma'
 
 export const usfm2perf = (usfm) => {
-    const pk = new Proskomma();
+    const pk = new UWProskomma();
     pk.importDocuments(
-        {lang: 'xxx', abbr: 'XXX'}, // doesn't matter...
+        {org: "xxx", lang: 'xxx', abbr: 'XXX'}, // doesn't matter...
         'usfm', 
         [usfm]
     );
