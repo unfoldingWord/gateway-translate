@@ -7,9 +7,9 @@
 import {Proskomma} from 'proskomma'
 
 export const usfm2perf = (usfm) => {
-    const pk = new UWProskomma();
+    const pk = new Proskomma();
     pk.importDocuments(
-        {org: "xxx", lang: 'xxx', abbr: 'XXX'}, // doesn't matter...
+        {lang: 'xxx', abbr: 'XXX'}, // doesn't matter...
         'usfm', 
         [usfm]
     );
