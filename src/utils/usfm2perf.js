@@ -1,11 +1,10 @@
 /* package.json dependencies for the two code samples below:
-    "proskomma": "0.7.15",
+    "proskomma": "0.7.16",
     "uw-proskomma": "0.8.5",
 */
 
-/*
-import {Proskomma} from 'proskomma'
 
+import {Proskomma} from 'proskomma'
 
 export const usfm2perf = (usfm) => {
     const pk = new Proskomma();
@@ -20,8 +19,10 @@ export const usfm2perf = (usfm) => {
     const perf = JSON.parse(perfResultDocument.perf);
     return perf;
 }
-*/
 
+
+
+/*
 import {UWProskomma} from 'uw-proskomma'
 
 export const usfm2perf = (usfm) => {
@@ -38,4 +39,4 @@ export const usfm2perf = (usfm) => {
     const perf = JSON.parse(perfResultDocument.perf);
     return perf;
 }
-
+*/
