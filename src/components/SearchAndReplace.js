@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -33,17 +33,27 @@ export default function SearchAndReplace({baseText, onReplace}) {
   const [searchWord, setSearchWord] = React.useState('');
   const [searchText, setSearchText] = React.useState(baseText);
   const [replace, setReplace] = React.useState('');
-  const [replaceOccurrences, setReplaceOccurrences ] = React.useState()
+  const [replaceOccurrences, setReplaceOccurrences ] = React.useState();
   const [state, setState] = React.useState(replaceOccurrences);
   const [valueIndecies, setValueIndecies] = React.useState([])
+  const [selectAll, setSelectAll] = React.useState(false);
+  const [select, setSelect] = React.useState(false);
+  const [checked, setChecked] = useState([]);
    
   const handleClickOpen = () => {
     setOpen(true);
   };
   
-  const handleChange = (value, index) => {
-    setValueIndecies((valueIndecies)=>[...valueIndecies, index]);
+  const handleChange = (e) => {
+    const index = checked.indexOf(e.target.value)
+    if(index === -1){
+      setChecked([...checked, e.target.value])
+    }else{
+      setChecked((checked.filter(check => check !== e.target.value)))
+    }
+    // setValueIndecies((valueIndecies)=>[...valueIndecies, index]);
   };
+  console.log(checked)
   
   //   const {replace, setReplace, setSearchText} = useSearchAndReplace(searchWord)
   
@@ -72,7 +82,38 @@ export default function SearchAndReplace({baseText, onReplace}) {
     onReplace(replacedText);
     setValueIndecies([]);
   }
-  
+
+  const handleSelectAll = (e) => {
+    const checkValue = e.target.checked;
+    const indexArray = [];
+    if (checkValue) {
+      replaceOccurrences.forEach((value, index) => {
+        const currentBook = index;
+        if (!valueIndecies.includes(currentBook)) {
+          indexArray.push(index);
+        }
+      });
+    }
+    console.log(indexArray)
+    setValueIndecies(indexArray);
+    setSelectAll(e.target.checked);
+  };
+
+  const handleSelect = (e) => {
+    const checkValues = e.target.checked;
+    const indecesArray = [];
+    if (checkValues) {
+      replaceOccurrences.forEach((value, index) => {
+        const currentBook = index;
+        if (!valueIndecies.includes(currentBook)) {
+          indecesArray.push(index);
+        }
+      });
+    }
+    setValueIndecies(indecesArray);
+    setSelect(e.target.checked);
+  }
+
   return ( 
     <div>
       <FindReplaceIcon variant="outlined" style={{ marginRight: '25px' }} onClick={handleClickOpen} />
@@ -104,9 +145,21 @@ export default function SearchAndReplace({baseText, onReplace}) {
           />
         </DialogTitle>
         <DialogContent>
-          <h4>{replaceOccurrences?.length}</h4>
+          <Grid container spacing={2}>
+            <Grid item xs={8}>
+              <h4>{replaceOccurrences?.length}</h4>
+            </Grid>
+            <Grid item xs={4}>
+            <Checkbox onChange={handleSelectAll} checked={selectAll}/>
+            </Grid>
+            </Grid>
           {replaceOccurrences !== '' ? replaceOccurrences?.map((value, index) => (
             <ListItemButton key={index}>
+              <Tooltip title="Replace">
+                {/* <Checkbox checked={valueIndecies.includes(index)} onChange={()=>{handleChange(value, index)}} /> */}
+                <Checkbox value={index} checked={checked.includes(index)} onChange={handleChange} />
+                {/* </ListItemButton> */}
+              </Tooltip>
               <ListItem disablePadding>
                 <Highlighter
                   highlightClassName="YourHighlightClass"
@@ -117,16 +170,6 @@ export default function SearchAndReplace({baseText, onReplace}) {
                 >
                 </Highlighter>
               </ListItem>
-              <Tooltip title="Replace">
-                <ListItemButton >
-                <Checkbox checked={valueIndecies.includes(index)} onChange={()=>{handleChange(value, index)}} />
-                </ListItemButton>
-              </Tooltip>
-              <Tooltip title="Delete">
-                <ListItemButton onClick={() => { handleDeleteItem(value, index) }}>
-                  <CloseIcon fontSize='small' color='red' />
-                </ListItemButton>
-              </Tooltip>
             </ListItemButton>
           )) : ''}
         </DialogContent>
