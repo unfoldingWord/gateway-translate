@@ -1,11 +1,8 @@
-import { useRepoClient } from 'dcs-react-hooks';
 
 
-export const createUserBranch = async (server, owner, repo, branch) => {
-  alert("createUserBranch")
-  const repoClient = useRepoClient({ basePath: `${server}/api/v1/` })
-  const _response = await repoClient.repoCreateBranch(owner, repo)
-
+export const createUserBranch = async (owner, repo, branch, repoClient) => {
+  const _response = await repoClient.repoCreateBranch(owner, repo, {newbranch: branch})
+  console.log("createUserBranch() response:", _response)
   return true;
 };
 

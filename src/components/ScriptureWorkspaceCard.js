@@ -41,6 +41,7 @@ export default function ScriptureWorkspaceCard({
   const { 
     state: {
         books,
+        repoClient,
     },
     actions: {
     }
@@ -53,31 +54,15 @@ export default function ScriptureWorkspaceCard({
       className={classes.pointerIcon}
       onClick={
         () => {
-          saveToUserBranch(bookId, server, owner, data, authentication)
+          saveToUserBranch(bookId, owner, data, authentication, repoClient)
         }
       }
-    />
-  }
-  const UndoToolbarButton = ({onUndo}) => {
-    return <UndoIcon
-      id='toolbar-undo'
-      className={classes.pointerIcon}
-      onClick={onUndo}
-    />
-  }
-  const RedoToolbarButton = ({onRedo}) => {
-    return <RedoIcon
-      id='toolbar-redo'
-      className={classes.pointerIcon}
-      onClick={onRedo}
     />
   }
   const items = []
   const onRenderToolbar = ({items}) => [
     ...items,
     <SaveToolbarButton key="save-button" onSave={ () => alert("Save Toolbar Button clicked") }/>,
-    <UndoToolbarButton key="undo-button" onUndo={ () => alert("Undo Toolbar Button clicked") }/>,
-    <RedoToolbarButton key="redo-button" onRedo={ () => alert("Redo Toolbar Button clicked") }/>
   ]
 
   return (

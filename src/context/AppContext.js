@@ -35,7 +35,10 @@ export default function AppContextProvider({
     }
   } = useContext(StoreContext)
 
-  const repoClient = useRepoClient({ basePath: `${server}/api/v1/` })
+  const repoClient = useRepoClient({ 
+    basePath: `${server}/api/v1/`,
+    token: authentication?.token?.sha1,
+  })
 
   const _setBooks = (value) => {
     setBooks(value)
@@ -106,6 +109,7 @@ export default function AppContextProvider({
     state: {
       books,
       ltStState,
+      repoClient,
     },
     actions: {
       setBooks: _setBooks,

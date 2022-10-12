@@ -2,10 +2,9 @@ import { createUserBranch } from "./createUserBranch";
 import { existsUserBranch } from "./existsUserBranch";
 
 // auto generated user branch for gT: `gt-{bookId}-{username}`
-export const saveToUserBranch = (bookId, server, owner, data, authentication) => {
+export const saveToUserBranch = async (bookId, owner, data, authentication, repoClient) => {
   alert("saveToUserBranch")
   console.log("bookId:", bookId)
-  console.log("server", server)
   console.log("owner", owner)
   console.log("data", data)
   console.log("authentication", authentication)
@@ -14,9 +13,11 @@ export const saveToUserBranch = (bookId, server, owner, data, authentication) =>
   console.log("userbranch:", _userbranch)
 
   // does the user branch exist?
-  const branchExists = existsUserBranch(server, owner, data.repo, _userbranch)
+  const branchExists = await existsUserBranch(owner, data.repo, _userbranch, repoClient)
+  console.log("saveToUserBranch() branchExists:", branchExists)
   if ( ! branchExists ) {
-    const ok = createUserBranch()
+    console.log("will do createUserBranch()")
+    const ok = await createUserBranch(owner, data.repo, _userbranch, repoClient)
   }
   return true;
 };

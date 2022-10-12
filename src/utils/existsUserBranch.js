@@ -1,9 +1,7 @@
-import { useRepoClient } from 'dcs-react-hooks';
 
 
-export const existsUserBranch = async (server, owner, repo, branch) => {
+export const existsUserBranch = async (owner, repo, branch, repoClient) => {
   alert("existsUserBranch")
-  const repoClient = useRepoClient({ basePath: `${server}/api/v1/` })
   const _response = await repoClient.repoSearch(owner, repo)
   let found = false
   if ( _response.data.ok ) {
@@ -17,7 +15,7 @@ export const existsUserBranch = async (server, owner, repo, branch) => {
   }
   console.log("repoSearch() response:", _response)
   console.log("found = ", found)
-  return true;
+  return found;
 };
 
 /* Design Notes
