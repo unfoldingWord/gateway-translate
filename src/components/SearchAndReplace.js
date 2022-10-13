@@ -4,20 +4,13 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import useSearchAndReplace from '../hooks/useSearchAndReplace'
-import searchAndReplaceData from '../data/searchAndReplaceData.json';
-import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { key } from 'localforage';
-import ListItemButton from '@mui/material/ListItemButton';
-import CloseIcon from '@mui/icons-material/Close';
 import Highlighter from "react-highlight-words";
-import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
+import ListItemButton from '@mui/material/ListItemButton';
 import Tooltip from '@mui/material/Tooltip';
 import FindReplaceIcon from '@mui/icons-material/FindReplace';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -45,17 +38,13 @@ export default function SearchAndReplace({baseText, onReplace}) {
   };
   
   const handleChange = (e) => {
-    const index = checked.indexOf(e.target.value)
-    if(index === -1){
+    const indexArray = checked.indexOf(e.target.value)
+    if(indexArray === -1){
       setChecked([...checked, e.target.value])
     }else{
       setChecked((checked.filter(check => check !== e.target.value)))
     }
-    // setValueIndecies((valueIndecies)=>[...valueIndecies, index]);
   };
-  console.log(checked)
-  
-  //   const {replace, setReplace, setSearchText} = useSearchAndReplace(searchWord)
   
   const handleClose = () => {
     setSearchWord()
@@ -65,6 +54,9 @@ export default function SearchAndReplace({baseText, onReplace}) {
   useEffect(() => {
     const {replacedText, occurrences} = searchreplace({ baseText: searchText, replaceText: replace, searchText: searchWord, replaceIndexes: [] });
     setReplaceOccurrences(occurrences)
+    // if (searchWord.length == 0 ){
+      
+    // }
   }, [searchWord, replace, searchText])
   
   const handleDeleteItem = (item, index) => {
@@ -89,29 +81,20 @@ export default function SearchAndReplace({baseText, onReplace}) {
     if (checkValue) {
       replaceOccurrences.forEach((value, index) => {
         const currentBook = index;
-        if (!valueIndecies.includes(currentBook)) {
-          indexArray.push(index);
+        if (!checked.includes(currentBook)) {
+          indexArray.push(index.toString());
         }
       });
     }
     console.log(indexArray)
-    setValueIndecies(indexArray);
+    setChecked(indexArray);
     setSelectAll(e.target.checked);
   };
 
-  const handleSelect = (e) => {
-    const checkValues = e.target.checked;
-    const indecesArray = [];
-    if (checkValues) {
-      replaceOccurrences.forEach((value, index) => {
-        const currentBook = index;
-        if (!valueIndecies.includes(currentBook)) {
-          indecesArray.push(index);
-        }
-      });
-    }
-    setValueIndecies(indecesArray);
-    setSelect(e.target.checked);
+  const onHandleSearchWord = (e) => {
+    setSearchWord(e.target.value)
+    setChecked([])
+    setSelectAll(false)
   }
 
   return ( 
@@ -130,7 +113,7 @@ export default function SearchAndReplace({baseText, onReplace}) {
             label='Search'
             autoComplete='name'
             variant='outlined'
-            onChange={(e) => { setSearchWord(e.target.value) }}
+            onChange={onHandleSearchWord}
           />
           <ChevronRightIcon style={{ margin: '8px',marginTop:'18px' }} />
           <TextField
@@ -157,8 +140,7 @@ export default function SearchAndReplace({baseText, onReplace}) {
             <ListItemButton key={index}>
               <Tooltip title="Replace">
                 {/* <Checkbox checked={valueIndecies.includes(index)} onChange={()=>{handleChange(value, index)}} /> */}
-                <Checkbox value={index} checked={checked.includes(index)} onChange={handleChange} />
-                {/* </ListItemButton> */}
+                <Checkbox value={index} checked={checked.includes(index.toString())} onChange={handleChange} />
               </Tooltip>
               <ListItem disablePadding>
                 <Highlighter
