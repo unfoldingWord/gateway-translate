@@ -1,21 +1,15 @@
 
 
 export const existsUserBranch = async (owner, repo, branch, repoClient) => {
-  alert("existsUserBranch")
-  const _response = await repoClient.repoSearch(owner, repo)
-  let found = false
-  if ( _response.data.ok ) {
-    const _repos = _response.data.data
-    for ( let i=0; i<_repos.length; i++ ) {
-      if ( _repos[i] === branch ) {
-        found = true
-        break
-      }
-    }
+  let _response;
+  try {
+    _response = await repoClient.repoGetBranch(owner, repo, branch)
+    console.log("repoGetBranch() ok response:", _response)
+  } catch (e) {
+    console.log("repoGetBranch() error response:", e)
+    return false
   }
-  console.log("repoSearch() response:", _response)
-  console.log("found = ", found)
-  return found;
+  return true;
 };
 
 /* Design Notes
