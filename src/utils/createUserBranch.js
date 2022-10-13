@@ -1,10 +1,11 @@
 
 
 export const createUserBranch = async (owner, repo, branch, repoClient) => {
+  console.log("createUserBranch() owner, repo, branch:", owner, repo, branch)
   const _response = await repoClient.repoCreateBranch(
     owner, 
     repo, 
-    {newBranchName: branch, oldBranchName: 'master'},
+    `{"new_branch_name": "${branch}", "old_branch_name": "master"}`,
     {}
   )
   console.log("createUserBranch() response:", _response)
