@@ -4,6 +4,7 @@ import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
 import { usfm2perf } from '@utils/usfm2perf';
 import { useRepoClient } from 'dcs-react-hooks';
+import EpiteletePerfHtml from "epitelete-perf-html";
 import {usfmFilename} from '@common/BooksOfTheBible'
 import { decodeBase64ToUtf8 } from '@utils/base64Decode';
 import { LITERAL, SIMPLIFIED } from '@common/constants';
@@ -86,8 +87,15 @@ export default function AppContextProvider({
             _books[i].type = ltStState
             const _perf = usfm2perf(_usfmText)
             _books[i].perf = _perf
+            _books[i].epitelete = 
+              new EpiteletePerfHtml({ proskomma:null, 
+                docSetId: "unfoldingWord/"+ltStState, 
+                options: { historySize: 100 } 
+              })
+            await _books[i].epitelete.sideloadPerf(_books[i].bookId, _books[i].perf)
+            console.log("epitelete books:", _books[i].epitelete.localBookCodes())
           } else {
-          _books[i].usfmText = null
+            _books[i].usfmText = null
           }
         }
       }
