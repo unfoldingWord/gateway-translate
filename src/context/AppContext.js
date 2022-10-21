@@ -18,10 +18,10 @@ export default function AppContextProvider({
   const [books, setBooks] = useState([])
   const [ltStState, setLtStState] = useState('')
   const [refresh, setRefresh] = useState(true)
-  const [ep, /*setEp*/] = useState(new EpiteletePerfHtml({ 
-    proskomma: null, docSetId: "unfoldingWord/en_ltst", options: { historySize: 100 } 
-  }))
-
+  // const [ep, /*setEp*/] = useState(new EpiteletePerfHtml({ 
+  //   proskomma: null, docSetId: "unfoldingWord/en_ltst", options: { historySize: 100 } 
+  // }))
+  const [ep, setEp] = useState({})
 
   const {
     state: {
@@ -55,6 +55,7 @@ export default function AppContextProvider({
   useEffect(() => {
     async function getContent() {
       let _books = books
+      let _ep = ep
       let _repoSuffix;
       if ( owner.toLowerCase() === 'unfoldingword' ) {
         if ( ltStState === LITERAL ) {
@@ -91,14 +92,25 @@ export default function AppContextProvider({
             _books[i].type = ltStState
             const _perf = usfm2perf(_usfmText)
             _books[i].perf = _perf
-            await ep.sideloadPerf(_books[i].bookId.toUpperCase(), _books[i].perf)
-            console.log("epitelete books:", ep.localBookCodes())
+            const _docSetId = owner + "/" + _repo // captures org, lang, and type (literal or simplified)
+            _books[i].docset = _docSetId
+            if ( _ep[_docSetId] === undefined ) {
+              console.log("creating Epitelete for doc set:", _docSetId)
+              _ep[_docSetId] = new EpiteletePerfHtml({ 
+                proskomma: null, 
+                docSetId: _docSetId, 
+                options: { historySize: 100 }
+              })
+            }
+            await _ep[_docSetId].sideloadPerf(_books[i].bookId.toUpperCase(), _books[i].perf)
+            console.log("epitelete docset,books:", _docSetId,_ep[_docSetId].localBookCodes())
           } else {
             _books[i].usfmText = null
           }
         }
       }
       setBooks(_books)
+      setEp(_ep)
       console.log("setBooks():",_books)
       setRefresh(false)
       setLtStState('')

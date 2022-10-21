@@ -18,6 +18,7 @@ import { saveToUserBranch } from '@utils/saveToUserBranch'
 export default function ScriptureWorkspaceCard({
   id,
   bookId,
+  docSetId,
   data,
   classes,
   onClose: removeBook,
@@ -68,14 +69,14 @@ export default function ScriptureWorkspaceCard({
   ]
 
   const editorProps = {
-    epiteletePerfHtml: ep,
+    epiteletePerfHtml: ep[docSetId],
     bookId: data.bookId,
     onSave: () => alert("Save clicked!"),
     verbose: true
   }
-  console.log("ScriptureWorkspaceCard() book codes=", ep.localBookCodes())
+  // console.log("ScriptureWorkspaceCard() book codes=", ep[docSetId].localBookCodes())
   return (
-    <Card title={`${BIBLE_AND_OBS[bookId]} (${id.split('-')[1]})`} 
+    <Card title={`${BIBLE_AND_OBS[bookId]} (${id.split('-')[1]}-${id.split('-')[2]}-${id.split('-')[3]})`} 
       classes={classes} 
       hideMarkdownToggle={true} 
       closeable={true}
@@ -83,9 +84,9 @@ export default function ScriptureWorkspaceCard({
       key={bookId}
       // onRenderToolbar={onRenderToolbar}
       disableSettingsButton={true}
-    >
+    > 
       {
-        ep.localBookCodes().includes(bookId.toUpperCase())
+        ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
         ?
         <div className="text-sm max-w-prose">
           <Editor key="1" {...editorProps} />

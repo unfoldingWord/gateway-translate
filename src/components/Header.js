@@ -50,7 +50,7 @@ export default function Header({
 
   const [drawerOpen, setOpen] = useState(false)
   const { actions: { logout } } = useContext(AuthContext)
-  const { state: { owner }, actions: { checkUnsavedChanges } } = useContext(StoreContext)
+  const { state: { owner, languageId }, actions: { checkUnsavedChanges } } = useContext(StoreContext)
   const { state: { books }, actions: { setBooks, setLtStState } } = useContext(AppContext)
   const handleDrawerOpen = () => {
     if (!drawerOpen) {
@@ -76,7 +76,7 @@ export default function Header({
     if ( books && setBooks ) {
       let _books = books
       let _entry = { id: null, bookId: null, type: null, content: null }
-      _entry.id = `${value.id}-${ltStState}`
+      _entry.id = `${value.id}-${ltStState}-${owner}-${languageId}`
       _entry.bookId = value.id
       _entry.type = ltStState
       _books.push(_entry)
