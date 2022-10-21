@@ -18,6 +18,10 @@ export default function AppContextProvider({
   const [books, setBooks] = useState([])
   const [ltStState, setLtStState] = useState('')
   const [refresh, setRefresh] = useState(true)
+  const [ep, /*setEp*/] = useState(new EpiteletePerfHtml({ 
+    proskomma: null, docSetId: "unfoldingWord/en_ltst", options: { historySize: 100 } 
+  }))
+
 
   const {
     state: {
@@ -87,13 +91,8 @@ export default function AppContextProvider({
             _books[i].type = ltStState
             const _perf = usfm2perf(_usfmText)
             _books[i].perf = _perf
-            _books[i].epitelete = 
-              new EpiteletePerfHtml({ proskomma:null, 
-                docSetId: "unfoldingWord/"+ltStState, 
-                options: { historySize: 100 } 
-              })
-            await _books[i].epitelete.sideloadPerf(_books[i].bookId, _books[i].perf)
-            console.log("epitelete books:", _books[i].epitelete.localBookCodes())
+            await ep.sideloadPerf(_books[i].bookId.toUpperCase(), _books[i].perf)
+            console.log("epitelete books:", ep.localBookCodes())
           } else {
             _books[i].usfmText = null
           }
@@ -104,12 +103,12 @@ export default function AppContextProvider({
       setRefresh(false)
       setLtStState('')
     }
-    if ( ltStState === LITERAL || ltStState === SIMPLIFIED ) {
+    if ( ep && ltStState === LITERAL || ltStState === SIMPLIFIED ) {
       if (refresh && authentication && owner && server && languageId) {
         getContent()
       }
     }
-  }, [authentication, owner, server, languageId, refresh, books, ltStState, setBooks, setLtStState, repoClient])
+  }, [authentication, owner, server, languageId, refresh, books, ltStState, ep, setBooks, setLtStState, repoClient])
 
 
   // create the value for the context provider
@@ -118,6 +117,7 @@ export default function AppContextProvider({
       books,
       ltStState,
       repoClient,
+      ep,
     },
     actions: {
       setBooks: _setBooks,

@@ -43,6 +43,7 @@ export default function ScriptureWorkspaceCard({
     state: {
         books,
         repoClient,
+        ep,
     },
     actions: {
     }
@@ -67,12 +68,12 @@ export default function ScriptureWorkspaceCard({
   ]
 
   const editorProps = {
-    epiteletePerfHtml: data.epitelete,
+    epiteletePerfHtml: ep,
     bookId: data.bookId,
     onSave: () => alert("Save clicked!"),
     verbose: true
   }
-
+  console.log("ScriptureWorkspaceCard() book codes=", ep.localBookCodes())
   return (
     <Card title={`${BIBLE_AND_OBS[bookId]} (${id.split('-')[1]})`} 
       classes={classes} 
@@ -80,11 +81,11 @@ export default function ScriptureWorkspaceCard({
       closeable={true}
       onClose={() => removeBook(id)}
       key={bookId}
-      onRenderToolbar={onRenderToolbar}
+      // onRenderToolbar={onRenderToolbar}
       disableSettingsButton={true}
     >
       {
-        data.perf 
+        ep.localBookCodes().includes(bookId.toUpperCase())
         ?
         <div className="text-sm max-w-prose">
           <Editor key="1" {...editorProps} />
