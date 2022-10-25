@@ -6,17 +6,19 @@ import {
 } from '@material-ui/icons'
 import PropTypes from 'prop-types'
 import { Card } from 'translation-helps-rcl'
+import { Editor } from 'uw-editor'
 import { BIBLE_AND_OBS } from '@common/BooksOfTheBible'
 import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import React from 'react';
 import CircularProgress from './CircularProgress'
-//import { makeStyles } from '@material-ui/core/styles';
+import { saveToUserBranch } from '@utils/saveToUserBranch'
 
 export default function ScriptureWorkspaceCard({
   id,
   bookId,
+  docSetId,
   data,
   classes,
   onClose: removeBook,
@@ -41,6 +43,8 @@ export default function ScriptureWorkspaceCard({
   const { 
     state: {
         books,
+        repoClient,
+        ep,
     },
     actions: {
     }
@@ -51,46 +55,41 @@ export default function ScriptureWorkspaceCard({
     return <SaveIcon
       id='toolbar-save'
       className={classes.pointerIcon}
-      onClick={onSave}
-    />
-  }
-  const UndoToolbarButton = ({onUndo}) => {
-    return <UndoIcon
-      id='toolbar-undo'
-      className={classes.pointerIcon}
-      onClick={onUndo}
-    />
-  }
-  const RedoToolbarButton = ({onRedo}) => {
-    return <RedoIcon
-      id='toolbar-redo'
-      className={classes.pointerIcon}
-      onClick={onRedo}
+      onClick={
+        () => {
+          saveToUserBranch(bookId, owner, data, authentication, repoClient)
+        }
+      }
     />
   }
   const items = []
   const onRenderToolbar = ({items}) => [
     ...items,
     <SaveToolbarButton key="save-button" onSave={ () => alert("Save Toolbar Button clicked") }/>,
-    <UndoToolbarButton key="undo-button" onUndo={ () => alert("Undo Toolbar Button clicked") }/>,
-    <RedoToolbarButton key="redo-button" onRedo={ () => alert("Redo Toolbar Button clicked") }/>
   ]
 
+  const editorProps = {
+    epiteletePerfHtml: ep[docSetId],
+    bookId: data.bookId,
+    onSave: () => alert("Save clicked!"),
+    verbose: true
+  }
+  // console.log("ScriptureWorkspaceCard() book codes=", ep[docSetId].localBookCodes())
   return (
-    <Card title={`${BIBLE_AND_OBS[bookId]} (${id.split('-')[1]})`} 
+    <Card title={`${BIBLE_AND_OBS[bookId]} (${id.split('-')[1]}-${id.split('-')[2]}-${id.split('-')[3]})`} 
       classes={classes} 
       hideMarkdownToggle={true} 
       closeable={true}
       onClose={() => removeBook(id)}
       key={bookId}
-      onRenderToolbar={onRenderToolbar}
+      // onRenderToolbar={onRenderToolbar}
       disableSettingsButton={true}
-    >
+    > 
       {
-        data.perf 
+        ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
         ?
         <div className="text-sm max-w-prose">
-          <pre>{JSON.stringify(data.perf,null,4)}</pre>
+          <Editor key="1" {...editorProps} />
         </div>
         :
         <CircularProgress/>
@@ -105,3 +104,18 @@ ScriptureWorkspaceCard.propTypes = {
   classes: PropTypes.object,
 }
 
+
+
+/* code graveyard
+
+      {
+        data.perf 
+        ?
+        <div className="text-sm max-w-prose">
+          <pre>{JSON.stringify(data.perf,null,4)}</pre>
+        </div>
+        :
+        <CircularProgress/>
+
+      }
+*/

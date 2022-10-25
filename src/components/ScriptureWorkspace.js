@@ -240,6 +240,7 @@ import {
                   key={data.id}
                   id={data.id}
                   bookId={data.bookId} 
+                  docSetId={data.docset}
                   data={data}
                   classes={classes} 
                   onClose={removeBook}
