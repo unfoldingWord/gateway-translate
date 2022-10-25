@@ -1,6 +1,6 @@
 {
   "name": "gateway-translation",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "scripts": {
     "dev": "next",
     "build": "next build --debug",
@@ -44,7 +44,7 @@
     "translation-helps-rcl": "^3.3.4-rc.1",
     "use-deep-compare-effect": "^1.8.1",
     "utf8": "3.0.0",
-    "uw-editor": "0.1.2"
+    "uw-editor": "0.1.4"
   },
   "devDependencies": {
     "eslint": "^8.17.0",
