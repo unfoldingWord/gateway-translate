@@ -14,6 +14,7 @@ import { AppContext } from '@context/AppContext'
 import React from 'react';
 import CircularProgress from './CircularProgress'
 import { saveToUserBranch } from '@utils/saveToUserBranch'
+import { perf2usfm } from '@utils/perf2usfm'
 
 export default function ScriptureWorkspaceCard({
   id,
@@ -24,7 +25,7 @@ export default function ScriptureWorkspaceCard({
   onClose: removeBook,
 }) {
 
-  const [usfmContent, setUsfmContent] = useState("Waiting...")
+  const [doSave, setDoSave] = useState(false)
 
   const {
     state: {
@@ -50,30 +51,32 @@ export default function ScriptureWorkspaceCard({
     }
   } = useContext(AppContext)
 
-
-  const SaveToolbarButton = ({onSave}) => {
-    return <SaveIcon
-      id='toolbar-save'
-      className={classes.pointerIcon}
-      onClick={
-        () => {
-          saveToUserBranch(bookId, owner, data, authentication, repoClient)
-        }
-      }
-    />
-  }
-  const items = []
-  const onRenderToolbar = ({items}) => [
-    ...items,
-    <SaveToolbarButton key="save-button" onSave={ () => alert("Save Toolbar Button clicked") }/>,
-  ]
+  // Save Feature
+  useEffect(() => {
+    async function saveContent() {
+      const _doc = ep[docSetId].getDocument( data.bookId.toUpperCase() )
+      const _usfm = perf2usfm(_doc)
+      await saveToUserBranch(
+        data.bookId,
+        owner,
+        _usfm,
+        authentication,
+        repoClient
+      )  
+      setDoSave(false)
+    }
+    if ( doSave ) {
+        saveContent()
+    }
+  }, [doSave, docSetId, data, owner, ep, authentication, repoClient])
 
   const editorProps = {
     epiteletePerfHtml: ep[docSetId],
     bookId: data.bookId,
-    onSave: () => alert("Save clicked!"),
+    onSave: () => setDoSave(true),
     verbose: true
   }
+
   // console.log("ScriptureWorkspaceCard() book codes=", ep[docSetId].localBookCodes())
   return (
     <Card title={`${BIBLE_AND_OBS[bookId]} (${id.split('-')[1]}-${id.split('-')[2]}-${id.split('-')[3]})`} 
@@ -82,7 +85,6 @@ export default function ScriptureWorkspaceCard({
       closeable={true}
       onClose={() => removeBook(id)}
       key={bookId}
-      // onRenderToolbar={onRenderToolbar}
       disableSettingsButton={true}
     > 
       {

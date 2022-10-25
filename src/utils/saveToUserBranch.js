@@ -12,6 +12,7 @@ export const saveToUserBranch = async (bookId, owner, data, authentication, repo
     console.log("createUserBranch() branch does not exist, creating", _userbranch)
     const ok = await createUserBranch(owner, data.repo, _userbranch, repoClient)
   }
+  console.log("after branch create, here is the data:", data)
   return true;
 };
 
