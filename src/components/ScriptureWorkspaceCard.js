@@ -54,10 +54,12 @@ export default function ScriptureWorkspaceCard({
   // Save Feature
   useEffect(() => {
     async function saveContent() {
-      const _doc = ep[docSetId].getDocument( data.bookId.toUpperCase() )
-      const _usfm = perf2usfm(_doc)
+      // const _doc = ep[docSetId].getDocument( data.bookId.toUpperCase() )
+      // const _usfm = perf2usfm(_doc)
+      const _usfm = await ep[docSetId].readUsfm( data.bookId.toUpperCase() )
+
       await saveToUserBranch(
-        data.bookId,
+        data,
         owner,
         _usfm,
         authentication,
@@ -77,7 +79,6 @@ export default function ScriptureWorkspaceCard({
     verbose: true
   }
 
-  // console.log("ScriptureWorkspaceCard() book codes=", ep[docSetId].localBookCodes())
   return (
     <Card title={`${BIBLE_AND_OBS[bookId]} (${id.split('-')[1]}-${id.split('-')[2]}-${id.split('-')[3]})`} 
       classes={classes} 
