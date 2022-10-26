@@ -23,7 +23,7 @@
     "autoprefixer": "^10.4.7",
     "base-64": "^1.0.0",
     "core-js": "^3.22.8",
-    "dcs-js": "^1.2.2-beta.1",
+    "dcs-js": "^1.2.3-beta.2",
     "dcs-react-hooks": "1.0.1",
     "deep-equal": "^2.0.5",
     "gitea-react-toolkit": "2.2.2",
