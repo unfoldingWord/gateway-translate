@@ -56,6 +56,7 @@ export default function ScriptureWorkspaceCard({
     async function saveContent() {
       // const _doc = ep[docSetId].getDocument( data.bookId.toUpperCase() )
       // const _usfm = perf2usfm(_doc)
+      // console.log("useEffect() updated PERF:",JSON.stringify(_doc,null,4))
       const _usfm = await ep[docSetId].readUsfm( data.bookId.toUpperCase() )
 
       await saveToUserBranch(
