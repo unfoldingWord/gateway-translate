@@ -41,7 +41,7 @@ export default function ScriptureWorkspaceCard({
     },
   } = useContext(StoreContext)
 
-  const { 
+  const {
     state: {
         books,
         repoClient,
@@ -65,7 +65,7 @@ export default function ScriptureWorkspaceCard({
         _usfm,
         authentication,
         repoClient
-      )  
+      )
       setDoSave(false)
     }
     if ( doSave ) {
@@ -74,21 +74,21 @@ export default function ScriptureWorkspaceCard({
   }, [doSave, docSetId, data, owner, ep, authentication, repoClient])
 
   const editorProps = {
-    epiteletePerfHtml: ep[docSetId],
+    epiteleteHtml: ep[docSetId],
     bookId: data.bookId,
     onSave: () => setDoSave(true),
     verbose: true
   }
 
   return (
-    <Card title={`${BIBLE_AND_OBS[bookId]} (${id.split('-')[1]}-${id.split('-')[2]}-${id.split('-')[3]})`} 
-      classes={classes} 
-      hideMarkdownToggle={true} 
+    <Card title={`${BIBLE_AND_OBS[bookId]} (${id.split('-')[1]}-${id.split('-')[2]}-${id.split('-')[3]})`}
+      classes={classes}
+      hideMarkdownToggle={true}
       closeable={true}
       onClose={() => removeBook(id)}
       key={bookId}
       disableSettingsButton={true}
-    > 
+    >
       {
         ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
         ?
@@ -113,7 +113,7 @@ ScriptureWorkspaceCard.propTypes = {
 /* code graveyard
 
       {
-        data.perf 
+        data.perf
         ?
         <div className="text-sm max-w-prose">
           <pre>{JSON.stringify(data.perf,null,4)}</pre>

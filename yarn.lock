@@ -2520,19 +2520,19 @@ entities@^4.2.0, entities@^4.3.0:
   resolved "https://registry.yarnpkg.com/entities/-/entities-4.4.0.tgz#97bdaba170339446495e653cfd2db78962900174"
   integrity sha512-oYp7156SP8LkeGD0GF85ad1X9Ai79WtRsZ2gxJqtBuzH+98YUV6jkHEKlZkMbcrjJjIVJNIDP/3WL9wQkoPbWA==
 
-epitelete-perf-html@0.2.6:
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/epitelete-perf-html/-/epitelete-perf-html-0.2.6.tgz#4da6cf9d311beb2653d6bff3d4921e6b0b941049"
-  integrity sha512-BHYTyYtSDiWE70VuGocWrwNu9lVz/PRuaf2D23eGR6zD6ErAV1vvpcpqCLlUuq2WyRL16wMKKPIZMXPLMQOV5Q==
+epitelete-html@^0.2.9:
+  version "0.2.9"
+  resolved "https://registry.yarnpkg.com/epitelete-html/-/epitelete-html-0.2.9.tgz#8153a721ec34f254f0909dccb715549fefbc6822"
+  integrity sha512-TqZh+7K8ik2nrH+JZYHShto1su4mMmipjElHuaXXnP3bai1yHMRmjGRZjAOxVFq5JTGTByncDAkKguiRoIUsdg==
   dependencies:
     "@babel/core" "^7.17.10"
-    epitelete "^0.2.8"
+    epitelete "^0.2.9"
     node-html-parser "^5.3.3"
 
-epitelete@^0.2.8:
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/epitelete/-/epitelete-0.2.8.tgz#1527af028514fb8cb019b7584d73c13237b14d9a"
-  integrity sha512-R+Dzf2KOiQ2Guk7U2zqxJ5FCci8vC1pZkmbHB8xJcOCRlHY0EsaU2BEZJBJ18I7IvqvcZXeW0nmcP8dansAj+A==
+epitelete@^0.2.9:
+  version "0.2.9"
+  resolved "https://registry.yarnpkg.com/epitelete/-/epitelete-0.2.9.tgz#18865a73a0a4733f1a523684ba1d88deb70382c2"
+  integrity sha512-KX+vuYGBa4m+WjzBbXDfMOR1GAqvHs7k6S+HF0y9e4zFMrTPG0eN40MRPl6p+k04or3Bcd2BzrXzTp+urdC2YA==
   dependencies:
     "@babel/core" "^7.19.0"
     lodash "4.17.21"
@@ -7203,10 +7203,10 @@ uuid@^8.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
-uw-editor@0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/uw-editor/-/uw-editor-0.1.4.tgz#9b42fa5f72e5bbb8f9ef853df19e929d1452bcba"
-  integrity sha512-U4ofuooZ44Drxs8nN80edji78J89buDxRaJMzeQKBr1pdPsm2EM96B7VEMxN1fOU9Gfnu/heRNhxijkOr8tCOA==
+uw-editor@0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/uw-editor/-/uw-editor-0.1.7.tgz#a04b253f13e4f5c27660d289bce4ca8461e8161e"
+  integrity sha512-FK6HTC9b+4ynsUUtk3ZcArcIcpNbUTMdulrU7Xf/yfMtqCI/uGWcx8e08QBg16Uh2tponagSoQXvqhA582I44g==
   dependencies:
     "@xelah/type-perf-html" "^1.0.0"
 
