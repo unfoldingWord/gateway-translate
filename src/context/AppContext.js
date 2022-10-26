@@ -4,7 +4,7 @@ import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
 import { usfm2perf } from '@utils/usfm2perf';
 import { useRepoClient } from 'dcs-react-hooks';
-import EpiteletePerfHtml from "epitelete-perf-html";
+import EpiteleteHtml from "epitelete-html";
 import {usfmFilename} from '@common/BooksOfTheBible'
 import { decodeBase64ToUtf8 } from '@utils/base64Decode';
 import { LITERAL, SIMPLIFIED } from '@common/constants';
@@ -18,8 +18,8 @@ export default function AppContextProvider({
   const [books, setBooks] = useState([])
   const [ltStState, setLtStState] = useState('')
   const [refresh, setRefresh] = useState(true)
-  // const [ep, /*setEp*/] = useState(new EpiteletePerfHtml({ 
-  //   proskomma: null, docSetId: "unfoldingWord/en_ltst", options: { historySize: 100 } 
+  // const [ep, /*setEp*/] = useState(new EpiteletePerfHtml({
+  //   proskomma: null, docSetId: "unfoldingWord/en_ltst", options: { historySize: 100 }
   // }))
   const [ep, setEp] = useState({})
 
@@ -40,7 +40,7 @@ export default function AppContextProvider({
     }
   } = useContext(StoreContext)
 
-  const repoClient = useRepoClient({ 
+  const repoClient = useRepoClient({
     basePath: `${server}/api/v1/`,
     token: authentication?.token?.sha1,
   })
@@ -96,9 +96,9 @@ export default function AppContextProvider({
             _books[i].docset = _docSetId
             if ( _ep[_docSetId] === undefined ) {
               console.log("creating Epitelete for doc set:", _docSetId)
-              _ep[_docSetId] = new EpiteletePerfHtml({ 
-                proskomma: null, 
-                docSetId: _docSetId, 
+              _ep[_docSetId] = new EpiteleteHtml({
+                proskomma: null,
+                docSetId: _docSetId,
                 options: { historySize: 100 }
               })
             }

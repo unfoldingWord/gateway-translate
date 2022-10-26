@@ -32,7 +32,7 @@
     "postcss": "^8.4.14",
     "proskomma": "0.7.16",
     "proskomma-json-tools": "0.5.7",
-    "epitelete-perf-html": "0.2.6",
+    "epitelete-html": "^0.2.9",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-json-view": "1.21.3",
@@ -44,7 +44,7 @@
     "translation-helps-rcl": "^3.3.4-rc.1",
     "use-deep-compare-effect": "^1.8.1",
     "utf8": "3.0.0",
-    "uw-editor": "0.1.4"
+    "uw-editor": "0.1.7"
   },
   "devDependencies": {
     "eslint": "^8.17.0",
