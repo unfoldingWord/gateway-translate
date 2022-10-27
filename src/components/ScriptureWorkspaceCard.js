@@ -1,9 +1,4 @@
 import { useEffect, useState, useContext } from 'react'
-import {
-  Save as SaveIcon,
-  Undo as UndoIcon,
-  Redo as RedoIcon
-} from '@material-ui/icons'
 import PropTypes from 'prop-types'
 import { Card } from 'translation-helps-rcl'
 import { Editor } from 'uw-editor'
@@ -14,7 +9,6 @@ import { AppContext } from '@context/AppContext'
 import React from 'react';
 import CircularProgress from './CircularProgress'
 import { saveToUserBranch } from '@utils/saveToUserBranch'
-import { perf2usfm } from '@utils/perf2usfm'
 
 export default function ScriptureWorkspaceCard({
   id,
@@ -54,9 +48,8 @@ export default function ScriptureWorkspaceCard({
   // Save Feature
   useEffect(() => {
     async function saveContent() {
-      // const _doc = ep[docSetId].getDocument( data.bookId.toUpperCase() )
-      // const _usfm = perf2usfm(_doc)
-      // console.log("useEffect() updated PERF:",JSON.stringify(_doc,null,4))
+      const _doc = ep[docSetId].getDocument( data.bookId.toUpperCase() )
+      console.log("useEffect() updated PERF:\n",JSON.stringify(_doc,null,4))
       const _usfm = await ep[docSetId].readUsfm( data.bookId.toUpperCase() )
 
       await saveToUserBranch(
