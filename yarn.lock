@@ -7203,10 +7203,10 @@ uuid@^8.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
-uw-editor@0.1.7:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/uw-editor/-/uw-editor-0.1.7.tgz#a04b253f13e4f5c27660d289bce4ca8461e8161e"
-  integrity sha512-FK6HTC9b+4ynsUUtk3ZcArcIcpNbUTMdulrU7Xf/yfMtqCI/uGWcx8e08QBg16Uh2tponagSoQXvqhA582I44g==
+uw-editor@0.1.8-rc.1:
+  version "0.1.8-rc.1"
+  resolved "https://registry.yarnpkg.com/uw-editor/-/uw-editor-0.1.8-rc.1.tgz#b0c6648d5ff94146dece841b87636cdcb0c48a6a"
+  integrity sha512-avEcuT/5V+x6eLl2AC63r1iRBvoVCzJxd2ZYFmgy6v0Ka3mr4Hk1iKBz95nYxxb0IaBRvYg+ZA0uUEffTGDGsQ==
   dependencies:
     "@xelah/type-perf-html" "^1.0.0"
 
