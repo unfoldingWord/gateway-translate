@@ -1,6 +1,6 @@
 {
-  "name": "gateway-translation",
-  "version": "0.0.7",
+  "name": "gateway-translate",
+  "version": "0.0.8",
   "scripts": {
     "dev": "next",
     "build": "next build --debug",
