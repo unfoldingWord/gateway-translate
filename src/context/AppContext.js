@@ -8,6 +8,7 @@ import EpiteleteHtml from "epitelete-html";
 import {usfmFilename} from '@common/BooksOfTheBible'
 import { decodeBase64ToUtf8 } from '@utils/base64Decode';
 import { LITERAL, SIMPLIFIED } from '@common/constants';
+import { fetchFromUserBranch } from '@utils/fetchFromUserBranch';
 
 export const AppContext = React.createContext({});
 
@@ -74,9 +75,22 @@ export default function AppContextProvider({
       for (let i=0; i<_books.length; i++) {
         if ( ! _books[i].content ) {
           const _filename = usfmFilename(_books[i].bookId)
-          const _content = await repoClient.repoGetContents(
-            owner,_repo,_filename
-          ).then(({ data }) => data)
+          // const _content = await repoClient.repoGetContents(
+          //   owner,_repo,_filename
+          // ).then(({ data }) => data)
+          let _content = null
+          try {
+            _content = await fetchFromUserBranch(
+              owner, 
+              _repo, 
+              _filename, 
+              _books[i].bookId, 
+              authentication, 
+              repoClient
+            )
+          } catch (e) {
+            _content = "NO CONTENT AVAILABLE"
+          }
           _books[i].content = _content
           _books[i].repo = _repo
           // note that "content" is the JSON returned from DCS.
@@ -91,19 +105,24 @@ export default function AppContextProvider({
             _books[i].usfmText = _usfmText
             _books[i].type = ltStState
             const _perf = usfm2perf(_usfmText)
-            _books[i].perf = _perf
-            const _docSetId = owner + "/" + _repo // captures org, lang, and type (literal or simplified)
-            _books[i].docset = _docSetId
-            if ( _ep[_docSetId] === undefined ) {
-              console.log("creating Epitelete for doc set:", _docSetId)
-              _ep[_docSetId] = new EpiteleteHtml({
-                proskomma: null,
-                docSetId: _docSetId,
-                options: { historySize: 100 }
-              })
+            if ( _perf === null ) {
+              _books[i].usfmText = null
+              _books[i].content = "CONTENT IS NOT USABLE"
+            } else {
+              _books[i].perf = _perf
+              const _docSetId = owner + "/" + _repo // captures org, lang, and type (literal or simplified)
+              _books[i].docset = _docSetId
+              if ( _ep[_docSetId] === undefined ) {
+                console.log("creating Epitelete for doc set:", _docSetId)
+                _ep[_docSetId] = new EpiteleteHtml({
+                  proskomma: null,
+                  docSetId: _docSetId,
+                  options: { historySize: 100 }
+                })
+              }
+              await _ep[_docSetId].sideloadPerf(_books[i].bookId.toUpperCase(), _books[i].perf)
+              console.log("epitelete docset,books:", _docSetId,_ep[_docSetId].localBookCodes())
             }
-            await _ep[_docSetId].sideloadPerf(_books[i].bookId.toUpperCase(), _books[i].perf)
-            console.log("epitelete docset,books:", _docSetId,_ep[_docSetId].localBookCodes())
           } else {
             _books[i].usfmText = null
           }

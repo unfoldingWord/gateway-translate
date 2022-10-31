@@ -70,7 +70,7 @@ export default function ScriptureWorkspaceCard({
     epiteleteHtml: ep[docSetId],
     bookId: data.bookId,
     onSave: () => setDoSave(true),
-    verbose: true
+    verbose: false,
   }
 
   return (
@@ -85,11 +85,17 @@ export default function ScriptureWorkspaceCard({
       {
         ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
         ?
-        <div className="text-sm max-w-prose">
+          <div className="text-sm max-w-prose">
           <Editor key="1" {...editorProps} />
-        </div>
+          </div>
         :
-        <CircularProgress/>
+        (
+          typeof data.content === "string"
+          ?
+          <div><h1>{data.content}</h1></div>
+          :
+          <CircularProgress/>
+        )
 
       }
     </Card>
