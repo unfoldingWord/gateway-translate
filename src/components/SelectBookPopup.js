@@ -94,7 +94,7 @@ export default function SelectBookPopup(
           variant='contained'
           onClick={handleClickNext}
         >
-          Next
+          Add
         </Button>
       </Card>
     </DraggableModal>

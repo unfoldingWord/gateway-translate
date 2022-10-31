@@ -75,11 +75,16 @@ export default function Header({
   }
 
   const onNext = ({ value, ltStState, url }) => {
-    if ( url && books && setBooks ) {
-      let _books = books
+    if ( url && ltStState === 'custom' && books && setBooks ) {
+      let _books = [...books]
       let _entry = { id: null, bookId: null, type: null, content: null }
-      _entry.id = `${value.id}-${ltStState}`
-      _entry.bookId = value.id
+      const found = url.match(/[-_\/](?<bookId>[a-zA-Z_]*)\.usfm$/)
+      if ( found ) {
+        _entry.bookId = found.groups.bookId
+      } else {
+        _entry.bookId = url.substr(-10)
+      }
+      _entry.id = `${_entry.bookId}-${ltStState}`
       _entry.type = ltStState
       _entry.url = url
       _books.push(_entry)
@@ -87,7 +92,7 @@ export default function Header({
       console.log("onNext() _books:",_books)
       console.log(url)
     } else if ( books && setBooks ) {
-      let _books = books
+      let _books = [...books]
       let _entry = { id: null, bookId: null, type: null, content: null }
       _entry.id = `${value.id}-${ltStState}-${owner}-${languageId}`
       _entry.bookId = value.id
