@@ -2,10 +2,11 @@ import base64 from 'base-64'
 import utf8 from 'utf8'
 import { createUserBranch } from "./createUserBranch";
 import { existsUserBranch } from "./existsUserBranch";
+import { userbranch } from './userbranch';
 
 // auto generated user branch for gT: `gt-{bookId}-{username}`
 export const saveToUserBranch = async (data, owner, content, authentication, repoClient) => {
-  const _userbranch = `gt-${data.bookId}-${authentication.user.login}`
+  const _userbranch = userbranch(data.bookId, authentication.user.login)
   console.log("userbranch:", _userbranch)
   const _content = base64.encode(utf8.encode(content))
 
