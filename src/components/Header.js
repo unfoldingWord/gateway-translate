@@ -17,7 +17,6 @@ import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import FeedbackPopup from '@components/FeedbackPopup'
 import SelectBookPopup from './SelectBookPopup'
-import Buttons from './Buttons'
 
 const useStyles = makeStyles(theme => ({
   root: { flexGrow: 1 },
@@ -53,7 +52,7 @@ export default function Header({
 
   const [drawerOpen, setOpen] = useState(false)
   const { actions: { logout } } = useContext(AuthContext)
-  const { state: { owner }, actions: { checkUnsavedChanges } } = useContext(StoreContext)
+  const { state: { owner, languageId }, actions: { checkUnsavedChanges } } = useContext(StoreContext)
   const { state: { books }, actions: { setBooks, setLtStState } } = useContext(AppContext)
   const handleDrawerOpen = () => {
     if (!drawerOpen) {
@@ -90,7 +89,7 @@ export default function Header({
     } else if ( books && setBooks ) {
       let _books = books
       let _entry = { id: null, bookId: null, type: null, content: null }
-      _entry.id = `${value.id}-${ltStState}`
+      _entry.id = `${value.id}-${ltStState}-${owner}-${languageId}`
       _entry.bookId = value.id
       _entry.type = ltStState
       _books.push(_entry)
@@ -126,9 +125,6 @@ export default function Header({
             >
               {title}
             </Typography>
-          </div>
-          <div className='flex flex-1 justify-center items-center'>
-            <Buttons />
           </div>
           <>
             {
