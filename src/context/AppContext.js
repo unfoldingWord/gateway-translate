@@ -73,13 +73,16 @@ export default function AppContextProvider({
       }
       const _repo = languageId + _repoSuffix
       for (let i=0; i<_books.length; i++) {
-        console.log(_books[i]);
         if ( ! _books[i].content ) {
           let _content = null
           try {
             if ( _books[i].url ) {
               const response = await fetch(_books[i].url)
-              _content = await response.text()
+              const rawContent = await response.text()
+              _content = {
+                content: rawContent,
+                encoding: 'plain',
+              }
             } else {
               const _filename = usfmFilename(_books[ i ].bookId)
               // const _content = await repoClient.repoGetContents(
