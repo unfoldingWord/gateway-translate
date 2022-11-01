@@ -6838,10 +6838,10 @@ transform-runtime@0.0.0:
   resolved "https://registry.yarnpkg.com/transform-runtime/-/transform-runtime-0.0.0.tgz#e714d9b69211dd9537939d50e3aa5788c442b85c"
   integrity sha512-PX3vXzO8lucrVm82vZb7BABBLHyMDPGzn9zElHr+DnvtS3JPXtqwB1iTRe+D6iFXYmjtAF3zH7O0Xc5XpLpMEg==
 
-translation-helps-rcl@^3.3.4-rc.1:
-  version "3.3.4-rc.2"
-  resolved "https://registry.yarnpkg.com/translation-helps-rcl/-/translation-helps-rcl-3.3.4-rc.2.tgz#847150cca98e093a2e4bdeeac0928e37f2d75b20"
-  integrity sha512-eHXRetmeDfFaJNx2Abj0n476B2UcFTn1Jph7pndGwT7vgezMgaQPuuiNocNjn9tjzGSOEZAZDD8IaBEOI90Jvg==
+translation-helps-rcl@^3.3.4-rc.3:
+  version "3.3.4-rc.3"
+  resolved "https://registry.yarnpkg.com/translation-helps-rcl/-/translation-helps-rcl-3.3.4-rc.3.tgz#31a49c34528f4b5b5be025a43c81611a56a3837c"
+  integrity sha512-ZK7D0nB/fMxBUJNQQ9QP5qpVIpPZ8VIPgCvxeML2dQI7mn5g3TafS3qHuAEoYKGQTCTKPu+Ux9UpM1aiC362GQ==
   dependencies:
     "@gwdevs/extensible-rcl" "^1.0.0"
     "@mui/styled-engine" "npm:@mui/styled-engine-sc@latest"
@@ -7203,10 +7203,10 @@ uuid@^8.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
-uw-editor@0.1.8-rc.1:
-  version "0.1.8-rc.1"
-  resolved "https://registry.yarnpkg.com/uw-editor/-/uw-editor-0.1.8-rc.1.tgz#b0c6648d5ff94146dece841b87636cdcb0c48a6a"
-  integrity sha512-avEcuT/5V+x6eLl2AC63r1iRBvoVCzJxd2ZYFmgy6v0Ka3mr4Hk1iKBz95nYxxb0IaBRvYg+ZA0uUEffTGDGsQ==
+uw-editor@0.1.10:
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/uw-editor/-/uw-editor-0.1.10.tgz#08b4f93b9fb2b641e941b80c7e216225af63220f"
+  integrity sha512-yFqHXZmwvCaJWbFR7Asrr+lKB9EoJf5uOj0jcTUeM1HAnqbDhhP0Ltdml+zQFjPzkTD29ED7pfwfKerH90YluQ==
   dependencies:
     "@xelah/type-perf-html" "^1.0.0"
 
