@@ -73,8 +73,16 @@ export default function ScriptureWorkspaceCard({
     verbose: false,
   }
 
+  let title = '';
+  const idParts = id.split('-');
+  if ( BIBLE_AND_OBS[bookId] ) {
+    title += BIBLE_AND_OBS[bookId];
+    idParts.shift()
+  }
+  title += '('+idParts.join('-')+')'
+
   return (
-    <Card title={`${BIBLE_AND_OBS[bookId]} (${id.split('-')[1]}-${id.split('-')[2]}-${id.split('-')[3]})`}
+    <Card title={title}
       classes={classes}
       hideMarkdownToggle={true}
       closeable={true}

@@ -7,7 +7,7 @@ import { useRepoClient } from 'dcs-react-hooks';
 import EpiteleteHtml from "epitelete-html";
 import {usfmFilename} from '@common/BooksOfTheBible'
 import { decodeBase64ToUtf8 } from '@utils/base64Decode';
-import { LITERAL, SIMPLIFIED } from '@common/constants';
+import { LITERAL, SIMPLIFIED, CUSTOM } from '@common/constants';
 import { fetchFromUserBranch } from '@utils/fetchFromUserBranch';
 
 export const AppContext = React.createContext({});
@@ -74,25 +74,36 @@ export default function AppContextProvider({
       const _repo = languageId + _repoSuffix
       for (let i=0; i<_books.length; i++) {
         if ( ! _books[i].content ) {
-          const _filename = usfmFilename(_books[i].bookId)
-          // const _content = await repoClient.repoGetContents(
-          //   owner,_repo,_filename
-          // ).then(({ data }) => data)
           let _content = null
           try {
-            _content = await fetchFromUserBranch(
-              owner, 
-              _repo, 
-              _filename, 
-              _books[i].bookId, 
-              authentication, 
-              repoClient
-            )
+            if ( _books[i].url ) {
+              const response = await fetch(_books[i].url)
+              const rawContent = await response.text()
+              _content = {
+                content: rawContent,
+                encoding: 'plain',
+              }
+            } else {
+              const _filename = usfmFilename(_books[ i ].bookId)
+              // const _content = await repoClient.repoGetContents(
+              //   owner,_repo,_filename
+              // ).then(({ data }) => data)
+
+              _content = await fetchFromUserBranch(
+                owner,
+                _repo,
+                _filename,
+                _books[ i ].bookId,
+                authentication,
+                repoClient
+              )
+            }
+            _books[ i ].repo = _repo
           } catch (e) {
             _content = "NO CONTENT AVAILABLE"
           }
-          _books[i].content = _content
-          _books[i].repo = _repo
+          _books[ i ].content = _content
+
           // note that "content" is the JSON returned from DCS.
           // the actual content is base64 encoded member element "content"
           let _usfmText;
@@ -136,6 +147,10 @@ export default function AppContextProvider({
     }
     if ( ep && ltStState === LITERAL || ltStState === SIMPLIFIED ) {
       if (refresh && authentication && owner && server && languageId) {
+        getContent()
+      }
+    } else {
+      if (ep && ltStState === CUSTOM ) {
         getContent()
       }
     }

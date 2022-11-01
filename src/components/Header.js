@@ -1,4 +1,6 @@
 import { useState, useContext } from 'react'
+import TextField from '@material-ui/core/TextField'
+
 import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
@@ -72,9 +74,25 @@ export default function Header({
     setFeedback && setFeedback(false)
   }
 
-  const onNext = (value, ltStState) => {
-    if ( books && setBooks ) {
-      let _books = books
+  const onNext = ({ value, ltStState, url }) => {
+    if ( url && ltStState === 'custom' && books && setBooks ) {
+      let _books = [...books]
+      let _entry = { id: null, bookId: null, type: null, content: null }
+      const found = url.match(/[-_\/](?<bookId>[a-zA-Z_]*)\.usfm$/)
+      if ( found ) {
+        _entry.bookId = found.groups.bookId
+      } else {
+        _entry.bookId = url.substr(-10)
+      }
+      _entry.id = `${_entry.bookId}-${ltStState}`
+      _entry.type = ltStState
+      _entry.url = url
+      _books.push(_entry)
+      setBooks(_books)
+      console.log("onNext() _books:",_books)
+      console.log(url)
+    } else if ( books && setBooks ) {
+      let _books = [...books]
       let _entry = { id: null, bookId: null, type: null, content: null }
       _entry.id = `${value.id}-${ltStState}-${owner}-${languageId}`
       _entry.bookId = value.id
@@ -126,7 +144,7 @@ export default function Header({
           </>
           <>
             <SelectBookPopup
-              onNext={(value, ltStState) => onNext(value, ltStState)}
+              onNext={onNext}
               showModal={showModal}
               setShowModal={setShowModal}
             />
