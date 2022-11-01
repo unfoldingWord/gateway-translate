@@ -7,18 +7,18 @@ import { userbranch } from './userbranch';
 // auto generated user branch for gT: `gt-{bookId}-{username}`
 export const saveToUserBranch = async (data, owner, content, authentication, repoClient) => {
   const _userbranch = userbranch(data.bookId, authentication.user.login)
-  console.log("userbranch:", _userbranch)
+  console.log("saveToUserBranch() - userbranch:", _userbranch)
   const _content = base64.encode(utf8.encode(content))
 
   // does the user branch exist?
   const branchExists = await existsUserBranch(owner, data.repo, _userbranch, repoClient)
   if ( ! branchExists ) {
-    console.log("createUserBranch() branch does not exist, creating", _userbranch)
+    console.log("saveToUserBranch() - createUserBranch() branch does not exist, creating", _userbranch)
     const ok = await createUserBranch(owner, data.repo, _userbranch, repoClient)
   }
   // console.log("after branch create, here is the updated content:", _content)
-  console.log("after branch create, here is the data object:", data)
-  console.log("after branch create, here is the auth object:", authentication)
+  console.log("saveToUserBranch() - after branch create, here is the data object:", data)
+  // console.log("after branch create, here is the auth object:", authentication)
 
   // update the file with new content
   // repoUpdateFile(owner, repo, filepath, body, options?): Promise<AxiosResponse<FileResponse>>
@@ -42,8 +42,16 @@ export const saveToUserBranch = async (data, owner, content, authentication, rep
     sha: data.content.sha,
     branch: _userbranch
   }
-  repoClient.repoUpdateFile(_body, owner, data.repo, data.content.path, {})
-
-  return true;
+  // the function below returns an object with a new content object.
+  // 1. https://github.com/unfoldingWord/dcs-js/tree/master/documentation/classes
+  // 2. https://github.com/unfoldingWord/dcs-js/blob/master/documentation/classes/RepositoryApi.md
+  // 3. https://github.com/unfoldingWord/dcs-js/blob/master/documentation/classes/RepositoryApi.md#repoupdatefile
+  // 4. https://github.com/unfoldingWord/dcs-js/blob/master/documentation/interfaces/FileResponse.md
+  // 5. https://github.com/unfoldingWord/dcs-js/blob/master/documentation/interfaces/ContentsResponse.md
+  // and finally with the new SHA value:
+  // 6. https://github.com/unfoldingWord/dcs-js/blob/master/documentation/interfaces/ContentsResponse.md#sha
+  const _data = await repoClient.repoUpdateFile(_body, owner, data.repo, data.content.path, {})
+  console.log("saveToUserBranch() - After file updated, _data is:", _data)
+  return _data.data.content;
 };
 
