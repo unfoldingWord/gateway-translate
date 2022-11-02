@@ -62,7 +62,7 @@ export default function ScriptureWorkspaceCard({
       )
       let _books = books
       for ( let i=0; i<_books.length; i++ ) {
-        if ( _books[i].id = id ) {
+        if ( _books[i].id === id ) {
           _books[i].content = _content
           setBooks(_books)
           break
