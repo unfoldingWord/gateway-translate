@@ -42,6 +42,7 @@ export default function ScriptureWorkspaceCard({
         ep,
     },
     actions: {
+      setBooks,
     }
   } = useContext(AppContext)
 
@@ -52,13 +53,21 @@ export default function ScriptureWorkspaceCard({
       console.log("useEffect() updated PERF:\n",JSON.stringify(_doc,null,4))
       const _usfm = await ep[docSetId].readUsfm( data.bookId.toUpperCase() )
 
-      await saveToUserBranch(
+      const _content = await saveToUserBranch(
         data,
         owner,
         _usfm,
         authentication,
         repoClient
       )
+      let _books = books
+      for ( let i=0; i<_books.length; i++ ) {
+        if ( _books[i].id === id ) {
+          _books[i].content = _content
+          setBooks(_books)
+          break
+        }
+      }
       setDoSave(false)
     }
     if ( doSave ) {
