@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Card } from 'translation-helps-rcl'
-import { Editor } from 'uw-editor'
+import { UsfmEditor } from 'uw-editor'
 import { BIBLE_AND_OBS } from '@common/BooksOfTheBible'
 import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
@@ -67,6 +67,7 @@ export default function ScriptureWorkspaceCard({
       setDoSave(null)
     }
     if ( doSave ) {
+      console.log("New updated USFM:", doSave)
         saveContent()
     }
   }, [doSave, books, setBooks, id, docSetId, data, owner, ep, authentication, repoClient])
@@ -99,7 +100,7 @@ export default function ScriptureWorkspaceCard({
     idParts.shift()
   }
   title += '('+idParts.join('-')+')'
-  console.log("before return- data.usfmText:", data.usfmText)
+
   return (
     <Card title={title}
       classes={classes}
@@ -114,7 +115,7 @@ export default function ScriptureWorkspaceCard({
         data.usfmText
         ?
           <div className="text-sm max-w-prose">
-          <Editor key="1" 
+          <UsfmEditor key="1" 
             bookId={data.bookId} 
             docSetId={docSetId}
             usfmText={data.usfmText}
