@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
@@ -41,12 +41,10 @@ export default function AppContextProvider({
     }
   } = useContext(StoreContext)
 
-  const repoClient = useMemo( () => useRepoClient({
-      basePath: `${ server }/api/v1/`,
-      token: authentication?.token?.sha1,
-    })
-  , [server, authentication])
-
+  const repoClient = useRepoClient({
+    basePath: `${server}/api/v1/`,
+    token: authentication?.token?.sha1,
+  })
 
   const _setBooks = (value) => {
     setBooks(value)
@@ -156,7 +154,7 @@ export default function AppContextProvider({
         getContent()
       }
     }
-  }, [authentication, owner, server, languageId, refresh, books, ltStState, ep, setBooks, setLtStState, repoClient])
+  }, [authentication, owner, server, languageId, refresh, books, ltStState, ep, setBooks, setLtStState])
 
 
   // create the value for the context provider
