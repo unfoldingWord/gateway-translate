@@ -5,6 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import StoreContextProvider from '@context/StoreContext'
 import AuthContextProvider from '@context/AuthContext'
 import AppContextProvider from '@context/AppContext'
+import PkCacheProvider from 'uw-editor'
 import { APP_NAME } from '@common/constants'
 import AppHead from '@components/AppHead'
 import Layout from '@components/Layout'
@@ -32,9 +33,11 @@ export default function Application({ Component, pageProps }) {
         <AuthContextProvider>
           <StoreContextProvider>
               <AppContextProvider>
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
+                <PkCacheProvider>
+                  <Layout>
+                    <Component {...pageProps} />
+                  </Layout>
+                </PkCacheProvider>
               </AppContextProvider>
           </StoreContextProvider>
         </AuthContextProvider>
