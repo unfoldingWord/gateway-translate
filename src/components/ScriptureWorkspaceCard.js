@@ -88,7 +88,7 @@ export default function ScriptureWorkspaceCard({
   const editorProps = {
     onSave: (bookCode,usfmText) => setDoSave(usfmText),
     docSetId,
-    usfmText: data.usfmText,
+    // usfmText: data.usfmText,
     bookId: data.bookId,
   }
   
@@ -99,7 +99,7 @@ export default function ScriptureWorkspaceCard({
     idParts.shift()
   }
   title += '('+idParts.join('-')+')'
-
+  console.log("before return- data.usfmText:", data.usfmText)
   return (
     <Card title={title}
       classes={classes}
@@ -110,10 +110,15 @@ export default function ScriptureWorkspaceCard({
       disableSettingsButton={true}
     >
       {
-        ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
+        // ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
+        data.usfmText
         ?
           <div className="text-sm max-w-prose">
-          <Editor key="1" {...editorProps} />
+          <Editor key="1" 
+            bookId={data.bookId} 
+            docSetId={docSetId}
+            usfmText={data.usfmText}
+          />
           </div>
         :
         (
