@@ -56,7 +56,6 @@ export default function AppContextProvider({
   useEffect(() => {
     async function getContent() {
       let _books = books
-      let _ep = ep
       let _repoSuffix;
       if ( owner.toLowerCase() === 'unfoldingword' ) {
         if ( ltStState === LITERAL ) {
@@ -127,16 +126,16 @@ export default function AppContextProvider({
       setRefresh(false)
       setLtStState('')
     }
-    if ( ep && ltStState === LITERAL || ltStState === SIMPLIFIED ) {
+    if ( ltStState === LITERAL || ltStState === SIMPLIFIED ) {
       if (refresh && authentication && owner && server && languageId) {
         getContent()
       }
     } else {
-      if (ep && ltStState === CUSTOM ) {
+      if ( ltStState === CUSTOM ) {
         getContent()
       }
     }
-  }, [authentication, owner, server, languageId, refresh, books, ltStState, ep, setBooks, setLtStState, repoClient])
+  }, [authentication, owner, server, languageId, refresh, books, ltStState, setBooks, setLtStState, repoClient])
 
 
   // create the value for the context provider
@@ -145,7 +144,6 @@ export default function AppContextProvider({
       books,
       ltStState,
       repoClient,
-      ep,
     },
     actions: {
       setBooks: _setBooks,

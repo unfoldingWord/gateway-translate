@@ -119,6 +119,7 @@ export default function ScriptureWorkspaceCard({
             bookId={data.bookId} 
             docSetId={docSetId}
             usfmText={data.usfmText}
+            onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
           />
           </div>
         :
