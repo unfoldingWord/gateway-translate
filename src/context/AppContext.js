@@ -9,6 +9,7 @@ import {usfmFilename} from '@common/BooksOfTheBible'
 import { decodeBase64ToUtf8 } from '@utils/base64Decode';
 import { LITERAL, SIMPLIFIED, CUSTOM } from '@common/constants';
 import { fetchFromUserBranch } from '@utils/fetchFromUserBranch';
+import { RepositoryApi, Configuration } from 'dcs-js'
 
 export const AppContext = React.createContext({});
 
@@ -41,11 +42,10 @@ export default function AppContextProvider({
     }
   } = useContext(StoreContext)
 
-  const repoClient = useMemo( () => useRepoClient({
-      basePath: `${ server }/api/v1/`,
-      token: authentication?.token?.sha1,
-    })
-  , [server, authentication])
+  const repoClient = useRepoClient({
+    basePath: `${ server }/api/v1/`,
+    token: authentication?.token?.sha1,
+  })
 
 
   const _setBooks = (value) => {
@@ -156,7 +156,7 @@ export default function AppContextProvider({
         getContent()
       }
     }
-  }, [authentication, owner, server, languageId, refresh, books, ltStState, ep, setBooks, setLtStState, repoClient])
+  }, [authentication, owner, server, languageId, refresh, books, ltStState, ep, setBooks, setLtStState])
 
 
   // create the value for the context provider
