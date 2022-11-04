@@ -9,8 +9,10 @@ import {usfmFilename} from '@common/BooksOfTheBible'
 import { decodeBase64ToUtf8 } from '@utils/base64Decode';
 import { LITERAL, SIMPLIFIED, CUSTOM } from '@common/constants';
 import { fetchFromUserBranch } from '@utils/fetchFromUserBranch';
+import { randomLetters } from '@utils/randomLetters';
 
 export const AppContext = React.createContext({});
+
 
 export default function AppContextProvider({
   children,
@@ -114,7 +116,10 @@ export default function AppContextProvider({
             }
             _books[i].usfmText = _usfmText
             _books[i].type = ltStState
-            const _docSetId = owner + "/" + _repo // captures org, lang, and type (literal or simplified)
+            const _docSetId = _books[i].url ?
+              "org-unk/" + randomLetters(3) + "_" + randomLetters(3)
+              :
+              owner + "/" + _repo // captures org, lang, and type (literal or simplified)
             _books[i].docset = _docSetId
           } else {
             _books[i].usfmText = null
