@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Card } from 'translation-helps-rcl'
-import { Editor } from 'uw-editor'
+import { UsfmEditor } from 'uw-editor'
 import { BIBLE_AND_OBS } from '@common/BooksOfTheBible'
 import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
@@ -49,14 +49,10 @@ export default function ScriptureWorkspaceCard({
   // Save Feature
   useEffect(() => {
     async function saveContent() {
-      const _doc = ep[docSetId].getDocument( data.bookId.toUpperCase() )
-      console.log("useEffect() updated PERF:\n",JSON.stringify(_doc,null,4))
-      const _usfm = await ep[docSetId].readUsfm( data.bookId.toUpperCase() )
-
       const _content = await saveToUserBranch(
         data,
         owner,
-        _usfm,
+        doSave,
         authentication,
         repoClient
       )
@@ -68,20 +64,35 @@ export default function ScriptureWorkspaceCard({
           break
         }
       }
-      setDoSave(false)
+      setDoSave(null)
     }
     if ( doSave ) {
+      console.log("New updated USFM:", doSave)
         saveContent()
     }
-  }, [doSave, docSetId, data, owner, ep, authentication, repoClient])
+  }, [doSave, books, setBooks, id, docSetId, data, owner, ep, authentication, repoClient])
+
+  // const editorProps = {
+  //   epiteleteHtml: ep[docSetId],
+  //   bookId: data.bookId,
+  //   onSave: () => setDoSave(true),
+  //   verbose: false,
+  // }
+
+  // sample onSave
+  // const onSave = (bookCode,usfmText) => {
+  //   console.log("save button clicked")
+  //   console.log(bookCode)
+  //   console.log(usfmText)
+  // }
 
   const editorProps = {
-    epiteleteHtml: ep[docSetId],
+    onSave: (bookCode,usfmText) => setDoSave(usfmText),
+    docSetId,
+    // usfmText: data.usfmText,
     bookId: data.bookId,
-    onSave: () => setDoSave(true),
-    verbose: false,
   }
-
+  
   let title = '';
   const idParts = id.split('-');
   if ( BIBLE_AND_OBS[bookId] ) {
@@ -100,10 +111,16 @@ export default function ScriptureWorkspaceCard({
       disableSettingsButton={true}
     >
       {
-        ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
+        // ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
+        data.usfmText
         ?
           <div className="text-sm max-w-prose">
-          <Editor key="1" {...editorProps} />
+          <UsfmEditor key="1" 
+            bookId={data.bookId} 
+            docSetId={docSetId}
+            usfmText={data.usfmText}
+            onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
+          />
           </div>
         :
         (
@@ -138,4 +155,35 @@ ScriptureWorkspaceCard.propTypes = {
         <CircularProgress/>
 
       }
+*/
+/*
+
+  // Save Feature
+  useEffect(() => {
+    async function saveContent() {
+      const _doc = ep[docSetId].getDocument( data.bookId.toUpperCase() )
+      console.log("useEffect() updated PERF:\n",JSON.stringify(_doc,null,4))
+      const _usfm = await ep[docSetId].readUsfm( data.bookId.toUpperCase() )
+
+      const _content = await saveToUserBranch(
+        data,
+        owner,
+        _usfm,
+        authentication,
+        repoClient
+      )
+      let _books = books
+      for ( let i=0; i<_books.length; i++ ) {
+        if ( _books[i].id === id ) {
+          _books[i].content = _content
+          setBooks(_books)
+          break
+        }
+      }
+      setDoSave(false)
+    }
+    if ( doSave ) {
+        saveContent()
+    }
+  }, [doSave, docSetId, data, owner, ep, authentication, repoClient])
 */
