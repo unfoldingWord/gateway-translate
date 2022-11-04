@@ -17,6 +17,7 @@ import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import FeedbackPopup from '@components/FeedbackPopup'
 import SelectBookPopup from './SelectBookPopup'
+import { randomLetters } from '@utils/randomLetters'
 
 const useStyles = makeStyles(theme => ({
   root: { flexGrow: 1 },
@@ -84,7 +85,11 @@ export default function Header({
       } else {
         _entry.bookId = url.substr(-10)
       }
-      _entry.id = `${_entry.bookId}-${ltStState}`
+      _entry.bookId = _entry.bookId.substr(-3)
+      console.log("BookID=", _entry.bookId)
+      const _owner = randomLetters(3);
+      const _lang  = randomLetters(2);
+      _entry.id = `${_entry.bookId}-${ltStState}-${_owner}-${_lang}`
       _entry.type = ltStState
       _entry.url = url
       _books.push(_entry)
