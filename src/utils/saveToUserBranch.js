@@ -50,7 +50,12 @@ export const saveToUserBranch = async (data, owner, content, authentication, rep
   // 5. https://github.com/unfoldingWord/dcs-js/blob/master/documentation/interfaces/ContentsResponse.md
   // and finally with the new SHA value:
   // 6. https://github.com/unfoldingWord/dcs-js/blob/master/documentation/interfaces/ContentsResponse.md#sha
-  const _data = await repoClient.repoUpdateFile(_body, owner, data.repo, data.content.path, {})
+  const _data = await repoClient.repoUpdateFile({
+    body:_body, 
+    owner: owner, 
+    repo: data.repo, 
+    filepath: data.content.path
+  })
   console.log("saveToUserBranch() - After file updated, _data is:", _data)
   return _data.data.content;
 };

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
 // import { usfm2perf } from '@utils/usfm2perf';
-import { useRepoClient } from 'dcs-react-hooks';
+// import { useRepoClient } from 'dcs-react-hooks';
+import { RepositoryApi } from 'dcs-js';
 // import EpiteleteHtml from "epitelete-html";
 import {usfmFilename} from '@common/BooksOfTheBible'
 import { decodeBase64ToUtf8 } from '@utils/base64Decode';
@@ -21,6 +22,7 @@ export default function AppContextProvider({
   const [books, setBooks] = useState([])
   const [ltStState, setLtStState] = useState('')
   const [refresh, setRefresh] = useState(true)
+  const [repoClient, setRepoClient] = useState(null)
   // const [ep, /*setEp*/] = useState(new EpiteletePerfHtml({
   //   proskomma: null, docSetId: "unfoldingWord/en_ltst", options: { historySize: 100 }
   // }))
@@ -31,6 +33,7 @@ export default function AppContextProvider({
       authentication,
     },
   } = useContext(AuthContext)
+  console.log("authentication:", authentication)
 
   const {
     state: {
@@ -43,10 +46,29 @@ export default function AppContextProvider({
     }
   } = useContext(StoreContext)
 
-  const repoClient = useRepoClient({
-    basePath: `${server}/api/v1/`,
-    token: authentication?.token?.sha1,
+  // const repoClient = useRepoClient({
+  //   basePath: `${server}/api/v1/`,
+  //   token: authentication?.token?.sha1,
+  // })
+
+  const getApiConfig = ({ token, basePath = "https://qa.door43.org/api/v1/" }) => ({
+    apiKey: token && ((key) => key === "Authorization" ? `token ${token}` : ""),
+    basePath: basePath?.replace(/\/+$/, ""),
   })
+
+  useEffect(
+    () => {
+      async function getRepoClient() {
+        const _configuration = getApiConfig({ token: authentication.token.sha1, basePath:`${server}/api/v1/` });
+        const _repoClient = new RepositoryApi(_configuration,_configuration.basePath, {});
+        setRepoClient(_repoClient)
+      }
+      if (!repoClient && authentication && authentication?.token) {
+        console.log("authentication:", authentication)
+        getRepoClient()
+      }
+    }
+  )
 
   const _setBooks = (value) => {
     setBooks(value)
