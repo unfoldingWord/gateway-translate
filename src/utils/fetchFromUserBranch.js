@@ -1,5 +1,3 @@
-import base64 from 'base-64'
-import utf8 from 'utf8'
 import { existsUserBranch } from "./existsUserBranch";
 import { userbranch } from './userbranch';
 
@@ -14,7 +12,6 @@ import { userbranch } from './userbranch';
     the file from a released source.
 */
 export const fetchFromUserBranch = async (owner, repo, filename, bookId, authentication, repoClient) => {
-  console.log("fetchFromUserBranch() owner, repo, filename=", owner, repo, filename);
   const _userbranch = userbranch(bookId, authentication.user.login)
   console.log("userbranch:", _userbranch)
 
@@ -29,7 +26,7 @@ export const fetchFromUserBranch = async (owner, repo, filename, bookId, authent
     ).then(({ data }) => data)
   } else {
     // get data from master branch
-    console.log("fetch...() branchExists is not true")
+    console.log("fetch...() branchExists is not true, fetch from master (default) branch")
     _content = await repoClient.repoGetContents(
         {owner: owner,repo: repo,filepath: filename}
     ).then(({ data }) => data)

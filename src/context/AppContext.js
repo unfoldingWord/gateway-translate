@@ -2,10 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
-// import { usfm2perf } from '@utils/usfm2perf';
-// import { useRepoClient } from 'dcs-react-hooks';
 import { RepositoryApi } from 'dcs-js';
-// import EpiteleteHtml from "epitelete-html";
 import {usfmFilename} from '@common/BooksOfTheBible'
 import { decodeBase64ToUtf8 } from '@utils/base64Decode';
 import { LITERAL, SIMPLIFIED, CUSTOM } from '@common/constants';
@@ -187,25 +184,3 @@ AppContextProvider.propTypes = {
     PropTypes.node,
   ]).isRequired,
 };
-
-/* code graveyard
-
-            const _perf = usfm2perf(_usfmText)
-            if ( _perf === null ) {
-              _books[i].usfmText = null
-              _books[i].content = "CONTENT IS NOT USABLE"
-            } else {
-              _books[i].perf = _perf
-              const _docSetId = owner + "/" + _repo // captures org, lang, and type (literal or simplified)
-              _books[i].docset = _docSetId
-              if ( _ep[_docSetId] === undefined ) {
-                console.log("creating Epitelete for doc set:", _docSetId)
-                _ep[_docSetId] = new EpiteleteHtml({
-                  proskomma: null,
-                  docSetId: _docSetId,
-                  options: { historySize: 100 }
-                })
-              }
-              await _ep[_docSetId].sideloadPerf(_books[i].bookId.toUpperCase(), _books[i].perf)
-              console.log("epitelete docset,books:", _docSetId,_ep[_docSetId].localBookCodes())
-*/
