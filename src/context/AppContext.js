@@ -33,7 +33,6 @@ export default function AppContextProvider({
       authentication,
     },
   } = useContext(AuthContext)
-  console.log("authentication:", authentication)
 
   const {
     state: {
@@ -58,16 +57,12 @@ export default function AppContextProvider({
 
   useEffect(
     () => {
-      async function getRepoClient() {
-        const _configuration = getApiConfig({ token: authentication.token.sha1, basePath:`${server}/api/v1/` });
-        const _repoClient = new RepositoryApi(_configuration,_configuration.basePath, {});
-        setRepoClient(_repoClient)
+      if ( !repoClient && authentication && authentication?.token ) {
+          const _configuration = getApiConfig({ token: authentication.token.sha1, basePath:`${server}/api/v1/` });
+          const _repoClient = new RepositoryApi(_configuration,);
+          setRepoClient(_repoClient)
       }
-      if (!repoClient && authentication && authentication?.token) {
-        console.log("authentication:", authentication)
-        getRepoClient()
-      }
-    }
+    },[repoClient, authentication, server]
   )
 
   const _setBooks = (value) => {
