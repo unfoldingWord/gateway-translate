@@ -8,6 +8,7 @@ import { decodeBase64ToUtf8 } from '@utils/base64Decode';
 import { LITERAL, SIMPLIFIED, CUSTOM } from '@common/constants';
 import { fetchFromUserBranch } from '@utils/fetchFromUserBranch';
 import { randomLetters } from '@utils/randomLetters';
+import { data } from 'autoprefixer';
 
 export const AppContext = React.createContext({});
 
@@ -125,6 +126,16 @@ export default function AppContextProvider({
             }
             _books[i].usfmText = _usfmText
             _books[i].type = ltStState
+
+            // extract bookId from text
+            const _regex = /^\\id [A-Z0-9]{3} /;
+            const _found = _usfmText.match(_regex);
+            const _textBookId = _found && _found[0] ? _found[0]?.substr(-4).trim() : null;
+            console.log("ID from USFM Text:", _textBookId);
+            // let id from usfm text take precedence
+            if ( _books[i].bookId !== _textBookId ) {
+              _books[i].bookId = _textBookId
+            }
             const _docSetId = _books[i].url ?
               "org-unk/" + randomLetters(3) + "_" + randomLetters(3)
               :

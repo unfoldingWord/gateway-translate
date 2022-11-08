@@ -94,12 +94,17 @@ export default function ScriptureWorkspaceCard({
   }
   
   let title = '';
-  const idParts = id.split('-');
-  if ( BIBLE_AND_OBS[bookId] ) {
-    title += BIBLE_AND_OBS[bookId];
-    idParts.shift()
+  // const idParts = id.split('-');
+  if ( BIBLE_AND_OBS[bookId.toLowerCase()] ) {
+    title += BIBLE_AND_OBS[bookId.toLowerCase()];
+    // idParts.shift()
   }
-  title += '('+idParts.join('-')+')'
+  // title += ' ('+idParts.join('-')+')'
+  if ( data.url ) {
+    title += " (" + data.url + ")"
+  } else {
+    title += " (" + id.substr(4) + ")"
+  }
 
   return (
     <Card title={title}
