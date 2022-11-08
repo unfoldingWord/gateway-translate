@@ -42,11 +42,6 @@ export default function AppContextProvider({
     }
   } = useContext(StoreContext)
 
-  // const repoClient = useRepoClient({
-  //   basePath: `${server}/api/v1/`,
-  //   token: authentication?.token?.sha1,
-  // })
-
   const getApiConfig = ({ token, basePath = "https://qa.door43.org/api/v1/" }) => ({
     apiKey: token && ((key) => key === "Authorization" ? `token ${token}` : ""),
     basePath: basePath?.replace(/\/+$/, ""),
