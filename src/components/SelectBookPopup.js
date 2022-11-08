@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import TextField from '@material-ui/core/TextField'
-import FormControl from '@material-ui/core/FormControl'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
+import TextField from '@mui/material/TextField'
+import FormControl from '@mui/material/FormControl'
+import FormControlLabel from '@mui/material/FormControlLabel'
 import FormLabel from '@material-ui/core/FormLabel'
-import RadioGroup from '@material-ui/core/RadioGroup'
-import Radio from '@material-ui/core/Radio'
-import Autocomplete from '@material-ui/lab/Autocomplete'
+import RadioGroup from '@mui/material/RadioGroup'
+import Radio from '@mui/material/Radio'
+import Autocomplete from '@mui/material/Autocomplete'
 import PropTypes from 'prop-types'
-import Button from '@material-ui/core/Button'
+import Button from '@mui/material/Button'
 import DraggableModal from 'translation-helps-rcl/dist/components/DraggableModal'
 import Card from 'translation-helps-rcl/dist/components/Card'
 import { bookSelectList } from '@common/BooksOfTheBible'
@@ -43,7 +43,7 @@ export default function SelectBookPopup(
   const defaultProps = {
     options: bookSelectList(),
     getOptionLabel: (option) => option.name,
-    getOptionSelected: (option, value) => option.id === value.id,
+    isOptionEqualToValue: (option, value) => option.id === value.id,
   };
 
   return (
@@ -75,7 +75,7 @@ export default function SelectBookPopup(
             <FormControlLabel value="custom" control={<Radio />} label="Custom URL" />
           </RadioGroup>
         </FormControl>
-        { ltStState === 'custom' ? <TextField label="Url" type="url" value={url} onChange={handleUrlChange} fullWidth="true" /> : '' }
+        { ltStState === 'custom' ? <TextField label="Url" type="url" value={url} onChange={handleUrlChange} fullWidth={true} /> : '' }
         { ltStState !== 'custom' ?
         <Autocomplete
           {...defaultProps}
