@@ -8,7 +8,6 @@ import { decodeBase64ToUtf8 } from '@utils/base64Decode';
 import { LITERAL, SIMPLIFIED, CUSTOM } from '@common/constants';
 import { fetchFromUserBranch } from '@utils/fetchFromUserBranch';
 import { randomLetters } from '@utils/randomLetters';
-import { data } from 'autoprefixer';
 
 export const AppContext = React.createContext({});
 
@@ -88,7 +87,10 @@ export default function AppContextProvider({
           let _content = null
           try {
             if ( _books[i].url ) {
-              const response = await fetch(_books[i].url)
+              let _url = _books[i].url
+              // auto change src/branch to raw/branch
+              _url = _url.replace('/src/branch/', '/raw/branch/')
+              const response = await fetch(_url)
               const rawContent = await response.text()
               _content = {
                 content: rawContent,
@@ -132,9 +134,15 @@ export default function AppContextProvider({
             const _found = _usfmText.match(_regex);
             const _textBookId = _found && _found[0] ? _found[0]?.substr(-4).trim() : null;
             console.log("ID from USFM Text:", _textBookId);
-            // let id from usfm text take precedence
-            if ( _books[i].bookId !== _textBookId ) {
-              _books[i].bookId = _textBookId
+            // if no id found, consider it invalid USFM
+            if ( _textBookId === null ) {
+              _books[i].usfmText = null
+              _books[i].content = "INVALID USFM: No 'id' marker"
+            } else {
+              // let id from usfm text take precedence
+              if ( _books[i].bookId !== _textBookId ) {
+                _books[i].bookId = _textBookId
+              }
             }
             const _docSetId = _books[i].url ?
               "org-unk/" + randomLetters(3) + "_" + randomLetters(3)
