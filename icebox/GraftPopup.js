@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import Button from '@material-ui/core/Button'
+// import PropTypes from 'prop-types'
+import Button from '@mui/material/Button'
 import DraggableModal from 'translation-helps-rcl/dist/components/DraggableModal'
 import Card from 'translation-helps-rcl/dist/components/Card'
 import { HtmlPerfEditor } from "@xelah/type-perf-html";

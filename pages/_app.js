@@ -1,7 +1,10 @@
 import { useEffect } from 'react'
 import PropTypes from 'prop-types'
+// NOTE: If I change the import below to go to @mui
+// the colors on the header are lost!?
+// TBD: chase this down
 import { ThemeProvider } from '@material-ui/core/styles'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import CssBaseline from '@mui/material/CssBaseline'
 import StoreContextProvider from '@context/StoreContext'
 import AuthContextProvider from '@context/AuthContext'
 import AppContextProvider from '@context/AppContext'
