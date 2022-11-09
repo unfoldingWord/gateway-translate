@@ -4,7 +4,8 @@ import {
   useState,
 } from 'react'
 import { Workspace } from 'resource-workspace-rcl'
-import { makeStyles } from '@material-ui/core/styles'
+// import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@mui/styles'
 
 import { StoreContext } from '@context/StoreContext'
 import CircularProgress from '@components/CircularProgress'

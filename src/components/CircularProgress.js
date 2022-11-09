@@ -1,4 +1,4 @@
-import CircularProgressUI from '@material-ui/core/CircularProgress'
+import CircularProgressUI from '@mui/material/CircularProgress'
 
 function CircularProgress({ size }) {
   return (

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { NETWORK_ERROR, RETRY } from '@common/constants'
 import ErrorPopup from '@components/ErrorPopUp'
-import SaveIcon from '@material-ui/icons/Save'
+import SaveIcon from '@mui/icons-material/Save'
 
 export default function NetworkErrorPopup(
   {
