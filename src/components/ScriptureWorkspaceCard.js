@@ -72,20 +72,6 @@ export default function ScriptureWorkspaceCard({
     }
   }, [doSave, books, setBooks, id, docSetId, data, owner, ep, authentication, repoClient])
 
-  // const editorProps = {
-  //   epiteleteHtml: ep[docSetId],
-  //   bookId: data.bookId,
-  //   onSave: () => setDoSave(true),
-  //   verbose: false,
-  // }
-
-  // sample onSave
-  // const onSave = (bookCode,usfmText) => {
-  //   console.log("save button clicked")
-  //   console.log(bookCode)
-  //   console.log(usfmText)
-  // }
-
   const editorProps = {
     onSave: (bookCode,usfmText) => setDoSave(usfmText),
     docSetId,

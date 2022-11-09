@@ -6,7 +6,6 @@ import {
   //import useDeepEffect from 'use-deep-compare-effect';
   
   import { Workspace } from 'resource-workspace-rcl'
-  // import { makeStyles } from '@material-ui/core/styles'
   import { makeStyles } from '@mui/styles'
   
   import { StoreContext } from '@context/StoreContext'

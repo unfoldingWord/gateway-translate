@@ -4,7 +4,6 @@ import React, {
 import PropTypes from 'prop-types'
 import Paper from 'translation-helps-rcl/dist/components/Paper'
 import FormControl from '@mui/material/FormControl'
-// import { makeStyles } from '@material-ui/core/styles'
 import { makeStyles } from '@mui/styles'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
@@ -134,7 +133,7 @@ export default function TranslationSettings({ authentication }) {
   const handleLanguageChange = event => {
     setLanguageId(event.target.value)
   }
-  console.log("organizations:", organizations)
+
   return (
     <>
       { !!networkError &&
