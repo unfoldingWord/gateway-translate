@@ -80,12 +80,14 @@ export default function ScriptureWorkspaceCard({
   }
   
   let title = '';
-  const idParts = id.split('-');
-  if ( BIBLE_AND_OBS[bookId] ) {
-    title += BIBLE_AND_OBS[bookId];
-    idParts.shift()
+  if ( BIBLE_AND_OBS[bookId.toLowerCase()] ) {
+    title += BIBLE_AND_OBS[bookId.toLowerCase()];
   }
-  title += '('+idParts.join('-')+')'
+  if ( data.url ) {
+    title += " (" + data.url + ")"
+  } else {
+    title += " (" + id.substr(4) + ")"
+  }
 
   return (
     <Card title={title}
