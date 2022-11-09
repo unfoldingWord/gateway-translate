@@ -1,7 +1,12 @@
 import { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { ThemeProvider } from '@material-ui/core/styles'
-import CssBaseline from '@material-ui/core/CssBaseline'
+// NOTE: If I change the import below to go to @mui
+// the colors on the header are lost!?
+// TBD: chase this down
+// import { ThemeProvider } from '@material-ui/core/styles'
+import { ThemeProvider } from '@mui/material/styles'
+
+import CssBaseline from '@mui/material/CssBaseline'
 import StoreContextProvider from '@context/StoreContext'
 import AuthContextProvider from '@context/AuthContext'
 import AppContextProvider from '@context/AppContext'
@@ -26,8 +31,8 @@ export default function Application({ Component, pageProps }) {
   return (
     <div>
       <NonSSRWrapper>
-      <AppHead title={APP_NAME} />
       <ThemeProvider theme={theme}>
+      <AppHead title={APP_NAME} />
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <AuthContextProvider>

@@ -1,9 +1,9 @@
 import { useContext } from 'react'
 import { useRouter } from 'next/router'
-import Button from '@material-ui/core/Button'
-import SaveIcon from '@material-ui/icons/Save'
+import Button from '@mui/material/Button'
+import SaveIcon from '@mui/icons-material/Save'
 import { AuthenticationContext } from 'gitea-react-toolkit'
-import Layout from '@components/Layout'
+// import Layout from '@components/Layout'
 import TranslationSettings from '@components/TranslationSettings'
 
 const SettingsPage = () => {
