@@ -170,6 +170,7 @@ export default function TranslationSettings({ authentication }) {
               </Select>
               <FormHelperText id='organization-select-message'>{orgErrorMessage}</FormHelperText>
             </FormControl>
+            <br />
             <FormControl variant='outlined' className={classes.formControl}>
               <InputLabel id='demo-simple-select-outlined-label'>
                 Primary Translating Language
