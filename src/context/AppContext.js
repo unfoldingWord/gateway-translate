@@ -108,10 +108,18 @@ export default function AppContextProvider({
                   authentication,
                   repoClient
                 )
-                _books[i].docset = _books[i].owner + "/" + _books[i].repo
+                let langAndAbbr
+                if (_books[i].repo.includes('_')) {
+                  langAndAbbr = _books[i].repo
+                } else {
+                  // work around for https://github.com/unfoldingWord/uw-editor/issues/38
+                  langAndAbbr = _books[i].repo + '_tla' // 'tla' = Three Letter Acronym
+                }
+                _books[i].docset = _books[i].owner + "/" + langAndAbbr
                 break;
             }
           } catch (e) {
+            console.error(e)
             _content = "NO CONTENT AVAILABLE"
           }
           _books[ i ].content = _content
