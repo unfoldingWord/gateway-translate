@@ -42,7 +42,6 @@ export default function SelectBookPopup(
   const {
     state: {
       owner: organization,
-      languageId: defaultLanguageId,
     },
   } = useContext(StoreContext)
   const {
@@ -58,13 +57,13 @@ export default function SelectBookPopup(
     }
   } = useContext(AppContext)
   const [repos, setRepos] = useState([])
-  const [selectedRepository, setSelectedRepository] = useState(null)
+  const [selectedRepository, setSelectedRepository] = useState('')
   const [availableBooks, setAvailableBooks] = useState(null)
   const [selectedBook, setSelectedBook] = useState(null)
   const [usfmSource, setUsfmSource] = useState('dcs')
-  const [url, setUrl] = useState(null)
+  const [url, setUrl] = useState('')
   const [organizations, setOrganizations] = useState([])
-  const [selectedOrganization, setSelectedOrganization] = useState(organization)
+  const [selectedOrganization, setSelectedOrganization] = useState(organization || '')
   const [showAll, setShowAll] = useState(false)
   const [uploadedFilename, setUploadedFilename] = useState(null)
   const [usfmData, setUsfmData] = useState(null)
@@ -77,9 +76,8 @@ export default function SelectBookPopup(
   }
 
   useEffect( () => {
-    setSelectedRepository(defaultLanguageId)
     setSelectedOrganization(organization)
-  }, [organization, defaultLanguageId])
+  }, [organization])
 
   const handleUrlChange = event => {
     setUrl(event.target.value)
@@ -107,8 +105,9 @@ export default function SelectBookPopup(
       }
       setLoading(false)
     }
-
-    getLanguages().catch(console.error)
+    if ( repoClient ) {
+      getLanguages().catch(console.error)
+    }
   }, [repoClient, selectedOrganization])
 
   const handleRepositoryChange = event => {
@@ -137,8 +136,9 @@ export default function SelectBookPopup(
       }
       setLoading(false)
     }
-
-    getOrgs().catch(console.error)
+    if ( organizationClient ) {
+      getOrgs().catch(console.error)
+    }
 
   }, [authentication, showAll, organizationClient])
 
