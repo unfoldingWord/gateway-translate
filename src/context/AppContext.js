@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
-import { RepositoryApi } from 'dcs-js';
+import { RepositoryApi, OrganizationApi } from 'dcs-js';
 import {usfmFilename} from '@common/BooksOfTheBible'
 import { decodeBase64ToUtf8 } from '@utils/base64Decode';
 import { LITERAL, SIMPLIFIED, CUSTOM } from '@common/constants';
@@ -20,6 +20,7 @@ export default function AppContextProvider({
   const [ltStState, setLtStState] = useState('')
   const [refresh, setRefresh] = useState(true)
   const [repoClient, setRepoClient] = useState(null)
+  const [organizationClient, setOrganizationClient] = useState(null)
   // const [ep, /*setEp*/] = useState(new EpiteletePerfHtml({
   //   proskomma: null, docSetId: "unfoldingWord/en_ltst", options: { historySize: 100 }
   // }))
@@ -49,12 +50,12 @@ export default function AppContextProvider({
 
   useEffect(
     () => {
-      if ( !repoClient && authentication && authentication?.token ) {
+      if ( authentication && authentication?.token ) {
           const _configuration = getApiConfig({ token: authentication.token.sha1, basePath:`${server}/api/v1/` });
-          const _repoClient = new RepositoryApi(_configuration,);
-          setRepoClient(_repoClient)
+          setRepoClient(new RepositoryApi(_configuration))
+          setOrganizationClient(new OrganizationApi(_configuration))
       }
-    },[repoClient, authentication, server]
+    },[authentication, server]
   )
 
   const _setBooks = (value) => {
@@ -67,51 +68,49 @@ export default function AppContextProvider({
   useEffect(() => {
     async function getContent() {
       let _books = books
-      let _repoSuffix;
-      if ( owner.toLowerCase() === 'unfoldingword' ) {
-        if ( ltStState === LITERAL ) {
-          _repoSuffix = '_ult'
-        } else {
-          _repoSuffix = '_ust'
-        }
-      } else {
-        if ( ltStState === LITERAL ) {
-          _repoSuffix = '_glt'
-        } else {
-          _repoSuffix = '_gst'
-        }
-      }
-      const _repo = languageId + _repoSuffix
+
       for (let i=0; i<_books.length; i++) {
         if ( ! _books[i].content ) {
           let _content = null
           try {
-            if ( _books[i].url ) {
-              let _url = _books[i].url
-              // auto change src/branch to raw/branch
-              _url = _url.replace('/src/branch/', '/raw/branch/')
-              const response = await fetch(_url)
-              const rawContent = await response.text()
-              _content = {
-                content: rawContent,
-                encoding: 'plain',
-              }
-            } else {
-              const _filename = usfmFilename(_books[ i ].bookId)
-              // const _content = await repoClient.repoGetContents(
-              //   owner,_repo,_filename
-              // ).then(({ data }) => data)
+            switch ( _books[i].source ) {
+              case 'url':
+                let _url = _books[i].url
+                // auto change src/branch to raw/branch
+                _url = _url.replace('/src/branch/', '/raw/branch/')
+                const response = await fetch(_url)
+                const rawContent = await response.text()
+                _content = {
+                  content: rawContent,
+                  encoding: 'plain',
+                }
+                _books[i].docset = "org-unk/" + randomLetters(3) + "_" + randomLetters(3)
+                break;
+              case 'upload':
+                _content = {
+                  content: _books[i].usfmText,
+                  encoding: 'plain',
+                }
+                _books[i].docset = "org-unk/" + randomLetters(3) + "_" + randomLetters(3)
+                break;
+              case 'dcs':
+              default:
+                const _filename = usfmFilename(_books[ i ].bookId)
+                // const _content = await repoClient.repoGetContents(
+                //   owner,_repo,_filename
+                // ).then(({ data }) => data)
 
-              _content = await fetchFromUserBranch(
-                owner,
-                _repo,
-                _filename,
-                _books[ i ].bookId,
-                authentication,
-                repoClient
-              )
+                _content = await fetchFromUserBranch(
+                  _books[ i ].owner,
+                  _books[ i ].repo,
+                  _filename,
+                  _books[ i ].bookId,
+                  authentication,
+                  repoClient
+                )
+                _books[i].docset = _books[i].owner + "/" + _books[i].repo
+                break;
             }
-            _books[ i ].repo = _repo
           } catch (e) {
             _content = "NO CONTENT AVAILABLE"
           }
@@ -127,15 +126,15 @@ export default function AppContextProvider({
               _usfmText = _content.content
             }
             _books[i].usfmText = _usfmText
-            _books[i].type = ltStState
 
             // extract bookId from text
-            const _regex = /^\\id [A-Z0-9]{3} /;
+            const _regex = /^\\id ([A-Z0-9]{3})/;
             const _found = _usfmText.match(_regex);
-            const _textBookId = _found && _found[0] ? _found[0]?.substr(-4).trim() : null;
+            const _textBookId = _found[1];
             console.log("ID from USFM Text:", _textBookId);
             // if no id found, consider it invalid USFM
-            if ( _textBookId === null ) {
+            if ( ! _textBookId ) {
+              _books[i].bookId = 'unknown'
               _books[i].usfmText = null
               _books[i].content = "INVALID USFM: No 'id' marker"
             } else {
@@ -144,11 +143,6 @@ export default function AppContextProvider({
                 _books[i].bookId = _textBookId
               }
             }
-            const _docSetId = _books[i].url ?
-              "org-unk/" + randomLetters(3) + "_" + randomLetters(3)
-              :
-              owner + "/" + _repo // captures org, lang, and type (literal or simplified)
-            _books[i].docset = _docSetId
           } else {
             _books[i].usfmText = null
           }
@@ -157,18 +151,11 @@ export default function AppContextProvider({
       setBooks(_books)
       console.log("setBooks():",_books)
       setRefresh(false)
-      setLtStState('')
     }
-    if ( ltStState === LITERAL || ltStState === SIMPLIFIED ) {
-      if (refresh && authentication && owner && server && languageId) {
-        getContent()
-      }
-    } else {
-      if ( ltStState === CUSTOM ) {
-        getContent()
-      }
+    if (refresh && authentication && owner && server && languageId) {
+      getContent().catch(console.error)
     }
-  }, [authentication, owner, server, languageId, refresh, books, ltStState, setBooks, setLtStState, repoClient])
+  }, [authentication, owner, server, languageId, refresh, books, setBooks, repoClient])
 
 
   // create the value for the context provider
@@ -177,6 +164,7 @@ export default function AppContextProvider({
       books,
       ltStState,
       repoClient,
+      organizationClient,
     },
     actions: {
       setBooks: _setBooks,

@@ -286,8 +286,11 @@ export function isOT(bookId) {
   return !!OT_BOOKS[bookId]
 }
 
-export function bookSelectList() {
-  return Object.keys(BIBLE_AND_OBS).map(
+export function bookSelectList(books = null) {
+   if ( ! books) {
+     books = Object.keys(BIBLE_AND_OBS)
+   }
+  return books.map(
     (bookId) => ({ id: bookId, name: BIBLE_AND_OBS[bookId] }),
   )
 }
