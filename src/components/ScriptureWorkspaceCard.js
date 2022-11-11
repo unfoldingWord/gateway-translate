@@ -30,8 +30,6 @@ export default function ScriptureWorkspaceCard({
   const {
     state: {
       owner,
-      server,
-      languageId,
     },
   } = useContext(StoreContext)
 
@@ -49,14 +47,13 @@ export default function ScriptureWorkspaceCard({
   // Save Feature
   useEffect(() => {
     async function saveContent() {
-      console.log(data)
       if ( data.readOnly ) {
-        const url = URL.createObjectURL(new Blob([doSave]));
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${bookId}.usfm`;
-        a.click();
-        URL.revokeObjectURL(url);
+        const url = URL.createObjectURL(new Blob([doSave]))
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `${bookId}.usfm`
+        a.click()
+        URL.revokeObjectURL(url)
       } else {
         const _content = await saveToUserBranch(
           data,
@@ -78,9 +75,9 @@ export default function ScriptureWorkspaceCard({
     }
     if ( doSave ) {
       console.log("New updated USFM:", doSave)
-        saveContent()
+      saveContent()
     }
-  }, [doSave, books, setBooks, id, docSetId, data, owner, ep, authentication, repoClient])
+  }, [doSave, books, setBooks, id, docSetId, data, owner, ep, authentication, repoClient, bookId])
 
   const editorProps = {
     onSave: (bookCode,usfmText) => setDoSave(usfmText),
