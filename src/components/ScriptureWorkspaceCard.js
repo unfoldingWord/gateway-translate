@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext, createElement } from 'react'
 import PropTypes from 'prop-types'
 import { Card } from 'translation-helps-rcl'
 import { UsfmEditor } from 'uw-editor'
@@ -30,8 +30,6 @@ export default function ScriptureWorkspaceCard({
   const {
     state: {
       owner,
-      server,
-      languageId,
     },
   } = useContext(StoreContext)
 
@@ -49,28 +47,37 @@ export default function ScriptureWorkspaceCard({
   // Save Feature
   useEffect(() => {
     async function saveContent() {
-      const _content = await saveToUserBranch(
-        data,
-        owner,
-        doSave,
-        authentication,
-        repoClient
-      )
-      let _books = books
-      for ( let i=0; i<_books.length; i++ ) {
-        if ( _books[i].id === id ) {
-          _books[i].content = _content
-          setBooks(_books)
-          break
+      if ( data.readOnly ) {
+        const url = URL.createObjectURL(new Blob([doSave]))
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `${bookId}.usfm`
+        a.click()
+        URL.revokeObjectURL(url)
+      } else {
+        const _content = await saveToUserBranch(
+          data,
+          data.owner,
+          doSave,
+          authentication,
+          repoClient
+        )
+        let _books = books
+        for (let i = 0; i < _books.length; i++) {
+          if (_books[ i ].id === id) {
+            _books[ i ].content = _content
+            setBooks(_books)
+            break
+          }
         }
       }
       setDoSave(null)
     }
     if ( doSave ) {
       console.log("New updated USFM:", doSave)
-        saveContent()
+      saveContent()
     }
-  }, [doSave, books, setBooks, id, docSetId, data, owner, ep, authentication, repoClient])
+  }, [doSave, books, setBooks, id, docSetId, data, owner, ep, authentication, repoClient, bookId])
 
   const editorProps = {
     onSave: (bookCode,usfmText) => setDoSave(usfmText),
@@ -78,7 +85,7 @@ export default function ScriptureWorkspaceCard({
     // usfmText: data.usfmText,
     bookId: data.bookId,
   }
-  
+
   let title = '';
   if ( BIBLE_AND_OBS[bookId.toLowerCase()] ) {
     title += BIBLE_AND_OBS[bookId.toLowerCase()];
@@ -103,8 +110,8 @@ export default function ScriptureWorkspaceCard({
         data.usfmText
         ?
           <div className="text-sm max-w-prose">
-          <UsfmEditor key="1" 
-            bookId={data.bookId} 
+          <UsfmEditor key="1"
+            bookId={data.bookId}
             docSetId={docSetId}
             usfmText={data.usfmText}
             onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
