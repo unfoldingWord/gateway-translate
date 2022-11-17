@@ -1,6 +1,5 @@
-import React, { createContext, useState } from 'react'
+import { createContext, useState } from 'react'
 import localforage from 'localforage'
-import { AuthenticationContextProvider } from 'gitea-react-toolkit'
 import {
   BASE_URL,
   CLOSE,
@@ -8,13 +7,10 @@ import {
   SERVER_KEY,
   TOKEN_ID,
 } from '@common/constants'
-import {
-  doFetch,
-  processNetworkError,
-  unAuthenticated,
-} from '@utils/network'
+import { doFetch, processNetworkError, unAuthenticated } from '@utils/network'
 import NetworkErrorPopup from '@components/NetworkErrorPopUp'
 import useLocalStorage from '@hooks/useLocalStorage'
+import useAuthentication from '@hooks/useAuthentication'
 
 export const AuthContext = createContext({})
 
@@ -28,8 +24,16 @@ export default function AuthContextProvider(props) {
    * @param {string|Error} error - initial error message message or object
    * @param {number} httpCode - http code returned
    */
-  function processError(error, httpCode=0) {
-    processNetworkError(error, httpCode, null, null, setNetworkError, null, null )
+  function processError(error, httpCode = 0) {
+    processNetworkError(
+      error,
+      httpCode,
+      null,
+      null,
+      setNetworkError,
+      null,
+      null
+    )
   }
 
   const myAuthStore = localforage.createInstance({
@@ -40,23 +44,32 @@ export default function AuthContextProvider(props) {
   const getAuth = async () => {
     const auth = await myAuthStore.getItem('authentication')
 
-    if (auth) { // verify that auth is still valid
+    if (auth) {
+      // verify that auth is still valid
       doFetch(`${server}/api/v1/user`, auth, HTTP_GET_MAX_WAIT_TIME)
         .then(response => {
           const httpCode = response?.status || 0
 
           if (httpCode !== 200) {
-            console.log(`TranslationSettings - error fetching user info, status code ${httpCode}`)
+            console.log(
+              `TranslationSettings - error fetching user info, status code ${httpCode}`
+            )
 
             if (unAuthenticated(httpCode)) {
-              console.log(`TranslationSettings - user not authenticated, going to login`)
+              console.log(
+                `TranslationSettings - user not authenticated, going to login`
+              )
               logout()
             } else {
               processError(null, httpCode)
             }
           }
-        }).catch(e => {
-          console.warn(`TranslationSettings - hard error fetching user info, error=`, e)
+        })
+        .catch(e => {
+          console.warn(
+            `TranslationSettings - hard error fetching user info, error=`,
+            e
+          )
           processError(e)
         })
     }
@@ -72,7 +85,7 @@ export default function AuthContextProvider(props) {
         .then(function (authentication) {
           console.info(
             'saveAuth() success. authentication user is:',
-            authentication.user.login,
+            authentication.user.login
           )
         })
         .catch(function (err) {
@@ -83,7 +96,7 @@ export default function AuthContextProvider(props) {
     }
   }
 
-  const onError = (e) => {
+  const onError = e => {
     console.warn('AuthContextProvider - auth error', e)
     processError(e?.errorMessage)
   }
@@ -93,42 +106,45 @@ export default function AuthContextProvider(props) {
     setAuthentication(null)
   }
 
+  const { state, actions, config } = useAuthentication({
+    authentication,
+    onAuthentication: setAuthentication,
+    config: {
+      server,
+      tokenid: TOKEN_ID,
+      timeout: HTTP_GET_MAX_WAIT_TIME,
+    },
+    messages: props.messages,
+    loadAuthentication: getAuth,
+    saveAuthentication: saveAuth,
+    onError,
+  })
+
   const value = {
     state: {
-      authentication,
+      ...state,
       networkError,
       server,
     },
     actions: {
+      ...actions,
       logout,
       setNetworkError,
       setServer,
     },
+    config,
   }
 
   return (
     <AuthContext.Provider value={value}>
-      <AuthenticationContextProvider
-        config={{
-          server,
-          tokenid: TOKEN_ID,
-          timeout: HTTP_GET_MAX_WAIT_TIME,
-        }}
-        authentication={authentication}
-        onAuthentication={setAuthentication}
-        loadAuthentication={getAuth}
-        saveAuthentication={saveAuth}
-        onError={onError}
-      >
-        {props.children}
-      </AuthenticationContextProvider>
-      { !!networkError &&
+      {props.children}
+      {!!networkError && (
         <NetworkErrorPopup
           networkError={networkError}
           setNetworkError={setNetworkError}
           closeButtonStr={CLOSE}
         />
-      }
+      )}
     </AuthContext.Provider>
   )
 }

@@ -1,8 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-} from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import useLocalStorage from '@hooks/useLocalStorage'
 import * as useULS from '@hooks/useUserLocalStorage'
@@ -10,19 +6,10 @@ import { AuthContext } from '@context/AuthContext'
 import useSaveChangesPrompt from '@hooks/useSaveChangesPrompt'
 
 export const StoreContext = createContext({})
-
 export default function StoreContextProvider(props) {
   const {
-    state: {
-      authentication,
-      networkError: tokenNetworkError,
-      server,
-    },
-    actions: {
-      logout,
-      setNetworkError: setTokenNetworkError,
-      setServer,
-    },
+    state: { authentication, networkError: tokenNetworkError, server },
+    actions: { logout, setNetworkError: setTokenNetworkError, setServer },
   } = useContext(AuthContext)
   const username = authentication?.user?.username || ''
 
@@ -42,23 +29,32 @@ export default function StoreContextProvider(props) {
   const [languageId, setLanguageId] = useUserLocalStorage('languageId', '')
   const [showAccountSetup, setShowAccountSetup] = useLocalStorage(
     'showAccountSetup',
-    true,
+    true
   )
   const [taArticle, setTaArticle] = useState(null)
   const [selectedQuote, setQuote] = useUserLocalStorage('selectedQuote', null)
   // TODO blm: for now we use unfoldingWord for original language bibles
   const [scriptureOwner, setScriptureOwner] = useState('unfoldingWord')
   const [appRef, setAppRef] = useUserLocalStorage('appRef', 'master') // default for app
-  const [bibleReference, setBibleReference] = useUserLocalStorage('bibleReference', {
-    bookId: 'mat',
-    chapter: '1',
-    verse: '1',
-  })
+  const [bibleReference, setBibleReference] = useUserLocalStorage(
+    'bibleReference',
+    {
+      bookId: 'mat',
+      chapter: '1',
+      verse: '1',
+    }
+  )
 
   const [greekRepoUrl, setGreekRepoUrl] = useLocalStorage('greekRepoUrl', null)
-  const [hebrewRepoUrl, setHebrewRepoUrl] = useLocalStorage('hebrewRepoUrl', null)
+  const [hebrewRepoUrl, setHebrewRepoUrl] = useLocalStorage(
+    'hebrewRepoUrl',
+    null
+  )
   const [supportedBibles, setSupportedBibles] = useLocalStorage('bibles', [])
-  const [currentLayout, setCurrentLayout] = useUserLocalStorage('resourceLayout', null)
+  const [currentLayout, setCurrentLayout] = useUserLocalStorage(
+    'resourceLayout',
+    null
+  )
 
   const {
     savedChanges,

@@ -4,7 +4,12 @@ import dynamic from 'next/dynamic'
 import Paper from 'translation-helps-rcl/dist/components/Paper'
 import CircularProgress from '@components/CircularProgress'
 
-const AccountSetup = dynamic(() => import('@components/AccountSetup'), { loading: () => <CircularProgress size={180} /> })
+const AccountSetup = dynamic(
+  () => import('@components/forms/AccountSetupForm'),
+  {
+    loading: () => <CircularProgress size={180} />,
+  }
+)
 
 function Onboarding({ authentication, authenticationComponent }) {
   if (authentication) {
