@@ -22,7 +22,7 @@ const LoginForm = ({ onLogin }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const {
-    state: { authentication, networkError, error, isLoading },
+    state: { authentication, networkError, error, isLoadingRemote },
     actions: { onLoginFormSubmit, onLoginFormSubmitLogin, logout },
   } = useContext(AuthContext)
 
@@ -46,8 +46,8 @@ const LoginForm = ({ onLogin }) => {
   const [disabled, setDisabled] = useState()
 
   useEffect(() => {
-    setDisabled(isLoading || !!authentication?.token.sha1)
-  }, [isLoading, authentication?.token.sha1])
+    setDisabled(isLoadingRemote || !!authentication?.token.sha1)
+  }, [isLoadingRemote, authentication?.token.sha1])
 
   const handleLogout = () => {
     logout()
@@ -62,7 +62,7 @@ const LoginForm = ({ onLogin }) => {
   return (
     <>
       <SettingsForm
-        isLoading={isLoading}
+        isLoading={isLoadingRemote}
         error={!!networkError?.errorMessage || !!error}
         icon={AccountCircleIcon}
         label={'Login'}
@@ -74,7 +74,7 @@ const LoginForm = ({ onLogin }) => {
           disabled={disabled}
           id='name'
           label={'Username'}
-          defaultValue={authentication?.user?.username}
+          defaultValue={authentication?.user?.login}
           fullWidth={true}
           onChange={e => setUsername(e.target.value)}
           inputProps={{
@@ -145,7 +145,7 @@ const LoginForm = ({ onLogin }) => {
             onClick={handleLogin}
             sx={{ flex: 1 }}
           >
-            {isLoading ? (
+            {isLoadingRemote ? (
               <>
                 <CircularProgress size='1rem' sx={{ mr: '0.5rem' }} />{' '}
                 {'Loading...'}

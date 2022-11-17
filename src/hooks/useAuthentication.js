@@ -16,7 +16,8 @@ function useAuthentication({
   onError,
 }) {
   const authentication = _authentication && deepFreeze(_authentication)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoadingRemote, setIsLoadingRemote] = useState(false)
+  const [isLoadingLocal, setIsLoadingLocal] = useState(true)
 
   const [error, setError] = useState()
 
@@ -56,13 +57,15 @@ function useAuthentication({
         if (_authentication) {
           update(_authentication)
         }
+        setIsLoadingLocal(false)
       })
     }
+    if (!loadAuthentication) setIsLoadingLocal(false)
   }, [authentication, loadAuthentication, update])
 
   const onSubmitLogin = useDeepCompareCallback(
     async ({ username, password, remember }) => {
-      setIsLoading(true)
+      setIsLoadingRemote(true)
       try {
         console.log({ username, password, remember, config })
         const authentication = await authenticate({
@@ -96,7 +99,7 @@ function useAuthentication({
         setError(friendlyError.errorMessage)
         onError && onError(friendlyError)
       }
-      setIsLoading(false)
+      setIsLoadingRemote(false)
     },
     [
       config,
@@ -125,7 +128,7 @@ function useAuthentication({
   const _config = (authentication && authentication.config) || config
 
   const response = {
-    state: { authentication, error, isLoading },
+    state: { authentication, error, isLoadingRemote, isLoadingLocal },
     actions: {
       update,
       logout,

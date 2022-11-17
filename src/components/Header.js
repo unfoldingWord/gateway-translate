@@ -69,8 +69,6 @@ export default function Header({
     }
   }
 
-  console.log({ user, owner })
-
   const handleDrawerClose = () => {
     if (drawerOpen) {
       setOpen(false)

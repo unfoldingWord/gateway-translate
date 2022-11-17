@@ -8,9 +8,9 @@ const useAuthContext = () => {
   const authContext = useContext(AuthContext)
   useDeepCompareEffect(() => {
     const {
-      state: { authentication },
+      state: { authentication, isLoadingLocal },
     } = authContext
-    if (!authentication) {
+    if (!authentication && !isLoadingLocal) {
       router.push('/login')
     }
   }, [authContext])

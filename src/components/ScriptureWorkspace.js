@@ -17,6 +17,7 @@ import { HTTP_CONFIG } from '@common/constants'
 import NetworkErrorPopup from '@components/NetworkErrorPopUp'
 import ScriptureWorkspaceCard from './ScriptureWorkspaceCard'
 import useStoreContext from '@hooks/useStoreContext'
+import EmptyMessage from './EmptyMessage'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -163,12 +164,13 @@ function ScriptureWorkspace() {
     ...HTTP_CONFIG,
   }
 
-  return tokenNetworkError || networkError || !workspaceReady ? ( // Do not render workspace until user logged in and we have user settings
+  return tokenNetworkError || networkError || !workspaceReady ? (
+    // Do not render workspace until user logged in and we have user settings
     <>
       {showNetworkError()}
       <CircularProgress size={180} />
     </>
-  ) : (
+  ) : !!books.length ? (
     <Workspace
       layout={currentLayout}
       classes={classes}
@@ -252,6 +254,11 @@ function ScriptureWorkspace() {
         />
       ))}
     </Workspace>
+  ) : (
+    <EmptyMessage
+      sx={{ color: 'text.disabled' }}
+      message={'No books to display, please add a new book.'}
+    ></EmptyMessage>
   )
 }
 
