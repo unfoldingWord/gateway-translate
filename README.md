@@ -17,34 +17,35 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![Contributors][contributors-shield]](https://github.com/unfoldingWord/gateway-translate/graphs/contributors)
+[![Forks][forks-shield]](https://github.com/unfoldingWord/gateway-translate/network/members)
+[![Stargazers][stars-shield]](https://github.com/unfoldingWord/gateway-translate/stargazers)
+[![Issues][issues-shield]](https://github.com/unfoldingWord/gateway-translate/issues)
+[![MIT License][license-shield]](https://github.com/unfoldingWord/gateway-translate/blob/main/LICENSE)
+[![LinkedIn][linkedin-shield]](https://www.linkedin.com/company/unfoldingword/)
 
 
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/unfoldingword/next-js-template/public/uwLogo.png">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://gateway-translate.netlify.app/">
+    <img src="images/uW.png" alt="Logo" width="300" height="50">
   </a>
 
-<h3 align="center">unfoldwingWord Next.js Application Template</h3>
+<h3 align="center">gatewaytranslate</h3>
 
   <p align="center">
-    An experiment to create an unfoldingWord template for Next.js based applications.
+    This application is for use by Gateway Language translators.
     <br />
-    <a href="https://github.com/unfoldingWord-box3/next-js-template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/unfoldingword/gateway-translate"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/unfoldingWord-box3/next-js-template">View Demo</a>
+    <a href="https://gateway-translate.netlify.app/">Go to Application</a>
     ·
-    <a href="https://github.com/unfoldingWord-box3/next-js-template/issues">Report Bug</a>
+    <a href="https://github.com/unfoldingword/gateway-translate/issues">Report Bug</a>
     ·
-    <a href="https://github.com/unfoldingWord-box3/next-js-template/issues">Request Feature</a>
+    <a href="https://github.com/unfoldingword/gateway-translate/issues">Request Feature</a>
   </p>
 </div>
 
@@ -77,34 +78,39 @@
 </details>
 
 
+
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+**Login Page**
+![Login](./images/login.png)
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+**Setup Account**
+![Setup Account](./images/setup_account.png)
+
+**View Resources**
+![view_resources](./images/view_resources.png)
 
 **Purpose**
-
-- The purpose of this project is to create an unfoldingWord template for Next.js based applications to allow developers to easily get started with an app without a lot of boilerplate code.
-
+To provide a tool for Translation Teams to edit and translate Scripture Texts, which are typically in [USFM format](https://ubsicap.github.io/usfm/).
 
 **Problem**
+There are few (if any) web based editors for USFM markup, especially focused on translation activities.
 
-- The process to get started with a new POC or MVP application should be quick and easy so that developers can validate the feasibility of their ideas, features, and solution to problems.
+**Scope**
+- Current scope is focused on editing USFM text and doing alignments with the original language texts.
+- It is envisioned that this tool also:
+  - Enable translation of Bibilical Resources (translation notes, questions, etc.)
+  - Supersede the existing tooling in unfoldingWord&#174; for translation tasks
 
 **Background**
-
-- Increase velocity of starting a new application
-- Increase consistency and adherence to unfoldingWord branding
+This project uses components from the Open Components Ecosystem (OCE) extensively. In particular it relies on Proskomma, a scripture runtime engine for the editor component itself. The latter is also contributed to the OCE community and we welcome others to reuse it.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 ### Built With
 
 * [Next.js](https://nextjs.org/)
 * [React.js](https://reactjs.org/)
-* [tailwindcss](https://tailwindcss.com/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -113,99 +119,57 @@
 <!-- GETTING STARTED -->
 ## Getting Started
 
+This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
-
-Q. *Why would you want to run the template?*
-
-A. You will run the template in order to improve it, test it, extend it, etc.
 
 ### Prerequisites
 
-Things you need to use the software and how to install them.
+**Data**
+- Must have an account on [DCS](https://git.door43.org)
+- The source must be cloned from its repository (see above)
+- `yarn install` is used to resolve/install dependencies
+- `yarn dev` is used to start the local server listening on `localhost:3000`
 
-* npm
-
-  ```sh
-  npm install npm@latest -g
-  ```
 
 ### Installation/First Steps
 
-1. Clone the repo
-
+1. Get a DCS account
+2. Clone the repo
    ```sh
-   git clone https://github.com/unfoldingWord-box3/next-js-template.git
+   git clone https://github.com/unfoldingword/gateway-translate.git
    ```
-
-> NOTE: alternativiely, the repo may be forked.
-
-1. Install NPM packages
-
-   ```sh
-   npm install
-   ```
-
-   or
-
+3. Install NPM packages
    ```sh
    yarn install
    ```
-
-1. Run the app
-
+4. Enter your API KEY in `config.js`
    ```js
-   npm run dev
+   const API_KEY = 'ENTER YOUR API';
    ```
-
-   or
-
-   ```js
-   yarn dev
-   ```
-
-1. Point browser to `localhost:3000`
-1. Create a branch to contain your changes.
-1. Make changes, commit, and push to your branch.
-1. When changes are complete, create Pull Request (PR) and request they be reviewed and merged.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- USAGE EXAMPLES -->
+
+
+<!-- USAGE EXAMPLES (for RCLs only)
 ## Usage/Integration
 
-Q. *Why would you want to use the template?*
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-A. You will use the template to create a new unfoldingWord application.
+_For more examples, please refer to the [Documentation](https://example.com)_  Possibly JS Docs. 
 
-*Steps*
-
-- Update `package.json` as needed
-- There are these places where the app name must be updated:
-  - `package.json`
-  - `src/common/constants.js`
-  - `src/common/sendFeedback.js`
-
-Please refer to the [Nextjs Readme](docs/NEXTJS_README.md) for more Nextjs specific documentation.
-
-## Using the Tutorials
-
-TBD... here point to one or more tutorials showing how to use the template to actually develop something useful...
-
-Potential Ideas:
-
-- Using the Bible Reference RCL with Proskomma
-- Using the Translation Helps RCL to display content
+[Styleguidist link](https://example.netlify.app) 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+-->
 
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] POC
-- [ ] Prototype
-- [ ] MVP
+See the [open issues](https://github.com/unfoldingword/gateway-translate/issues) for a full list of proposed features (and known issues).
 
-See the [open issues](https://github.com/unfoldingWord-box3/next-js-template/issues) for a full list of proposed features (and known issues).
+This project uses Zenhub to manage the roadmap.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -219,13 +183,23 @@ Contributions are what make the open source community such an amazing place to l
 You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
 
-If you would like to fork the repo and create a pull request.
+If you would like to fork the repo and create a pull request. 
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature-github_username-AmazingFeature`)
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+Finally, you can point the application to either the QA or Production servers this way:
+
+To use QA add the "server=qa" parameter to the URL:
+`https://gateway-edit.netlify.app/?server=qa`.  
+
+This is a toggle and will stay pointed at QA until another setting is applied.
+
+To point to production:
+`https://gateway-edit.netlify.app/?server=prod`
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -234,22 +208,26 @@ If you would like to fork the repo and create a pull request.
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
+Distributed under the MIT License. See `LICENSE` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+
 
 <!-- CONTACT -->
 ## Contact
 
-unfoldingWord - [@unfoldingWord](https://twitter.com/unfoldingWord) - info@unfoldingWord.org
+Cecil New 
+- Twitter [@mandolyte](https://twitter.com/@mandolyte)
+- Discord [Cecil#5551](tbd)
 
-Project Link: [https://github.com/unfoldingWord-box3/next-js-template](https://github.com/unfoldingWord-box3/next-js-template)
+Project Link: [https://github.com/unfoldingword/gateway-translate](https://github.com/unfoldingword/gateway-translate)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
-<!-- ACKNOWLEDGMENTS -->
+<!-- ACKNOWLEDGMENTS 
 ## Acknowledgments
 
 * []()
@@ -258,17 +236,20 @@ Project Link: [https://github.com/unfoldingWord-box3/next-js-template](https://g
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+-->
+
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/unfoldingWord-box3/next-js-template.svg?style=for-the-badge
-[contributors-url]: https://github.com/unfoldingWord-box3/next-js-template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/unfoldingWord-box3/next-js-template.svg?style=for-the-badge
-[forks-url]: https://github.com/unfoldingWord-box3/next-js-template/network/members
-[stars-shield]: https://img.shields.io/github/stars/unfoldingWord-box3/next-js-template.svg?style=for-the-badge
-[stars-url]: https://github.com/unfoldingWord-box3/next-js-template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/unfoldingWord-box3/next-js-template.svg?style=for-the-badge
-[issues-url]: https://github.com/unfoldingWord-box3/next-js-template/issues
-[license-shield]: https://img.shields.io/github/license/unfoldingWord-box3/next-js-template.svg?style=for-the-badge
-[license-url]: https://github.com/unfoldingWord-box3/next-js-template/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/unfoldingword/gateway-translate.svg?style=for-the-badge
+[contributors-url]: https://github.com/unfoldingword/gateway-translate/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/unfoldingword/gateway-translate.svg?style=for-the-badge
+[forks-url]: https://github.com/unfoldingword/gateway-translate/network/members
+[stars-shield]: https://img.shields.io/github/stars/unfoldingword/gateway-translate.svg?style=for-the-badge
+[stars-url]: https://github.com/unfoldingword/gateway-translate/stargazers
+[issues-shield]: https://img.shields.io/github/issues/unfoldingword/gateway-translate.svg?style=for-the-badge
+[issues-url]: https://github.com/unfoldingword/gateway-translate/issues
+[license-shield]: https://img.shields.io/github/license/unfoldingword/gateway-translate.svg?style=for-the-badge
+[license-url]: https://github.com/unfoldingword/gateway-translate/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[product-screenshot]: images/screenshot.png
+[linkedin-url]: https://linkedin.com/in/company/unfoldingword
+
