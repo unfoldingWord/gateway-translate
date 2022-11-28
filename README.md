@@ -87,7 +87,7 @@
 **Setup Account**
 ![Setup Account](./images/setup_account.png)
 
-**View Resources**
+**View Texts**
 ![view_resources](./images/view_resources.png)
 
 **Purpose**
