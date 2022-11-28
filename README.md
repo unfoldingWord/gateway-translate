@@ -119,21 +119,9 @@ This project uses components from the Open Components Ecosystem (OCE) extensivel
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-**Data**
-- Must have an account on [DCS](https://git.door43.org)
-- The source must be cloned from its repository (see above)
-- `yarn install` is used to resolve/install dependencies
-- `yarn dev` is used to start the local server listening on `localhost:3000`
-
-
 ### Installation/First Steps
 
-1. Get a DCS account
+1. Get a [DCS](https://git.door43.org) account
 2. Clone the repo
    ```sh
    git clone https://github.com/unfoldingword/gateway-translate.git
@@ -142,27 +130,13 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    yarn install
    ```
-4. Enter your API KEY in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+4. Start the local server 
+   ```sh
+   yarn dev
    ```
+5. Visit <a href="http://localhost:3000">localhost:3000</a>  
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- USAGE EXAMPLES (for RCLs only)
-## Usage/Integration
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_  Possibly JS Docs. 
-
-[Styleguidist link](https://example.netlify.app) 
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
--->
 
 <!-- ROADMAP -->
 ## Roadmap
