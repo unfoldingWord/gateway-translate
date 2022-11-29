@@ -79,12 +79,12 @@ export default function ScriptureWorkspaceCard({
     }
   }, [doSave, books, setBooks, id, docSetId, data, owner, ep, authentication, repoClient, bookId])
 
-  const editorProps = {
-    onSave: (bookCode,usfmText) => setDoSave(usfmText),
-    docSetId,
-    // usfmText: data.usfmText,
-    bookId: data.bookId,
-  }
+  // const editorProps = {
+  //   onSave: (bookCode,usfmText) => setDoSave(usfmText),
+  //   docSetId,
+  //   // usfmText: data.usfmText,
+  //   bookId: data.bookId,
+  // }
 
   let title = '';
   if ( BIBLE_AND_OBS[bookId.toLowerCase()] ) {
@@ -115,6 +115,7 @@ export default function ScriptureWorkspaceCard({
             docSetId={docSetId}
             usfmText={data.usfmText}
             onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
+            editable={id.endsWith(owner) ? true : false}
           />
           </div>
         :
