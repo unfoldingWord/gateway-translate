@@ -1,36 +1,21 @@
 import React, { createContext, useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import useLocalStorage from '@hooks/useLocalStorage'
-import * as useULS from '@hooks/useUserLocalStorage'
+import useUserLocalStorage from '@hooks/useUserLocalStorage'
 import { AuthContext } from '@context/AuthContext'
 import useSaveChangesPrompt from '@hooks/useSaveChangesPrompt'
 
 export const StoreContext = createContext({})
 export default function StoreContextProvider(props) {
   const {
-    state: { authentication, networkError: tokenNetworkError, server },
-    actions: { logout, setNetworkError: setTokenNetworkError, setServer },
+    state: { networkError: tokenNetworkError, server },
+    actions: { setNetworkError: setTokenNetworkError, setServer },
   } = useContext(AuthContext)
-  const username = authentication?.user?.username || ''
-
-  /**
-   * wrapper for useULS.useUserLocalStorage that applies current username
-   * @param {string} key
-   * @param {any} initialValue
-   * @return {any[]}
-   */
-  function useUserLocalStorage(key, initialValue) {
-    return useULS.useUserLocalStorage(username, key, initialValue)
-  }
 
   const [mainScreenRef, setMainScreenRef] = useState(null)
   const [lastError, setLastError] = useState(null)
   const [owner, setOwner] = useUserLocalStorage('owner', '')
   const [languageId, setLanguageId] = useUserLocalStorage('languageId', '')
-  const [showAccountSetup, setShowAccountSetup] = useLocalStorage(
-    'showAccountSetup',
-    true
-  )
   const [taArticle, setTaArticle] = useState(null)
   const [selectedQuote, setQuote] = useUserLocalStorage('selectedQuote', null)
   // TODO blm: for now we use unfoldingWord for original language bibles
@@ -89,7 +74,6 @@ export default function StoreContextProvider(props) {
 
   const value = {
     state: {
-      showAccountSetup,
       scriptureOwner,
       bibleReference,
       selectedQuote,
@@ -101,8 +85,8 @@ export default function StoreContextProvider(props) {
       supportedBibles,
       currentLayout,
       useUserLocalStorage,
-      loggedInUser: username,
-      authentication,
+      // AUTH: authentication,
+      // AUTH: loggedInUser: username,
       lastError,
       tokenNetworkError,
       greekRepoUrl,
@@ -111,9 +95,8 @@ export default function StoreContextProvider(props) {
       savedChanges,
     },
     actions: {
-      logout,
+      // AUTH: logout,
       onReferenceChange,
-      setShowAccountSetup,
       setScriptureOwner,
       setLanguageId,
       setAppRef,
@@ -142,3 +125,16 @@ export default function StoreContextProvider(props) {
 }
 
 StoreContextProvider.propTypes = { children: PropTypes.object }
+
+/*
+ * AUTH CODE GRAVEYARD
+    const {
+      state: { authentication, networkError: tokenNetworkError, server },
+      actions: { logout, setNetworkError: setTokenNetworkError, setServer },
+    } = useContext(AuthContext)
+    const username = authentication?.user?.username || ''
+
+    function useUserLocalStorage(key, initialValue) {
+      return useULS.useUserLocalStorage(username, key, initialValue)
+    }
+ */

@@ -38,7 +38,6 @@ const useStyles = makeStyles(() => ({
 function ScriptureWorkspace() {
   const router = useRouter()
   const classes = useStyles()
-  const [workspaceReady, setWorkspaceReady] = useState(false)
   const [networkError, setNetworkError] = useState(null)
 
   const {
@@ -150,22 +149,12 @@ function ScriptureWorkspace() {
     }
   }
 
-  useEffect(() => {
-    setWorkspaceReady(false)
-
-    if (owner && languageId && appRef && server && loggedInUser) {
-      // clearCaches()
-      setWorkspaceReady(true)
-    } // eslint-disable-next-line
-  }, [owner, languageId, appRef, server, loggedInUser])
-
   const config = {
     server,
     ...HTTP_CONFIG,
   }
 
-  return tokenNetworkError || networkError || !workspaceReady ? (
-    // Do not render workspace until user logged in and we have user settings
+  return tokenNetworkError || networkError ? (
     <>
       {showNetworkError()}
       <CircularProgress size={180} />

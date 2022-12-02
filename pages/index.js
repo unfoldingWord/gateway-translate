@@ -3,7 +3,6 @@ import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import CircularProgress from '@components/CircularProgress'
 import styles from '../src/styles/Home.module.css'
-import useAuthContext from '@hooks/useAuthContext'
 import { Box } from '@mui/material'
 
 // import ScriptureWorkspace from '@components/ScriptureWorkspace'
@@ -16,9 +15,6 @@ const ScriptureWorkspace = dynamic(
 )
 
 function Home() {
-  const {
-    state: { authentication: auth },
-  } = useAuthContext()
   return (
     <Box
       sx={{
@@ -33,7 +29,7 @@ function Home() {
         <meta name='description' content='gatewayTranslate' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      {auth ? <ScriptureWorkspace /> : <CircularProgress size={180} />}
+      <ScriptureWorkspace />
     </Box>
   )
 }

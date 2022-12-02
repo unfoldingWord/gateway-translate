@@ -25,11 +25,7 @@ import useFeedbackData from '@hooks/useFeedbackData'
  * @return {JSX.Element}
  * @constructor
  */
-function Alert({
-  severity,
-  message,
-  onClick,
-}) {
+function Alert({ severity, message, onClick }) {
   return (
     <MuiAlert
       className='w-full mt-8 mb-4'
@@ -38,7 +34,11 @@ function Alert({
       severity={severity}
       action={
         severity === 'success' && (
-          <Button color='inherit' size='small' onClick={() => onClick && onClick()}>
+          <Button
+            color='inherit'
+            size='small'
+            onClick={() => onClick && onClick()}
+          >
             OK
           </Button>
         )
@@ -90,7 +90,7 @@ const FeedbackCard = ({
   supportedBibles,
   currentLayout,
   lastError,
-  loggedInUser,
+  // AUTH: loggedInUser,
   initCard,
   setInitCard,
   onClose,
@@ -113,8 +113,16 @@ const FeedbackCard = ({
    * @param {string|Error} error - initial error message message or object
    * @param {number} httpCode - http code returned
    */
-  function processError(error, httpCode=0) {
-    processNetworkError(error, httpCode, null, null, actions.setNetworkError, null, null )
+  function processError(error, httpCode = 0) {
+    processNetworkError(
+      error,
+      httpCode,
+      null,
+      null,
+      actions.setNetworkError,
+      null,
+      null
+    )
   }
 
   function onCategoryChange(e) {
@@ -129,7 +137,8 @@ const FeedbackCard = ({
     const validationError = e?.target?.validationMessage || null
     actions.setEmailError(validationError)
 
-    if (!validationError) { // if email address error corrected, then clear any displayed warning
+    if (!validationError) {
+      // if email address error corrected, then clear any displayed warning
       actions.setShowEmailError(false)
     }
     actions.setEmail(e.target.value)
@@ -146,7 +155,11 @@ const FeedbackCard = ({
   }
 
   function getScriptureCardSettings(username) {
-    const settings = ['scripturePaneTarget', 'scripturePaneConfig', 'scripturePaneFontSize']
+    const settings = [
+      'scripturePaneTarget',
+      'scripturePaneConfig',
+      'scripturePaneFontSize',
+    ]
     const cards = []
 
     for (let i = 0; ; i++) {
@@ -174,11 +187,21 @@ const FeedbackCard = ({
 
   function getHelpsCardSettings(username) {
     const helpsCards = ['tn', 'ta', 'twl', 'twa', 'tq']
-    const helpsCardRefSettings = helpsCards.map(card => (`resource_card_${card}_ref`))
-    const helpsCardFilterSettings = helpsCards.map(card => (`filters_resource_card_${card}`))
-    const helpsCardHeadersSettings = helpsCards.map(card => (`headers_resource_card_${card}`))
-    const helpsCardMarkdownSettings = helpsCards.map(card => (`markdownViewresource_card_${card}`))
-    const helpsCardEditingSettings = helpsCards.map(card => (`editing_resource_card_${card}_${languageId}`))
+    const helpsCardRefSettings = helpsCards.map(
+      card => `resource_card_${card}_ref`
+    )
+    const helpsCardFilterSettings = helpsCards.map(
+      card => `filters_resource_card_${card}`
+    )
+    const helpsCardHeadersSettings = helpsCards.map(
+      card => `headers_resource_card_${card}`
+    )
+    const helpsCardMarkdownSettings = helpsCards.map(
+      card => `markdownViewresource_card_${card}`
+    )
+    const helpsCardEditingSettings = helpsCards.map(
+      card => `editing_resource_card_${card}_${languageId}`
+    )
     const settingsReadList = [
       ...helpsCardRefSettings,
       ...helpsCardFilterSettings,
@@ -202,7 +225,8 @@ const FeedbackCard = ({
   async function onSubmitFeedback() {
     actions.setShowSuccess(false)
 
-    if (state.emailError) { // if there is currently an error on the email address, show to user and abort submitting feedback
+    if (state.emailError) {
+      // if there is currently an error on the email address, show to user and abort submitting feedback
       actions.setShowEmailError(true)
       emailEditRef.current.focus()
       return
@@ -211,13 +235,13 @@ const FeedbackCard = ({
     actions.setSubmitting(true)
     actions.setShowError(false)
     const build = getBuildId()
-    const scriptureCardSettings = getScriptureCardSettings(loggedInUser)
-    const helpsCardSettings = getHelpsCardSettings(loggedInUser)
-    const scriptureVersionHistory = getUserSettings(loggedInUser, `scriptureVersionHistory`)
+    // const scriptureCardSettings = getScriptureCardSettings(loggedInUser)
+    // const helpsCardSettings = getHelpsCardSettings(loggedInUser)
+    // const scriptureVersionHistory = getUserSettings(loggedInUser, `scriptureVersionHistory`)
 
     const extraData = JSON.stringify({
       lastError,
-      loggedInUser,
+      // loggedInUser,
       build,
       owner,
       server,
@@ -229,9 +253,9 @@ const FeedbackCard = ({
       bibleReference,
       supportedBibles,
       currentLayout,
-      scriptureCardSettings,
-      scriptureVersionHistory,
-      helpsCardSettings,
+      // scriptureCardSettings,
+      // scriptureVersionHistory,
+      // helpsCardSettings,
     })
 
     let res
@@ -268,7 +292,9 @@ const FeedbackCard = ({
       actions.setShowSuccess(true)
     } else {
       const error = response.error
-      console.warn(`onSubmitFeedback() - error response = ${JSON.stringify(error)}`)
+      console.warn(
+        `onSubmitFeedback() - error response = ${JSON.stringify(error)}`
+      )
       const httpCode = parseInt(error.code, 10)
       const errorMessage = error.message + '.'
       actions.setShowError(true)
@@ -278,7 +304,12 @@ const FeedbackCard = ({
     actions.setSubmitting(false)
   }
 
-  const submitDisabled = state.submitting || !state.name || !state.email || !state.message || !state.category
+  const submitDisabled =
+    state.submitting ||
+    !state.name ||
+    !state.email ||
+    !state.message ||
+    !state.category
 
   return (
     <>
@@ -309,14 +340,12 @@ const FeedbackCard = ({
             onChange={onEmailChange}
             classes={{ root: classes.textField }}
             error={actions.showEmailError}
-            helperText={state.showEmailError ?state. emailError : null}
+            helperText={state.showEmailError ? state.emailError : null}
             FormHelperTextProps={{ classes: helperTestClasses }}
             inputRef={emailEditRef}
           />
           <FormControl variant='outlined' className={classes.formControl}>
-            <InputLabel id='categories-dropdown-label'>
-              Category:
-            </InputLabel>
+            <InputLabel id='categories-dropdown-label'>Category:</InputLabel>
             <Select
               id='categories-dropdown'
               value={state.category}
@@ -359,11 +388,11 @@ const FeedbackCard = ({
                 message={
                   state.showSuccess
                     ? `Your ${
-                      state.category || 'feedback'
-                    } was submitted successfully!`
+                        state.category || 'feedback'
+                      } was submitted successfully!`
                     : `Something went wrong submitting your ${
-                      state.category || 'feedback'
-                    }.`
+                        state.category || 'feedback'
+                      }.`
                 }
                 onClick={state.showSuccess ? onClose : null}
               />
@@ -371,13 +400,13 @@ const FeedbackCard = ({
           </div>
         </div>
       </div>
-      { !!state.networkError &&
+      {!!state.networkError && (
         <NetworkErrorPopup
           networkError={state.networkError}
           setNetworkError={actions.setNetworkError}
           closeButtonStr={CLOSE}
         />
-      }
+      )}
     </>
   )
 }
@@ -394,7 +423,7 @@ FeedbackCard.propTypes = {
   supportedBibles: PropTypes.array,
   currentLayout: PropTypes.object,
   lastError: PropTypes.object,
-  loggedInUser: PropTypes.string,
+  // loggedInUser: PropTypes.string,
   // to open or close the feedback card
   open: PropTypes.bool,
   // flag that feedback card needs to initialize

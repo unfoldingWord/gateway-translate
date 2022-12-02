@@ -3,12 +3,10 @@ import PropTypes from 'prop-types'
 import { Card } from 'translation-helps-rcl'
 import { UsfmEditor } from 'uw-editor'
 import { BIBLE_AND_OBS } from '@common/BooksOfTheBible'
-import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
-import React from 'react';
+import React from 'react'
 import CircularProgress from './CircularProgress'
-import { saveToUserBranch } from '@utils/saveToUserBranch'
 
 export default function ScriptureWorkspaceCard({
   id,
@@ -18,66 +16,44 @@ export default function ScriptureWorkspaceCard({
   classes,
   onClose: removeBook,
 }) {
-
   const [doSave, setDoSave] = useState(false)
 
   const {
-    state: {
-      authentication,
-    },
-  } = useContext(AuthContext)
-
-  const {
-    state: {
-      owner,
-    },
+    state: { owner },
   } = useContext(StoreContext)
 
   const {
-    state: {
-        books,
-        repoClient,
-        ep,
-    },
-    actions: {
-      setBooks,
-    }
+    state: { books, repoClient, ep },
+    actions: { setBooks },
   } = useContext(AppContext)
 
   // Save Feature
   useEffect(() => {
     async function saveContent() {
-      if ( data.readOnly ) {
-        const url = URL.createObjectURL(new Blob([doSave]))
-        const a = document.createElement('a')
-        a.href = url
-        a.download = `${bookId}.usfm`
-        a.click()
-        URL.revokeObjectURL(url)
-      } else {
-        const _content = await saveToUserBranch(
-          data,
-          data.owner,
-          doSave,
-          authentication,
-          repoClient
-        )
-        let _books = books
-        for (let i = 0; i < _books.length; i++) {
-          if (_books[ i ].id === id) {
-            _books[ i ].content = _content
-            setBooks(_books)
-            break
-          }
-        }
-      }
+      const url = URL.createObjectURL(new Blob([doSave]))
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `${bookId}.usfm`
+      a.click()
+      URL.revokeObjectURL(url)
       setDoSave(null)
     }
-    if ( doSave ) {
-      console.log("New updated USFM:", doSave)
+    if (doSave) {
+      console.log('New updated USFM:', doSave)
       saveContent()
     }
-  }, [doSave, books, setBooks, id, docSetId, data, owner, ep, authentication, repoClient, bookId])
+  }, [
+    doSave,
+    books,
+    setBooks,
+    id,
+    docSetId,
+    data,
+    owner,
+    ep,
+    repoClient,
+    bookId,
+  ])
 
   // const editorProps = {
   //   onSave: (bookCode,usfmText) => setDoSave(usfmText),
@@ -86,18 +62,19 @@ export default function ScriptureWorkspaceCard({
   //   bookId: data.bookId,
   // }
 
-  let title = '';
-  if ( BIBLE_AND_OBS[bookId.toLowerCase()] ) {
-    title += BIBLE_AND_OBS[bookId.toLowerCase()];
+  let title = ''
+  if (BIBLE_AND_OBS[bookId.toLowerCase()]) {
+    title += BIBLE_AND_OBS[bookId.toLowerCase()]
   }
-  if ( data.url ) {
-    title += " (" + data.url + ")"
+  if (data.url) {
+    title += ' (' + data.url + ')'
   } else {
-    title += " (" + id.substr(4) + ")"
+    title += ' (' + id.substr(4) + ')'
   }
 
   return (
-    <Card title={title}
+    <Card
+      title={title}
       classes={classes}
       hideMarkdownToggle={true}
       closeable={true}
@@ -118,15 +95,13 @@ export default function ScriptureWorkspaceCard({
             editable={id.endsWith(owner) ? true : false}
           />
           </div>
-        :
-        (
-          typeof data.content === "string"
-          ?
-          <div><h1>{data.content}</h1></div>
-          :
-          <CircularProgress/>
+        ) : typeof data.content === 'string' ? (
+          <div>
+            <h1>{data.content}</h1>
+          </div>
+        ) : (
+          <CircularProgress />
         )
-
       }
     </Card>
   )
@@ -136,8 +111,6 @@ ScriptureWorkspaceCard.propTypes = {
   bookId: PropTypes.string,
   classes: PropTypes.object,
 }
-
-
 
 /* code graveyard
 
@@ -151,6 +124,24 @@ ScriptureWorkspaceCard.propTypes = {
         <CircularProgress/>
 
       }
+
+      // } else {
+      //   const _content = await saveToUserBranch(
+      //     data,
+      //     data.owner,
+      //     doSave,
+      //     authentication,
+      //     repoClient
+      //   )
+      //   let _books = books
+      //   for (let i = 0; i < _books.length; i++) {
+      //     if (_books[i].id === id) {
+      //       _books[i].content = _content
+      //       setBooks(_books)
+      //       break
+      //     }
+      //   }
+      // }
 */
 /*
 
