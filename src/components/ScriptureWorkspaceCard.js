@@ -115,7 +115,7 @@ export default function ScriptureWorkspaceCard({
             docSetId={docSetId}
             usfmText={data.usfmText}
             onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
-            editable={data.id.endsWith(owner) ? true : false}
+            editable={id.endsWith(owner) ? true : false}
           />
           </div>
         :
