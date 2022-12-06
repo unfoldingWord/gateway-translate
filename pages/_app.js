@@ -37,13 +37,13 @@ export default function Application({ Component, pageProps }) {
         <CssBaseline />
         <AuthContextProvider>
           <StoreContextProvider>
-              <AppContextProvider>
-                <PkCacheProvider>
+              <PkCacheProvider>
+                <AppContextProvider>
                   <Layout>
                     <Component {...pageProps} />
                   </Layout>
-                </PkCacheProvider>
-              </AppContextProvider>
+                  </AppContextProvider>
+              </PkCacheProvider>
           </StoreContextProvider>
         </AuthContextProvider>
       </ThemeProvider>
