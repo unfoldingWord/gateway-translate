@@ -136,9 +136,3 @@ ScriptureWorkspaceCard.propTypes = {
   bookId: PropTypes.string,
   classes: PropTypes.object,
 }
-
-
-/*
-            editable={data.url ? true : (id.endsWith(owner) ? true : false)}
-
-*/
