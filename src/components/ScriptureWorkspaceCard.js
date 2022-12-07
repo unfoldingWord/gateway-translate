@@ -71,7 +71,7 @@ export default function ScriptureWorkspaceCard({
   } else {
     title += ' (' + id.substr(4) + ')'
   }
-
+  console.log("owner and id:",owner,id)
   return (
     <Card
       title={title}
@@ -111,66 +111,3 @@ ScriptureWorkspaceCard.propTypes = {
   bookId: PropTypes.string,
   classes: PropTypes.object,
 }
-
-/* code graveyard
-
-      {
-        data.perf
-        ?
-        <div className="text-sm max-w-prose">
-          <pre>{JSON.stringify(data.perf,null,4)}</pre>
-        </div>
-        :
-        <CircularProgress/>
-
-      }
-
-      // } else {
-      //   const _content = await saveToUserBranch(
-      //     data,
-      //     data.owner,
-      //     doSave,
-      //     authentication,
-      //     repoClient
-      //   )
-      //   let _books = books
-      //   for (let i = 0; i < _books.length; i++) {
-      //     if (_books[i].id === id) {
-      //       _books[i].content = _content
-      //       setBooks(_books)
-      //       break
-      //     }
-      //   }
-      // }
-*/
-/*
-
-  // Save Feature
-  useEffect(() => {
-    async function saveContent() {
-      const _doc = ep[docSetId].getDocument( data.bookId.toUpperCase() )
-      console.log("useEffect() updated PERF:\n",JSON.stringify(_doc,null,4))
-      const _usfm = await ep[docSetId].readUsfm( data.bookId.toUpperCase() )
-
-      const _content = await saveToUserBranch(
-        data,
-        owner,
-        _usfm,
-        authentication,
-        repoClient
-      )
-      let _books = books
-      for ( let i=0; i<_books.length; i++ ) {
-        if ( _books[i].id === id ) {
-          _books[i].content = _content
-          setBooks(_books)
-          break
-        }
-      }
-      setDoSave(false)
-    }
-    if ( doSave ) {
-        saveContent()
-    }
-  }, [doSave, docSetId, data, owner, ep, authentication, repoClient])
-*/
