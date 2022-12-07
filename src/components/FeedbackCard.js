@@ -319,7 +319,7 @@ const FeedbackCard = ({
             Submit a Bug Report or Feedback
           </h3>
         </div>
-        <div>
+        <div className='flex flex-col space-y-4'>
           <TextField
             id='name-feedback-form'
             type='given-name'
