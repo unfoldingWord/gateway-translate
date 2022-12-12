@@ -11,6 +11,8 @@ import AppBar from '@mui/material/AppBar'
 import Fab from '@mui/material/Fab'
 import AddIcon from '@mui/icons-material/Add'
 import Drawer from '@components/Drawer'
+import Snackbar from '@mui/material/Snackbar'
+import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import FeedbackPopup from '@components/FeedbackPopup'
@@ -47,6 +49,7 @@ export default function Header({
   const classes = useStyles()
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
+  const [alreadyOpenNotice, setAlreadyOpenNotice] = useState(false)
 
   const [drawerOpen, setOpen] = useState(false)
   const {
@@ -68,6 +71,10 @@ export default function Header({
       setOpen(false)
     }
   }
+
+  const handleAlreadyOpenNoticeClose = () => {
+    setAlreadyOpenNotice(false);
+  };
 
   const doShowFeedback = () => {
     setFeedback && setFeedback(true)
@@ -132,8 +139,21 @@ export default function Header({
         _entry.readOnly = true
         break
     }
-    _books.push(_entry)
-    setBooks(_books)
+    let found = -1
+    for (let i=0; i<_books.length; i++) {
+      if ( _books[i].id === _entry.id ) {
+        found = i
+        break
+      }
+    }
+    if ( found > -1 ) {
+      console.log("book already loaded:", _entry.id)
+      setAlreadyOpenNotice(true)
+    } else {
+      console.log("adding book:", _entry.id)
+      _books.push(_entry)
+      setBooks(_books)
+    }
     console.log('onNext() _books:', _books)
   }
 
@@ -194,6 +214,13 @@ export default function Header({
       {feedback ? (
         <FeedbackPopup open {...feedback} onClose={doHideFeedback} />
       ) : null}
+      <Snackbar
+        open={alreadyOpenNotice}
+        autoHideDuration={6000}
+        onClose={handleAlreadyOpenNoticeClose}
+        message="Book is already open"
+        // action={action}
+      />
     </header>
   )
 }
