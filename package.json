@@ -1,7 +1,6 @@
 {
   "name": "gateway-translate",
-  "version": "0.0.16-alpha",
-  "comment": "the material-ui come from dependent packages, not gT",
+  "version": "0.0.16",
   "scripts": {
     "dev": "next",
     "build": "next build --debug",
