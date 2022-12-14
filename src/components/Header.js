@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
   extendedIcon: {
     marginRight: theme.spacing(1),
   },
+  offset: theme.mixins.toolbar,
 }))
 
 export default function Header({
@@ -175,7 +176,7 @@ export default function Header({
 
   return (
     <header>
-      <AppBar position='static'>
+      <AppBar position='fixed'>
         <Toolbar>
           <div className='flex flex-1 justify-center items-center'>
             <IconButton
@@ -239,6 +240,7 @@ export default function Header({
         message="Book is already open"
         // action={action}
       />
+      <div className={classes.offset} />
     </header>
   )
 }
