@@ -94,6 +94,7 @@ export default function SelectBookPopup(
   const handleClickNext = () => {
     onNext({pushAccess, usfmData, uploadedFilename, usfmSource, selectedBook, url, languageId, repository: selectedRepository, owner: selectedOrganization})
     handleClickClose()
+    setUrl('')
   }
 
   useEffect(() => {
