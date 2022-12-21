@@ -1,7 +1,6 @@
 {
   "name": "gateway-translate",
-  "version": "0.0.15",
-  "comment": "the material-ui come from dependent packages, not gT",
+  "version": "0.0.18",
   "scripts": {
     "dev": "next",
     "build": "next build --debug",
@@ -15,11 +14,11 @@
     "@emotion/is-prop-valid": "^1.2.0",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@material-ui/lab": "4.0.0-alpha.61",
     "@mui/icons-material": "^5.10.6",
+    "@mui/lab": "^5.0.0-alpha.107",
     "@mui/material": "^5.10.6",
     "@mui/styles": "5.10.10",
-    "@mui/lab": "^5.0.0-alpha.107",
-    "@material-ui/lab": "4.0.0-alpha.61",
     "@sendgrid/mail": "^7.7.0",
     "autoprefixer": "^10.4.7",
     "base-64": "^1.0.0",
@@ -37,7 +36,7 @@
     "translation-helps-rcl": "^3.3.4-rc.3",
     "use-deep-compare-effect": "^1.8.1",
     "utf8": "3.0.0",
-    "uw-editor": "0.1.11"
+    "uw-editor": "0.1.15"
   },
   "devDependencies": {
     "eslint": "^8.17.0",

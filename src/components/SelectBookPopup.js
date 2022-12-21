@@ -89,6 +89,7 @@ export default function SelectBookPopup({ onNext, showModal, setShowModal }) {
       owner: selectedOrganization,
     })
     handleClickClose()
+    setUrl('')
   }
 
   useEffect(() => {

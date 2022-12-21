@@ -11,6 +11,7 @@ import AppBar from '@mui/material/AppBar'
 import Fab from '@mui/material/Fab'
 import AddIcon from '@mui/icons-material/Add'
 import Drawer from '@components/Drawer'
+import Snackbar from '@mui/material/Snackbar'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import FeedbackPopup from '@components/FeedbackPopup'
@@ -36,6 +37,7 @@ const useStyles = makeStyles(theme => ({
   extendedIcon: {
     marginRight: theme.spacing(1),
   },
+  offset: theme.mixins.toolbar,
 }))
 
 export default function Header({
@@ -47,6 +49,7 @@ export default function Header({
   const classes = useStyles()
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
+  const [alreadyOpenNotice, setAlreadyOpenNotice] = useState(false)
 
   const [drawerOpen, setOpen] = useState(false)
   const {
@@ -67,6 +70,10 @@ export default function Header({
     if (drawerOpen) {
       setOpen(false)
     }
+  }
+
+  const handleAlreadyOpenNoticeClose = () => {
+    setAlreadyOpenNotice(false)
   }
 
   const doShowFeedback = () => {
@@ -132,14 +139,27 @@ export default function Header({
         _entry.readOnly = true
         break
     }
-    _books.push(_entry)
-    setBooks(_books)
+    let found = -1
+    for (let i = 0; i < _books.length; i++) {
+      if (_books[i].id === _entry.id) {
+        found = i
+        break
+      }
+    }
+    if (found > -1) {
+      console.log('book already loaded:', _entry.id)
+      setAlreadyOpenNotice(true)
+    } else {
+      console.log('adding book:', _entry.id)
+      _books.push(_entry)
+      setBooks(_books)
+    }
     console.log('onNext() _books:', _books)
   }
 
   return (
     <header>
-      <AppBar position='static'>
+      <AppBar position='fixed'>
         <Toolbar>
           <div className='flex flex-1 justify-center items-center'>
             <IconButton
@@ -194,6 +214,14 @@ export default function Header({
       {feedback ? (
         <FeedbackPopup open {...feedback} onClose={doHideFeedback} />
       ) : null}
+      <Snackbar
+        open={alreadyOpenNotice}
+        autoHideDuration={6000}
+        onClose={handleAlreadyOpenNoticeClose}
+        message='Book is already open'
+        // action={action}
+      />
+      <div className={classes.offset} />
     </header>
   )
 }
