@@ -16,7 +16,7 @@ const FeedbackPopup = ({
   supportedBibles,
   currentLayout,
   lastError,
-  loggedInUser,
+  // AUTH: loggedInUser,
   onClose,
   mainScreenRef,
   open,
@@ -54,7 +54,7 @@ const FeedbackPopup = ({
     supportedBibles,
     currentLayout,
     lastError,
-    loggedInUser,
+    // AUTH: loggedInUser,
     initCard,
     setInitCard,
     onClose,
@@ -68,11 +68,7 @@ const FeedbackPopup = ({
       workspaceRef={mainScreenRef}
       onClose={onClose}
       dimBackground={true}
-      content={
-        <FeedbackCard
-          {...feedbackParams}
-        />
-      }
+      content={<FeedbackCard {...feedbackParams} />}
     />
   )
 }
@@ -89,7 +85,7 @@ FeedbackPopup.propTypes = {
   supportedBibles: PropTypes.array,
   currentLayout: PropTypes.object,
   lastError: PropTypes.object,
-  loggedInUser: PropTypes.string,
+  // AUTH: loggedInUser: PropTypes.string,
   onClose: PropTypes.func.isRequired,
   /** Optional, used to make sure draggable card is contained within workspace */
   mainScreenRef: PropTypes.object,

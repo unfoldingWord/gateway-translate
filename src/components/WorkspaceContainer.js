@@ -1,8 +1,4 @@
-import {
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Workspace } from 'resource-workspace-rcl'
 import { makeStyles } from '@mui/styles'
 
@@ -35,7 +31,6 @@ const useStyles = makeStyles(() => ({
 function WorkspaceContainer() {
   const router = useRouter()
   const classes = useStyles()
-  const [workspaceReady, setWorkspaceReady] = useState(false)
   const [networkError, setNetworkError] = useState(null)
   const {
     state: {
@@ -47,12 +42,7 @@ function WorkspaceContainer() {
       loggedInUser,
       tokenNetworkError,
     },
-    actions: {
-      logout,
-      setCurrentLayout,
-      setTokenNetworkError,
-      setLastError,
-    },
+    actions: { logout, setCurrentLayout, setTokenNetworkError, setLastError },
   } = useContext(StoreContext)
 
   /**
@@ -60,8 +50,15 @@ function WorkspaceContainer() {
    * @param {string} errorMessage - optional error message returned
    * @param {number} httpCode - http code returned
    */
-  function processError(errorMessage, httpCode=0) {
-    processNetworkError(errorMessage, httpCode, logout, router, setNetworkError, setLastError )
+  function processError(errorMessage, httpCode = 0) {
+    processNetworkError(
+      errorMessage,
+      httpCode,
+      logout,
+      router,
+      setNetworkError,
+      setLastError
+    )
   }
 
   /**
@@ -69,14 +66,16 @@ function WorkspaceContainer() {
    * @return {JSX.Element|null}
    */
   function showNetworkError() {
-    if (tokenNetworkError) { // if we had a token network error on startup
-      if (!tokenNetworkError.router) { // needed for reload of page
+    if (tokenNetworkError) {
+      // if we had a token network error on startup
+      if (!tokenNetworkError.router) {
+        // needed for reload of page
         setTokenNetworkError({ ...tokenNetworkError, router }) // make sure router is set
       }
       return (
         <NetworkErrorPopup
           networkError={tokenNetworkError}
-          setNetworkError={(error) => {
+          setNetworkError={error => {
             setTokenNetworkError(error)
             setNetworkError(null) // clear this flag in case it was also set
           }}
@@ -84,7 +83,8 @@ function WorkspaceContainer() {
           onRetry={reloadApp}
         />
       )
-    } else if (networkError) { // for all other workspace network errors
+    } else if (networkError) {
+      // for all other workspace network errors
       return (
         <NetworkErrorPopup
           networkError={networkError}
@@ -110,41 +110,47 @@ function WorkspaceContainer() {
    * @param {object} error - error object for detected error, could be a parsing error, etc.  This will take precedence over message
    * @param {boolean} showAllErrors - if true then always show a popup error message, otherwise just show server error message if we can't talk to server
    */
-  function onResourceError(message, isAccessError, resourceStatus, error, showAllErrors = false) {
-    if (!networkError ) { // only show if another error not already showing
+  function onResourceError(
+    message,
+    isAccessError,
+    resourceStatus,
+    error,
+    showAllErrors = false
+  ) {
+    if (!networkError) {
+      // only show if another error not already showing
       if (showAllErrors) {
-        processNetworkError(error || message, resourceStatus, logout, router, setNetworkError, setLastError, setLastError)
+        processNetworkError(
+          error || message,
+          resourceStatus,
+          logout,
+          router,
+          setNetworkError,
+          setLastError,
+          setLastError
+        )
       } else {
-        if (isAccessError) { // we only show popup for access errors
-          addNetworkDisconnectError(error || message, 0, logout, router, setNetworkError, setLastError)
+        if (isAccessError) {
+          // we only show popup for access errors
+          addNetworkDisconnectError(
+            error || message,
+            0,
+            logout,
+            router,
+            setNetworkError,
+            setLastError
+          )
         }
       }
     }
   }
-
-
-  useEffect(() => {
-    setWorkspaceReady(false)
-
-    if (owner && languageId && appRef && server && loggedInUser) {
-      setWorkspaceReady(true)
-    }// eslint-disable-next-line
-  }, [owner, languageId, appRef, server, loggedInUser])
-
-
 
   const config = {
     server,
     ...HTTP_CONFIG,
   }
 
-  const titles = [
-    'Title 1',
-    'Title 2',
-    'Title 3',
-    'Title 4',
-    'Title 5',
-  ]
+  const titles = ['Title 1', 'Title 2', 'Title 3', 'Title 4', 'Title 5']
 
   const texts = [
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
@@ -154,49 +160,53 @@ function WorkspaceContainer() {
     'On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.',
   ]
 
-  return (
-    (tokenNetworkError || networkError || !workspaceReady) ? // Do not render workspace until user logged in and we have user settings
-      <>
-        {showNetworkError()}
-        <CircularProgress size={180} />
-      </>
-      :
-      <Workspace
-        rowHeight={25}
-        layout={currentLayout}
-        classes={classes}
-        gridMargin={[10, 10]}
-        onLayoutChange={(_layout, layouts) => {
-          setCurrentLayout(layouts)
-        }}
-        layoutWidths={[
-          [1, 1, 1],
-          [2, 2, 2],
-        ]}
-        layoutHeights={[[10,10], [10, 10], [10, 10]]}
-        minW={3}
-        minH={4}
-        breakpoints={{
-          lg: 900,
-          sm: 680,
-          xs: 300,
-        }}
-        columns={{
-          lg: 12,
-          sm: 6,
-          xs: 3,
-        }}
-      >
-        {
-          texts.map( (text,index) =>
-            <Card title={titles[index]} classes={classes} hideMarkdownToggle={true} key={index}>
-              <p style={{ padding: '30px' }}>
-                {text}
-              </p>
-            </Card>,
-          )
-        }
-      </Workspace>
+  return tokenNetworkError || networkError ? ( // Do not render workspace until user logged in and we have user settings
+    <>
+      {showNetworkError()}
+      <CircularProgress size={180} />
+    </>
+  ) : (
+    <Workspace
+      rowHeight={25}
+      layout={currentLayout}
+      classes={classes}
+      gridMargin={[10, 10]}
+      onLayoutChange={(_layout, layouts) => {
+        setCurrentLayout(layouts)
+      }}
+      layoutWidths={[
+        [1, 1, 1],
+        [2, 2, 2],
+      ]}
+      layoutHeights={[
+        [10, 10],
+        [10, 10],
+        [10, 10],
+      ]}
+      minW={3}
+      minH={4}
+      breakpoints={{
+        lg: 900,
+        sm: 680,
+        xs: 300,
+      }}
+      columns={{
+        lg: 12,
+        sm: 6,
+        xs: 3,
+      }}
+    >
+      {texts.map((text, index) => (
+        <Card
+          title={titles[index]}
+          classes={classes}
+          hideMarkdownToggle={true}
+          key={index}
+        >
+          <p style={{ padding: '30px' }}>{text}</p>
+        </Card>
+      ))}
+    </Workspace>
   )
 }
 

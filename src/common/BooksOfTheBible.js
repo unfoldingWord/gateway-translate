@@ -291,7 +291,7 @@ export function bookSelectList(books = null) {
      books = Object.keys(BIBLE_AND_OBS)
    }
   return books.map(
-    (bookId) => ({ id: bookId, name: BIBLE_AND_OBS[bookId] }),
+    (bookId) => ({ id: bookId, name: BIBLE_AND_OBS[bookId] ?? bookId }),
   )
 }
 
