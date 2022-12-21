@@ -84,16 +84,16 @@ export default function ScriptureWorkspaceCard({
     >
       {
         // ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
-        data.usfmText
-        ?
-          <div className="text-sm max-w-prose">
-          <UsfmEditor key="1"
-            bookId={data.bookId}
-            docSetId={docSetId}
-            usfmText={data.usfmText}
-            onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
-            editable={id.endsWith(owner) ? true : false}
-          />
+        data.usfmText ? (
+          <div className='text-sm max-w-prose'>
+            <UsfmEditor
+              key='1'
+              bookId={data.bookId}
+              docSetId={docSetId}
+              usfmText={data.usfmText}
+              onSave={(bookCode, usfmText) => setDoSave(usfmText)}
+              editable={id.endsWith(owner) ? true : false}
+            />
           </div>
         ) : typeof data.content === 'string' ? (
           <div>
