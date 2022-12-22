@@ -1687,6 +1687,15 @@ bible-reference-range@^1.0.1:
   resolved "https://registry.yarnpkg.com/bible-reference-range/-/bible-reference-range-1.0.1.tgz#b577d20eeb1a62195c827d567063b27dcf033f8e"
   integrity sha512-DpjJJaFe9SfqCnJ6E6Xiz3yJAL7UdoZx+daRL84j+NCBsMOV0HMCzNuF8vKf1m8VOy8qkGnxwKdwxQUOIgYL1Q==
 
+bible-reference-rcl@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/bible-reference-rcl/-/bible-reference-rcl-1.1.0.tgz#0e9f33effeaabf6bfed53b897ad8e99033502911"
+  integrity sha512-kUrJrTaPmzU7ih8pOjXdOKjBZngVE+NiDnS9SxtSRnpJbKGZqtsmstk3Ld4wIQZvmWfedlbGVx5/R7lG4DeVgw==
+  dependencies:
+    lodash "^4.5.0"
+    lodash.isequal "^4.5.0"
+    styled-components "^5.2.1"
+
 big-integer@^1.6.17:
   version "1.6.51"
   resolved "https://registry.yarnpkg.com/big-integer/-/big-integer-1.6.51.tgz#0df92a5d9880560d3ff2d5fd20245c889d130686"
@@ -4935,13 +4944,6 @@ localforage@1.7.3:
   dependencies:
     lie "3.1.1"
 
-localforage@^1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/localforage/-/localforage-1.10.0.tgz#5c465dc5f62b2807c3a84c0c6a1b1b3212781dd4"
-  integrity sha512-14/H1aX7hzBBmmh7sGPd+AOMkkIrHM3Z1PAyGgZigA1H1p5O5ANnMyWzvpAETtG68/dC4pC0ncy3+PPGzXZHPg==
-  dependencies:
-    lie "3.1.1"
-
 locate-path@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-3.0.0.tgz#dbec3b3ab759758071b58fe59fc41871af21400e"
@@ -5074,7 +5076,7 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==
 
-lodash@4.17.21, lodash@^4.17.11, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.21:
+lodash@4.17.21, lodash@^4.17.11, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.21, lodash@^4.5.0:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -7868,10 +7870,10 @@ uuid@^8.3.0, uuid@^8.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
-uw-editor@0.1.14:
-  version "0.1.14"
-  resolved "https://registry.yarnpkg.com/uw-editor/-/uw-editor-0.1.14.tgz#f0d19d04b5cb6aad5fbc9f469ce9746b3bdfb0c2"
-  integrity sha512-GvBtX2UYLzfL2NzuAR5NFe4vsDqimX4OJHd+AsIkae8f9D8QTEysJSI6iIk15eEuRTb0nTUQhbfBrTw4xIQsCg==
+uw-editor@0.1.15:
+  version "0.1.15"
+  resolved "https://registry.yarnpkg.com/uw-editor/-/uw-editor-0.1.15.tgz#467f14ec1b18bb226ebaee2ac1db049b9591b231"
+  integrity sha512-gTHfmdqGHz28+3LjT1fQZEoEjqMLbY8HCd4fg71s6tGCYM73U0udaM0T+yD1m1FRE9WXHb3Kuf/Q97YoOJkEpQ==
   dependencies:
     "@xelah/type-perf-html" "^1.0.0"
     epitelete-html "^0.2.10"

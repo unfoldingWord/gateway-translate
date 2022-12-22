@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import useLocalStorage from '@hooks/useLocalStorage'
-import useUserLocalStorage from '@hooks/useUserLocalStorage'
+import * as useULS from '@hooks/useUserLocalStorage'
 import { AuthContext } from '@context/AuthContext'
 import useSaveChangesPrompt from '@hooks/useSaveChangesPrompt'
 
@@ -11,6 +11,10 @@ export default function StoreContextProvider(props) {
     state: { networkError: tokenNetworkError, server },
     actions: { setNetworkError: setTokenNetworkError, setServer },
   } = useContext(AuthContext)
+
+  function useUserLocalStorage(key, initialValue) {
+    return useULS.useUserLocalStorage('', key, initialValue)
+  }
 
   const [mainScreenRef, setMainScreenRef] = useState(null)
   const [lastError, setLastError] = useState(null)
@@ -133,8 +137,4 @@ StoreContextProvider.propTypes = { children: PropTypes.object }
       actions: { logout, setNetworkError: setTokenNetworkError, setServer },
     } = useContext(AuthContext)
     const username = authentication?.user?.username || ''
-
-    function useUserLocalStorage(key, initialValue) {
-      return useULS.useUserLocalStorage(username, key, initialValue)
-    }
  */
