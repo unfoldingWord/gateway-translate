@@ -12,6 +12,7 @@ import Fab from '@mui/material/Fab'
 import AddIcon from '@mui/icons-material/Add'
 import Drawer from '@components/Drawer'
 import Snackbar from '@mui/material/Snackbar'
+import BibleReference from '@components/BibleReference'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import FeedbackPopup from '@components/FeedbackPopup'
@@ -179,7 +180,10 @@ export default function Header({
               {title}
             </Typography>
           </div>
-          <>
+          <div className='flex flex-1 justify-center items-center'>
+            <BibleReference />
+          </div>
+          <div className='flex flex-1 justify-end'>
             {router.pathname === '/' && (
               <Fab
                 color='primary'
@@ -193,7 +197,7 @@ export default function Header({
                 Book
               </Fab>
             )}
-          </>
+          </div>
           <>
             <SelectBookPopup
               onNext={onNext}
