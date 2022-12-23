@@ -15,15 +15,19 @@ import Button from '@mui/material/Button'
 import Checkbox from '@mui/material/Checkbox'
 import FormGroup from '@mui/material/FormGroup'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
+import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload'
 import LoadingButton from '@mui/lab/LoadingButton'
 import NoteAddIcon from '@mui/icons-material/NoteAdd'
+import Snackbar from '@mui/material/Snackbar'
 
 import DraggableModal from 'translation-helps-rcl/dist/components/DraggableModal'
 import Card from 'translation-helps-rcl/dist/components/Card'
+import { useZipUsfmFileInput } from 'zip-project'
 
 import { bookSelectList } from '@common/BooksOfTheBible'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
+import CircularProgress from '@components/CircularProgress'
 
 const bibleSubjects = [
   'Aligned Bible',
@@ -42,11 +46,11 @@ export default function SelectBookPopup({ onNext, showModal, setShowModal }) {
   } = useContext(AppContext)
   const [repos, setRepos] = useState([])
   const [selectedRepository, setSelectedRepository] = useState('')
-  const [availableBooks, setAvailableBooks] = useState(null)
+  // const [availableBooks, setAvailableBooks] = useState(null)
   const [selectedBook, setSelectedBook] = useState(null)
   const [usfmSource, setUsfmSource] = useState('upload')
   const [url, setUrl] = useState('')
-  const [organizations, setOrganizations] = useState([])
+  // const [organizations, setOrganizations] = useState([])
   const [selectedOrganization, setSelectedOrganization] = useState(
     organization || ''
   )
@@ -55,6 +59,40 @@ export default function SelectBookPopup({ onNext, showModal, setShowModal }) {
   const [languageId, setLanguageId] = useState(null)
   const [loading, setLoading] = useState(false)
   const [pushAccess, setPushAccess] = useState(false)
+  const [invalidZipNotice, setInvalidZipNotice] = useState(false)
+  const [invalidZipMessage, setInvalidZipMessage] = useState('')
+
+  const handleZipLoad = (usfmData, file) => {
+    console.log(usfmData)
+    // TODO: do stuff with this data
+    // We will probably have to call onNext here... but also change the functionality of onNext
+
+    setLoading(false)
+    handleClickClose()
+    setUrl('')
+  }
+
+  const {
+    isLoading: zipIsLoading,
+    invalidFileType: zipInvalidFileType,
+    uploadError: zipUploadError,
+    onChange: onZipChange,
+    onSubmit: onZipSubmit,
+    triggerReload: triggerZipInputReload,
+  } = useZipUsfmFileInput(handleZipLoad, true)
+
+  const handleInvalidZipNoticeClose = () => {
+    setInvalidZipNotice(false)
+    setInvalidZipMessage('')
+  }
+
+  if (zipInvalidFileType.length !== 0) {
+    setInvalidZipNotice(true)
+    setInvalidZipMessage(zipInvalidFileType.slice())
+    triggerZipInputReload()
+  }
+
+  if (zipUploadError) throw new Error(zipUploadError.message)
 
   const handleSourceChange = event => {
     setUsfmSource(event.target.value)
@@ -77,6 +115,10 @@ export default function SelectBookPopup({ onNext, showModal, setShowModal }) {
   }
 
   const handleClickNext = () => {
+    if (usfmSource === 'upload_zip') {
+      onZipSubmit()
+      return
+    }
     onNext({
       pushAccess,
       usfmData,
@@ -171,56 +213,86 @@ export default function SelectBookPopup({ onNext, showModal, setShowModal }) {
         </Button>
       )
       break
+    case 'upload_zip':
+      if (zipIsLoading) {
+        formComponents = <CircularProgress size={180} />
+        break
+      }
+      formComponents = (
+        <Button
+          fullWidth
+          component='label'
+          variant='outlined'
+          startIcon={<DriveFolderUploadIcon />}
+        >
+          Upload Zipped USFM Files
+          <input type='file' accept='.zip' hidden onChange={onZipChange} />
+        </Button>
+      )
+      break
   }
 
   return (
-    <DraggableModal open={showModal} handleClose={handleClickClose}>
-      <Card
-        closeable
-        title={`Select a Book`}
-        onClose={handleClickClose}
-        classes={{
-          dragIndicator: 'draggable-dialog-title',
-          root: 'w-104',
-        }}
-      >
-        <FormControl>
-          <FormLabel id='source'>Source</FormLabel>
-          <RadioGroup
-            aria-labelledby='source-radio-buttons-group-label'
-            defaultValue='upload'
-            name='source-radio-buttons-group'
-            row
-            value={usfmSource}
-            onChange={handleSourceChange}
-          >
-            <FormControlLabel
-              value='url'
-              control={<Radio />}
-              label='Custom URL'
-            />
-            <FormControlLabel
-              value='upload'
-              control={<Radio />}
-              label='Upload USFM file'
-            />
-          </RadioGroup>
-        </FormControl>
-        {formComponents}
-        <LoadingButton
-          loading={loading}
-          size='large'
-          color='primary'
-          className='my-3'
-          variant='contained'
-          onClick={handleClickNext}
-          loadingPosition='start'
-          startIcon={<NoteAddIcon />}
+    <>
+      <DraggableModal open={showModal} handleClose={handleClickClose}>
+        <Card
+          closeable
+          title={`Select a Book`}
+          onClose={handleClickClose}
+          classes={{
+            dragIndicator: 'draggable-dialog-title',
+            root: 'w-104',
+          }}
         >
-          Add
-        </LoadingButton>
-      </Card>
-    </DraggableModal>
+          <FormControl>
+            <FormLabel id='source'>Source</FormLabel>
+            <RadioGroup
+              aria-labelledby='source-radio-buttons-group-label'
+              defaultValue='upload'
+              name='source-radio-buttons-group'
+              row
+              value={usfmSource}
+              onChange={handleSourceChange}
+            >
+              <FormControlLabel
+                value='url'
+                control={<Radio />}
+                label='Custom URL'
+              />
+              <FormControlLabel
+                value='upload'
+                control={<Radio />}
+                label='Upload USFM file'
+              />
+              <FormControlLabel
+                value='upload_zip'
+                control={<Radio />}
+                label='Upload Zip'
+              />
+            </RadioGroup>
+          </FormControl>
+          {formComponents}
+          <LoadingButton
+            loading={loading}
+            size='large'
+            color='primary'
+            className='my-3'
+            variant='contained'
+            onClick={handleClickNext}
+            loadingPosition='start'
+            startIcon={<NoteAddIcon />}
+          >
+            Add
+          </LoadingButton>
+        </Card>
+      </DraggableModal>
+      <Snackbar
+        open={invalidZipNotice}
+        autoHideDuration={6000}
+        onClose={handleInvalidZipNoticeClose}
+        message={invalidZipMessage}
+      />
+    </>
   )
 }
 
