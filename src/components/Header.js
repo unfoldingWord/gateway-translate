@@ -11,13 +11,11 @@ import AppBar from '@mui/material/AppBar'
 import Fab from '@mui/material/Fab'
 import AddIcon from '@mui/icons-material/Add'
 import Drawer from '@components/Drawer'
-import Snackbar from '@mui/material/Snackbar'
 import BibleReference from '@components/BibleReference'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import FeedbackPopup from '@components/FeedbackPopup'
-import SelectBookPopup from './SelectBookPopup'
-import { randomLetters } from '@utils/randomLetters'
+import SelectBookPopup from './SelectBookPopup/SelectBookPopup'
 
 const useStyles = makeStyles(theme => ({
   root: { flexGrow: 1 },
@@ -50,17 +48,13 @@ export default function Header({
   const classes = useStyles()
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
-  const [alreadyOpenNotice, setAlreadyOpenNotice] = useState(false)
 
   const [drawerOpen, setOpen] = useState(false)
   const {
     state: { owner },
     actions: { checkUnsavedChanges },
   } = useContext(StoreContext)
-  const {
-    state: { books },
-    actions: { setBooks, setLtStState },
-  } = useContext(AppContext)
+
   const handleDrawerOpen = () => {
     if (!drawerOpen) {
       setOpen(true)
@@ -83,79 +77,6 @@ export default function Header({
 
   const doHideFeedback = () => {
     setFeedback && setFeedback(false)
-  }
-
-  const onNext = ({
-    pushAccess,
-    selectedBook,
-    usfmSource,
-    owner,
-    repository,
-    languageId,
-    url,
-    usfmData,
-    uploadedFilename,
-  }) => {
-    if (!books || !setBooks) {
-      return
-    }
-    let _books = [...books]
-    let _entry = { id: null, bookId: null, source: usfmSource, content: null }
-    switch (usfmSource) {
-      case 'url':
-        if (!url) {
-          return
-        }
-        const _owner = randomLetters(3)
-        const _lang = randomLetters(2)
-        const found = url.match(/[-_\/](?<bookId>[a-zA-Z_]*)\.usfm$/)
-        if (found) {
-          _entry.bookId = found.groups.bookId
-        } else {
-          _entry.bookId = url.substr(-10)
-        }
-        _entry.bookId = _entry.bookId.substr(-3)
-        _entry.id = `${_entry.bookId}-${_owner}-${_lang}`
-        _entry.url = url
-        _entry.readOnly = true
-        break
-      case 'upload':
-      default:
-        if (!usfmData) {
-          return
-        }
-        _entry.url = uploadedFilename
-        const foundInFilename = uploadedFilename.match(
-          /(?<bookId>[a-zA-Z_]*)\.usfm$/
-        )
-        if (foundInFilename) {
-          _entry.bookId = foundInFilename.groups.bookId
-        } else {
-          _entry.bookId = foundInFilename.substr(-10)
-        }
-        _entry.bookId = _entry.bookId.substr(-3)
-
-        _entry.id = `${uploadedFilename}`
-        _entry.usfmText = usfmData
-        _entry.readOnly = true
-        break
-    }
-    let found = -1
-    for (let i = 0; i < _books.length; i++) {
-      if (_books[i].id === _entry.id) {
-        found = i
-        break
-      }
-    }
-    if (found > -1) {
-      console.log('book already loaded:', _entry.id)
-      setAlreadyOpenNotice(true)
-    } else {
-      console.log('adding book:', _entry.id)
-      _books.push(_entry)
-      setBooks(_books)
-    }
-    console.log('onNext() _books:', _books)
   }
 
   return (
@@ -200,7 +121,6 @@ export default function Header({
           </div>
           <>
             <SelectBookPopup
-              onNext={onNext}
               showModal={showModal}
               setShowModal={setShowModal}
             />
@@ -218,13 +138,6 @@ export default function Header({
       {feedback ? (
         <FeedbackPopup open {...feedback} onClose={doHideFeedback} />
       ) : null}
-      <Snackbar
-        open={alreadyOpenNotice}
-        autoHideDuration={6000}
-        onClose={handleAlreadyOpenNoticeClose}
-        message='Book is already open'
-        // action={action}
-      />
       <div className={classes.offset} />
     </header>
   )
