@@ -9,6 +9,16 @@ import { useZipUsfmFileInput } from 'zip-project'
 
 import CircularProgress from '@components/CircularProgress'
 
+export const createZipUsfmEntry = usfmDataObject => {
+  return {
+    id: usfmDataObject.filename,
+    bookId: usfmDataObject.bookId,
+    usfmText: usfmDataObject.usfmText,
+    readOnly: false,
+    source: 'upload_zip',
+  }
+}
+
 const ZipUsfmInput = ({ handleZipLoad }) => {
   const [invalidZipNotice, setInvalidZipNotice] = useState(false)
   const [invalidZipMessage, setInvalidZipMessage] = useState('')

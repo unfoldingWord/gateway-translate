@@ -12,9 +12,9 @@ import DraggableModal from 'translation-helps-rcl/dist/components/DraggableModal
 import Card from 'translation-helps-rcl/dist/components/Card'
 
 import { AppContext } from '@context/AppContext'
-import ZipUsfmInput from './ZipUsfmInput'
 import UrlInput, { createUrlEntry } from './UrlInput'
 import UsfmInput, { createUsfmEntry } from './UsfmInput'
+import ZipUsfmInput, { createZipUsfmEntry } from './ZipUsfmInput'
 
 export default function SelectBookPopup({ showModal, setShowModal }) {
   const [usfmSource, setUsfmSource] = useState('upload')
@@ -67,17 +67,25 @@ export default function SelectBookPopup({ showModal, setShowModal }) {
   }
 
   const handleZipSubmit = (zipUsfmData, file) => {
-    console.log(zipUsfmData)
-    const entry = {
-      id: zipUsfmData[0].filename,
-      bookId: zipUsfmData[0].bookId,
-      usfmText: zipUsfmData[0].usfmText,
-      readOnly: false,
-      source: 'upload_zip',
+    if (!books || !setBooks || !zipUsfmData) {
+      return
     }
-    // TODO: do stuff with this data
-    // We will probably have to call onNext here... but also change the functionality of onNext
+    console.log(zipUsfmData)
 
+    let _books = [...books]
+    let bookAlreadyOpen = false
+    zipUsfmData.forEach(usfmDataObject => {
+      const entry = createZipUsfmEntry(usfmDataObject)
+      if (books.some(book => book.id === entry.id)) {
+        console.log('book already loaded:', entry.id)
+        bookAlreadyOpen = true
+      } else {
+        _books = [..._books, createZipUsfmEntry(usfmDataObject)]
+      }
+    })
+
+    if (bookAlreadyOpen) setAlreadyOpenNotice(true)
+    setBooks([..._books])
     handleClickClose()
   }
 
