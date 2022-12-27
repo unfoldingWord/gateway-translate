@@ -7,27 +7,17 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import FormLabel from '@mui/material/FormLabel'
 import RadioGroup from '@mui/material/RadioGroup'
 import Radio from '@mui/material/Radio'
-import Autocomplete from '@mui/material/Autocomplete'
-import MenuItem from '@mui/material/MenuItem'
-import Select from '@mui/material/Select'
-import InputLabel from '@mui/material/InputLabel'
 import Button from '@mui/material/Button'
-import Checkbox from '@mui/material/Checkbox'
-import FormGroup from '@mui/material/FormGroup'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
-import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload'
 import LoadingButton from '@mui/lab/LoadingButton'
 import NoteAddIcon from '@mui/icons-material/NoteAdd'
-import Snackbar from '@mui/material/Snackbar'
 
 import DraggableModal from 'translation-helps-rcl/dist/components/DraggableModal'
 import Card from 'translation-helps-rcl/dist/components/Card'
-import { useZipUsfmFileInput } from 'zip-project'
 
-import { bookSelectList } from '@common/BooksOfTheBible'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
-import CircularProgress from '@components/CircularProgress'
+import ZipUsfmInput from './ZipUsfmInput'
 
 const bibleSubjects = [
   'Aligned Bible',
@@ -59,40 +49,6 @@ export default function SelectBookPopup({ onNext, showModal, setShowModal }) {
   const [languageId, setLanguageId] = useState(null)
   const [loading, setLoading] = useState(false)
   const [pushAccess, setPushAccess] = useState(false)
-  const [invalidZipNotice, setInvalidZipNotice] = useState(false)
-  const [invalidZipMessage, setInvalidZipMessage] = useState('')
-
-  const handleZipLoad = (usfmData, file) => {
-    console.log(usfmData)
-    // TODO: do stuff with this data
-    // We will probably have to call onNext here... but also change the functionality of onNext
-
-    setLoading(false)
-    handleClickClose()
-    setUrl('')
-  }
-
-  const {
-    isLoading: zipIsLoading,
-    invalidFileType: zipInvalidFileType,
-    uploadError: zipUploadError,
-    onChange: onZipChange,
-    onSubmit: onZipSubmit,
-    triggerReload: triggerZipInputReload,
-  } = useZipUsfmFileInput(handleZipLoad, true)
-
-  const handleInvalidZipNoticeClose = () => {
-    setInvalidZipNotice(false)
-    setInvalidZipMessage('')
-  }
-
-  if (zipInvalidFileType.length !== 0) {
-    setInvalidZipNotice(true)
-    setInvalidZipMessage(zipInvalidFileType.slice())
-    triggerZipInputReload()
-  }
-
-  if (zipUploadError) throw new Error(zipUploadError.message)
 
   const handleSourceChange = event => {
     setUsfmSource(event.target.value)
@@ -108,10 +64,6 @@ export default function SelectBookPopup({ onNext, showModal, setShowModal }) {
 
   const handleClickClose = () => {
     setShowModal(false)
-  }
-
-  const handleOrgChange = event => {
-    setSelectedOrganization(event.target.value)
   }
 
   const handleClickNext = () => {
@@ -151,14 +103,6 @@ export default function SelectBookPopup({ onNext, showModal, setShowModal }) {
     }
   }, [repoClient, selectedOrganization])
 
-  const handleRepositoryChange = event => {
-    setSelectedRepository(event.target.value)
-    const repository = repos.find(repo => repo.name === event.target.value)
-    setLanguageId(repository.language)
-    setAvailableBooks(repository.books)
-    setPushAccess(repository?.permissions?.push)
-  }
-
   const handleFileUpload = e => {
     if (!e.target.files) {
       return
@@ -181,54 +125,78 @@ export default function SelectBookPopup({ onNext, showModal, setShowModal }) {
     reader.readAsText(file)
   }
 
+  const handleZipLoad = (usfmData, file) => {
+    console.log(usfmData)
+    // TODO: do stuff with this data
+    // We will probably have to call onNext here... but also change the functionality of onNext
+
+    setLoading(false)
+    handleClickClose()
+    setUrl('')
+  }
+
   let formComponents
   switch (usfmSource) {
     case 'url':
       formComponents = (
-        <TextField
-          label='Url'
-          type='url'
-          value={url}
-          onChange={handleUrlChange}
-          fullWidth={true}
-        />
+        <>
+          <TextField
+            label='Url'
+            type='url'
+            value={url}
+            onChange={handleUrlChange}
+            fullWidth={true}
+          />
+          <LoadingButton
+            loading={loading}
+            size='large'
+            color='primary'
+            className='my-3'
+            variant='contained'
+            onClick={handleClickNext}
+            loadingPosition='start'
+            startIcon={<NoteAddIcon />}
+          >
+            Add
+          </LoadingButton>
+        </>
       )
       break
     case 'upload':
     default:
       formComponents = (
-        <Button
-          fullWidth
-          component='label'
-          variant='outlined'
-          startIcon={<UploadFileIcon />}
-        >
-          Upload USFM file
-          <input
-            type='file'
-            accept='.usfm'
-            hidden
-            onChange={handleFileUpload}
-          />
-        </Button>
+        <>
+          <Button
+            fullWidth
+            component='label'
+            variant='outlined'
+            startIcon={<UploadFileIcon />}
+          >
+            Upload USFM file
+            <input
+              type='file'
+              accept='.usfm'
+              hidden
+              onChange={handleFileUpload}
+            />
+          </Button>
+          <LoadingButton
+            loading={loading}
+            size='large'
+            color='primary'
+            className='my-3'
+            variant='contained'
+            onClick={handleClickNext}
+            loadingPosition='start'
+            startIcon={<NoteAddIcon />}
+          >
+            Add
+          </LoadingButton>
+        </>
       )
       break
     case 'upload_zip':
-      if (zipIsLoading) {
-        formComponents = <CircularProgress size={180} />
-        break
-      }
-      formComponents = (
-        <Button
-          fullWidth
-          component='label'
-          variant='outlined'
-          startIcon={<DriveFolderUploadIcon />}
-        >
-          Upload Zipped USFM Files
-          <input type='file' accept='.zip' hidden onChange={onZipChange} />
-        </Button>
-      )
+      formComponents = <ZipUsfmInput handleZipLoad={handleZipLoad} />
       break
   }
 
@@ -272,26 +240,8 @@ export default function SelectBookPopup({ onNext, showModal, setShowModal }) {
             </RadioGroup>
           </FormControl>
           {formComponents}
-          <LoadingButton
-            loading={loading}
-            size='large'
-            color='primary'
-            className='my-3'
-            variant='contained'
-            onClick={handleClickNext}
-            loadingPosition='start'
-            startIcon={<NoteAddIcon />}
-          >
-            Add
-          </LoadingButton>
         </Card>
       </DraggableModal>
-      <Snackbar
-        open={invalidZipNotice}
-        autoHideDuration={6000}
-        onClose={handleInvalidZipNoticeClose}
-        message={invalidZipMessage}
-      />
     </>
   )
 }
@@ -300,3 +250,26 @@ SelectBookPopup.propTypes = {
   /** On next button click event handler */
   onNext: PropTypes.func,
 }
+
+// DCS CODE GRAVEYARD
+//
+// import Autocomplete from '@mui/material/Autocomplete'
+// import MenuItem from '@mui/material/MenuItem'
+// import Select from '@mui/material/Select'
+// import InputLabel from '@mui/material/InputLabel'
+// import Checkbox from '@mui/material/Checkbox'
+// import FormGroup from '@mui/material/FormGroup'
+//
+// import { bookSelectList } from '@common/BooksOfTheBible'
+//
+// const handleOrgChange = event => {
+//   setSelectedOrganization(event.target.value)
+// }
+//
+// const handleRepositoryChange = event => {
+//   setSelectedRepository(event.target.value)
+//   const repository = repos.find(repo => repo.name === event.target.value)
+//   setLanguageId(repository.language)
+//   setAvailableBooks(repository.books)
+//   setPushAccess(repository?.permissions?.push)
+// }
