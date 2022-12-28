@@ -19,6 +19,68 @@ import ScriptureWorkspaceCard from './ScriptureWorkspaceCard'
 import useStoreContext from '@hooks/useStoreContext'
 import EmptyMessage from './EmptyMessage'
 
+const WORKSPACE_LAYOUT_WIDTHS = [
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+]
+
+const WORKSPACE_LAYOUT_HEIGHTS = [
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+]
+
 const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
@@ -61,6 +123,7 @@ function ScriptureWorkspace() {
       currentLayout,
       loggedInUser,
       tokenNetworkError,
+      bibleReference,
     },
     actions: { logout, setCurrentLayout, setTokenNetworkError, setLastError },
   } = useStoreContext()
@@ -154,12 +217,25 @@ function ScriptureWorkspace() {
     ...HTTP_CONFIG,
   }
 
-  return tokenNetworkError || networkError ? (
-    <>
-      {showNetworkError()}
-      <CircularProgress size={180} />
-    </>
-  ) : !!books.length ? (
+  if (tokenNetworkError || networkError) {
+    return (
+      <>
+        {showNetworkError()}
+        <CircularProgress size={180} />
+      </>
+    )
+  }
+
+  if (!books.length) {
+    return (
+      <EmptyMessage
+        sx={{ color: 'text.disabled' }}
+        message={'No books to display, please add a new book.'}
+      ></EmptyMessage>
+    )
+  }
+
+  return (
     <Workspace
       layout={currentLayout}
       classes={classes}
@@ -170,84 +246,24 @@ function ScriptureWorkspace() {
       minW={2}
       minH={1}
       rowHeight={25}
-      layoutWidths={[
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-      ]}
-      layoutHeights={[
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-      ]}
+      layoutWidths={WORKSPACE_LAYOUT_WIDTHS}
+      layoutHeights={WORKSPACE_LAYOUT_HEIGHTS}
     >
-      {books.map(data => (
-        <ScriptureWorkspaceCard
-          key={data.id}
-          id={data.id}
-          bookId={data.bookId}
-          docSetId={data.docset}
-          data={data}
-          classes={classes}
-          onClose={removeBook}
-        />
-      ))}
+      {/* TODO: Only display books where BibleReference.bookId === data.bookID */}
+      {books
+        .filter(data => data.bookId.toLowerCase() === bibleReference.bookId)
+        .map(data => (
+          <ScriptureWorkspaceCard
+            key={data.id}
+            id={data.id}
+            bookId={data.bookId}
+            docSetId={data.docset}
+            data={data}
+            classes={classes}
+            onClose={removeBook}
+          />
+        ))}
     </Workspace>
-  ) : (
-    <EmptyMessage
-      sx={{ color: 'text.disabled' }}
-      message={'No books to display, please add a new book.'}
-    ></EmptyMessage>
   )
 }
 
