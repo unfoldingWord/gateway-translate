@@ -14,6 +14,7 @@ export const createUsfmEntry = (entry, uploadedFilename, usfmData) => {
   }
   usfmEntry.bookId = usfmEntry.bookId.substr(-3)
   usfmEntry.id = `${uploadedFilename}`
+  usfmEntry.filename = `${uploadedFilename}`
   usfmEntry.usfmText = usfmData
   usfmEntry.readOnly = true
   return usfmEntry

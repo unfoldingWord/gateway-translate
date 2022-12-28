@@ -69,7 +69,7 @@ export default function ScriptureWorkspaceCard({
   if (data.url) {
     title += ' (' + data.url + ')'
   } else {
-    title += ' (' + id.substr(4) + ')'
+    title += ' (' + id + ')'
   }
   console.log('owner and id:', owner, id)
   return (

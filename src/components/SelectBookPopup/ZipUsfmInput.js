@@ -12,6 +12,7 @@ import CircularProgress from '@components/CircularProgress'
 export const createZipUsfmEntry = usfmDataObject => {
   return {
     id: usfmDataObject.filename,
+    filename: usfmDataObject.filename,
     bookId: usfmDataObject.bookId,
     usfmText: usfmDataObject.usfmText,
     readOnly: false,
