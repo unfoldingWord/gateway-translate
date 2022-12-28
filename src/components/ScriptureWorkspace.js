@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
 //import useDeepEffect from 'use-deep-compare-effect';
 
-import { Workspace } from 'resource-workspace-rcl'
+import { getXY, Workspace } from 'resource-workspace-rcl'
+import { cloneDeep } from 'lodash'
 import { makeStyles } from '@mui/styles'
 
 import { AppContext } from '@context/AppContext'
@@ -226,11 +227,27 @@ function ScriptureWorkspace() {
     )
   }
 
-  if (!books.length) {
+  const renderedBooks = books
+    .filter(data => data.bookId.toLowerCase() === bibleReference.bookId)
+    .map(data => (
+      <ScriptureWorkspaceCard
+        key={data.id}
+        id={data.id}
+        bookId={data.bookId}
+        docSetId={data.docset}
+        data={data}
+        classes={classes}
+        onClose={removeBook}
+      />
+    ))
+
+  if (!renderedBooks.length) {
     return (
       <EmptyMessage
         sx={{ color: 'text.disabled' }}
-        message={'No books to display, please add a new book.'}
+        message={
+          'No books to display, please add a new book or navigate to an existing book.'
+        }
       ></EmptyMessage>
     )
   }
@@ -249,20 +266,7 @@ function ScriptureWorkspace() {
       layoutWidths={WORKSPACE_LAYOUT_WIDTHS}
       layoutHeights={WORKSPACE_LAYOUT_HEIGHTS}
     >
-      {/* TODO: Only display books where BibleReference.bookId === data.bookID */}
-      {books
-        .filter(data => data.bookId.toLowerCase() === bibleReference.bookId)
-        .map(data => (
-          <ScriptureWorkspaceCard
-            key={data.id}
-            id={data.id}
-            bookId={data.bookId}
-            docSetId={data.docset}
-            data={data}
-            classes={classes}
-            onClose={removeBook}
-          />
-        ))}
+      {renderedBooks}
     </Workspace>
   )
 }
