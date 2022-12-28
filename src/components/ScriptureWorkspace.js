@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 //import useDeepEffect from 'use-deep-compare-effect';
 
-import { getXY, Workspace } from 'resource-workspace-rcl'
-import { cloneDeep } from 'lodash'
+import { Workspace } from 'resource-workspace-rcl'
 import { makeStyles } from '@mui/styles'
 
 import { AppContext } from '@context/AppContext'
