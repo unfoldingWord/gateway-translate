@@ -79,6 +79,28 @@ export default function Header({
     setFeedback && setFeedback(false)
   }
 
+  const headerComponents =
+    router.pathname === '/' ? (
+      <>
+        <div className='flex flex-1 justify-center items-center'>
+          <BibleReference />
+        </div>
+        <div className='flex flex-1 justify-end'>
+          <Fab
+            color='primary'
+            aria-label='add'
+            variant='extended'
+            onClick={() => {
+              setShowModal(true)
+            }}
+          >
+            <AddIcon className={classes.extendedIcon} />
+            Book
+          </Fab>
+        </div>
+      </>
+    ) : null
+
   return (
     <header>
       <AppBar position='fixed'>
@@ -101,24 +123,7 @@ export default function Header({
               {title}
             </Typography>
           </div>
-          <div className='flex flex-1 justify-center items-center'>
-            <BibleReference />
-          </div>
-          <div className='flex flex-1 justify-end'>
-            {router.pathname === '/' && (
-              <Fab
-                color='primary'
-                aria-label='add'
-                variant='extended'
-                onClick={() => {
-                  setShowModal(true)
-                }}
-              >
-                <AddIcon className={classes.extendedIcon} />
-                Book
-              </Fab>
-            )}
-          </div>
+          {headerComponents}
           <>
             <SelectBookPopup
               showModal={showModal}
