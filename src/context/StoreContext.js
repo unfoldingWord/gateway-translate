@@ -49,6 +49,7 @@ export default function StoreContextProvider(props) {
 
   function onReferenceChange(bookId, chapter, verse) {
     setQuote(null)
+    setCurrentLayout(null)
     setBibleReference(prevState => ({
       ...prevState,
       bookId,

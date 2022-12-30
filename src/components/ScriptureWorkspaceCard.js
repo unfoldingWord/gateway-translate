@@ -14,6 +14,7 @@ export default function ScriptureWorkspaceCard({
   docSetId,
   data,
   classes,
+  onSave: saveToWorkspace,
   onClose: removeBook,
 }) {
   const [doSave, setDoSave] = useState(false)
@@ -40,6 +41,7 @@ export default function ScriptureWorkspaceCard({
     }
     if (doSave) {
       console.log('New updated USFM:', doSave)
+      saveToWorkspace(id, doSave)
       saveContent()
     }
   }, [
@@ -69,7 +71,7 @@ export default function ScriptureWorkspaceCard({
   if (data.url) {
     title += ' (' + data.url + ')'
   } else {
-    title += ' (' + id.substr(4) + ')'
+    title += ' (' + id + ')'
   }
   console.log('owner and id:', owner, id)
   return (

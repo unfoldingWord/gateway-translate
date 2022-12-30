@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
+import { useExportUsfmZip } from 'zip-project'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ListItemIcon from '@mui/material/ListItemIcon'
@@ -8,10 +9,14 @@ import ListItemText from '@mui/material/ListItemText'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import SettingsIcon from '@mui/icons-material/Settings'
 import BugReportIcon from '@mui/icons-material/BugReport'
+import SaveIcon from '@mui/icons-material/Save'
 import IconButton from '@mui/material/IconButton'
 import ListItem from '@mui/material/ListItem'
 import List from '@mui/material/List'
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined'
+
+import { AppContext } from '@context/AppContext'
+
 // TODO: Enable buttons once ready to fully implement functionality
 // import DashboardIcon from '@mui/icons-material/Dashboard'
 // import Crop54Icon from '@mui/icons-material/Crop54'
@@ -28,6 +33,12 @@ export default function Drawer({
   showFeedback,
 }) {
   const router = useRouter()
+
+  const {
+    state: { books },
+  } = useContext(AppContext)
+
+  const { handleExportZip } = useExportUsfmZip(books, 'gateway_zip')
 
   function onFeedbackClick() {
     onClose()
@@ -62,6 +73,17 @@ export default function Drawer({
             <DashboardOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary={'Reset Resource Layout'} />
+        </ListItem>
+
+        <ListItem
+          button
+          key={'Save Zipped USFM Files'}
+          onClick={handleExportZip}
+        >
+          <ListItemIcon>
+            <SaveIcon />
+          </ListItemIcon>
+          <ListItemText primary={'Save Zipped USFM Files'} />
         </ListItem>
       </List>
       {/* <div className='mx-4 mt-2 m-1'>

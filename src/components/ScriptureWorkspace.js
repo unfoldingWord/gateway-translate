@@ -19,6 +19,68 @@ import ScriptureWorkspaceCard from './ScriptureWorkspaceCard'
 import useStoreContext from '@hooks/useStoreContext'
 import EmptyMessage from './EmptyMessage'
 
+const WORKSPACE_LAYOUT_WIDTHS = [
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+  [1, 1],
+]
+
+const WORKSPACE_LAYOUT_HEIGHTS = [
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+  [20, 20],
+]
+
 const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
@@ -41,8 +103,8 @@ function ScriptureWorkspace() {
   const [networkError, setNetworkError] = useState(null)
 
   const {
-    state: { books, ltStState },
-    actions: { setBooks, setLtStState },
+    state: { books },
+    actions: { setBooks },
   } = useContext(AppContext)
 
   const removeBook = id => {
@@ -52,17 +114,19 @@ function ScriptureWorkspace() {
     setBooks(_books)
   }
 
+  const handleUsfmUpdate = (id, updatedUsfmText) => {
+    const _books = books.map(book => {
+      if (book.id === id) {
+        return { ...book, usfmText: updatedUsfmText }
+      }
+      return book
+    })
+    setBooks(_books)
+  }
+
   const {
-    state: {
-      owner,
-      server,
-      appRef,
-      languageId,
-      currentLayout,
-      loggedInUser,
-      tokenNetworkError,
-    },
-    actions: { logout, setCurrentLayout, setTokenNetworkError, setLastError },
+    state: { currentLayout, tokenNetworkError, bibleReference },
+    actions: { setCurrentLayout, setTokenNetworkError },
   } = useStoreContext()
 
   /**
@@ -103,63 +167,42 @@ function ScriptureWorkspace() {
     return null
   }
 
-  /**
-   * process error and determine if there is a problem with connection to server
-   *  if showAnyError is true we display an error popup
-   *    the process then is to check if this is server connection problem - if so we display that message, if not we display the error returned
-   *  if showAnyError is false (default) we only display an error popup if there is a problem connecting to server
-   * @param {string} message - the error message we received fetching a resource
-   * @param {boolean} isAccessError - if false then the error type is not one that would be caused by server connection problems
-   * @param {number} resourceStatus - status code returned fetching resource
-   * @param {object} error - error object for detected error, could be a parsing error, etc.  This will take precedence over message
-   * @param {boolean} showAllErrors - if true then always show a popup error message, otherwise just show server error message if we can't talk to server
-   */
-  function onResourceError(
-    message,
-    isAccessError,
-    resourceStatus,
-    error,
-    showAllErrors = false
-  ) {
-    if (!networkError) {
-      // only show if another error not already showing
-      if (showAllErrors) {
-        processNetworkError(
-          error || message,
-          resourceStatus,
-          logout,
-          router,
-          setNetworkError,
-          setLastError,
-          setLastError
-        )
-      } else {
-        if (isAccessError) {
-          // we only show popup for access errors
-          addNetworkDisconnectError(
-            error || message,
-            0,
-            logout,
-            router,
-            setNetworkError,
-            setLastError
-          )
+  if (tokenNetworkError || networkError) {
+    return (
+      <>
+        {showNetworkError()}
+        <CircularProgress size={180} />
+      </>
+    )
+  }
+
+  const renderedBooks = books
+    .filter(data => data.bookId.toLowerCase() === bibleReference.bookId)
+    .map(data => (
+      <ScriptureWorkspaceCard
+        key={data.id}
+        id={data.id}
+        bookId={data.bookId}
+        docSetId={data.docset}
+        data={data}
+        classes={classes}
+        onSave={handleUsfmUpdate}
+        onClose={removeBook}
+      />
+    ))
+
+  if (!renderedBooks.length) {
+    return (
+      <EmptyMessage
+        sx={{ color: 'text.disabled' }}
+        message={
+          'No books to display, please add a new book or navigate to an existing book.'
         }
-      }
-    }
+      ></EmptyMessage>
+    )
   }
 
-  const config = {
-    server,
-    ...HTTP_CONFIG,
-  }
-
-  return tokenNetworkError || networkError ? (
-    <>
-      {showNetworkError()}
-      <CircularProgress size={180} />
-    </>
-  ) : !!books.length ? (
+  return (
     <Workspace
       layout={currentLayout}
       classes={classes}
@@ -170,85 +213,76 @@ function ScriptureWorkspace() {
       minW={2}
       minH={1}
       rowHeight={25}
-      layoutWidths={[
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-      ]}
-      layoutHeights={[
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-      ]}
+      layoutWidths={WORKSPACE_LAYOUT_WIDTHS}
+      layoutHeights={WORKSPACE_LAYOUT_HEIGHTS}
     >
-      {books.map(data => (
-        <ScriptureWorkspaceCard
-          key={data.id}
-          id={data.id}
-          bookId={data.bookId}
-          docSetId={data.docset}
-          data={data}
-          classes={classes}
-          onClose={removeBook}
-        />
-      ))}
+      {renderedBooks}
     </Workspace>
-  ) : (
-    <EmptyMessage
-      sx={{ color: 'text.disabled' }}
-      message={'No books to display, please add a new book.'}
-    ></EmptyMessage>
   )
 }
 
 export default ScriptureWorkspace
+
+// DCS CODE GRAVEYARD
+
+/**
+ * process error and determine if there is a problem with connection to server
+ *  if showAnyError is true we display an error popup
+ *    the process then is to check if this is server connection problem - if so we display that message, if not we display the error returned
+ *  if showAnyError is false (default) we only display an error popup if there is a problem connecting to server
+ * @param {string} message - the error message we received fetching a resource
+ * @param {boolean} isAccessError - if false then the error type is not one that would be caused by server connection problems
+ * @param {number} resourceStatus - status code returned fetching resource
+ * @param {object} error - error object for detected error, could be a parsing error, etc.  This will take precedence over message
+ * @param {boolean} showAllErrors - if true then always show a popup error message, otherwise just show server error message if we can't talk to server
+ */
+// function onResourceError(
+//   message,
+//   isAccessError,
+//   resourceStatus,
+//   error,
+//   showAllErrors = false
+// ) {
+//   if (!networkError) {
+//     // only show if another error not already showing
+//     if (showAllErrors) {
+//       processNetworkError(
+//         error || message,
+//         resourceStatus,
+//         logout,
+//         router,
+//         setNetworkError,
+//         setLastError,
+//         setLastError
+//       )
+//     } else {
+//       if (isAccessError) {
+//         // we only show popup for access errors
+//         addNetworkDisconnectError(
+//           error || message,
+//           0,
+//           logout,
+//           router,
+//           setNetworkError,
+//           setLastError
+//         )
+//       }
+//     }
+//   }
+// }
+
+// const config = {
+//   server,
+//   ...HTTP_CONFIG,
+// }
+
+// const {
+//   state: {
+//     owner,
+//     server,
+//     appRef,
+//     languageId,
+//     loggedInUser,
+//   },
+//   actions: { logout setLastError },
+// } = useStoreContext()
