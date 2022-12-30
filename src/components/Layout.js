@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Header from '@components/Header'
 import Footer from '@components/Footer'
 import { StoreContext } from '@context/StoreContext'
+import useProjectsContext from '@hooks/useProjectsContext'
 import { getBuildId } from '@utils/build'
 import { APP_NAME, BASE_URL, PROD, QA, QA_BASE_URL } from '@common/constants'
 import { useRouter } from 'next/router'
@@ -23,6 +24,12 @@ export default function Layout({ children, showChildren, title = APP_NAME }) {
       }
     }
   }
+
+  const { fetchProjects } = useProjectsContext()
+
+  useEffect(() => {
+    fetchProjects()
+  }, [])
 
   const storeContext = useContext(StoreContext)
   const {

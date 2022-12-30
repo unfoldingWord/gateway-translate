@@ -10,7 +10,8 @@ import CssBaseline from '@mui/material/CssBaseline'
 import StoreContextProvider from '@context/StoreContext'
 import AuthContextProvider from '@context/AuthContext'
 import AppContextProvider from '@context/AppContext'
-import {PkCacheProvider} from 'uw-editor'
+import { ProjectsProvider } from '@context/ProjectsContext'
+import { PkCacheProvider } from 'uw-editor'
 import { APP_NAME } from '@common/constants'
 import AppHead from '@components/AppHead'
 import Layout from '@components/Layout'
@@ -31,31 +32,30 @@ export default function Application({ Component, pageProps }) {
   return (
     <div>
       <NonSSRWrapper>
-      <ThemeProvider theme={theme}>
-      <AppHead title={APP_NAME} />
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <AuthContextProvider>
-          <StoreContextProvider>
+        <ThemeProvider theme={theme}>
+          <AppHead title={APP_NAME} />
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <AuthContextProvider>
+            <StoreContextProvider>
               <PkCacheProvider>
                 <AppContextProvider>
-                  <Layout>
-                    <Component {...pageProps} />
-                  </Layout>
-                  </AppContextProvider>
+                  <ProjectsProvider>
+                    <Layout>
+                      <Component {...pageProps} />
+                    </Layout>
+                  </ProjectsProvider>
+                </AppContextProvider>
               </PkCacheProvider>
-          </StoreContextProvider>
-        </AuthContextProvider>
-      </ThemeProvider>
+            </StoreContextProvider>
+          </AuthContextProvider>
+        </ThemeProvider>
       </NonSSRWrapper>
     </div>
   )
 }
 
 Application.propTypes = {
-  Component: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.func,
-  ]),
+  Component: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   pageProps: PropTypes.object,
 }
