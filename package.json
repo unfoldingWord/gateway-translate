@@ -38,7 +38,7 @@
     "use-deep-compare-effect": "^1.8.1",
     "utf8": "3.0.0",
     "uw-editor": "0.1.15",
-    "zip-project": "0.0.25"
+    "zip-project": "0.0.26"
   },
   "devDependencies": {
     "eslint": "^8.17.0",

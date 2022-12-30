@@ -7,6 +7,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks'
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd'
 import SettingsIcon from '@mui/icons-material/Settings'
 import BugReportIcon from '@mui/icons-material/BugReport'
@@ -60,6 +61,11 @@ export default function Drawer({
     // }
   }
 
+  function onSelectProjectClick() {
+    router.push('/projects')
+    onClose()
+  }
+
   return (
     <SwipeableDrawer
       anchor='left'
@@ -74,15 +80,19 @@ export default function Drawer({
         </IconButton>
       </div>
       <List disablePadding>
-        <ListItem
-          button
-          key={'Reset Resource Layout'}
-          onClick={onResetResourceLayout}
-        >
+        <ListItem button key={'Select Project'} onClick={onSelectProjectClick}>
           <ListItemIcon>
-            <DashboardOutlinedIcon />
+            <LibraryBooksIcon />
           </ListItemIcon>
-          <ListItemText primary={'Reset Resource Layout'} />
+          <ListItemText primary={'Select Project'} />
+        </ListItem>
+      </List>
+      <List disablePadding>
+        <ListItem button key={'Create Project'} onClick={onCreateProjectClick}>
+          <ListItemIcon>
+            <LibraryAddIcon />
+          </ListItemIcon>
+          <ListItemText primary={'Create Project'} />
         </ListItem>
       </List>
       <List disablePadding>
@@ -98,11 +108,15 @@ export default function Drawer({
         </ListItem>
       </List>
       <List disablePadding>
-        <ListItem button key={'Create Project'} onClick={onCreateProjectClick}>
+        <ListItem
+          button
+          key={'Reset Resource Layout'}
+          onClick={onResetResourceLayout}
+        >
           <ListItemIcon>
-            <LibraryAddIcon />
+            <DashboardOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary={'Create Project'} />
+          <ListItemText primary={'Reset Resource Layout'} />
         </ListItem>
       </List>
       {/* <div className='mx-4 mt-2 m-1'>

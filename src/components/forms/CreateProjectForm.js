@@ -12,7 +12,7 @@ import SettingsForm from '@components/forms/SettingsForm'
 import { languages as LANGUAGES } from '@common/languages'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
-import { ProjectsContext } from 'zip-project'
+import useProjectsContext from '@hooks/useProjectsContext'
 import SelectBookPopup from '@components/SelectBookPopup/SelectBookPopup'
 
 const CreateProjectForm = ({ onCreate = () => null }) => {
@@ -30,7 +30,7 @@ const CreateProjectForm = ({ onCreate = () => null }) => {
     state: { books },
   } = useContext(AppContext)
 
-  const { addProject } = useContext(ProjectsContext)
+  const { addProject } = useProjectsContext()
 
   useEffect(() => {
     setCreateDisabled(!books.length || !projectName.length)
