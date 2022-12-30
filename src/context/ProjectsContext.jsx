@@ -23,7 +23,7 @@ const ProjectsProvider = ({ children }) => {
       return {
         id: data.id,
         name: data.key,
-        data: await arrayBufferToUsfmData(data.value),
+        books: await arrayBufferToUsfmData(data.value),
         // TODO: (maybe) detect language in data and store
         // language: detectLanguage(data.value)
       }
@@ -46,7 +46,7 @@ const ProjectsProvider = ({ children }) => {
     const newProject = {
       id: projects.length,
       name: projectName,
-      data: usfmData,
+      books: usfmData,
     }
 
     const { arrayBuffer: usfmArrayBuffer } = await usfmDataToFileData(usfmData)
@@ -64,7 +64,7 @@ const ProjectsProvider = ({ children }) => {
 
     const updatedProjects = projects.map(project => {
       if (project.name === projectName) {
-        return { ...project, data: usfmData }
+        return { ...project, books: usfmData }
       }
       return project
     })

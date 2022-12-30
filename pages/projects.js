@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import SetUpWrapper from '@components/SetUpWrapper'
 import ProjectList from '@components/ProjectList'
 
-const CreateProject = () => {
+const Projects = () => {
   const router = useRouter()
   return (
     <SetUpWrapper>
@@ -12,4 +12,4 @@ const CreateProject = () => {
   )
 }
 
-export default CreateProject
+export default Projects
