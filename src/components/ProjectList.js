@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -9,11 +9,16 @@ import Paper from '@mui/material/Paper'
 
 import useProjectsContext from '@hooks/useProjectsContext'
 
-const ProjectList = () => {
-  const { projects, selectProject } = useProjectsContext()
+const ProjectList = ({ onSelect = () => null }) => {
+  const { projects, selectProject, clearSelectedProject } = useProjectsContext()
 
-  const handleProjectSelect = row => {
-    console.log(row)
+  useEffect(() => {
+    clearSelectedProject()
+  }, [])
+
+  const handleProjectSelect = project => {
+    selectProject(project)
+    onSelect()
   }
 
   return (

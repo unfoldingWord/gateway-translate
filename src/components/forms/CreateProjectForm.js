@@ -30,7 +30,11 @@ const CreateProjectForm = ({ onCreate = () => null }) => {
     state: { books },
   } = useContext(AppContext)
 
-  const { addProject } = useProjectsContext()
+  const { addProject, clearSelectedProject } = useProjectsContext()
+
+  useEffect(() => {
+    clearSelectedProject()
+  }, [])
 
   useEffect(() => {
     setCreateDisabled(!books.length || !projectName.length)

@@ -1,17 +1,37 @@
-import React, { createContext, useState, useCallback } from 'react'
-
+import React, {
+  createContext,
+  useEffect,
+  useContext,
+  useState,
+  useCallback,
+} from 'react'
 import { useTransformUsfmZip } from 'zip-project'
 import { useLocalForage } from 'zip-project'
+
+import { AppContext } from '@context/AppContext'
 
 const ProjectsContext = createContext()
 
 const ProjectsProvider = ({ children }) => {
   const [projects, setProjects] = useState([])
   const [selectedProject, setSelectedProject] = useState(null)
+
   const { getAllFromStore, setInStore, deleteFromStore } =
     useLocalForage('projects')
 
-  const { arrayBufferToUsfmData, usfmDataToFileData } = useTransformUsfmZip()
+  const { storeBufferToUsfmData, usfmDataToStoreBuffer } = useTransformUsfmZip()
+
+  const {
+    state: { books },
+    actions: { setBooks },
+  } = useContext(AppContext)
+
+  // Whenever a project is loaded and changes are made, save those changes
+  useEffect(() => {
+    if (!!selectedProject) {
+      updateProject(selectedProject.name, books)
+    }
+  }, [books])
 
   const projectExists = projectName => {
     return projects.some(project => project.name === projectName)
@@ -23,7 +43,7 @@ const ProjectsProvider = ({ children }) => {
       return {
         id: data.id,
         name: data.key,
-        books: await arrayBufferToUsfmData(data.value),
+        books: await storeBufferToUsfmData(data.value),
         // TODO: (maybe) detect language in data and store
         // language: detectLanguage(data.value)
       }
@@ -37,7 +57,7 @@ const ProjectsProvider = ({ children }) => {
     return { ...foundProject }
   }
 
-  const addProject = async (projectName, usfmData) => {
+  const addProject = async (projectName, books) => {
     if (projectExists(projectName)) {
       // complain to the user
       return false
@@ -46,17 +66,19 @@ const ProjectsProvider = ({ children }) => {
     const newProject = {
       id: projects.length,
       name: projectName,
-      books: usfmData,
+      books,
     }
 
-    const { arrayBuffer: usfmArrayBuffer } = await usfmDataToFileData(usfmData)
-
+    const usfmArrayBuffer = await usfmDataToStoreBuffer(books)
     await setInStore(projectName, usfmArrayBuffer)
-    setProjects([...projects, newProject])
+
+    setSelectedProject({ ...newProject })
+    setProjects([...projects, { ...newProject }])
+    setBooks([...newProject.books])
     return true
   }
 
-  const updateProject = async (projectName, usfmData) => {
+  const updateProject = async (projectName, books) => {
     if (!projectExists(projectName)) {
       // complain to the user
       return false
@@ -64,11 +86,11 @@ const ProjectsProvider = ({ children }) => {
 
     const updatedProjects = projects.map(project => {
       if (project.name === projectName) {
-        return { ...project, books: usfmData }
+        return { ...project, books }
       }
       return project
     })
-    const { arrayBuffer: usfmArrayBuffer } = await usfmDataToFileData(usfmData)
+    const usfmArrayBuffer = await usfmDataToStoreBuffer(books)
 
     await setInStore(projectName, usfmArrayBuffer)
     setProjects(updatedProjects)
@@ -87,8 +109,13 @@ const ProjectsProvider = ({ children }) => {
   }
 
   const selectProject = project => {
-    console.log(project)
+    setBooks([...project.books])
     setSelectedProject({ ...project })
+  }
+
+  const clearSelectedProject = () => {
+    setSelectedProject(null)
+    setBooks([])
   }
 
   const context = {
@@ -100,6 +127,7 @@ const ProjectsProvider = ({ children }) => {
     updateProject,
     deleteProject,
     selectProject,
+    clearSelectedProject,
   }
 
   return (
