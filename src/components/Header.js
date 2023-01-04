@@ -250,6 +250,6 @@ Header.propTypes = {
   authentication: PropTypes.object,
   resetResourceLayout: PropTypes.func,
   storeContext: PropTypes.object,
-  feedback: PropTypes.bool,
+  feedback: PropTypes.any,
   setFeedback: PropTypes.func,
 }

@@ -25,7 +25,7 @@ export default async function sendFeedback({
     text: fullMessage,
     html: fullMessage.replace(/\n/g, '<br>'),
   }
-
+  console.log("sendFeedback() setApiKey with:", process.env.HELP_DESK_TOKEN)
   sgMail.setApiKey(process.env.HELP_DESK_TOKEN)
 
   return sgMail.send(msg)

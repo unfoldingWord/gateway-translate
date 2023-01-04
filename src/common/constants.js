@@ -13,7 +13,7 @@ export const PASSWORD_RECOVERY_LINK = `https://git.door43.org/user/forgot_passwo
 export const SIGNUP_LINK = "https://git.door43.org/user/sign_up";
 
 export const SERVER_MAX_WAIT_TIME_RETRY = 10000 // in milliseconds
-export const HTTP_GET_MAX_WAIT_TIME = 5000 // in milliseconds
+export const HTTP_GET_MAX_WAIT_TIME = 10000 // in milliseconds
 export const HTTP_GET_CACHE_TIME = 60 * 60 * 1000 // in milliseconds, cache for 1 hour
 export const HTTP_CONFIG = {
   cache: { maxAge: HTTP_GET_CACHE_TIME },

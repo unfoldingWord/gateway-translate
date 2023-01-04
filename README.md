@@ -138,6 +138,15 @@ This project uses components from the Open Components Ecosystem (OCE) extensivel
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+### Other Notes
+
+1. To use the feedback dialog locally you must create a `.env` file with two variables:
+```
+HELP_DESK_TOKEN=<email token here>
+HELP_DESK_EMAIL=<email here>
+```
+The values for these may be obtained from the developerment team or you may utilize your own.
+
 <!-- ROADMAP -->
 ## Roadmap
 
