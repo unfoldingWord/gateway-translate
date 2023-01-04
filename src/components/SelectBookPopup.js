@@ -70,6 +70,7 @@ export default function SelectBookPopup(
   const [languageId, setLanguageId] = useState(null)
   const [loading, setLoading] = useState(false);
   const [pushAccess, setPushAccess] = useState(false);
+  const [focus, setFocus] = useState('')
 
   const handleSourceChange = event => {
     setUsfmSource(event.target.value)
@@ -81,6 +82,7 @@ export default function SelectBookPopup(
 
   const handleUrlChange = event => {
     setUrl(event.target.value)
+    setFocus('url')
   }
 
   const handleClickClose = () => {
@@ -169,7 +171,7 @@ export default function SelectBookPopup(
   let formComponents
   switch (usfmSource) {
     case 'url':
-      formComponents = <TextField label="Url" type="url" value={url} onChange={handleUrlChange} fullWidth={true} />
+      formComponents = <TextField label="Url" type="url" value={url} onChange={handleUrlChange} fullWidth={true} inputRef={input => input && focus === 'url' && input.focus()} />
       break;
     case 'upload':
       formComponents = <Button
