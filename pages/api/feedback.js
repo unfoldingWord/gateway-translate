@@ -2,7 +2,7 @@ import sendFeedback from '../../src/common/sendFeedback'
 
 const Feedback = async (req, res) => {
   let errorMessage
-  console.log("api/feedback.js entered")
+  console.log("api/feedback.js")
   if (req.method === 'POST') {
     const {
       name, email, message, category, extraData,

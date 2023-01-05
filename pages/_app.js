@@ -30,7 +30,7 @@ export default function Application({ Component, pageProps }) {
 
   return (
     <div>
-      {/* <NonSSRWrapper> */}
+      <NonSSRWrapper>
       <ThemeProvider theme={theme}>
       <AppHead title={APP_NAME} />
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
@@ -47,7 +47,7 @@ export default function Application({ Component, pageProps }) {
           </StoreContextProvider>
         </AuthContextProvider>
       </ThemeProvider>
-      {/* </NonSSRWrapper> */}
+      </NonSSRWrapper>
     </div>
   )
 }
