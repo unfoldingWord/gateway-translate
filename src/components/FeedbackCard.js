@@ -344,43 +344,47 @@ const FeedbackCard = ({
             onChange={onMessageChange}
             classes={{ root: classes.textField }}
           />
-          <div className='flex justify-end'>
-          <Button
-              className='my-3 mx-1'
-              variant='contained'
-              color='primary'
-              size='large'
-              disableElevation
-              onClick={() => router.push('/')}
-            >
-              Close
-            </Button>
-            <Button
-              className='my-3 mx-1'
-              variant='contained'
-              color='primary'
-              size='large'
-              disableElevation
-              disabled={submitDisabled}
-              onClick={onSubmitFeedback}
-            >
-              {state.submitting ? 'Submitting' : 'Submit'}
-            </Button>
-            {state.showSuccess || state.showError ? (
-              <Alert
-                severity={state.showSuccess ? 'success' : 'error'}
-                message={
-                  state.showSuccess
-                    ? `Your ${
-                      state.category || 'feedback'
-                    } was submitted successfully!`
-                    : `Something went wrong submitting your ${
-                      state.category || 'feedback'
-                    }.`
-                }
-                onClick={state.showSuccess ? onClose : null}
-              />
-            ) : null}
+          <div>
+            <div className='flex justify-end'>
+              <Button
+                  className='my-3 mx-1'
+                  variant='contained'
+                  color='primary'
+                  size='large'
+                  disableElevation
+                  onClick={() => router.push('/')}
+              >
+                Close
+              </Button>
+              <Button
+                className='my-3 mx-1'
+                variant='contained'
+                color='primary'
+                size='large'
+                disableElevation
+                disabled={submitDisabled}
+                onClick={onSubmitFeedback}
+              >
+                {state.submitting ? 'Submitting' : 'Submit'}
+              </Button>
+            </div>
+            <div>
+              {state.showSuccess || state.showError ? (
+                <Alert
+                  severity={state.showSuccess ? 'success' : 'error'}
+                  message={
+                    state.showSuccess
+                      ? `Your ${
+                        state.category || 'feedback'
+                      } was submitted successfully!`
+                      : `Something went wrong submitting your ${
+                        state.category || 'feedback'
+                      }.`
+                  }
+                  onClick={state.showSuccess ? onClose : () => router.push('/')}
+                />
+              ) : null}
+            </div>
           </div>
         </div>
       </div>
