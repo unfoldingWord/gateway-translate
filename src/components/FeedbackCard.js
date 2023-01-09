@@ -144,7 +144,8 @@ const FeedbackCard = ({
   }
 
   function onClose() {
-    actions.setMessage('')
+    console.log("onClose")
+    actions.clearState()
     router.push('/')
   }
 
@@ -362,7 +363,7 @@ const FeedbackCard = ({
                   color='primary'
                   size='large'
                   disableElevation
-                  onClick={() => router.push('/')}
+                  onClick={() => onClose() }
               >
                 Close
               </Button>
@@ -391,7 +392,7 @@ const FeedbackCard = ({
                         state.category || 'feedback'
                       }.`
                   }
-                  onClick={state.showSuccess ? onClose : null}
+                  onClick={state.showSuccess ? () => onClose() : null}
                 />
               ) : null}
             </div>

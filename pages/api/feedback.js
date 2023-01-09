@@ -17,8 +17,6 @@ const Feedback = async (req, res) => {
         extraData,
       })
 
-      console.log(`sendFeedback() response: ${JSON.stringify(response)}`)
-
       if (!errorMessage) {
         return res.status(200).json({ ...response })
       }
