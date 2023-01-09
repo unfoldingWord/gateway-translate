@@ -14,6 +14,7 @@ import { CLOSE, HTTP_GET_MAX_WAIT_TIME } from '@common/constants'
 import NetworkErrorPopup from '@components/NetworkErrorPopUp'
 import PropTypes from 'prop-types'
 import useFeedbackData from '@hooks/useFeedbackData'
+import { useRouter } from 'next/router'
 
 // FeedbackCard.js renders feedback content that is placed in FeedbackPopup
 
@@ -95,6 +96,8 @@ const FeedbackCard = ({
   setInitCard,
   onClose,
 }) => {
+  const router = useRouter()
+
   const classes = useStyles()
   const helperTestClasses = helperTextStyles()
   const categories = ['Bug Report', 'Feedback']
@@ -341,9 +344,19 @@ const FeedbackCard = ({
             onChange={onMessageChange}
             classes={{ root: classes.textField }}
           />
-          <div className='flex flex-col mx-8 mb-4'>
+          <div className='flex justify-end'>
+          <Button
+              className='my-3 mx-1'
+              variant='contained'
+              color='primary'
+              size='large'
+              disableElevation
+              onClick={() => router.push('/')}
+            >
+              Close
+            </Button>
             <Button
-              className='self-end'
+              className='my-3 mx-1'
               variant='contained'
               color='primary'
               size='large'

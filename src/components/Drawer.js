@@ -42,7 +42,8 @@ export default function Drawer({
 
   function onFeedbackClick() {
     onClose()
-    showFeedback && showFeedback()
+    // showFeedback && showFeedback()
+    router.push('/sendFeedback')
   }
 
   async function onLogout() {
