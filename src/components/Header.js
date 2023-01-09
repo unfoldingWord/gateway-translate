@@ -15,7 +15,6 @@ import Snackbar from '@mui/material/Snackbar'
 import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
-import FeedbackPopup from '@components/FeedbackPopup'
 import SelectBookPopup from './SelectBookPopup'
 import { randomLetters } from '@utils/randomLetters'
 
@@ -230,9 +229,6 @@ export default function Header({
         resetResourceLayout={resetResourceLayout}
         showFeedback={doShowFeedback}
       />
-      {feedback ? (
-        <FeedbackPopup open {...feedback} onClose={doHideFeedback} />
-      ) : null}
       <Snackbar
         open={alreadyOpenNotice}
         autoHideDuration={6000}

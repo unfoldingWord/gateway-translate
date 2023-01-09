@@ -15,6 +15,7 @@ import NetworkErrorPopup from '@components/NetworkErrorPopUp'
 import PropTypes from 'prop-types'
 import useFeedbackData from '@hooks/useFeedbackData'
 import { useRouter } from 'next/router'
+import { Stack } from '@mui/system'
 
 // FeedbackCard.js renders feedback content that is placed in FeedbackPopup
 
@@ -93,8 +94,8 @@ const FeedbackCard = ({
   lastError,
   loggedInUser,
   initCard,
-  setInitCard,
-  onClose,
+  // setInitCard,
+  // onClose,
 }) => {
   const router = useRouter()
 
@@ -104,12 +105,12 @@ const FeedbackCard = ({
   const emailEditRef = useRef(null)
   const { state, actions } = useFeedbackData(open)
 
-  useEffect(() => {
-    if (initCard) {
-      actions.clearState()
-      setInitCard(false) // card initialized
-    }
-  }, [initCard])
+  // useEffect(() => {
+  //   if (initCard) {
+  //     actions.clearState()
+  //     setInitCard(false) // card initialized
+  //   }
+  // }, [initCard])
 
   /**
    * in the case of a network error, process and display error dialog
@@ -140,6 +141,11 @@ const FeedbackCard = ({
 
   function onMessageChange(e) {
     actions.setMessage(e.target.value)
+  }
+
+  function onClose() {
+    actions.setMessage('')
+    router.push('/')
   }
 
   function getUserSettings(username, baseKey) {
@@ -279,6 +285,10 @@ const FeedbackCard = ({
     }
 
     actions.setSubmitting(false)
+    // actions.setCategory('')
+    // actions.setEmail('')
+    actions.setMessage('')
+    // actions.setName('')
   }
 
   const submitDisabled = state.submitting || !state.name || !state.email || !state.message || !state.category
@@ -344,7 +354,7 @@ const FeedbackCard = ({
             onChange={onMessageChange}
             classes={{ root: classes.textField }}
           />
-          <div>
+          <Stack>
             <div className='flex justify-end'>
               <Button
                   className='my-3 mx-1'
@@ -381,11 +391,11 @@ const FeedbackCard = ({
                         state.category || 'feedback'
                       }.`
                   }
-                  onClick={state.showSuccess ? onClose : () => router.push('/')}
+                  onClick={state.showSuccess ? onClose : null}
                 />
               ) : null}
             </div>
-          </div>
+          </Stack>
         </div>
       </div>
       { !!state.networkError &&
