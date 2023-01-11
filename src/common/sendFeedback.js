@@ -4,6 +4,8 @@ import { APP_VERSION } from '../common/constants'
 export default async function sendFeedback({
   name, email, message, category, extraData,
 }) {
+  return { status:  'return early to see if it timesout' }
+
   let fullMessage = `${message}\n\nApp Version: ${APP_VERSION}`
 
   if (name) {
