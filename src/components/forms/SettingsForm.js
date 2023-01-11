@@ -4,7 +4,7 @@ import FormControl from '@mui/material/FormControl'
 import FormLabel from '@mui/material/FormLabel'
 import FormHelperText from '@mui/material/FormHelperText'
 import TOKEN_ID from '@common/constants'
-import { Typography } from '@mui/material'
+import Typography from '@mui/material/Typography'
 
 const SettingsForm = ({
   children,

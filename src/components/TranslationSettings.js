@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import { getGatewayLanguages } from '@common/languages'
 import { StoreContext } from '@context/StoreContext'
-import { FormHelperText } from '@mui/material'
+import FormHelperText from '@mui/material/FormHelperText'
 import {
   HTTP_GET_MAX_WAIT_TIME,
   LOADING,
