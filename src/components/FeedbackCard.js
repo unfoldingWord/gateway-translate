@@ -14,6 +14,9 @@ import { CLOSE, HTTP_GET_MAX_WAIT_TIME } from '@common/constants'
 import NetworkErrorPopup from '@components/NetworkErrorPopUp'
 import PropTypes from 'prop-types'
 import useFeedbackData from '@hooks/useFeedbackData'
+import { useRouter } from 'next/router'
+import { Stack } from '@mui/system'
+import sendFeedback from '@common/sendFeedback'
 
 // FeedbackCard.js renders feedback content that is placed in FeedbackPopup
 
@@ -92,21 +95,23 @@ const FeedbackCard = ({
   lastError,
   loggedInUser,
   initCard,
-  setInitCard,
-  onClose,
+  // setInitCard,
+  // onClose,
 }) => {
+  const router = useRouter()
+
   const classes = useStyles()
   const helperTestClasses = helperTextStyles()
   const categories = ['Bug Report', 'Feedback']
   const emailEditRef = useRef(null)
   const { state, actions } = useFeedbackData(open)
 
-  useEffect(() => {
-    if (initCard) {
-      actions.clearState()
-      setInitCard(false) // card initialized
-    }
-  }, [initCard])
+  // useEffect(() => {
+  //   if (initCard) {
+  //     actions.clearState()
+  //     setInitCard(false) // card initialized
+  //   }
+  // }, [initCard])
 
   /**
    * in the case of a network error, process and display error dialog
@@ -137,6 +142,12 @@ const FeedbackCard = ({
 
   function onMessageChange(e) {
     actions.setMessage(e.target.value)
+  }
+
+  function onClose() {
+    console.log("onClose")
+    actions.clearState()
+    router.push('/')
   }
 
   function getUserSettings(username, baseKey) {
@@ -234,48 +245,28 @@ const FeedbackCard = ({
       helpsCardSettings,
     })
 
-    let res
-
+    let sgResults
     try {
-      const fetchPromise = fetch('/api/feedback', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: state.name,
-          email: state.email,
-          category: state.category,
-          message: state.message,
-          extraData,
-        }),
+      sgResults = await sendFeedback({
+        name: state.name,
+        email: state.email,
+        category: state.category,
+        message: state.message,
       })
-      const timeout = new Promise((_r, rej) => {
-        const TIMEOUT_ERROR = `Network Timeout Error ${HTTP_GET_MAX_WAIT_TIME}ms`
-        return setTimeout(() => rej(TIMEOUT_ERROR), HTTP_GET_MAX_WAIT_TIME)
-      })
-      res = await Promise.race([fetchPromise, timeout])
-    } catch (e) {
-      console.warn(`onSubmitFeedback() - failure calling '/api/feedback'`, e)
-      processError(e)
-      actions.setSubmitting(false)
-      actions.setShowSuccess(false)
-      actions.setShowError(true)
-      return
-    }
-
-    const response = await res.json()
-
-    if (res.status === 200) {
-      actions.setShowSuccess(true)
-    } else {
-      const error = response.error
-      console.warn(`onSubmitFeedback() - error response = ${JSON.stringify(error)}`)
-      const httpCode = parseInt(error.code, 10)
+      console.log("Success: sgResults:", sgResults)
+    } catch( error ) {
+      console.log("Error: sgResults:", sgResults)
+      console.log("Error from SendGrid Emailer:", error)
       const errorMessage = error.message + '.'
       actions.setShowError(true)
-      processError(errorMessage, httpCode)
+      processError(errorMessage, "")
     }
 
     actions.setSubmitting(false)
+    // actions.setCategory('')
+    // actions.setEmail('')
+    actions.setMessage('')
+    // actions.setName('')
   }
 
   const submitDisabled = state.submitting || !state.name || !state.email || !state.message || !state.category
@@ -341,34 +332,48 @@ const FeedbackCard = ({
             onChange={onMessageChange}
             classes={{ root: classes.textField }}
           />
-          <div className='flex flex-col mx-8 mb-4'>
-            <Button
-              className='self-end'
-              variant='contained'
-              color='primary'
-              size='large'
-              disableElevation
-              disabled={submitDisabled}
-              onClick={onSubmitFeedback}
-            >
-              {state.submitting ? 'Submitting' : 'Submit'}
-            </Button>
-            {state.showSuccess || state.showError ? (
-              <Alert
-                severity={state.showSuccess ? 'success' : 'error'}
-                message={
-                  state.showSuccess
-                    ? `Your ${
-                      state.category || 'feedback'
-                    } was submitted successfully!`
-                    : `Something went wrong submitting your ${
-                      state.category || 'feedback'
-                    }.`
-                }
-                onClick={state.showSuccess ? onClose : null}
-              />
-            ) : null}
-          </div>
+          <Stack>
+            <div className='flex justify-end'>
+              <Button
+                  className='my-3 mx-1'
+                  variant='contained'
+                  color='primary'
+                  size='large'
+                  disableElevation
+                  onClick={() => onClose() }
+              >
+                Close
+              </Button>
+              <Button
+                className='my-3 mx-1'
+                variant='contained'
+                color='primary'
+                size='large'
+                disableElevation
+                disabled={submitDisabled}
+                onClick={onSubmitFeedback}
+              >
+                {state.submitting ? 'Submitting' : 'Submit'}
+              </Button>
+            </div>
+            <div>
+              {state.showSuccess || state.showError ? (
+                <Alert
+                  severity={state.showSuccess ? 'success' : 'error'}
+                  message={
+                    state.showSuccess
+                      ? `Your ${
+                        state.category || 'feedback'
+                      } was submitted successfully!`
+                      : `Something went wrong submitting your ${
+                        state.category || 'feedback'
+                      }.`
+                  }
+                  onClick={state.showSuccess ? () => onClose() : null}
+                />
+              ) : null}
+            </div>
+          </Stack>
         </div>
       </div>
       { !!state.networkError &&
@@ -406,3 +411,46 @@ FeedbackCard.propTypes = {
 }
 
 export default FeedbackCard
+/*
+
+    let res
+
+    try {
+      const fetchPromise = fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: state.name,
+          email: state.email,
+          category: state.category,
+          message: state.message,
+          extraData,
+        }),
+      })
+      const timeout = new Promise((_r, rej) => {
+        const TIMEOUT_ERROR = `Network Timeout Error ${HTTP_GET_MAX_WAIT_TIME}ms`
+        return setTimeout(() => rej(TIMEOUT_ERROR), HTTP_GET_MAX_WAIT_TIME)
+      })
+      res = await Promise.race([fetchPromise, timeout])
+    } catch (e) {
+      console.warn(`onSubmitFeedback() - failure calling '/api/feedback'`, e)
+      processError(e)
+      actions.setSubmitting(false)
+      actions.setShowSuccess(false)
+      actions.setShowError(true)
+      return
+    }
+
+    const response = await res.json()
+
+    if (res.status === 200) {
+      actions.setShowSuccess(true)
+    } else {
+      const error = response.error
+      console.warn(`onSubmitFeedback() - error response = ${JSON.stringify(error)}`)
+      const httpCode = parseInt(error.code, 10)
+      const errorMessage = error.message + '.'
+      actions.setShowError(true)
+      processError(errorMessage, httpCode)
+    }
+*/
