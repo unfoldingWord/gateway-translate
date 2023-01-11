@@ -4,8 +4,6 @@ import { APP_VERSION } from '../common/constants'
 export default async function sendFeedback({
   name, email, message, category, extraData,
 }) {
-  return { status:  'return early to see if it timesout' }
-
   let fullMessage = `${message}\n\nApp Version: ${APP_VERSION}`
 
   if (name) {
@@ -27,7 +25,7 @@ export default async function sendFeedback({
     text: fullMessage,
     html: fullMessage.replace(/\n/g, '<br>'),
   }
-  sgMail.setTimeout(2000)
+  sgMail.setTimeout(4500)
 
   sgMail.setApiKey(process.env.HELP_DESK_TOKEN)
 
