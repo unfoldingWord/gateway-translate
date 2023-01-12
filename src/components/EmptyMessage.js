@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import Typography from '@mui/material/Typography'
 
 function EmptyMessage({ message, actionComponent: Action, ...props }) {
   return (
