@@ -109,7 +109,6 @@ export default function ScriptureWorkspaceCard({
         // ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
         data.usfmText
         ?
-          <div className="text-sm">
           <UsfmEditor key="1"
             bookId={data.bookId}
             docSetId={docSetId}
@@ -117,7 +116,6 @@ export default function ScriptureWorkspaceCard({
             onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
             editable={id.endsWith(owner) ? true : false}
           />
-          </div>
         :
         (
           typeof data.content === "string"
