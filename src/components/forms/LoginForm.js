@@ -2,18 +2,16 @@ import { useContext, useState, useEffect } from 'react'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import PersonIcon from '@mui/icons-material/Person'
 import VpnKeyIcon from '@mui/icons-material/VpnKey'
-import {
-  Avatar,
-  Button,
-  FormControlLabel,
-  Checkbox,
-  Typography,
-  TextField,
-  InputAdornment,
-  Link,
-  CircularProgress,
-  Stack,
-} from '@mui/material'
+import Button from '@mui/material/Button'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
+import Typography from '@mui/material/Typography'
+import TextField from '@mui/material/TextField'
+import InputAdornment from '@mui/material/InputAdornment'
+import Link from '@mui/material/Link'
+import CircularProgress from '@mui/material/CircularProgress'
+import Stack from '@mui/material/Stack'
+
 import SettingsForm from '@components/forms/SettingsForm'
 import { PASSWORD_RECOVERY_LINK, SIGNUP_LINK } from '@common/constants'
 import { AuthContext } from '@context/AuthContext'
