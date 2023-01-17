@@ -37,7 +37,7 @@
     "translation-helps-rcl": "^3.3.4-rc.3",
     "use-deep-compare-effect": "^1.8.1",
     "utf8": "3.0.0",
-    "uw-editor": "0.1.18"
+    "uw-editor": "0.1.20"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "3.9.2",
