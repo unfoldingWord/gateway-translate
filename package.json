@@ -1,6 +1,9 @@
 {
   "name": "gateway-translate",
-  "version": "0.0.19",
+  "version": "0.0.20",
+  "engines": {
+    "node": "16.19.0"
+  },
   "scripts": {
     "dev": "next",
     "build": "next build --debug",
