@@ -18,6 +18,7 @@ import { AppContext } from '@context/AppContext'
 import FeedbackPopup from '@components/FeedbackPopup'
 import SelectBookPopup from './SelectBookPopup'
 import { randomLetters } from '@utils/randomLetters'
+import BibleReference from './BibleReference'
 
 const useStyles = makeStyles(theme => ({
   root: { flexGrow: 1 },
@@ -196,6 +197,7 @@ export default function Header({
               {title}
             </Typography>
           </div>
+          <BibleReference />
           <>
             {user && owner && router.pathname === '/' && (
               <Fab
