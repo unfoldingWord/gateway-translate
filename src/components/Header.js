@@ -197,9 +197,12 @@ export default function Header({
               {title}
             </Typography>
           </div>
-          <BibleReference />
+          <div className='flex flex-1 justify-center items-center'>
+            <BibleReference />
+          </div>
           <>
             {user && owner && router.pathname === '/' && (
+              <div className='flex flex-1 justify-end'>
               <Fab
                 color='primary'
                 aria-label='add'
@@ -211,6 +214,7 @@ export default function Header({
                 <AddIcon className={classes.extendedIcon} />
                 Book
               </Fab>
+              </div>
             )}
           </>
           <>
