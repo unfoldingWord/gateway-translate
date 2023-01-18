@@ -2,7 +2,7 @@
   "name": "gateway-translate",
   "version": "0.0.20",
   "engines": {
-    "node": "16.14.0"
+    "node": "16.19.0"
   },
   "scripts": {
     "dev": "next",
