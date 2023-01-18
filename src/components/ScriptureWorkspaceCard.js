@@ -41,13 +41,20 @@ export default function ScriptureWorkspaceCard({
     },
     actions: {
       setBooks,
-      setIsDataUnsaved,
     }
   } = useContext(AppContext)
 
   const setUnsavedData = (value) => {
-    console.log("setUnsavedData():", value)
-    setIsDataUnsaved(value)
+    console.log("setUnsavedData() id:", id, value)
+    // the below sets a boolean for this book
+    let _books = books
+    for (let i = 0; i < _books.length; i++) {
+      if (_books[ i ].id === id) {
+        _books[ i ].unsaved = value
+        setBooks(_books)
+        break
+      }
+    }
   }
 
   // Save Feature
@@ -121,7 +128,7 @@ export default function ScriptureWorkspaceCard({
             usfmText={data.usfmText}
             onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
             editable={id.endsWith(owner) ? true : false}
-            onUsavedData={ (value) => setIsDataUnsaved(value) }
+            onUnsavedData={setUnsavedData}
           />
         :
         (

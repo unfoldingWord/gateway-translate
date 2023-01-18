@@ -47,7 +47,17 @@ function ScriptureWorkspace() {
   } = useContext(AppContext)
 
   const removeBook = id => {
-    const _books = books.filter(b => {
+    let _books = books
+    for (let i = 0; i < _books.length; i++) {
+      if (_books[ i ].id === id) {
+        if ( _books[ i ].unsaved === true ) {
+          alert(`Book ${id} has unsaved changes`)
+        }
+        break
+      }
+    }
+
+    _books = books.filter(b => {
       return b.id !== id
     })
     setBooks(_books)

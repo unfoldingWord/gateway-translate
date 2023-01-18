@@ -21,7 +21,6 @@ export default function AppContextProvider({
   const [refresh, setRefresh] = useState(true)
   const [repoClient, setRepoClient] = useState(null)
   const [organizationClient, setOrganizationClient] = useState(null)
-  const [isDataUnsaved, setIsDataUnsaved] = useState(false)
   // const [ep, /*setEp*/] = useState(new EpiteletePerfHtml({
   //   proskomma: null, docSetId: "unfoldingWord/en_ltst", options: { historySize: 100 }
   // }))
@@ -58,10 +57,6 @@ export default function AppContextProvider({
       }
     },[authentication, server]
   )
-
-  const _setIsDataUnsaved = (value) => {
-    setIsDataUnsaved(value)
-  }
 
   const _setBooks = (value) => {
     setBooks(value)
@@ -182,7 +177,6 @@ export default function AppContextProvider({
     actions: {
       setBooks: _setBooks,
       setLtStState,
-      setIsDataUnsaved: _setIsDataUnsaved,
     }
   };
 
