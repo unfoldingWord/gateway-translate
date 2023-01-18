@@ -18,6 +18,8 @@ import NetworkErrorPopup from '@components/NetworkErrorPopUp'
 import ScriptureWorkspaceCard from './ScriptureWorkspaceCard'
 import useStoreContext from '@hooks/useStoreContext'
 import EmptyMessage from './EmptyMessage'
+import UnsavedDataPopup from './UnsavedDataPopup'
+import { data } from 'autoprefixer'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -40,6 +42,8 @@ function ScriptureWorkspace() {
   const classes = useStyles()
   const [workspaceReady, setWorkspaceReady] = useState(false)
   const [networkError, setNetworkError] = useState(null)
+  const [showModal, setShowModal] = useState(true)
+
 
   const {
     state: { books, ltStState },
@@ -51,7 +55,7 @@ function ScriptureWorkspace() {
     for (let i = 0; i < _books.length; i++) {
       if (_books[ i ].id === id) {
         if ( _books[ i ].unsaved === true ) {
-          alert(`Book ${id} has unsaved changes`)
+          setShowModal(true)
         }
         break
       }
@@ -181,94 +185,105 @@ function ScriptureWorkspace() {
       <CircularProgress size={180} />
     </>
   ) : !!books.length ? (
-    <Workspace
-      layout={currentLayout}
-      classes={classes}
-      gridMargin={[10, 10]}
-      onLayoutChange={(_layout, layouts) => {
-        setCurrentLayout(layouts)
-      }}
-      minW={2}
-      minH={1}
-      rowHeight={25}
-      layoutWidths={[
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-      ]}
-      layoutHeights={[
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-      ]}
-    >
-      {books.map(data => (
-        <ScriptureWorkspaceCard
-          key={data.id}
-          id={data.id}
-          bookId={data.bookId}
-          docSetId={data.docset}
-          data={data}
-          classes={classes}
-          onClose={removeBook}
-        />
-      ))}
-    </Workspace>
+    <>
+      <Workspace
+        layout={currentLayout}
+        classes={classes}
+        gridMargin={[10, 10]}
+        onLayoutChange={(_layout, layouts) => {
+          setCurrentLayout(layouts)
+        }}
+        minW={2}
+        minH={1}
+        rowHeight={25}
+        layoutWidths={[
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+        ]}
+        layoutHeights={[
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+        ]}
+      >
+        {books.map(data => (
+          <ScriptureWorkspaceCard
+            key={data.id}
+            id={data.id}
+            bookId={data.bookId}
+            docSetId={data.docset}
+            data={data}
+            classes={classes}
+            onClose={removeBook}
+          />
+        ))}
+      </Workspace>
+      <UnsavedDataPopup
+        id={data.id}
+        bookId={data.bookId}
+        showModal={showModal}
+        setShowModal={setShowModal}
+        onDiscard={removeBook}
+      />
+    </>
   ) : (
     <EmptyMessage
       sx={{ color: 'text.disabled' }}
       message={'No books to display, please add a new book.'}
     ></EmptyMessage>
+
+
   )
 }
 
