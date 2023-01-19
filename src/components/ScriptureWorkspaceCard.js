@@ -17,6 +17,7 @@ export default function ScriptureWorkspaceCard({
   data,
   classes,
   onClose: removeBook,
+  isUnsaved,
 }) {
 
   const [doSave, setDoSave] = useState(false)
@@ -45,9 +46,8 @@ export default function ScriptureWorkspaceCard({
   } = useContext(AppContext)
 
   const setUnsavedData = (value) => {
-    console.log("setUnsavedData() id:", id, value)
-    // the below sets a boolean for this book
     let _books = books
+    console.log("setUnsavedData() id:", id, value)
     for (let i = 0; i < _books.length; i++) {
       if (_books[ i ].id === id) {
         _books[ i ].unsaved = value
@@ -55,6 +55,7 @@ export default function ScriptureWorkspaceCard({
         break
       }
     }
+
   }
 
   // Save Feature

@@ -20,6 +20,7 @@ import useStoreContext from '@hooks/useStoreContext'
 import EmptyMessage from './EmptyMessage'
 import UnsavedDataPopup from './UnsavedDataPopup'
 import { data } from 'autoprefixer'
+import { SetMeal } from '@mui/icons-material'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -42,7 +43,7 @@ function ScriptureWorkspace() {
   const classes = useStyles()
   const [workspaceReady, setWorkspaceReady] = useState(false)
   const [networkError, setNetworkError] = useState(null)
-  const [showModal, setShowModal] = useState(true)
+  const [showModal, setShowModal] = useState(false)
 
 
   const {
@@ -50,21 +51,36 @@ function ScriptureWorkspace() {
     actions: { setBooks, setLtStState },
   } = useContext(AppContext)
 
-  const removeBook = id => {
+  const onClose = id => {
     let _books = books
+    let _isUnsaved = false
     for (let i = 0; i < _books.length; i++) {
       if (_books[ i ].id === id) {
         if ( _books[ i ].unsaved === true ) {
+          // alert("Changes are unsaved, re-open book to save")
           setShowModal(true)
+          _isUnsaved = true
         }
         break
       }
     }
+    if ( !_isUnsaved ) {
+      // then go ahead and close the card
+      _books = books.filter(b => {
+        return b.id !== id
+      })
+      setBooks(_books)
+    }
+  }
+
+  const removeBook = id => {
+    let _books = books
 
     _books = books.filter(b => {
       return b.id !== id
     })
     setBooks(_books)
+    setShowModal(false)
   }
 
   const {
@@ -265,17 +281,20 @@ function ScriptureWorkspace() {
             docSetId={data.docset}
             data={data}
             classes={classes}
-            onClose={removeBook}
+            onClose={onClose}
           />
         ))}
       </Workspace>
-      <UnsavedDataPopup
-        id={data.id}
-        bookId={data.bookId}
-        showModal={showModal}
-        setShowModal={setShowModal}
-        onDiscard={removeBook}
-      />
+      {books.map(data => (
+        <UnsavedDataPopup
+          key={data.id}
+          id={data.id}
+          bookId={data.bookId}
+          showModal={showModal}
+          setShowModal={setShowModal}
+          onDiscard={removeBook}
+        />
+      ))}
     </>
   ) : (
     <EmptyMessage
