@@ -102,6 +102,10 @@
   vertical-align: super;
 }
 
+.perf .verses.highlight-verse {
+  color: #e70000;
+}
+
 .perf .q,
 .perf .q2,
 .perf .q3,
