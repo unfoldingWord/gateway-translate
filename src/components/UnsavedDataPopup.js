@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import DraggableModal from 'translation-helps-rcl/dist/components/DraggableModal'
 import Card from 'translation-helps-rcl/dist/components/Card'
 import { Button } from '@mui/material'
+import { ALL_BIBLE_BOOKS } from '@common/BooksOfTheBible'
 
 export default function UnsavedDataPopup(
 {
@@ -26,19 +27,18 @@ export default function UnsavedDataPopup(
         closeable
         title={`Warning! Unsaved Data!`}
         onClose={handleClickClose}
-        onDiscard={ () => onDiscard(id) }
+        // onDiscard={ () => onDiscard(id) }
         classes={{
           dragIndicator: 'draggable-dialog-title',
           root: 'w-104'
         }}
       >
-        <p>Book Id={bookId}</p>
-        <p>Id={id}</p>
-        <Button onClick={handleClickClose}>
-          Keep my data, I&apos;ll save it later
+        <p>The Book of {ALL_BIBLE_BOOKS[bookId.toLowerCase()]} from <em>{id}</em> has unsaved changes.</p>
+        <Button onClick={() => onDiscard(id)} >
+          Continue
         </Button>
-        <Button onClick={ () => onDiscard(id) }>
-          Discard my changes
+        <Button onClick={handleClickClose} >
+          Cancel
         </Button>
       </Card>
     </DraggableModal>
