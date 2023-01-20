@@ -1,6 +1,9 @@
 {
   "name": "gateway-translate",
-  "version": "0.0.19",
+  "version": "0.0.20",
+  "engines": {
+    "node": "16.19.0"
+  },
   "scripts": {
     "dev": "next",
     "build": "next build --debug",
@@ -37,7 +40,7 @@
     "translation-helps-rcl": "^3.3.4-rc.3",
     "use-deep-compare-effect": "^1.8.1",
     "utf8": "3.0.0",
-    "uw-editor": "0.1.20",
+    "uw-editor": "0.1.22",
     "bible-reference-rcl": "^1.1.0"
   },
   "devDependencies": {

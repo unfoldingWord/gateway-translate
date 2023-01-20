@@ -5898,9 +5898,9 @@ minimatch@^3.0.4, minimatch@^3.0.5, minimatch@^3.1.1, minimatch@^3.1.2:
     brace-expansion "^1.1.7"
 
 minimatch@^5.1.0:
-  version "5.1.5"
-  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-5.1.5.tgz#cabd894be2c2091e01fd09211326dfd996ee022d"
-  integrity sha512-CI8wwdrll4ehjPAqs8TL8lBPyNnpZlQI02Wn8C1weNz/QbUbjh3OMxgMKSnvqfKFdLlks3EzHB9tO0BqGc3phQ==
+  version "5.1.6"
+  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-5.1.6.tgz#1cfcb8cf5522ea69952cd2af95ae09477f122a96"
+  integrity sha512-lKwV/1brpG6mBUFHtb7NUmtABCb2WZZmm2wNiOA5hAb8VdCS4B3dtMWyvcoViccwAW/COERjXLt0zP1zXUN26g==
   dependencies:
     brace-expansion "^2.0.1"
 
@@ -8998,10 +8998,10 @@ uuid@^8.3.0, uuid@^8.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
-uw-editor@0.1.20:
-  version "0.1.20"
-  resolved "https://registry.yarnpkg.com/uw-editor/-/uw-editor-0.1.20.tgz#cfd4f14719f546e479deaaaed52ad2c114e5063d"
-  integrity sha512-yPSScaQboYdiFqJOflAr6H262zWrMQQ1sP3NrBSW6W+pT5LR0KWRrPsjxbw91Ft6RGckb0UtXEkzIOogx1tLrQ==
+uw-editor@0.1.22:
+  version "0.1.22"
+  resolved "https://registry.yarnpkg.com/uw-editor/-/uw-editor-0.1.22.tgz#c6cc1063b3031c3f9487f22e5cbace23c4b24b90"
+  integrity sha512-DdFKmkWdfjBCbzOKeaQ2C/G+SKLsltm/ash3UP9cAi7F13U/EQx4E1pTHTzDC/VsFL3reR2svVZVtlUgb+nKGA==
   dependencies:
     "@xelah/type-perf-html" "^1.0.2"
     epitelete-html "0.2.16"
