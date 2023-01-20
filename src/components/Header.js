@@ -18,6 +18,7 @@ import { AppContext } from '@context/AppContext'
 import FeedbackPopup from '@components/FeedbackPopup'
 import SelectBookPopup from './SelectBookPopup'
 import { randomLetters } from '@utils/randomLetters'
+import BibleReference from './BibleReference'
 
 const useStyles = makeStyles(theme => ({
   root: { flexGrow: 1 },
@@ -196,8 +197,12 @@ export default function Header({
               {title}
             </Typography>
           </div>
+          <div className='flex flex-1 justify-center items-center'>
+            <BibleReference />
+          </div>
           <>
             {user && owner && router.pathname === '/' && (
+              <div className='flex flex-1 justify-end'>
               <Fab
                 color='primary'
                 aria-label='add'
@@ -209,6 +214,7 @@ export default function Header({
                 <AddIcon className={classes.extendedIcon} />
                 Book
               </Fab>
+              </div>
             )}
           </>
           <>

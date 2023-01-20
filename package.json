@@ -1,6 +1,6 @@
 {
   "name": "gateway-translate",
-  "version": "0.0.20",
+  "version": "0.1.0",
   "engines": {
     "node": "16.19.0"
   },
@@ -40,7 +40,8 @@
     "translation-helps-rcl": "^3.3.4-rc.3",
     "use-deep-compare-effect": "^1.8.1",
     "utf8": "3.0.0",
-    "uw-editor": "0.1.21"
+    "uw-editor": "0.1.22",
+    "bible-reference-rcl": "^1.1.0"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "3.9.2",

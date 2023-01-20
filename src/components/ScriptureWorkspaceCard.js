@@ -30,8 +30,23 @@ export default function ScriptureWorkspaceCard({
   const {
     state: {
       owner,
+      bibleReference,
     },
+    actions: {
+      onReferenceChange,
+    }
   } = useContext(StoreContext)
+
+  const activeReference = {
+    bookId: bookId.toLowerCase(),
+    chapter: Number(bibleReference.chapter),
+    verse: Number(bibleReference.verse),
+  }
+
+  const onReferenceSelected = ({bookIdFromEditor, chapter, verse}) => {
+    const normalizedBookId = (bookIdFromEditor || bookId).toLowerCase()
+    onReferenceChange(normalizedBookId, chapter.toString(), verse.toString())
+  }
 
   const {
     state: {
@@ -115,6 +130,8 @@ export default function ScriptureWorkspaceCard({
             usfmText={data.usfmText}
             onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
             editable={id.endsWith(owner) ? true : false}
+            activeReference={bibleReference}
+            onReferenceSelected={onReferenceSelected}
           />
         :
         (
