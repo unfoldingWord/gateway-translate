@@ -25,37 +25,37 @@ export default function Layout({ children, showChildren, title = APP_NAME }) {
   } = useContext(AppContext)
 
   // prompt the user if they try and leave with unsaved changes  
-  useEffect(() => {
-    const warningText =
-      'You have unsaved changes - are you sure you wish to leave this page?';
-    const handleWindowClose = (e) => {
-      let unsavedChanges = false
-      for (let i = 0; i < books.length; i++) {
-        if (books[ i ].id === id) {
-          if ( books[i].unsaved === true ) {
-            unsavedChanges = true
-          }
-          break
-        }
-      }
+  // useEffect(() => {
+  //   const warningText =
+  //     'You have unsaved changes - are you sure you wish to leave this page?';
+  //   const handleWindowClose = (e) => {
+  //     let unsavedChanges = false
+  //     for (let i = 0; i < books.length; i++) {
+  //       if (books[ i ].id === id) {
+  //         if ( books[i].unsaved === true ) {
+  //           unsavedChanges = true
+  //         }
+  //         break
+  //       }
+  //     }
   
-      if (!unsavedChanges) return;
-      e.preventDefault();
-      return (e.returnValue = warningText);
-    };
-    // const handleBrowseAway = () => {
-    //   if (!unsavedChanges) return;
-    //   if (window.confirm(warningText)) return;
-    //   router.events.emit('routeChangeError');
-    //   throw 'routeChange aborted.';
-    // };
-    window.addEventListener('beforeunload', handleWindowClose);
-    // router.events.on('routeChangeStart', handleBrowseAway);
-    return () => {
-      window.removeEventListener('beforeunload', handleWindowClose);
-      // router.events.off('routeChangeStart', handleBrowseAway);
-    };
-  }, [books]);
+  //     if (!unsavedChanges) return;
+  //     e.preventDefault();
+  //     return (e.returnValue = warningText);
+  //   };
+  //   // const handleBrowseAway = () => {
+  //   //   if (!unsavedChanges) return;
+  //   //   if (window.confirm(warningText)) return;
+  //   //   router.events.emit('routeChangeError');
+  //   //   throw 'routeChange aborted.';
+  //   // };
+  //   window.addEventListener('beforeunload', handleWindowClose);
+  //   // router.events.on('routeChangeStart', handleBrowseAway);
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handleWindowClose);
+  //     // router.events.off('routeChangeStart', handleBrowseAway);
+  //   };
+  // }, []);
 
   // useBeforeunload((event) => {
   //   let contentIsDirty = false

@@ -62,15 +62,18 @@ export default function ScriptureWorkspaceCard({
 
   const setUnsavedData = (value) => {
     let _books = books
+    let _count = 0
     console.log("setUnsavedData() id:", id, value)
     for (let i = 0; i < _books.length; i++) {
       if (_books[ i ].id === id) {
         _books[ i ].unsaved = value
         setBooks(_books)
-        break
+      }
+      if ( _books[i]?.unsaved === true ) {
+        _count++
       }
     }
-
+    sessionStorage.setItem("unsavedChanges", _count);
   }
 
   // Save Feature
