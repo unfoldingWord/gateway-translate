@@ -19,8 +19,6 @@ import ScriptureWorkspaceCard from './ScriptureWorkspaceCard'
 import useStoreContext from '@hooks/useStoreContext'
 import EmptyMessage from './EmptyMessage'
 import UnsavedDataPopup from './UnsavedDataPopup'
-import { data } from 'autoprefixer'
-import { SetMeal } from '@mui/icons-material'
 
 const useStyles = makeStyles(() => ({
   root: {

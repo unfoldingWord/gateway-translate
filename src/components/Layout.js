@@ -1,9 +1,12 @@
 import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
+// import { useBeforeunload } from 'react-beforeunload';
 import { AuthContext } from '@context/AuthContext'
 import Header from '@components/Header'
 import Footer from '@components/Footer'
 import { StoreContext } from '@context/StoreContext'
+import { AppContext } from '@context/AppContext'
+
 import { getBuildId } from '@utils/build'
 import { APP_NAME, BASE_URL, PROD, QA, QA_BASE_URL } from '@common/constants'
 import useValidateAccountSettings from '@hooks/useValidateAccountSettings'
@@ -16,6 +19,64 @@ export default function Layout({ children, showChildren, title = APP_NAME }) {
   const {
     state: { authentication },
   } = useContext(AuthContext)
+
+  const {
+    state: { books },
+  } = useContext(AppContext)
+
+  // prompt the user if they try and leave with unsaved changes  
+  useEffect(() => {
+    const warningText =
+      'You have unsaved changes - are you sure you wish to leave this page?';
+    const handleWindowClose = (e) => {
+      let unsavedChanges = false
+      for (let i = 0; i < books.length; i++) {
+        if (books[ i ].id === id) {
+          if ( books[i].unsaved === true ) {
+            unsavedChanges = true
+          }
+          break
+        }
+      }
+  
+      if (!unsavedChanges) return;
+      e.preventDefault();
+      return (e.returnValue = warningText);
+    };
+    // const handleBrowseAway = () => {
+    //   if (!unsavedChanges) return;
+    //   if (window.confirm(warningText)) return;
+    //   router.events.emit('routeChangeError');
+    //   throw 'routeChange aborted.';
+    // };
+    window.addEventListener('beforeunload', handleWindowClose);
+    // router.events.on('routeChangeStart', handleBrowseAway);
+    return () => {
+      window.removeEventListener('beforeunload', handleWindowClose);
+      // router.events.off('routeChangeStart', handleBrowseAway);
+    };
+  }, [books]);
+
+  // useBeforeunload((event) => {
+  //   let contentIsDirty = false
+
+  //   console.log("useBeforeUnload()")
+  //   for (let i = 0; i < books.length; i++) {
+  //     if (books[ i ].id === id) {
+  //       if ( books[i].unsaved === true ) {
+  //         contentIsDirty = true
+  //       }
+  //       break
+  //     }
+  //   }
+
+  //   if (contentIsDirty) {
+  //     event.preventDefault();
+  //     let _warning = 'There is unsaved data! Please confirm you wish to close the application';
+  //     event.returnValue = _warning
+  //     return _warning;
+  //   }
+  // });
 
   function setFeedback(enable) {
     const feedbackDisplayed = !!feedback
