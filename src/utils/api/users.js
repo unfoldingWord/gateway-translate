@@ -16,17 +16,22 @@ const deletePreviousTokens = async ({ username, config, userClient }) => {
 }
 
 const getToken = async ({ username, password, config, userClient }) => {
-  await deletePreviousTokens({ username, password, config, userClient })
-  return await userClient
-    .userCreateToken({
-      username,
-      userCreateToken: { name: config.tokenid },
-    })
-    .then(({ data }) => data)
+  try {
+    await deletePreviousTokens({ username, password, config, userClient })
+    const { data: token } = await userClient
+      .userCreateToken({
+        username,
+        userCreateToken: { name: config.tokenid },
+      })  
+    return token
+  } catch (e) {
+    return null
+  }
+
 }
 
 const getUser = async ({ userClient }) => {
-  return await userClient.userGetCurrent().then(({ data }) => data)
+    return userClient.userGetCurrent().then(({ data }) => data).catch(console.error)
 }
 
 export const getUserAuth = async ({ username, password, config }) => {
