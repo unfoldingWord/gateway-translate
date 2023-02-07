@@ -5,8 +5,6 @@ import { AuthContext } from '@context/AuthContext'
 import Header from '@components/Header'
 import Footer from '@components/Footer'
 import { StoreContext } from '@context/StoreContext'
-import { AppContext } from '@context/AppContext'
-
 import { getBuildId } from '@utils/build'
 import { APP_NAME, BASE_URL, PROD, QA, QA_BASE_URL } from '@common/constants'
 import useValidateAccountSettings from '@hooks/useValidateAccountSettings'
