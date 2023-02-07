@@ -1,6 +1,5 @@
 import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
-// import { useBeforeunload } from 'react-beforeunload';
 import { AuthContext } from '@context/AuthContext'
 import Header from '@components/Header'
 import Footer from '@components/Footer'
