@@ -83,10 +83,10 @@ function useAuthentication({
             setError()
             update(authentication)
           } else {
-            if (!user) {
-              setError(messages.usernameError)
-            } else if (!token) {
+            if (!token) {
               setError(messages.passwordError)
+            } else if (!user) {
+              setError(messages.usernameError)
             }
           }
         } else {

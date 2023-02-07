@@ -56,9 +56,6 @@ export default function ErrorPopup(
     </>
   }
 
-  const title_ =
-    <div className='h1 text-xl'> {title} </div>
-
   const content =
     <div className='flex-col'>
       <div className='h2 flex text-lg my-3 wrap-anywhere'> {message} </div>
@@ -81,7 +78,7 @@ export default function ErrorPopup(
   return (
     <DraggableCard
       open={true}
-      title={title_}
+      title={title}
       content={content}
       showRawContent={true}
       dimBackground={dimBackground}
