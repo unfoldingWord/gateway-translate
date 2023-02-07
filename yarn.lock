@@ -3217,23 +3217,22 @@ entities@^4.2.0, entities@^4.3.0:
   resolved "https://registry.yarnpkg.com/entities/-/entities-4.4.0.tgz#97bdaba170339446495e653cfd2db78962900174"
   integrity sha512-oYp7156SP8LkeGD0GF85ad1X9Ai79WtRsZ2gxJqtBuzH+98YUV6jkHEKlZkMbcrjJjIVJNIDP/3WL9wQkoPbWA==
 
-epitelete-html@0.2.16:
-  version "0.2.16"
-  resolved "https://registry.yarnpkg.com/epitelete-html/-/epitelete-html-0.2.16.tgz#34f84c7052a6cb260cf593b5a6968e11798eef17"
-  integrity sha512-2+jh1tBzgH0286BKQmeCN3pi2/MwxcgGmdu8LJiVqYSTyF97S2RYKZHcqvhGl8jjf1FDp9xHdQEgU/V+SG4n8w==
+epitelete-html@0.2.18:
+  version "0.2.18"
+  resolved "https://registry.yarnpkg.com/epitelete-html/-/epitelete-html-0.2.18.tgz#42dc9b7d5d4717c314c4e9ebc1ae6627b76c2e00"
+  integrity sha512-npiDp3QLAzocUav9andsl85ye4PDkcNo4igUbhY8/giLFDz3owaKZuwqekHgTkHZXdUefJfSgjiOQeVpcfqPZw==
   dependencies:
     "@babel/core" "^7.17.10"
-    epitelete "^0.2.15"
+    epitelete "^0.2.18"
     node-html-parser "^5.3.3"
 
-epitelete@^0.2.15:
-  version "0.2.15"
-  resolved "https://registry.yarnpkg.com/epitelete/-/epitelete-0.2.15.tgz#455cb0439ccd4cd32360efa6643451fac7a65872"
-  integrity sha512-G0v4VyAsQ+PULBx7Q7mmRBaNkHXqBg9VBpHXwSlAxRRXwWJ9YGcYWzkYn7R9xnTxuXM6qdbtTVrz/iE9XMUv7g==
+epitelete@^0.2.18:
+  version "0.2.18"
+  resolved "https://registry.yarnpkg.com/epitelete/-/epitelete-0.2.18.tgz#76d0d08e79c7c33f19177254b85fc31c4ddffa29"
+  integrity sha512-xoJ5+X4M9zlq26D64pT1P7LGlritbdPPlS1SyC9AUacwocrhRmX25VeKLnDkW6GUG/+IJSsx/uik51cq5TB/MA==
   dependencies:
     "@babel/core" "^7.19.0"
-    pipeline-handler "^2.2.2"
-    proskomma-json-tools "^0.5.12"
+    proskomma-json-tools "^0.6.6"
     rfdc "^1.3.0"
 
 error-ex@^1.3.1:
@@ -6669,15 +6668,6 @@ pify@^3.0.0:
   resolved "https://registry.yarnpkg.com/pify/-/pify-3.0.0.tgz#e5a4acd2c101fdf3d9a4d07f0dbc4db49dd28176"
   integrity sha512-C3FsVNH1udSEX48gGX1xfvwTWfsYWj5U+8/uK15BGzIGrKoUpghX8hWZwa/OFnakBiiVNmBvemTJR5mcy7iPcg==
 
-pipeline-handler@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/pipeline-handler/-/pipeline-handler-2.2.2.tgz#7768d4dadc766036801413186879830309351263"
-  integrity sha512-Fc/4rgxiKilZJkEUSVjaiJW6itxsNZg3ToubuyACWnYfNtH1CwtPkBo80G/Nt8/WHb2VtHDQnIIlN3no0Mg+Lw==
-  dependencies:
-    deep-copy-all "^1.3.4"
-    proskomma-json-tools "^0.5.12"
-    xregexp "^5.1.1"
-
 pirates@^4.0.1:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/pirates/-/pirates-4.0.5.tgz#feec352ea5c3268fb23a37c702ab1699f35a5f3b"
@@ -6862,10 +6852,20 @@ prop-types@15.x, prop-types@^15.0.0, prop-types@^15.5.10, prop-types@^15.5.8, pr
     object-assign "^4.1.1"
     react-is "^16.13.1"
 
-proskomma-json-tools@^0.5.12, proskomma-json-tools@^0.5.7:
+proskomma-json-tools@^0.5.7:
   version "0.5.12"
   resolved "https://registry.yarnpkg.com/proskomma-json-tools/-/proskomma-json-tools-0.5.12.tgz#d82b4aee5368877ad3db28356da5870411e1f734"
   integrity sha512-Zn4KlM8xO/VnkaXoxbv4dWwOqcV4mtObUSRqwQJKv0UWkl7xiHVo5rKxH1lPgF5TitikjVpIrZL/DUCvheYrSw==
+  dependencies:
+    "@babel/core" "^7.17.10"
+    "@babel/plugin-proposal-throw-expressions" "^7.18.6"
+    ajv "^8.11.0"
+    deep-equal "^2.0.5"
+
+proskomma-json-tools@^0.6.6:
+  version "0.6.6"
+  resolved "https://registry.yarnpkg.com/proskomma-json-tools/-/proskomma-json-tools-0.6.6.tgz#a5df84641ff4c6239f94ab93e3dbf71e52333d88"
+  integrity sha512-IEBJTyg6YDKr4E54CLDO1wDjcoiqGKjLxRDTnNSDRaHBG1TJyN1k94V6CHVrvgzKUtQFdWRH77mQ6hJjIUSLVg==
   dependencies:
     "@babel/core" "^7.17.10"
     "@babel/plugin-proposal-throw-expressions" "^7.18.6"
@@ -8998,13 +8998,13 @@ uuid@^8.3.0, uuid@^8.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
-uw-editor@0.1.22:
-  version "0.1.22"
-  resolved "https://registry.yarnpkg.com/uw-editor/-/uw-editor-0.1.22.tgz#c6cc1063b3031c3f9487f22e5cbace23c4b24b90"
-  integrity sha512-DdFKmkWdfjBCbzOKeaQ2C/G+SKLsltm/ash3UP9cAi7F13U/EQx4E1pTHTzDC/VsFL3reR2svVZVtlUgb+nKGA==
+uw-editor@0.1.23:
+  version "0.1.23"
+  resolved "https://registry.yarnpkg.com/uw-editor/-/uw-editor-0.1.23.tgz#7db2208eaebf694ce8aff9da4df8f5535398dbfe"
+  integrity sha512-is8d+4LDtYEkUPCnWGVGNLucMB5s95+7F7Du1spyhC7ZPCR+aRIcnfN0V5udsvCKmiDSey1g7H6jiV5laP3NnQ==
   dependencies:
     "@xelah/type-perf-html" "^1.0.2"
-    epitelete-html "0.2.16"
+    epitelete-html "0.2.18"
     proskomma-react-hooks "^2.4.0"
 
 validate-npm-package-license@^3.0.1:
