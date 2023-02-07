@@ -18,6 +18,7 @@ import NetworkErrorPopup from '@components/NetworkErrorPopUp'
 import ScriptureWorkspaceCard from './ScriptureWorkspaceCard'
 import useStoreContext from '@hooks/useStoreContext'
 import EmptyMessage from './EmptyMessage'
+import UnsavedDataPopup from './UnsavedDataPopup'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -40,17 +41,44 @@ function ScriptureWorkspace() {
   const classes = useStyles()
   const [workspaceReady, setWorkspaceReady] = useState(false)
   const [networkError, setNetworkError] = useState(null)
+  const [showModal, setShowModal] = useState(false)
+
 
   const {
     state: { books, ltStState },
     actions: { setBooks, setLtStState },
   } = useContext(AppContext)
 
+  const onClose = id => {
+    let _books = books
+    let _isUnsaved = false
+    for (let i = 0; i < _books.length; i++) {
+      if (_books[ i ].id === id) {
+        if ( _books[ i ].unsaved === true ) {
+          // alert("Changes are unsaved, re-open book to save")
+          setShowModal(true)
+          _isUnsaved = true
+        }
+        break
+      }
+    }
+    if ( !_isUnsaved ) {
+      // then go ahead and close the card
+      _books = books.filter(b => {
+        return b.id !== id
+      })
+      setBooks(_books)
+    }
+  }
+
   const removeBook = id => {
-    const _books = books.filter(b => {
+    let _books = books
+
+    _books = books.filter(b => {
       return b.id !== id
     })
     setBooks(_books)
+    setShowModal(false)
   }
 
   const {
@@ -171,94 +199,108 @@ function ScriptureWorkspace() {
       <CircularProgress size={180} />
     </>
   ) : !!books.length ? (
-    <Workspace
-      layout={currentLayout}
-      classes={classes}
-      gridMargin={[10, 10]}
-      onLayoutChange={(_layout, layouts) => {
-        setCurrentLayout(layouts)
-      }}
-      minW={2}
-      minH={1}
-      rowHeight={25}
-      layoutWidths={[
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-        [1, 1],
-      ]}
-      layoutHeights={[
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-        [20, 20],
-      ]}
-    >
+    <>
+      <Workspace
+        layout={currentLayout}
+        classes={classes}
+        gridMargin={[10, 10]}
+        onLayoutChange={(_layout, layouts) => {
+          setCurrentLayout(layouts)
+        }}
+        minW={2}
+        minH={1}
+        rowHeight={25}
+        layoutWidths={[
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+        ]}
+        layoutHeights={[
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+        ]}
+      >
+        {books.map(data => (
+          <ScriptureWorkspaceCard
+            key={data.id}
+            id={data.id}
+            bookId={data.bookId}
+            docSetId={data.docset}
+            data={data}
+            classes={classes}
+            onClose={onClose}
+          />
+        ))}
+      </Workspace>
       {books.map(data => (
-        <ScriptureWorkspaceCard
+        <UnsavedDataPopup
           key={data.id}
           id={data.id}
           bookId={data.bookId}
-          docSetId={data.docset}
-          data={data}
-          classes={classes}
-          onClose={removeBook}
+          showModal={showModal}
+          setShowModal={setShowModal}
+          onDiscard={removeBook}
         />
       ))}
-    </Workspace>
+    </>
   ) : (
     <EmptyMessage
       sx={{ color: 'text.disabled' }}
       message={'No books to display, please add a new book.'}
     ></EmptyMessage>
+
+
   )
 }
 

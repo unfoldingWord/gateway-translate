@@ -17,6 +17,7 @@ export default function ScriptureWorkspaceCard({
   data,
   classes,
   onClose: removeBook,
+  isUnsaved,
 }) {
 
   const [doSave, setDoSave] = useState(false)
@@ -58,6 +59,22 @@ export default function ScriptureWorkspaceCard({
       setBooks,
     }
   } = useContext(AppContext)
+
+  const setUnsavedData = (value) => {
+    let _books = books
+    let _count = 0
+    console.log("setUnsavedData() id:", id, value)
+    for (let i = 0; i < _books.length; i++) {
+      if (_books[ i ].id === id) {
+        _books[ i ].unsaved = value
+        setBooks(_books)
+      }
+      if ( _books[i]?.unsaved === true ) {
+        _count++
+      }
+    }
+    sessionStorage.setItem("unsavedChanges", _count);
+  }
 
   // Save Feature
   useEffect(() => {
@@ -130,6 +147,7 @@ export default function ScriptureWorkspaceCard({
             usfmText={data.usfmText}
             onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
             editable={id.endsWith(owner) ? true : false}
+            onUnsavedData={setUnsavedData}
             activeReference={bibleReference}
             onReferenceSelected={onReferenceSelected}
           />
