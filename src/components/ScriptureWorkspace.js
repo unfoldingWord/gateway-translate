@@ -42,6 +42,7 @@ function ScriptureWorkspace() {
   const [workspaceReady, setWorkspaceReady] = useState(false)
   const [networkError, setNetworkError] = useState(null)
   const [showModal, setShowModal] = useState(false)
+  const [idToClose, setIdToClose] = useState(null)
 
 
   const {
@@ -52,6 +53,7 @@ function ScriptureWorkspace() {
   const onClose = id => {
     let _books = books
     let _isUnsaved = false
+    setIdToClose(id)
     for (let i = 0; i < _books.length; i++) {
       if (_books[ i ].id === id) {
         if ( _books[ i ].unsaved === true ) {
@@ -79,6 +81,7 @@ function ScriptureWorkspace() {
     })
     setBooks(_books)
     setShowModal(false)
+    setIdToClose(null)
   }
 
   const {
@@ -283,7 +286,8 @@ function ScriptureWorkspace() {
           />
         ))}
       </Workspace>
-      {books.map(data => (
+      {books.map(data => ( 
+        data.id === idToClose &&
         <UnsavedDataPopup
           key={data.id}
           id={data.id}
