@@ -1,6 +1,8 @@
 {
   "name": "gateway-translate",
   "version": "0.0.18",
+  "homepage": "./",
+  "main": "./public/electron.js",
   "scripts": {
     "dev": "next",
     "build": "next build --debug",
@@ -8,7 +10,9 @@
     "lint": "next lint",
     "export": "next export",
     "postinstall": "husky install",
-    "increment-build": "bash scripts/increment-build.sh && git add -A"
+    "increment-build": "bash scripts/increment-build.sh && git add -A",
+    "predev": "concurrently -k \"cross-env BROWSER=none && yarn dev\" \"yarn:electron\"",
+    "electron": "wait-on tcp:127.0.0.1:3000 && electron ."
   },
   "dependencies": {
     "@emotion/is-prop-valid": "^1.2.0",
@@ -41,10 +45,15 @@
     "zip-project": "0.0.27"
   },
   "devDependencies": {
+    "concurrently": "^7.6.0",
+    "cross-env": "^7.0.3",
+    "electron": "^23.1.0",
+    "electron-is-dev": "^2.0.0",
     "eslint": "^8.17.0",
     "eslint-config-next": "12.1.6",
     "husky": "^8.0.1",
     "prettier": "^2.6.2",
-    "prop-types": "^15.8.1"
+    "prop-types": "^15.8.1",
+    "wait-on": "^7.0.1"
   }
 }
