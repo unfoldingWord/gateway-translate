@@ -106,7 +106,7 @@ export default function Header({
       return
     }
     let _books = [...books]
-    let _entry = { id: null, bookId: null, source: usfmSource, content: null }
+    let _entry = { id: null, bookId: null, source: usfmSource, content: null, showCard: true }
     switch (usfmSource) {
       case 'url':
         if (!url) {
@@ -158,15 +158,28 @@ export default function Header({
         break
     }
     let found = -1
+    let showCardChange = false
     for (let i=0; i<_books.length; i++) {
       if ( _books[i].id === _entry.id ) {
-        found = i
+        if ( _books[i].showCard ) {
+          found = i
+        } else { 
+          if (_books[i]?.showCard === false ) {
+            found = i 
+            _books[i].showCard = true
+            showCardChange = true
+          }
+        }
         break
       }
     }
     if ( found > -1 ) {
       console.log("book already loaded:", _entry.id)
-      setAlreadyOpenNotice(true)
+      if ( showCardChange ) {
+        setBooks(_books) // update to reflect change above
+      } else {
+        setAlreadyOpenNotice(true)
+      }
     } else {
       console.log("adding book:", _entry.id)
       _books.push(_entry)
