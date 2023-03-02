@@ -194,7 +194,7 @@ export default function Drawer({
           <ListItemText primary={'My Book Package Flow'} />
         </ListItem>
       </List>
-      <Divider /> */}
+      <Divider />
       <List disablePadding>
         <ListItem
           button
@@ -206,7 +206,7 @@ export default function Drawer({
           </ListItemIcon>
           <ListItemText primary={'Bug Report or Feedback'} />
         </ListItem>
-      </List>
+      </List> */}
     </SwipeableDrawer>
   )
 }
