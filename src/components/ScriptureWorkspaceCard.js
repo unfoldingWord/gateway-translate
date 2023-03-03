@@ -148,7 +148,7 @@ export default function ScriptureWorkspaceCard({
             onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
             editable={id.endsWith(owner) ? true : false}
             onUnsavedData={setUnsavedData}
-            hasInitialUnsavedData={data.unsaved}
+            // hasInitialUnsavedData={data.unsaved}
             activeReference={bibleReference}
             onReferenceSelected={onReferenceSelected}
           />
