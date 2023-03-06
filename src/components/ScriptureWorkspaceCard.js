@@ -94,7 +94,7 @@ export default function ScriptureWorkspaceCard({
           authentication,
           repoClient
         )
-        let _books = books
+        let _books = [...books]
         for (let i = 0; i < _books.length; i++) {
           if (_books[ i ].id === id) {
             _books[ i ].content = _content

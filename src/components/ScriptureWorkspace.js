@@ -51,7 +51,7 @@ function ScriptureWorkspace() {
   } = useContext(AppContext)
 
   const onClose = id => {
-    let _books = books
+    let _books = [...books]
     setIdToClose(id)
     for (let i = 0; i < _books.length; i++) {
       if (_books[ i ].id === id) {
@@ -69,7 +69,7 @@ function ScriptureWorkspace() {
   }
 
   const removeBook = id => {
-    let _books = books
+    let _books = [...books]
     for (let i = 0; i < _books.length; i++) {
       if (_books[i].id === id) {
         _books[i].showCard = false;
