@@ -128,6 +128,7 @@ export default function ScriptureWorkspaceCard({
     title += " (" + id.substr(4) + ")"
   }
   console.log("owner and id:",owner,id)
+  console.log("Data property:\n",data)
   return (
     <Card title={title}
       classes={classes}

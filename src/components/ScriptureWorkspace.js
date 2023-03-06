@@ -193,6 +193,7 @@ function ScriptureWorkspace() {
     ...HTTP_CONFIG,
   }
 
+  console.log("books:\n", books)
   return tokenNetworkError || networkError || !workspaceReady ? (
     // Do not render workspace until user logged in and we have user settings
     <>
