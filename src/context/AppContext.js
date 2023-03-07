@@ -59,6 +59,8 @@ export default function AppContextProvider({
   )
 
   const _setBooks = (value) => {
+    // debugger
+    console.log("[setBook() use] _setBooks() value:", value)
     setBooks(value)
     setRefresh(true)
     setCurrentLayout(null)
@@ -67,11 +69,14 @@ export default function AppContextProvider({
   // monitor the refresh state and act when true
   useEffect(() => {
     async function getContent() {
-      let _books = books
-
+      console.log("useEffect() getContent() books:", books)
+      let _books = [...books]
+      let _changeCount = 0
       for (let i=0; i<_books.length; i++) {
         if ( ! _books[i].content ) {
           let _content = null
+          _changeCount++
+          console.log("useEffect() getting content for:", _books[i].id)
           try {
             switch ( _books[i].source ) {
               case 'url':
@@ -154,14 +159,17 @@ export default function AppContextProvider({
           } else {
             _books[i].usfmText = null
           }
-          books[i].showCard = true
+          _books[i].showCard = true
         }
       }
-      setBooks(_books)
-      console.log("setBooks():",_books)
+      if ( _changeCount > 0 ) {
+        setBooks(_books)
+        console.log("setBooks():",_books)
+      }
       setRefresh(false)
     }
     if (refresh && authentication && owner && server && languageId) {
+      console.log("before getContent() setBooks():",books)
       getContent().catch(console.error)
     }
   }, [authentication, owner, server, languageId, refresh, books, setBooks, repoClient])

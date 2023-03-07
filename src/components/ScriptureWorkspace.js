@@ -51,11 +51,12 @@ function ScriptureWorkspace() {
   } = useContext(AppContext)
 
   const onClose = id => {
+    console.log("[setBook() use] onClose() id=", id)
     let _books = [...books]
     setIdToClose(id)
     for (let i = 0; i < _books.length; i++) {
-      if (_books[ i ].id === id) {
-        if ( _books[ i ].unsaved === true ) {
+      if (_books[i].id === id) {
+        if ( _books[i].unsaved === true ) {
           // alert("Changes are unsaved, re-open book to save")
           console.log("book has unsaved changes:", id)
           setShowModal(true)
@@ -69,6 +70,7 @@ function ScriptureWorkspace() {
   }
 
   const removeBook = id => {
+    console.log("[setBook() use] removeBook() id=", id)
     let _books = [...books]
     for (let i = 0; i < _books.length; i++) {
       if (_books[i].id === id) {
@@ -192,7 +194,7 @@ function ScriptureWorkspace() {
     server,
     ...HTTP_CONFIG,
   }
-
+  console.log("idToClose:", idToClose)
   return tokenNetworkError || networkError || !workspaceReady ? (
     // Do not render workspace until user logged in and we have user settings
     <>

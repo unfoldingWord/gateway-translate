@@ -176,12 +176,13 @@ export default function Header({
     if ( found > -1 ) {
       console.log("book already loaded:", _entry.id)
       if ( showCardChange ) {
+        console.log("[setBook() use] showCard change")
         setBooks(_books) // update to reflect change above
       } else {
         setAlreadyOpenNotice(true)
       }
     } else {
-      console.log("adding book:", _entry.id)
+      console.log("[setBook() use]adding book:", _entry.id)
       _books.push(_entry)
       setBooks(_books)
     }
