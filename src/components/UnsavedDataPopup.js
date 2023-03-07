@@ -17,7 +17,7 @@ export default function UnsavedDataPopup(
   const handleClickClose = () => {
     setShowModal(false)
   }
-  console.log("UnsavedDataPopup() showModal=", showModal)
+
   return (
     <DraggableModal
       open={showModal}
