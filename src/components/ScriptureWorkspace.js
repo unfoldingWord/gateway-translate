@@ -193,7 +193,6 @@ function ScriptureWorkspace() {
     ...HTTP_CONFIG,
   }
 
-  console.log("books:\n", books)
   return tokenNetworkError || networkError || !workspaceReady ? (
     // Do not render workspace until user logged in and we have user settings
     <>
@@ -273,8 +272,7 @@ function ScriptureWorkspace() {
           [20, 20],
         ]}
       >
-        {books.map(data => (
-          data.showCard === true && 
+        {books.filter( b => b.showCard ).map(data => (
           <ScriptureWorkspaceCard
             key={data.id}
             id={data.id}
@@ -282,11 +280,11 @@ function ScriptureWorkspace() {
             docSetId={data.docset}
             data={data}
             classes={classes}
-            onClose={onClose}
+            onClose={() => onClose(data.id)}
           />
         ))}
       </Workspace>
-      {books.map(data => ( 
+      {books.filter( b => b.id === idToClose ).map(data => ( 
         data.id === idToClose &&
         <UnsavedDataPopup
           key={data.id}
