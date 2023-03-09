@@ -61,20 +61,34 @@ export default function ScriptureWorkspaceCard({
   } = useContext(AppContext)
 
   const setUnsavedData = (value) => {
-    console.log("setUnsavedData() before: books is:",books)
     let _books = [...books]
-    let _count = 0
+    const _trace = "ScriptureWorkspaceCard.js/setUnsavedData()"
+    let _count = 0 // count of unsaved items
+    let _itemChanged = false // did this card actually change the unsaved status?
     for (let i = 0; i < _books.length; i++) {
-      if (_books[ i ].id === id) {
-        _books[ i ].unsaved = value
+      if (_books[i].id === id) {
+        // found this book
+        // test to see if needs to be changed or not
+        if ( _books[i]?.unsaved === value ) {
+          // no change is needed
+          console.log(_trace+": no value change needed:", value)
+        } else {
+          _books[i].unsaved = value
+          _books[i].trace = _trace
+          console.log(_trace+": value change is needed:", value)
+          // bump the change count
+          _itemChanged = true
+        }
       }
       if ( _books[i]?.unsaved === true ) {
         _count++
       }
     }
-    if (_count > 0) {
-      console.log("setUnsaveData() after: books is:",_books)
+    if (_itemChanged) {
+      console.log(_trace+": changes were made:")
       setBooks(_books)
+    } else {
+      console.log(_trace+": no changes made:")
     }
     sessionStorage.setItem("unsavedChanges", _count);
   }
@@ -98,9 +112,11 @@ export default function ScriptureWorkspaceCard({
           repoClient
         )
         let _books = [...books]
+        const _trace = "ScriptureWorkspaceCard.js/useEffect()/saveContent()"
         for (let i = 0; i < _books.length; i++) {
           if (_books[ i ].id === id) {
             _books[ i ].content = _content
+            _books[i].trace = _trace
             setBooks(_books)
             break
           }
