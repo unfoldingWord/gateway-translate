@@ -213,7 +213,9 @@ export default function Header({
             </Typography>
           </div>
           <div className='flex flex-1 justify-center items-center'>
-            <BibleReference />
+            {user && owner && router.pathname === '/' && (
+              <BibleReference />
+            )}
           </div>
           <>
             {user && owner && router.pathname === '/' && (

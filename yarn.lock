@@ -3714,9 +3714,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^6.0.0":
-  version: 6.0.5
-  resolution: "cross-spawn@npm:6.0.5"
+cross-spawn@^6.0.0:
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-6.0.5.tgz#4a5ec7c64dfae22c3a14124dbacdee846d80cbc4"
+  integrity sha512-eTVLrBSt7fjbDygz805pMnstIs2VTBNkRm0qxZd+M7A5XDdxVRWO5MxGBXZhjY4cqLYLdtrGqRf8mBPmzwSpWQ==
   dependencies:
     nice-try: ^1.0.4
     path-key: ^2.0.1
@@ -3727,9 +3728,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
-  version: 7.0.3
-  resolution: "cross-spawn@npm:7.0.3"
+cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
+  integrity sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==
   dependencies:
     path-key: ^3.1.0
     shebang-command: ^2.0.0
@@ -12624,9 +12626,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uw-editor@npm:0.1.27-alpha4":
-  version: 0.1.27-alpha4
-  resolution: "uw-editor@npm:0.1.27-alpha4"
+uw-editor@0.1.26:
+  version "0.1.26"
+  resolved "https://registry.yarnpkg.com/uw-editor/-/uw-editor-0.1.26.tgz#7986def987981a30a95e0a1e41c88b012c4b7921"
+  integrity sha512-qbIP7TNTSP/G1mBPHE2nQAtP1B2ylcvIBwi0P8VM2ht/0w8J44qbdYWumc5xhIeclt7r9f0rfQxzO4wq3Nu5jw==
   dependencies:
     "@xelah/type-perf-html": ^1.0.2
     epitelete-html: 0.2.18

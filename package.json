@@ -5,7 +5,7 @@
     "node": "16"
   },
   "scripts": {
-    "dev": "next",
+    "dev": "cross-env NODE_OPTIONS=--max_old_space_size=4096 next",
     "build": "next build --debug",
     "start": "next start",
     "lint": "next lint",
@@ -27,6 +27,7 @@
     "base-64": "^1.0.0",
     "bible-reference-rcl": "^1.1.0",
     "core-js": "^3.22.8",
+    "cross-env": "^7.0.3",
     "dcs-js": "^1.4.1",
     "deep-equal": "^2.0.5",
     "localforage": "^1.10.0",
