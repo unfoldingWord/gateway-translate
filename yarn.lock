@@ -9005,10 +9005,10 @@ uuid@^8.3.0, uuid@^8.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
-uw-editor@0.1.26:
-  version "0.1.26"
-  resolved "https://registry.yarnpkg.com/uw-editor/-/uw-editor-0.1.26.tgz#7986def987981a30a95e0a1e41c88b012c4b7921"
-  integrity sha512-qbIP7TNTSP/G1mBPHE2nQAtP1B2ylcvIBwi0P8VM2ht/0w8J44qbdYWumc5xhIeclt7r9f0rfQxzO4wq3Nu5jw==
+uw-editor@0.1.27-alpha2:
+  version "0.1.27-alpha2"
+  resolved "https://registry.yarnpkg.com/uw-editor/-/uw-editor-0.1.27-alpha2.tgz#0673e117dd7b0fce7790498fd4b243c1caa06e90"
+  integrity sha512-99UO5Io3yGBuy8/pqBjFj/NH7Fgtob2OsGZOx9iBGOgpApeT0eTM8Vw08m576+0OuXCp8GvsXAa0X3kLAgpApw==
   dependencies:
     "@xelah/type-perf-html" "^1.0.2"
     epitelete-html "0.2.18"
