@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useCallback, createElement } from 'react'
+import { useEffect, useState, useContext, createElement } from 'react'
 import PropTypes from 'prop-types'
 import { Card } from 'translation-helps-rcl'
 import { UsfmEditor } from 'uw-editor'
@@ -60,10 +60,9 @@ export default function ScriptureWorkspaceCard({
     }
   } = useContext(AppContext)
 
-  const setUnsavedData = useCallback((value,bookId) => {
+  const setUnsavedData = (value) => {
     let _books = [...books]
-    console.log(books)
-    const _trace = `ScriptureWorkspaceCard.js/setUnsavedData(${value},${bookId})`
+    const _trace = `ScriptureWorkspaceCard.js/setUnsavedData()`
     let _count = 0 // count of unsaved items
     let _itemChanged = false // did this card actually change the unsaved status?
     for (let i = 0; i < _books.length; i++) {
@@ -92,7 +91,7 @@ export default function ScriptureWorkspaceCard({
       console.log(_trace+": no changes made:")
     }
     sessionStorage.setItem("unsavedChanges", _count);
-  },[books, id, setBooks])
+  }
 
   // Save Feature
   useEffect(() => {
@@ -166,7 +165,7 @@ export default function ScriptureWorkspaceCard({
             usfmText={data.usfmText}
             onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
             editable={id.endsWith(owner) ? true : false}
-            onUnsavedData={(hasUnsavedData) => setUnsavedData(hasUnsavedData,data.bookId)}
+            onUnsavedData={(hasUnsavedData) => setUnsavedData(hasUnsavedData)}
             activeReference={bibleReference}
             onReferenceSelected={onReferenceSelected}
           />
