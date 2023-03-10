@@ -107,6 +107,8 @@ export default function Header({
     }
     let _books = [...books]
     let _entry = { id: null, bookId: null, source: usfmSource, content: null, showCard: true }
+    const _trace = "Header.js/onNext()"
+    _entry.trace = _trace
     switch (usfmSource) {
       case 'url':
         if (!url) {
@@ -174,18 +176,18 @@ export default function Header({
       }
     }
     if ( found > -1 ) {
-      console.log("book already loaded:", _entry.id)
+      console.log(_trace+": book already loaded:", _entry.id)
       if ( showCardChange ) {
+        console.log(_trace+": showCard change")
         setBooks(_books) // update to reflect change above
       } else {
         setAlreadyOpenNotice(true)
       }
     } else {
-      console.log("adding book:", _entry.id)
+      console.log(_trace+": adding book:", _entry.id)
       _books.push(_entry)
       setBooks(_books)
     }
-    console.log('onNext() _books:', _books)
   }
 
   return (
@@ -211,7 +213,9 @@ export default function Header({
             </Typography>
           </div>
           <div className='flex flex-1 justify-center items-center'>
-            <BibleReference />
+            {user && owner && router.pathname === '/' && (
+              <BibleReference />
+            )}
           </div>
           <>
             {user && owner && router.pathname === '/' && (

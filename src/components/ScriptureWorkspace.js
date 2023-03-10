@@ -51,35 +51,41 @@ function ScriptureWorkspace() {
   } = useContext(AppContext)
 
   const onClose = id => {
-    let _books = books
+    let _books = [...books]
+    const _trace = "ScriptureWorkspace.js/onClose()"
     setIdToClose(id)
     for (let i = 0; i < _books.length; i++) {
-      if (_books[ i ].id === id) {
-        if ( _books[ i ].unsaved === true ) {
+      if (_books[i].id === id) {
+        if ( _books[i].unsaved === true ) {
           // alert("Changes are unsaved, re-open book to save")
-          console.log("book has unsaved changes:", id)
+          console.log(_trace+": book has unsaved changes:", id)
           setShowModal(true)
         } else {
           _books[i].showCard = false
+          _books[i].trace = _trace
+          console.log(_trace+": book is unchanged:", id)
+          setBooks(_books)
         }
         break
       }
     }
-    setBooks(_books)
   }
 
   const removeBook = id => {
-    let _books = books
+    let _books = [...books]
+    const _trace = "ScriptureWorkspace.js/removeBook()"
     for (let i = 0; i < _books.length; i++) {
       if (_books[i].id === id) {
+        // found the book... now process it and break
         _books[i].showCard = false;
+        _books[i].trace = _trace
+        console.log(_trace+": remove card (showCard=false",id)
+        setBooks(_books)
+        setShowModal(false)
+        setIdToClose(null)
         break
       }
     }
-
-    setBooks(_books)
-    setShowModal(false)
-    setIdToClose(null)
   }
 
   const {
@@ -272,8 +278,7 @@ function ScriptureWorkspace() {
           [20, 20],
         ]}
       >
-        {books.map(data => (
-          data.showCard === true && 
+        {books.filter( b => b.showCard ).map(data => (
           <ScriptureWorkspaceCard
             key={data.id}
             id={data.id}
@@ -281,11 +286,11 @@ function ScriptureWorkspace() {
             docSetId={data.docset}
             data={data}
             classes={classes}
-            onClose={onClose}
+            onClose={() => onClose(data.id)}
           />
         ))}
       </Workspace>
-      {books.map(data => ( 
+      {books.filter( b => b.id === idToClose ).map(data => ( 
         data.id === idToClose &&
         <UnsavedDataPopup
           key={data.id}

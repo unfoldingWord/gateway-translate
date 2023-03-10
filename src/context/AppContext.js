@@ -59,6 +59,9 @@ export default function AppContextProvider({
   )
 
   const _setBooks = (value) => {
+    // debugger
+    const _trace = "AppContext.js/_setBooks()"
+    console.log(_trace+":new value for books:", value)
     setBooks(value)
     setRefresh(true)
     setCurrentLayout(null)
@@ -67,11 +70,13 @@ export default function AppContextProvider({
   // monitor the refresh state and act when true
   useEffect(() => {
     async function getContent() {
-      let _books = books
-
+      let _books = [...books]
+      const _trace = "AppContext.js/useEffect()/getContent()"
+      let _changeCount = 0
       for (let i=0; i<_books.length; i++) {
         if ( ! _books[i].content ) {
           let _content = null
+          _changeCount++
           try {
             switch ( _books[i].source ) {
               case 'url':
@@ -139,7 +144,6 @@ export default function AppContextProvider({
             const _regex = /^\\id ([A-Z0-9]{3})/;
             const _found = _usfmText.match(_regex);
             const _textBookId = _found[1];
-            console.log("ID from USFM Text:", _textBookId);
             // if no id found, consider it invalid USFM
             if ( ! _textBookId ) {
               _books[i].bookId = 'unknown'
@@ -154,11 +158,15 @@ export default function AppContextProvider({
           } else {
             _books[i].usfmText = null
           }
-          books[i].showCard = true
+          _books[i].showCard = true
+          _books[i].trace = _trace
         }
       }
-      setBooks(_books)
-      console.log("setBooks():",_books)
+      if ( _changeCount > 0 ) {
+        console.log(_trace + ": changes made. before:", books)
+        setBooks(_books)
+        console.log(_trace + ": changes made. after:", _books)
+      }
       setRefresh(false)
     }
     if (refresh && authentication && owner && server && languageId) {

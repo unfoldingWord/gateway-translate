@@ -62,16 +62,33 @@ export default function ScriptureWorkspaceCard({
 
   const setUnsavedData = (value) => {
     let _books = [...books]
-    let _count = 0
-    console.log("setUnsavedData() id:", id, value)
+    const _trace = `ScriptureWorkspaceCard.js/setUnsavedData()`
+    let _count = 0 // count of unsaved items
+    let _itemChanged = false // did this card actually change the unsaved status?
     for (let i = 0; i < _books.length; i++) {
-      if (_books[ i ].id === id) {
-        _books[ i ].unsaved = value
-        setBooks(_books)
+      if (_books[i].id === id) {
+        // found this book
+        // test to see if needs to be changed or not
+        if ( _books[i]?.unsaved === value ) {
+          // no change is needed
+          console.log(_trace+": no value change needed:", value)
+        } else {
+          _books[i].unsaved = value
+          _books[i].trace = _trace
+          console.log(_trace+": value change is needed:", value)
+          // bump the change count
+          _itemChanged = true
+        }
       }
       if ( _books[i]?.unsaved === true ) {
         _count++
       }
+    }
+    if (_itemChanged) {
+      console.log(_trace+": changes were made:")
+      setBooks(_books)
+    } else {
+      console.log(_trace+": no changes made:")
     }
     sessionStorage.setItem("unsavedChanges", _count);
   }
@@ -94,10 +111,12 @@ export default function ScriptureWorkspaceCard({
           authentication,
           repoClient
         )
-        let _books = books
+        let _books = [...books]
+        const _trace = "ScriptureWorkspaceCard.js/useEffect()/saveContent()"
         for (let i = 0; i < _books.length; i++) {
           if (_books[ i ].id === id) {
             _books[ i ].content = _content
+            _books[i].trace = _trace
             setBooks(_books)
             break
           }
@@ -106,7 +125,6 @@ export default function ScriptureWorkspaceCard({
       setDoSave(null)
     }
     if ( doSave ) {
-      console.log("New updated USFM:", doSave)
       saveContent()
     }
   }, [doSave, books, setBooks, id, docSetId, data, owner, ep, authentication, repoClient, bookId])
@@ -127,7 +145,7 @@ export default function ScriptureWorkspaceCard({
   } else {
     title += " (" + id.substr(4) + ")"
   }
-  console.log("owner and id:",owner,id)
+
   return (
     <Card title={title}
       classes={classes}
@@ -147,8 +165,7 @@ export default function ScriptureWorkspaceCard({
             usfmText={data.usfmText}
             onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
             editable={id.endsWith(owner) ? true : false}
-            onUnsavedData={setUnsavedData}
-            hasInitialUnsavedData={data.unsaved}
+            onUnsavedData={(hasUnsavedData) => setUnsavedData(hasUnsavedData)}
             activeReference={bibleReference}
             onReferenceSelected={onReferenceSelected}
           />
