@@ -3714,10 +3714,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-cross-spawn@^6.0.0:
-  version "6.0.5"
-  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-6.0.5.tgz#4a5ec7c64dfae22c3a14124dbacdee846d80cbc4"
-  integrity sha512-eTVLrBSt7fjbDygz805pMnstIs2VTBNkRm0qxZd+M7A5XDdxVRWO5MxGBXZhjY4cqLYLdtrGqRf8mBPmzwSpWQ==
+"cross-env@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "cross-env@npm:7.0.3"
+  dependencies:
+    cross-spawn: ^7.0.1
+  bin:
+    cross-env: src/bin/cross-env.js
+    cross-env-shell: src/bin/cross-env-shell.js
+  checksum: 26f2f3ea2ab32617f57effb70d329c2070d2f5630adc800985d8b30b56e8bf7f5f439dd3a0358b79cee6f930afc23cf8e23515f17ccfb30092c6b62c6b630a79
+  languageName: node
+  linkType: hard
+
+"cross-spawn@npm:^6.0.0":
+  version: 6.0.5
+  resolution: "cross-spawn@npm:6.0.5"
   dependencies:
     nice-try: ^1.0.4
     path-key: ^2.0.1
@@ -3728,10 +3739,9 @@ cross-spawn@^6.0.0:
   languageName: node
   linkType: hard
 
-cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
-  version "7.0.3"
-  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
-  integrity sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==
+"cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.1, cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "cross-spawn@npm:7.0.3"
   dependencies:
     path-key: ^3.1.0
     shebang-command: ^2.0.0
@@ -5655,6 +5665,7 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
     base-64: ^1.0.0
     bible-reference-rcl: ^1.1.0
     core-js: ^3.22.8
+    cross-env: ^7.0.3
     dcs-js: ^1.4.1
     deep-equal: ^2.0.5
     eslint: ^8.17.0
@@ -10818,8 +10829,8 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   linkType: hard
 
 "scripture-resources-rcl@npm:^5.2.1":
-  version: 5.3.6
-  resolution: "scripture-resources-rcl@npm:5.3.6"
+  version: 5.3.7
+  resolution: "scripture-resources-rcl@npm:5.3.7"
   dependencies:
     bible-reference-range: ^1.0.1
     deep-freeze: ^0.0.1
@@ -10843,7 +10854,7 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
     "@material-ui/styles": ^4.4.1
     react: ^16.13.1
     react-dom: ^16.13.1
-  checksum: c587f7161ecd7b9bd986c2122dcaebe459b8c858b0514d8391785bdf90f0520037760b89e5b970212e2dc2c7ff501c468db7ec28eb0e257f0850f333002f2383
+  checksum: f593f9ed0b924325cc2d095b4289187db4224cc0a07903ca857100e66a3b9b16633cc3560e17efedcb5fdeb1f8bb21ebd1d3e8c682f10f464f2233f460fdc076
   languageName: node
   linkType: hard
 
@@ -11244,9 +11255,9 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   linkType: hard
 
 "spdx-license-ids@npm:^3.0.0":
-  version: 3.0.12
-  resolution: "spdx-license-ids@npm:3.0.12"
-  checksum: 92a4dddce62ce1db6fe54a7a839cf85e06abc308fc83b776a55b44e4f1906f02e7ebd506120847039e976bbbad359ea8bdfafb7925eae5cd7e73255f02e0b7d6
+  version: 3.0.13
+  resolution: "spdx-license-ids@npm:3.0.13"
+  checksum: 3469d85c65f3245a279fa11afc250c3dca96e9e847f2f79d57f466940c5bb8495da08a542646086d499b7f24a74b8d0b42f3fc0f95d50ff99af1f599f6360ad7
   languageName: node
   linkType: hard
 
@@ -12626,10 +12637,9 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   languageName: node
   linkType: hard
 
-uw-editor@0.1.26:
-  version "0.1.26"
-  resolved "https://registry.yarnpkg.com/uw-editor/-/uw-editor-0.1.26.tgz#7986def987981a30a95e0a1e41c88b012c4b7921"
-  integrity sha512-qbIP7TNTSP/G1mBPHE2nQAtP1B2ylcvIBwi0P8VM2ht/0w8J44qbdYWumc5xhIeclt7r9f0rfQxzO4wq3Nu5jw==
+"uw-editor@npm:0.1.27-alpha4":
+  version: 0.1.27-alpha4
+  resolution: "uw-editor@npm:0.1.27-alpha4"
   dependencies:
     "@xelah/type-perf-html": ^1.0.2
     epitelete-html: 0.2.18

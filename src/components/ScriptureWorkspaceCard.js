@@ -60,28 +60,35 @@ export default function ScriptureWorkspaceCard({
     }
   } = useContext(AppContext)
 
-  const setUnsavedData = useCallback((value,bookId) => {
+  const findBookEntry = useCallback(() => {
     let _books = [...books]
-    console.log(books)
+    for (let i = 0; i < _books.length; i++) {
+      if (_books[i].id === id) {
+        return _books[i]
+      }
+    }
+    return null
+  },[id,books])
+
+  const setUnsavedData = useCallback((value,bookId) => {
     const _trace = `ScriptureWorkspaceCard.js/setUnsavedData(${value},${bookId})`
     let _count = 0 // count of unsaved items
     let _itemChanged = false // did this card actually change the unsaved status?
-    for (let i = 0; i < _books.length; i++) {
-      if (_books[i].id === id) {
-        // found this book
-        // test to see if needs to be changed or not
-        if ( _books[i]?.unsaved === value ) {
-          // no change is needed
-          console.log(_trace+": no value change needed:", value)
-        } else {
-          _books[i].unsaved = value
-          _books[i].trace = _trace
-          console.log(_trace+": value change is needed:", value)
-          // bump the change count
-          _itemChanged = true
-        }
+    const bkEntry = findBookEntry()
+    if (bkEntry) {
+      // found this book
+      // test to see if needs to be changed or not
+      if ( bkEntry?.unsaved === value ) {
+        // no change is needed
+        console.log(_trace+": no value change needed:", value)
+      } else {
+        bkEntry.unsaved = value
+        bkEntry.trace = _trace
+        console.log(_trace+": value change is needed:", value)
+        // bump the change count
+        _itemChanged = true
       }
-      if ( _books[i]?.unsaved === true ) {
+      if ( bkEntry.unsaved === true ) {
         _count++
       }
     }
@@ -92,7 +99,7 @@ export default function ScriptureWorkspaceCard({
       console.log(_trace+": no changes made:")
     }
     sessionStorage.setItem("unsavedChanges", _count);
-  },[books, id, setBooks])
+  },[findBookEntry, setBooks])
 
   // Save Feature
   useEffect(() => {
@@ -118,6 +125,8 @@ export default function ScriptureWorkspaceCard({
           if (_books[ i ].id === id) {
             _books[ i ].content = _content
             _books[i].trace = _trace
+
+!!! Check this - how to untie the dependency with unstructured data in books
             setBooks(_books)
             break
           }
