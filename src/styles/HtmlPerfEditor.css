@@ -49,9 +49,21 @@
   text-decoration: underline wavy darkgray;
 }
 
-.perf span.graft:after {
+/* .perf span.graft:after {
   content: " " attr(data-previewtext);
   text-decoration: underline wavy lightgray;
+}
+
+.perf span.graft:after {
+  content: " " attr(data-previewtext);
+  -webkit-text-decoration: underline wavy #d3d3d3;
+  text-decoration: underline wavy #d3d3d3;
+} */
+
+.perf span.graft:after, .perf .preview span.graft.note_caller:after {
+  content: " " attr(data-previewtext);
+  -webkit-text-decoration: underline wavy #d3d3d3;
+  text-decoration: underline wavy #d3d3d3;
 }
 
 .perf .preview span.graft:before,

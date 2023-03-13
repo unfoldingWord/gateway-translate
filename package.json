@@ -11,7 +11,8 @@
     "lint": "next lint",
     "export": "next export",
     "postinstall": "husky install",
-    "increment-build": "bash scripts/increment-build.sh && git add -A"
+    "increment-build": "bash scripts/increment-build.sh && git add -A",
+    "clean": "bash -c \"rm -rf ./node_modules/ ./.next/ ./dist/\""
   },
   "dependencies": {
     "@emotion/is-prop-valid": "^1.2.0",
