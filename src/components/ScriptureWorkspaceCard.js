@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useCallback, createElement } from 'react'
+import { useEffect, useState, useContext, createElement } from 'react'
 import PropTypes from 'prop-types'
 import { Card } from 'translation-helps-rcl'
 import { UsfmEditor } from 'uw-editor'
@@ -60,6 +60,7 @@ export default function ScriptureWorkspaceCard({
     }
   } = useContext(AppContext)
 
+<<<<<<< HEAD
   const findBookEntry = useCallback(() => {
     let _books = [...books]
     for (let i = 0; i < _books.length; i++) {
@@ -72,6 +73,11 @@ export default function ScriptureWorkspaceCard({
 
   const setUnsavedData = useCallback((value,bookId) => {
     const _trace = `ScriptureWorkspaceCard.js/setUnsavedData(${value},${bookId})`
+=======
+  const setUnsavedData = (value) => {
+    let _books = [...books]
+    const _trace = `ScriptureWorkspaceCard.js/setUnsavedData()`
+>>>>>>> origin/develop
     let _count = 0 // count of unsaved items
     let _itemChanged = false // did this card actually change the unsaved status?
     const bkEntry = findBookEntry()
@@ -99,7 +105,11 @@ export default function ScriptureWorkspaceCard({
       console.log(_trace+": no changes made:")
     }
     sessionStorage.setItem("unsavedChanges", _count);
+<<<<<<< HEAD
   },[findBookEntry, setBooks])
+=======
+  }
+>>>>>>> origin/develop
 
   // Save Feature
   useEffect(() => {
@@ -175,9 +185,11 @@ export default function ScriptureWorkspaceCard({
             usfmText={data.usfmText}
             onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
             editable={id.endsWith(owner) ? true : false}
-            onUnsavedData={(hasUnsavedData) => setUnsavedData(hasUnsavedData,data.bookId)}
-            activeReference={bibleReference}
-            onReferenceSelected={onReferenceSelected}
+            onUnsavedData={(hasUnsavedData) => setUnsavedData(hasUnsavedData)}
+            // commenting out this code for v0.9
+            // see issue 152
+            // activeReference={bibleReference}
+            // onReferenceSelected={onReferenceSelected}
           />
         :
         (
