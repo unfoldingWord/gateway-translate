@@ -5673,7 +5673,7 @@ __metadata:
     translation-helps-rcl: ^3.3.4-rc.3
     use-deep-compare-effect: ^1.8.1
     utf8: 3.0.0
-    uw-editor: 0.1.28-alpha7
+    uw-editor: 0.1.28-alpha11
   languageName: unknown
   linkType: soft
 
@@ -12629,9 +12629,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uw-editor@npm:0.1.28-alpha7":
-  version: 0.1.28-alpha7
-  resolution: "uw-editor@npm:0.1.28-alpha7"
+"uw-editor@npm:0.1.28-alpha11":
+  version: 0.1.28-alpha11
+  resolution: "uw-editor@npm:0.1.28-alpha11"
   dependencies:
     "@xelah/type-perf-html": ^1.0.2
     epitelete-html: 0.2.18
@@ -12644,7 +12644,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: f2857aa74e1cbbf7f690cb530360de8ede074d39c1c5e5baceb893dfc5a5cb854a20107be91d64d1e1f5e838705a1db6254bfc94a89645f192c9c3a0450dc986
+  checksum: 27c43b826da28dacdc69ea88f8932d0cc5011e4e8b89faf1d1d1c2da5e53f39cc968e45eb5748eed6773fb2be6ca087f987458cf932e30dc9ecf25a0a9aa05ce
   languageName: node
   linkType: hard
 
