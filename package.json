@@ -1,6 +1,6 @@
 {
   "name": "gateway-translate",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "engines": {
     "node": "16"
   },
@@ -43,7 +43,7 @@
     "translation-helps-rcl": "^3.3.4-rc.3",
     "use-deep-compare-effect": "^1.8.1",
     "utf8": "3.0.0",
-    "uw-editor": "0.1.27-alpha4"
+    "uw-editor": "0.1.28-alpha11"
   },
   "devDependencies": {
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.12.1",
