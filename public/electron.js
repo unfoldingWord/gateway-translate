@@ -3,6 +3,14 @@ const path = require('path')
 const { app, BrowserWindow } = require('electron')
 const isDev = require('electron-is-dev')
 
+// Uncomment next line to stop security warnings. Implications: https://www.electronjs.org/docs/latest/tutorial/security
+// process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
+
+// eliminate duplicate launch
+if (require('electron-squirrel-startup')) app.quit();
+
+console.log('starting electron...')
+
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -13,11 +21,15 @@ const createWindow = () => {
     }
   })
 
-  mainWindow.loadURL(
-    isDev
-      ? 'http://localhost:3000'
-      : `file://${path.join(__dirname, '../build/index.html')}`
-  );
+
+  // In react.js without next.js, the build start path is '../build/index.html'
+  const url = isDev
+  ? 'http://localhost:3000'
+  : `file://${path.join(__dirname, '../.next/server/pages/index.html')}`
+
+  console.log(`loading web page ${url}`)
+
+  mainWindow.loadURL(url);
 
   // Open the DevTools on startup
   if (isDev) {

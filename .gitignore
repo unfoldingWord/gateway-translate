@@ -13,6 +13,7 @@ yalc.lock
 /dist
 styleguide/
 /.next
+/out
 
 # misc
 .DS_Store
