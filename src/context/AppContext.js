@@ -115,7 +115,15 @@ export default function AppContextProvider({
                 )
                 let langAndAbbr
                 if (_books[i].repo.includes('_')) {
-                  langAndAbbr = _books[i].repo
+                  // check for multiple underscores. This addresses issue 164
+                  // and dealing with:
+                  // https://qa.door43.org/Pt-br_gl/ULB_L3_WA
+                  const _pieces = _books[i].repo.split('_') 
+                  if ( _pieces.length > 2 ) {
+                    langAndAbbr = _pieces[0] + '_' + _pieces[1] // just take the first two pieces
+                  } else {
+                    langAndAbbr = _books[i].repo // take it all
+                  }
                 } else {
                   // work around for https://github.com/unfoldingWord/uw-editor/issues/38
                   langAndAbbr = _books[i].repo + '_tla' // 'tla' = Three Letter Acronym
