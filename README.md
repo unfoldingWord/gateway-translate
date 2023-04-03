@@ -1,31 +1,16 @@
 <div id="top"></div>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
 
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]](https://github.com/RUN-Collaborations/gateway-translate/graphs/contributors)
-[![Other Forks][forks-shield]](https://github.com/unfoldingWord/gateway-translate/network/members)
-[![MIT License][license-shield]](https://github.com/RUN-Collaborations/gateway-translate/blob/main/LICENSE)
+[Contributors](https://github.com/RUN-Collaborations/gateway-translate/graphs/contributors)
+    ·
+[Other Forks](https://github.com/unfoldingWord/gateway-translate/network/members)
+    ·
+[MIT License](https://github.com/RUN-Collaborations/gateway-translate/blob/main/LICENSE)
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
 
-<h3 align="center">gatewaytranslate - offine fork</h3>
+<h3 align="center">Offline Fork of gatewayTranslate</h3>
 
   <p align="center">
     This application is for use by translators who want or need to work offline.
@@ -101,8 +86,9 @@ This project is a fork of [unfoldingWord's Gateway Translate](https://github.com
 ## Getting Started
 
 ### Install Windows Pre-Release or Preview Online
-    * <a href="https://github.com/RUN-Collaborations/gateway-translate/releases/tag/v0.0.18-poc%2B001">Windows Pre-Release v0.0.18-poc+001</a>
-    * <a href="https://translate-align-2414.netlify.app/">Preview Online</a>
+* Add [font-detect-rhl](https://github.com/RUN-Collaborations/font-detect-rhl)
+* [Windows Pre-Release v0.0.18-poc+001](https://github.com/RUN-Collaborations/gateway-translate/releases/tag/v0.0.18-poc%2B001)
+* [Preview Online](https://translate-align-2414.netlify.app/)
 
 ### To Recreate Electron Forge Make
 
@@ -177,27 +163,3 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
-<!-- CONTACT -->
-## Contact
-
-Project Link: [https://github.com/RUN-Collaborations/gateway-translate](https://github.com/RUN-Collaborations/gateway-translate)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS 
-## Acknowledgments
-
-* []()
-* []()
-* []()
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
--->
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
