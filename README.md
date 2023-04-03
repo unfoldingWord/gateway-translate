@@ -2,11 +2,10 @@
 
 [Contributors](https://github.com/RUN-Collaborations/gateway-translate/graphs/contributors)
     ·
-[Other Forks](https://github.com/unfoldingWord/gateway-translate/network/members)
+[Original Upstream App, of which this is a Fork](https://github.com/unfoldingWord/gateway-translate)
     ·
 [MIT License](https://github.com/RUN-Collaborations/gateway-translate/blob/main/LICENSE)
 
-<!-- PROJECT LOGO -->
 <br />
 <div align="center">
 
@@ -23,7 +22,6 @@
 
 
 
-<!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
   <ol>
@@ -49,7 +47,6 @@
 
 
 
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 **Upload Zipped USFM Files**
 ![Upload Zipped USFM Files](./images/upload_zipped_usfm_files.png)
@@ -82,10 +79,10 @@ This project is a fork of [unfoldingWord's Gateway Translate](https://github.com
 
 
 
-<!-- GETTING STARTED -->
 ## Getting Started
 
 ### Install Windows Pre-Release or Preview Online
+
 * Add [font-detect-rhl](https://github.com/RUN-Collaborations/font-detect-rhl)
 * [Windows Pre-Release v0.0.18-poc+001](https://github.com/RUN-Collaborations/gateway-translate/releases/tag/v0.0.18-poc%2B001)
 * [Preview Online](https://translate-align-2414.netlify.app/)
@@ -123,7 +120,6 @@ This project is a fork of [unfoldingWord's Gateway Translate](https://github.com
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- ROADMAP -->
 ## Roadmap
 
 * The Getting Started steps above leave `.next\static\css\*.css` looking for NotoSans-Regular.ttf and NotoSans-Bold.ttf in `/static/`. These needs to be manually added or factored into the build process for it to be able to find them.
@@ -137,7 +133,6 @@ This project is a fork of [unfoldingWord's Gateway Translate](https://github.com
 
 
 
-<!-- CONTRIBUTING -->
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -156,7 +151,6 @@ If you would like to fork the repo and create a pull request.
 
 
 
-<!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
