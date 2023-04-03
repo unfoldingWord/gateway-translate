@@ -1,31 +1,15 @@
 <div id="top"></div>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
 
+[Contributors](https://github.com/RUN-Collaborations/gateway-translate/graphs/contributors)
+    ·
+[Original Upstream App, of which this is a Fork](https://github.com/unfoldingWord/gateway-translate)
+    ·
+[MIT License](https://github.com/RUN-Collaborations/gateway-translate/blob/main/LICENSE)
 
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]](https://github.com/RUN-Collaborations/gateway-translate/graphs/contributors)
-[![Other Forks][forks-shield]](https://github.com/unfoldingWord/gateway-translate/network/members)
-[![MIT License][license-shield]](https://github.com/RUN-Collaborations/gateway-translate/blob/main/LICENSE)
-
-<!-- PROJECT LOGO -->
 <br />
 <div align="center">
 
-<h3 align="center">gatewaytranslate - offine fork</h3>
+<h3 align="center">Offline Fork of gatewayTranslate</h3>
 
   <p align="center">
     This application is for use by translators who want or need to work offline.
@@ -38,7 +22,6 @@
 
 
 
-<!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
   <ol>
@@ -64,7 +47,6 @@
 
 
 
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 **Upload Zipped USFM Files**
 ![Upload Zipped USFM Files](./images/upload_zipped_usfm_files.png)
@@ -97,12 +79,13 @@ This project is a fork of [unfoldingWord's Gateway Translate](https://github.com
 
 
 
-<!-- GETTING STARTED -->
 ## Getting Started
 
 ### Install Windows Pre-Release or Preview Online
-    * <a href="https://github.com/RUN-Collaborations/gateway-translate/releases/tag/v0.0.18-poc%2B001">Windows Pre-Release v0.0.18-poc+001</a>
-    * <a href="https://translate-align-2414.netlify.app/">Preview Online</a>
+
+* Add [font-detect-rhl](https://github.com/RUN-Collaborations/font-detect-rhl)
+* [Windows Pre-Release v0.0.18-poc+001](https://github.com/RUN-Collaborations/gateway-translate/releases/tag/v0.0.18-poc%2B001)
+* [Preview Online](https://translate-align-2414.netlify.app/)
 
 ### To Recreate Electron Forge Make
 
@@ -137,7 +120,6 @@ This project is a fork of [unfoldingWord's Gateway Translate](https://github.com
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- ROADMAP -->
 ## Roadmap
 
 * The Getting Started steps above leave `.next\static\css\*.css` looking for NotoSans-Regular.ttf and NotoSans-Bold.ttf in `/static/`. These needs to be manually added or factored into the build process for it to be able to find them.
@@ -151,7 +133,6 @@ This project is a fork of [unfoldingWord's Gateway Translate](https://github.com
 
 
 
-<!-- CONTRIBUTING -->
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -170,34 +151,9 @@ If you would like to fork the repo and create a pull request.
 
 
 
-<!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
-<!-- CONTACT -->
-## Contact
-
-Project Link: [https://github.com/RUN-Collaborations/gateway-translate](https://github.com/RUN-Collaborations/gateway-translate)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS 
-## Acknowledgments
-
-* []()
-* []()
-* []()
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
--->
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
