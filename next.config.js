@@ -4,5 +4,7 @@ module.exports = {
     BUILD_NUMBER: require('child_process')
       .execSync('git rev-parse --short HEAD')
       .toString().trim(),
+      output: 'export',
   }
+  
 }
