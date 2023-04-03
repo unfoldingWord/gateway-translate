@@ -17,35 +17,22 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]](https://github.com/unfoldingWord/gateway-translate/graphs/contributors)
-[![Forks][forks-shield]](https://github.com/unfoldingWord/gateway-translate/network/members)
-[![Stargazers][stars-shield]](https://github.com/unfoldingWord/gateway-translate/stargazers)
-[![Issues][issues-shield]](https://github.com/unfoldingWord/gateway-translate/issues)
-[![MIT License][license-shield]](https://github.com/unfoldingWord/gateway-translate/blob/main/LICENSE)
-[![LinkedIn][linkedin-shield]](https://www.linkedin.com/company/unfoldingword/)
-
-
+[![Contributors][contributors-shield]](https://github.com/RUN-Collaborations/gateway-translate/graphs/contributors)
+[![Other Forks][forks-shield]](https://github.com/unfoldingWord/gateway-translate/network/members)
+[![MIT License][license-shield]](https://github.com/RUN-Collaborations/gateway-translate/blob/main/LICENSE)
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://gateway-translate.netlify.app/">
-    <img src="images/uW.png" alt="Logo" width="300" height="50">
-  </a>
 
-<h3 align="center">gatewaytranslate</h3>
+<h3 align="center">gatewaytranslate - offine fork</h3>
 
   <p align="center">
-    This application is for use by Gateway Language translators.
+    This application is for use by translators who want or need to work offline.
     <br />
-    <a href="https://github.com/unfoldingword/gateway-translate"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://gateway-translate.netlify.app/">Go to Application</a>
+    <a href="https://github.com/RUN-Collaborations/gateway-translate/releases/tag/v0.0.18-poc%2B001">Windows Pre-Release v0.0.18-poc+001</a>
     ·
-    <a href="https://github.com/unfoldingword/gateway-translate/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/unfoldingword/gateway-translate/issues">Request Feature</a>
+    <a href="https://translate-align-2414.netlify.app/">Preview Online</a>
   </p>
 </div>
 
@@ -81,34 +68,30 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-**Login Page**
-![Login](./images/login.png)
-
-**Setup Account**
-![Setup Account](./images/setup_account.png)
+**Upload Zipped USFM Files**
+![Upload Zipped USFM Files](./images/upload_zipped_usfm_files.png)
 
 **View Texts**
 ![view_resources](./images/view_resources.png)
 
 **Purpose**
-To provide a tool for Translation Teams to edit and translate Scripture Texts, which are typically in [USFM format](https://ubsicap.github.io/usfm/).
+To provide a tool for Translation Teams to edit, translate, and align Scripture Texts offline, which are typically in [USFM format](https://ubsicap.github.io/usfm/).
 
 **Problem**
-There are few (if any) web based editors for USFM markup, especially focused on translation activities.
+There are few (if any) offline editors for edit, translate, and aligning USFM markup, especially focused on translation activities.
 
 **Scope**
-- Current scope is focused on editing USFM text and doing alignments with the original language texts.
-- It is envisioned that this tool also:
-  - Enable translation of Bibilical Resources (translation notes, questions, etc.)
-  - Supersede the existing tooling in unfoldingWord&#174; for translation tasks
+- Current scope is focused on editing USFM text and indicating alignment with the original language texts.
 
 **Background**
-This project uses components from the Open Components Ecosystem (OCE) extensively. In particular it relies on Proskomma, a scripture runtime engine for the editor component itself. The latter is also contributed to the OCE community and we welcome others to reuse it.
+This project is a fork of [unfoldingWord's Gateway Translate](https://github.com/RUN-Collaborations/gateway-translate), and uses components from the Open Components Ecosystem (OCE) extensively. In particular it relies on Proskomma, a scripture runtime engine for the editor component itself. The latter is also contributed to the OCE community and we welcome others to reuse it.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
 
+
+* [Electron Forge](https://www.electronforge.io/)
 * [Next.js](https://nextjs.org/)
 * [React.js](https://reactjs.org/)
 
@@ -119,31 +102,59 @@ This project uses components from the Open Components Ecosystem (OCE) extensivel
 <!-- GETTING STARTED -->
 ## Getting Started
 
-### Installation/First Steps
+### Install Windows Pre-Release or Preview Online
+    * <a href="https://github.com/RUN-Collaborations/gateway-translate/releases/tag/v0.0.18-poc%2B001">Windows Pre-Release v0.0.18-poc+001</a>
+    * <a href="https://translate-align-2414.netlify.app/">Preview Online</a>
 
-1. Get a [DCS](https://git.door43.org) account
-2. Clone the repo
+### To Recreate Electron Forge Make
+
+1. Clone the repo
    ```sh
-   git clone https://github.com/unfoldingword/gateway-translate.git
+   git clone https://github.com/RUN-Collaborations/gateway-translate.git
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
    yarn install
    ```
-4. Start the local server 
+3. Start the local server with or without Electron 
    ```sh
    yarn dev
    ```
-5. Visit <a href="http://localhost:3000">localhost:3000</a>  
+    * Then visit <a href="http://localhost:3000">localhost:3000</a>
+    * Or:
+   ```sh
+   yarn predev
+   ```
+    * Then use the Electron window or visit <a href="http://localhost:3000">localhost:3000</a>.
+4. Build and Export  
+   ```sh
+   yarn build && yarn export
+   ```
+5. Manually change .next/ to relative paths
+    * In `.next\server\pages\*.html` and `.next\static\chunks\main-*.js` replace: `"/_next/` with: 	`"../../`.
+    * Launch `.next\server\pages\*.html` in a local web browser and click through to confirm relative paths are setup as needed.
+6. Package or Make
+   ```sh
+   yarn package
+   ```
+    * Then review `/out/`,
+    * Or:
+   ```sh
+   yarn make
+   ```
+    * Then review `/out/make/`.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/unfoldingword/gateway-translate/issues) for a full list of proposed features (and known issues).
-
-This project uses Zenhub to manage the roadmap.
+* The Getting Started steps above leave `.next\static\css\*.css` looking for NotoSans-Regular.ttf and NotoSans-Bold.ttf in `/static/`. These needs to be manually added or factored into the build process for it to be able to find them.
+* Add [font-detect-rhl](https://github.com/RUN-Collaborations/font-detect-rhl)
+* Add alignment capability
+* Facitilate starting of new projects rather than assuming import of existing projects\
+* Add MacOS and Linux installation files
+* Leverage Electronite Forge once available
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -152,10 +163,9 @@ This project uses Zenhub to manage the roadmap.
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.  [Guidelines for external contributions.](https://forum.door43.org)
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
 
 If you would like to fork the repo and create a pull request. 
 
@@ -164,16 +174,6 @@ If you would like to fork the repo and create a pull request.
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-Finally, you can point the application to either the QA or Production servers this way:
-
-To use QA add the "server=qa" parameter to the URL:
-`https://gateway-edit.netlify.app/?server=qa`.  
-
-This is a toggle and will stay pointed at QA until another setting is applied.
-
-To point to production:
-`https://gateway-edit.netlify.app/?server=prod`
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -191,11 +191,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Cecil New 
-- Twitter [@mandolyte](https://twitter.com/@mandolyte)
-- Discord [Cecil#5551](tbd)
-
-Project Link: [https://github.com/unfoldingword/gateway-translate](https://github.com/unfoldingword/gateway-translate)
+Project Link: [https://github.com/RUN-Collaborations/gateway-translate](https://github.com/RUN-Collaborations/gateway-translate)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -214,16 +210,3 @@ Project Link: [https://github.com/unfoldingword/gateway-translate](https://githu
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/unfoldingword/gateway-translate.svg?style=for-the-badge
-[contributors-url]: https://github.com/unfoldingword/gateway-translate/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/unfoldingword/gateway-translate.svg?style=for-the-badge
-[forks-url]: https://github.com/unfoldingword/gateway-translate/network/members
-[stars-shield]: https://img.shields.io/github/stars/unfoldingword/gateway-translate.svg?style=for-the-badge
-[stars-url]: https://github.com/unfoldingword/gateway-translate/stargazers
-[issues-shield]: https://img.shields.io/github/issues/unfoldingword/gateway-translate.svg?style=for-the-badge
-[issues-url]: https://github.com/unfoldingword/gateway-translate/issues
-[license-shield]: https://img.shields.io/github/license/unfoldingword/gateway-translate.svg?style=for-the-badge
-[license-url]: https://github.com/unfoldingword/gateway-translate/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/company/unfoldingword
-
