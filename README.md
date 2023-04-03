@@ -110,7 +110,7 @@ This project is a fork of [unfoldingWord's Gateway Translate](https://github.com
    ```sh
    git clone https://github.com/RUN-Collaborations/gateway-translate.git
    ```
-2. Install NPM packages
+2. Install packages
    ```sh
    yarn install
    ```
