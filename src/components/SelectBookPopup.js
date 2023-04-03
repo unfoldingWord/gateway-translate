@@ -56,6 +56,7 @@ export default function SelectBookPopup(
       organizationClient,
     }
   } = useContext(AppContext)
+  const [addDisabled, setAddDisabled] = useState(true)
   const [repos, setRepos] = useState([])
   const [selectedRepository, setSelectedRepository] = useState('')
   const [availableBooks, setAvailableBooks] = useState(null)
@@ -75,6 +76,26 @@ export default function SelectBookPopup(
   const handleSourceChange = event => {
     setUsfmSource(event.target.value)
   }
+
+  useEffect( () => {
+    if ( selectedOrganization === '' ) {
+      setAddDisabled(true)
+      return
+    }
+
+    if ( selectedBook === null ) {
+      setAddDisabled(true)
+      return
+    }
+
+    if ( selectedRepository === '' ) {
+      setAddDisabled(true)
+      return
+    }
+
+    // all inputs are present, make the button active
+    setAddDisabled(false)
+  }, [selectedOrganization, selectedBook, selectedRepository])
 
   useEffect( () => {
     setSelectedOrganization(organization)
@@ -281,6 +302,7 @@ export default function SelectBookPopup(
           className='my-3'
           variant='contained'
           onClick={handleClickNext}
+          disabled={addDisabled}
           loadingPosition="start"
           startIcon={<NoteAddIcon />}
         >
