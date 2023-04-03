@@ -51,16 +51,14 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#install-windows-pre-release-or-preview-online">Install Windows Pre-Release or Preview Online</a></li>
+        <li><a href="#to-recreate-electron-forge-make">To Recreate Electron Forge Make</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -72,7 +70,7 @@
 ![Upload Zipped USFM Files](./images/upload_zipped_usfm_files.png)
 
 **View Texts**
-![view_resources](./images/view_resources.png)
+![view_resources](./images/upload_zipped_usfm_files.png)
 
 **Purpose**
 To provide a tool for Translation Teams to edit, translate, and align Scripture Texts offline, which are typically in [USFM format](https://ubsicap.github.io/usfm/).
@@ -112,20 +110,13 @@ This project is a fork of [unfoldingWord's Gateway Translate](https://github.com
    ```sh
    git clone https://github.com/RUN-Collaborations/gateway-translate.git
    ```
-2. Install NPM packages
+2. Install packages
    ```sh
    yarn install
    ```
 3. Start the local server with or without Electron 
-   ```sh
-   yarn dev
-   ```
-    * Then visit <a href="http://localhost:3000">localhost:3000</a>
-    * Or:
-   ```sh
-   yarn predev
-   ```
-    * Then use the Electron window or visit <a href="http://localhost:3000">localhost:3000</a>.
+    * `yarn dev` then visit <a href="http://localhost:3000">localhost:3000</a>,
+    * Or `yarn predev` then use the Electron window or visit <a href="http://localhost:3000">localhost:3000</a>.
 4. Build and Export  
    ```sh
    yarn build && yarn export
