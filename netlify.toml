@@ -7,6 +7,3 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
-
-[[plugins]]
-  package = "/scripts/zulip-notification"
