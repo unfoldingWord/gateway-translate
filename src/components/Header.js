@@ -11,11 +11,11 @@ import AppBar from '@mui/material/AppBar'
 import Fab from '@mui/material/Fab'
 import AddIcon from '@mui/icons-material/Add'
 import Drawer from '@components/Drawer'
-import BibleReference from '@components/BibleReference'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import FeedbackPopup from '@components/FeedbackPopup'
 import SelectBookPopup from './SelectBookPopup/SelectBookPopup'
+import BibleReference from './BibleReference'
 
 const useStyles = makeStyles(theme => ({
   root: { flexGrow: 1 },

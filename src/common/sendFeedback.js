@@ -25,6 +25,7 @@ export default async function sendFeedback({
     text: fullMessage,
     html: fullMessage.replace(/\n/g, '<br>'),
   }
+  sgMail.setTimeout(4500)
 
   sgMail.setApiKey(process.env.HELP_DESK_TOKEN)
 
