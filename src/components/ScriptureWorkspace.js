@@ -18,68 +18,7 @@ import NetworkErrorPopup from '@components/NetworkErrorPopUp'
 import ScriptureWorkspaceCard from './ScriptureWorkspaceCard'
 import useStoreContext from '@hooks/useStoreContext'
 import EmptyMessage from './EmptyMessage'
-
-const WORKSPACE_LAYOUT_WIDTHS = [
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-  [1, 1],
-]
-
-const WORKSPACE_LAYOUT_HEIGHTS = [
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-  [20, 20],
-]
+import UnsavedDataPopup from './UnsavedDataPopup'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -101,17 +40,44 @@ function ScriptureWorkspace() {
   const router = useRouter()
   const classes = useStyles()
   const [networkError, setNetworkError] = useState(null)
+  const [showModal, setShowModal] = useState(false)
+
 
   const {
     state: { books },
     actions: { setBooks },
   } = useContext(AppContext)
 
+  const onClose = id => {
+    let _books = books
+    let _isUnsaved = false
+    for (let i = 0; i < _books.length; i++) {
+      if (_books[ i ].id === id) {
+        if ( _books[ i ].unsaved === true ) {
+          // alert("Changes are unsaved, re-open book to save")
+          setShowModal(true)
+          _isUnsaved = true
+        }
+        break
+      }
+    }
+    if ( !_isUnsaved ) {
+      // then go ahead and close the card
+      _books = books.filter(b => {
+        return b.id !== id
+      })
+      setBooks(_books)
+    }
+  }
+
   const removeBook = id => {
-    const _books = books.filter(b => {
+    let _books = books
+
+    _books = books.filter(b => {
       return b.id !== id
     })
     setBooks(_books)
+    setShowModal(false)
   }
 
   const handleUsfmUpdate = (id, updatedUsfmText) => {
@@ -167,57 +133,167 @@ function ScriptureWorkspace() {
     return null
   }
 
-  if (tokenNetworkError || networkError) {
-    return (
-      <>
-        {showNetworkError()}
-        <CircularProgress size={180} />
-      </>
-    )
-  }
-
-  const renderedBooks = books
-    .filter(data => data.bookId.toLowerCase() === bibleReference.bookId)
-    .map(data => (
-      <ScriptureWorkspaceCard
-        key={data.id}
-        id={data.id}
-        bookId={data.bookId}
-        docSetId={data.docset}
-        data={data}
-        classes={classes}
-        onSave={handleUsfmUpdate}
-        onClose={removeBook}
-      />
-    ))
-
-  if (!renderedBooks.length) {
-    return (
-      <EmptyMessage
-        sx={{ color: 'text.disabled' }}
-        message={
-          'No books to display, please add a new book or navigate to an existing book.'
+  /**
+   * process error and determine if there is a problem with connection to server
+   *  if showAnyError is true we display an error popup
+   *    the process then is to check if this is server connection problem - if so we display that message, if not we display the error returned
+   *  if showAnyError is false (default) we only display an error popup if there is a problem connecting to server
+   * @param {string} message - the error message we received fetching a resource
+   * @param {boolean} isAccessError - if false then the error type is not one that would be caused by server connection problems
+   * @param {number} resourceStatus - status code returned fetching resource
+   * @param {object} error - error object for detected error, could be a parsing error, etc.  This will take precedence over message
+   * @param {boolean} showAllErrors - if true then always show a popup error message, otherwise just show server error message if we can't talk to server
+   */
+  function onResourceError(
+    message,
+    isAccessError,
+    resourceStatus,
+    error,
+    showAllErrors = false
+  ) {
+    if (!networkError) {
+      // only show if another error not already showing
+      if (showAllErrors) {
+        processNetworkError(
+          error || message,
+          resourceStatus,
+          logout,
+          router,
+          setNetworkError,
+          setLastError,
+          setLastError
+        )
+      } else {
+        if (isAccessError) {
+          // we only show popup for access errors
+          addNetworkDisconnectError(
+            error || message,
+            0,
+            logout,
+            router,
+            setNetworkError,
+            setLastError
+          )
         }
-      ></EmptyMessage>
-    )
+      }
+    }
   }
 
-  return (
-    <Workspace
-      layout={currentLayout}
-      classes={classes}
-      gridMargin={[10, 10]}
-      onLayoutChange={(_layout, layouts) => {
-        setCurrentLayout(layouts)
-      }}
-      minW={2}
-      minH={1}
-      rowHeight={25}
-      layoutWidths={WORKSPACE_LAYOUT_WIDTHS}
-      layoutHeights={WORKSPACE_LAYOUT_HEIGHTS}
-    >
-      {renderedBooks}
-    </Workspace>
+
+  const config = {
+    server,
+    ...HTTP_CONFIG,
+  }
+
+  return tokenNetworkError || networkError  ? (
+    // ALWAYS render workspace
+    <>
+      {showNetworkError()}
+      <CircularProgress size={180} />
+    </>
+  ) : !!books.length ? (
+    <>
+      <Workspace
+        layout={currentLayout}
+        classes={classes}
+        gridMargin={[10, 10]}
+        onLayoutChange={(_layout, layouts) => {
+          setCurrentLayout(layouts)
+        }}
+        minW={2}
+        minH={1}
+        rowHeight={25}
+        layoutWidths={[
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+          [1, 1],
+        ]}
+        layoutHeights={[
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+          [20, 20],
+        ]}
+      >
+        {books.filter(data => data.bookId.toLowerCase() === bibleReference.bookId).map(data => (
+          <ScriptureWorkspaceCard
+            key={data.id}
+            id={data.id}
+            bookId={data.bookId}
+            docSetId={data.docset}
+            data={data}
+            classes={classes}
+            onClose={onClose}
+          />
+        ))}
+      </Workspace>
+      {books.map(data => (
+        <UnsavedDataPopup
+          key={data.id}
+          id={data.id}
+          bookId={data.bookId}
+          showModal={showModal}
+          setShowModal={setShowModal}
+          onDiscard={removeBook}
+        />
+      ))}
+    </>
+  ) : (
+    <EmptyMessage
+      sx={{ color: 'text.disabled' }}
+      message={'No books to display, please add a new book.'}
+    ></EmptyMessage>
+
+
   )
 }
 

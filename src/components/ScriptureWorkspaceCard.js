@@ -16,17 +16,51 @@ export default function ScriptureWorkspaceCard({
   classes,
   onSave: saveToWorkspace,
   onClose: removeBook,
+  isUnsaved,
 }) {
   const [doSave, setDoSave] = useState(false)
 
   const {
-    state: { owner },
+    state: {
+      owner,
+      bibleReference,
+    },
+    actions: {
+      onReferenceChange,
+    }
   } = useContext(StoreContext)
+
+  const activeReference = {
+    bookId: bookId.toLowerCase(),
+    chapter: Number(bibleReference.chapter),
+    verse: Number(bibleReference.verse),
+  }
+
+  const onReferenceSelected = ({bookIdFromEditor, chapter, verse}) => {
+    const normalizedBookId = (bookIdFromEditor || bookId).toLowerCase()
+    onReferenceChange(normalizedBookId, chapter.toString(), verse.toString())
+  }
 
   const {
     state: { books, repoClient, ep },
     actions: { setBooks },
   } = useContext(AppContext)
+
+  const setUnsavedData = (value) => {
+    let _books = books
+    let _count = 0
+    console.log("setUnsavedData() id:", id, value)
+    for (let i = 0; i < _books.length; i++) {
+      if (_books[ i ].id === id) {
+        _books[ i ].unsaved = value
+        setBooks(_books)
+      }
+      if ( _books[i]?.unsaved === true ) {
+        _count++
+      }
+    }
+    sessionStorage.setItem("unsavedChanges", _count);
+  }
 
   // Save Feature
   useEffect(() => {
@@ -86,23 +120,25 @@ export default function ScriptureWorkspaceCard({
     >
       {
         // ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
-        data.usfmText ? (
-          <div className='text-sm max-w-prose'>
-            <UsfmEditor
-              key='1'
-              bookId={data.bookId}
-              docSetId={docSetId}
-              usfmText={data.usfmText}
-              onSave={(bookCode, usfmText) => setDoSave(usfmText)}
-              editable={id.endsWith(owner) ? true : false}
-            />
-          </div>
-        ) : typeof data.content === 'string' ? (
-          <div>
-            <h1>{data.content}</h1>
-          </div>
-        ) : (
-          <CircularProgress />
+        data.usfmText
+        ?
+          <UsfmEditor key="1"
+            bookId={data.bookId}
+            docSetId={docSetId}
+            usfmText={data.usfmText}
+            onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
+            editable={id.endsWith(owner) ? true : false}
+            onUnsavedData={setUnsavedData}
+            activeReference={bibleReference}
+            onReferenceSelected={onReferenceSelected}
+          />
+        :
+        (
+          typeof data.content === "string"
+          ?
+          <div><h1>{data.content}</h1></div>
+          :
+          <CircularProgress/>
         )
       }
     </Card>
