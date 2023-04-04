@@ -47,7 +47,7 @@
     "translation-helps-rcl": "^3.3.4-rc.3",
     "use-deep-compare-effect": "^1.8.1",
     "utf8": "3.0.0",
-    "uw-editor": "0.1.23",
+    "uw-editor": "0.1.24",
     "zip-project": "0.0.27"
   },
   "devDependencies": {
