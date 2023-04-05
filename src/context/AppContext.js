@@ -93,6 +93,7 @@ export default function AppContextProvider({ children }) {
           } else {
             _books[i].usfmText = null
           }
+          books[i].showCard = true
         }
       }
       setBooks(_books)

@@ -47,7 +47,7 @@ export default function ScriptureWorkspaceCard({
   } = useContext(AppContext)
 
   const setUnsavedData = (value) => {
-    let _books = books
+    let _books = [...books]
     let _count = 0
     console.log("setUnsavedData() id:", id, value)
     for (let i = 0; i < _books.length; i++) {
@@ -129,6 +129,7 @@ export default function ScriptureWorkspaceCard({
             onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
             editable={id.endsWith(owner) ? true : false}
             onUnsavedData={setUnsavedData}
+            // hasInitialUnsavedData={data.unsaved}
             activeReference={bibleReference}
             onReferenceSelected={onReferenceSelected}
           />

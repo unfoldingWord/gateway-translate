@@ -41,6 +41,7 @@ function ScriptureWorkspace() {
   const classes = useStyles()
   const [networkError, setNetworkError] = useState(null)
   const [showModal, setShowModal] = useState(false)
+  const [idToClose, setIdToClose] = useState(null)
 
 
   const {
@@ -49,35 +50,35 @@ function ScriptureWorkspace() {
   } = useContext(AppContext)
 
   const onClose = id => {
-    let _books = books
-    let _isUnsaved = false
+    let _books = [...books]
+    setIdToClose(id)
     for (let i = 0; i < _books.length; i++) {
       if (_books[ i ].id === id) {
         if ( _books[ i ].unsaved === true ) {
           // alert("Changes are unsaved, re-open book to save")
+          console.log("book has unsaved changes:", id)
           setShowModal(true)
-          _isUnsaved = true
+        } else {
+          _books[i].showCard = false
         }
         break
       }
     }
-    if ( !_isUnsaved ) {
-      // then go ahead and close the card
-      _books = books.filter(b => {
-        return b.id !== id
-      })
-      setBooks(_books)
-    }
+    setBooks(_books)
   }
 
   const removeBook = id => {
-    let _books = books
+    let _books = [...books]
+    for (let i = 0; i < _books.length; i++) {
+      if (_books[i].id === id) {
+        _books[i].showCard = false;
+        break
+      }
+    }
 
-    _books = books.filter(b => {
-      return b.id !== id
-    })
     setBooks(_books)
     setShowModal(false)
+    setIdToClose(null)
   }
 
   const handleUsfmUpdate = (id, updatedUsfmText) => {
@@ -191,7 +192,7 @@ function ScriptureWorkspace() {
       {showNetworkError()}
       <CircularProgress size={180} />
     </>
-  ) : !!books.length ? (
+  ) : !!books.filter( b => b.showCard).length ? (
     <>
       <Workspace
         layout={currentLayout}
@@ -272,18 +273,19 @@ function ScriptureWorkspace() {
             docSetId={data.docset}
             data={data}
             classes={classes}
-            onClose={onClose}
+            onClose={() => onClose(data.id)}
           />
         ))}
       </Workspace>
-      {books.map(data => (
+      {books.filter( b => b.id === idToClose ).map(data => ( 
+        data.id === idToClose &&
         <UnsavedDataPopup
           key={data.id}
           id={data.id}
           bookId={data.bookId}
           showModal={showModal}
           setShowModal={setShowModal}
-          onDiscard={removeBook}
+          onDiscard={() => removeBook(data.id)}
         />
       ))}
     </>
