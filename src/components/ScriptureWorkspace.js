@@ -273,11 +273,11 @@ function ScriptureWorkspace() {
             docSetId={data.docset}
             data={data}
             classes={classes}
-            onClose={onClose}
+            onClose={() => onClose(data.id)}
           />
         ))}
       </Workspace>
-      {books.map(data => ( 
+      {books.filter( b => b.id === idToClose ).map(data => ( 
         data.id === idToClose &&
         <UnsavedDataPopup
           key={data.id}
