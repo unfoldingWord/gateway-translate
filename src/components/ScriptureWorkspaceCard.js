@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { Card } from 'translation-helps-rcl'
-import { PkUsfmEditor } from 'html-usfm-pk'
+import { PkUsfmEditor } from 'oce-editor-tools/pk'
 import { BIBLE_AND_OBS } from '@common/BooksOfTheBible'
 import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
