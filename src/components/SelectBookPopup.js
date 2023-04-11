@@ -56,6 +56,7 @@ export default function SelectBookPopup(
       organizationClient,
     }
   } = useContext(AppContext)
+  const [addDisabled, setAddDisabled] = useState(true)
   const [repos, setRepos] = useState([])
   const [selectedRepository, setSelectedRepository] = useState('')
   const [availableBooks, setAvailableBooks] = useState(null)
@@ -77,11 +78,49 @@ export default function SelectBookPopup(
   }
 
   useEffect( () => {
+    console.log("usfmSource=", usfmSource)
+    if ( usfmSource === 'dcs' ) {
+      if ( selectedOrganization === '' ) {
+        setAddDisabled(true)
+        return
+      }
+  
+      if ( selectedBook === null ) {
+        setAddDisabled(true)
+        return
+      }
+  
+      if ( selectedRepository === '' ) {
+        setAddDisabled(true)
+        return
+      }
+  
+      // all inputs are present, make the button active
+      setAddDisabled(false)
+    } else if ( usfmSource === 'url' ) {
+      console.log('Url=',url)
+      if ( url === '' ) {
+        setAddDisabled(true)
+      } else {
+        setAddDisabled(false)
+      }
+    } else if ( usfmSource === 'upload' ) {
+      console.log('uploadedfilename=',uploadedFilename)
+      if ( uploadedFilename === null || uploadedFilename === '' ) {
+        setAddDisabled(true)
+      } else {
+        setAddDisabled(false)
+      }
+    }
+  }, [usfmSource, selectedOrganization, selectedBook, selectedRepository, url, uploadedFilename])
+
+  useEffect( () => {
     setSelectedOrganization(organization)
   }, [organization])
 
   const handleUrlChange = event => {
     setUrl(event.target.value)
+    console.log('handleUrlChange():',event.target.value)
     setFocus('url')
   }
 
@@ -180,7 +219,7 @@ export default function SelectBookPopup(
         variant="outlined"
         startIcon={<UploadFileIcon />}
       >
-        Upload USFM file
+        Upload USFM file {uploadedFilename && '>>"'+uploadedFilename+'"'}
         <input type="file" accept=".usfm" hidden onChange={handleFileUpload} />
       </Button>
       break;
@@ -206,7 +245,12 @@ export default function SelectBookPopup(
           </Select>
         </FormControl>
         <FormControlLabel
-          control={<Checkbox checked={showAll} onChange={(event) => {setShowAll(event.target.checked)}} />}
+          control={<Checkbox checked={showAll} onChange={(event) => {
+            setShowAll(event.target.checked);
+            setSelectedBook(null);
+            setSelectedOrganization('');
+            setSelectedRepository('')
+          }} />}
           label="Show all organizations"
         />
         <FormControl fullWidth margin="normal">
@@ -281,6 +325,7 @@ export default function SelectBookPopup(
           className='my-3'
           variant='contained'
           onClick={handleClickNext}
+          disabled={addDisabled}
           loadingPosition="start"
           startIcon={<NoteAddIcon />}
         >
