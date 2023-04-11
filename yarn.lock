@@ -2563,9 +2563,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/pk@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "@oce-editor-tools/pk@npm:0.1.3"
+"@oce-editor-tools/pk@npm:^0.1.4":
+  version: 0.1.4
+  resolution: "@oce-editor-tools/pk@npm:0.1.4"
   dependencies:
     "@oce-editor-tools/core": 0.1.3
     "@xelah/type-perf-html": ^1.0.2
@@ -2580,7 +2580,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: 8ef7f7a4b0de5e752adc376c73fc60ab1b00e5a6e16067edbec0ce5724b32534897d4e6b14d4b38bd061cefe1cddb235baa37ae8a9ce4afa3a4874baa8715abc
+  checksum: 9f4432bdd8a479edad6e07003595c17392da22e8bb7537d5d144778bc0138a8eb01950bfe1111f89e1dcb0f82d3159c18a80746af8c4800080f83c5d2dbc8b61
   languageName: node
   linkType: hard
 
@@ -6423,7 +6423,7 @@ __metadata:
     "@mui/material": ^5.10.6
     "@mui/styles": 5.10.10
     "@netlify/plugin-nextjs": 3.9.2
-    "@oce-editor-tools/pk": ^0.1.3
+    "@oce-editor-tools/pk": ^0.1.4
     "@sendgrid/mail": ^7.7.0
     autoprefixer: ^10.4.7
     base-64: ^1.0.0
