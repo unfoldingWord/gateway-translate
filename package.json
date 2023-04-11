@@ -51,7 +51,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.12.7",
     "@babel/plugin-syntax-logical-assignment-operators": "^7.10.4",
     "@netlify/plugin-nextjs": "3.9.2",
-    "eslint": "^8.17.0",
+    "eslint": "^8.38.0",
     "eslint-config-next": "12.1.6",
     "husky": "^8.0.1",
     "prettier": "^2.6.2",
