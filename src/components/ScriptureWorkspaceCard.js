@@ -7,6 +7,8 @@ import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import React from 'react';
+import Button from '@mui/material/Button'
+
 import CircularProgress from './CircularProgress'
 import { saveToUserBranch } from '@utils/saveToUserBranch'
 
@@ -95,13 +97,6 @@ export default function ScriptureWorkspaceCard({
     }
   }, [doSave, books, setBooks, id, docSetId, data, owner, ep, authentication, repoClient, bookId])
 
-  // const editorProps = {
-  //   onSave: (bookCode,usfmText) => setDoSave(usfmText),
-  //   docSetId,
-  //   // usfmText: data.usfmText,
-  //   bookId: data.bookId,
-  // }
-
   let title = '';
   if ( BIBLE_AND_OBS[bookId.toLowerCase()] ) {
     title += BIBLE_AND_OBS[bookId.toLowerCase()];
@@ -112,12 +107,21 @@ export default function ScriptureWorkspaceCard({
     title += " (" + id.substr(4) + ")"
   }
 
+  const onRenderToolbar = ({items}) =>
+  <>
+    <Button>Update</Button>
+    <Button>Merge</Button>
+    <Button onClick={() => removeBook(id)}>Close</Button>
+  </>
+
+
   return (
     <Card title={title}
+      onRenderToolbar={onRenderToolbar}
       classes={classes}
       hideMarkdownToggle={true}
-      closeable={true}
-      onClose={() => removeBook(id)}
+      // closeable={true}
+      // onClose={() => removeBook(id)}
       key={bookId}
       disableSettingsButton={true}
     >
@@ -154,3 +158,13 @@ ScriptureWorkspaceCard.propTypes = {
   bookId: PropTypes.string,
   classes: PropTypes.object,
 }
+
+/*
+  const onRenderToolbar = ({items}) =>
+    <>
+      {...items}
+      <Button>Another button</Button>
+      <Button onClick={() => setOpen(false)}>X</Button>
+    </>
+
+*/
