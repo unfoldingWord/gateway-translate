@@ -19,6 +19,7 @@ export default function ScriptureWorkspaceCard({
   data,
   classes,
   onClose: removeBook,
+  unSavedData,
 }) {
 
   const [doSave, setDoSave] = useState(false)
@@ -85,6 +86,7 @@ export default function ScriptureWorkspaceCard({
           if (_books[ i ].id === id) {
             _books[ i ].content = _content
             _books[i].trace = _trace
+            _books[i].branchExists = _content.branchExists
             setBooks(_books)
             break
           }
@@ -107,14 +109,36 @@ export default function ScriptureWorkspaceCard({
     title += " (" + id.substr(4) + ")"
   }
 
+  const updateButtonDisabled = () => {
+    if ( unSavedData ) {
+      return true // disable buttons until they have saved their changes
+    }
+    if ( !data.branchExists ) {
+      // if there is no branch then we can't make a PR
+      // thus update/merge are not meaningful
+      return true 
+    }
+  }
+  const mergeButtonDisabled = () => {
+    if ( unSavedData ) {
+      return true // disable buttons until they have saved their changes
+    }
+    if ( !data.branchExists ) {
+      // if there is no branch then we can't make a PR
+      // thus update/merge are not meaningful
+      return true 
+    }
+  }
+
   const onRenderToolbar = ({items}) =>
   <>
-    <Button>Update</Button>
-    <Button>Merge</Button>
+    <Button disabled={() => updateButtonDisabled()}>Update</Button>
+    <Button disabled={() => mergeButtonDisabled() }>Merge</Button>
     <Button onClick={() => removeBook(id)}>Close</Button>
   </>
 
-
+  console.log("data:", data)
+  console.log("unSavedData:", unSavedData)
   return (
     <Card title={title}
       onRenderToolbar={onRenderToolbar}

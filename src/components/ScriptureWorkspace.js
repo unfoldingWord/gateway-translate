@@ -290,6 +290,7 @@ function ScriptureWorkspace() {
             data={data}
             classes={classes}
             onClose={() => onClose(data.id)}
+            unSavedData={hasUnsavedData(data.docset,data.bookId)}
           />
         ))}
       </Workspace>

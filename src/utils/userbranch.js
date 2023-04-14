@@ -1,4 +1,4 @@
 
 export const userbranch = (bookId, username) => {
-    return `gt-${bookId.toUpperCase()}-${username}`
+    return `auto-${username}-${bookId.toUpperCase()}`
 }
