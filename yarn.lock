@@ -2541,9 +2541,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/core@npm:0.1.3":
-  version: 0.1.3
-  resolution: "@oce-editor-tools/core@npm:0.1.3"
+"@oce-editor-tools/core@npm:0.1.7":
+  version: 0.1.7
+  resolution: "@oce-editor-tools/core@npm:0.1.7"
   dependencies:
     "@emotion/react": ^11.10.5
     "@emotion/styled": ^11.10.5
@@ -2559,15 +2559,15 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: 420e44d9946c8bd2a3e0a5d5bf18476984a91c86683e7fb8c1611fc951f6aa24e87f27fb8b956bbea6d5ec6ddbd6a635a79b462edeb55ff82b3a2ba0c08667a2
+  checksum: 2070249f1eb07d853f45b7c6d3e58b708f315006bd5a43cdae5325cced0fabe7d356835ac01f142feb439a27b099a3ae78a8def35a779019a380de5a916c19a3
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/pk@npm:^0.1.4":
-  version: 0.1.4
-  resolution: "@oce-editor-tools/pk@npm:0.1.4"
+"@oce-editor-tools/pk@npm:^0.1.7":
+  version: 0.1.7
+  resolution: "@oce-editor-tools/pk@npm:0.1.7"
   dependencies:
-    "@oce-editor-tools/core": 0.1.3
+    "@oce-editor-tools/core": 0.1.7
     "@xelah/type-perf-html": ^1.0.2
     epitelete-html: 0.2.18
     proskomma-core: 0.10.1
@@ -2580,7 +2580,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: 9f4432bdd8a479edad6e07003595c17392da22e8bb7537d5d144778bc0138a8eb01950bfe1111f89e1dcb0f82d3159c18a80746af8c4800080f83c5d2dbc8b61
+  checksum: a6c1690a9356c8185faceb9cb04549b896256de05bc973f713b94aaaa56eac241eee428453b705fa704bc4bfb7cac579828bd2589c17108e3de84243f19efa54
   languageName: node
   linkType: hard
 
@@ -6423,7 +6423,7 @@ __metadata:
     "@mui/material": ^5.10.6
     "@mui/styles": 5.10.10
     "@netlify/plugin-nextjs": 3.9.2
-    "@oce-editor-tools/pk": ^0.1.4
+    "@oce-editor-tools/pk": ^0.1.7
     "@sendgrid/mail": ^7.7.0
     autoprefixer: ^10.4.7
     base-64: ^1.0.0
