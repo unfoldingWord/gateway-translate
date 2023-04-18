@@ -13,7 +13,7 @@ import {
   reloadApp,
 } from '@utils/network'
 import { useRouter } from 'next/router'
-import { useUnsavedDataState } from 'uw-editor'
+import { useUnsavedDataState } from '@oce-editor-tools/pk'
 import { HTTP_CONFIG } from '@common/constants'
 import NetworkErrorPopup from '@components/NetworkErrorPopUp'
 import ScriptureWorkspaceCard from './ScriptureWorkspaceCard'
@@ -58,7 +58,7 @@ function ScriptureWorkspace() {
     setIdToClose(id)
     for (let i = 0; i < _books.length; i++) {
       if (_books[i].id === id) {
-        if (hasUnsavedData(_books[i].docset,_books[i].bookId)) {
+        if (hasUnsavedData(_books[i].docset,_books[i].languageId,_books[i].bookId)) {
           // alert("Changes are unsaved, re-open book to save")
           console.log(_trace+": book has unsaved changes:", id)
           setShowModal(true)
@@ -286,7 +286,6 @@ function ScriptureWorkspace() {
             key={data.id}
             id={data.id}
             bookId={data.bookId}
-            docSetId={data.docset}
             data={data}
             classes={classes}
             onClose={() => onClose(data.id)}
