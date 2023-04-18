@@ -58,6 +58,7 @@ function ScriptureWorkspace() {
     setIdToClose(id)
     for (let i = 0; i < _books.length; i++) {
       if (_books[i].id === id) {
+        console.log(_books[i])
         if (hasUnsavedData(_books[i].docset,_books[i].bookId)) {
           // alert("Changes are unsaved, re-open book to save")
           console.log(_trace+": book has unsaved changes:", id)
