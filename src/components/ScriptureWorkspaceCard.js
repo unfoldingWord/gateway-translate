@@ -8,7 +8,8 @@ import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import React from 'react';
 import Button from '@mui/material/Button'
-
+import { MdUpdate } from 'react-icons/md'
+import { FiShare } from 'react-icons/fi'
 import CircularProgress from './CircularProgress'
 import { saveToUserBranch } from '@utils/saveToUserBranch'
 
@@ -109,61 +110,106 @@ export default function ScriptureWorkspaceCard({
     title += " (" + id.substr(4) + ")"
   }
 
-  const updateButtonDisabled = () => {
-    if ( unSavedData ) {
-      return true // disable buttons until they have saved their changes
-    }
-    if ( !data.branchExists ) {
-      // if there is no branch then we can't make a PR
-      // thus update/merge are not meaningful
-      return true 
-    }
-  }
-  const mergeButtonDisabled = () => {
-    if ( unSavedData ) {
-      return true // disable buttons until they have saved their changes
-    }
-    if ( !data.branchExists ) {
-      // if there is no branch then we can't make a PR
-      // thus update/merge are not meaningful
-      return true 
-    }
-  }
+  // const updateButtonDisabled = () => {
+  //   if ( unSavedData ) {
+  //     return true // disable buttons until they have saved their changes
+  //   }
+  //   if ( !data.branchExists ) {
+  //     // if there is no branch then we can't make a PR
+  //     // thus update/merge are not meaningful
+  //     return true 
+  //   }
+  // }
+  // const mergeButtonDisabled = () => {
+  //   if ( unSavedData ) {
+  //     return true // disable buttons until they have saved their changes
+  //   }
+  //   if ( !data.branchExists ) {
+  //     // if there is no branch then we can't make a PR
+  //     // thus update/merge are not meaningful
+  //     return true 
+  //   }
+  // }
 
-  const onRenderToolbar = ({items}) =>
-  <>
-    <Button disabled={() => updateButtonDisabled()}>Update</Button>
-    <Button disabled={() => mergeButtonDisabled() }>Merge</Button>
-    <Button onClick={() => removeBook(id)}>Close</Button>
-  </>
+  // const onRenderToolbar = ({items}) =>
+  // <>
+  //   <Button disabled={() => updateButtonDisabled()}>Update</Button>
+  //   <Button disabled={() => mergeButtonDisabled() }>Merge</Button>
+  //   <Button onClick={() => removeBook(id)}>Close</Button>
+  // </>
+
+  const needToMergeFromMaster = true;
+  const mergeFromMasterHasConflicts = false;
+  const mergeToMasterHasConflicts = true;
+
+  // eslint-disable-next-line no-nested-ternary
+  const mergeFromMasterTitle = mergeFromMasterHasConflicts
+    ? 'Merge Conflicts for update from master'
+    : needToMergeFromMaster
+      ? 'Update from master'
+      : 'No merge conflicts for update with master';
+  // eslint-disable-next-line no-nested-ternary
+  const mergeFromMasterColor = mergeFromMasterHasConflicts
+    ? 'red'
+    : needToMergeFromMaster
+      ? 'orange'
+      : 'lightgray';
+  const mergeToMasterTitle = mergeToMasterHasConflicts
+    ? 'Merge Conflicts for share with master'
+    : 'No merge conflicts for share with master';
+  const mergeToMasterColor = mergeToMasterHasConflicts ? 'red' : 'black';
+
+  const onRenderToolbar = ({ items }) => [
+    ...items,
+    <Button
+      key="update-from-master"
+      value="update-from-master"
+      onClick={() => {}}
+      title={mergeFromMasterTitle}
+      aria-label={mergeFromMasterTitle}
+      style={{ cursor: 'pointer' }}
+    >
+      <MdUpdate id="update-from-master-icon" color={mergeFromMasterColor} />
+    </Button>,
+    <Button
+      key="share-to-master"
+      value="share-to-master"
+      onClick={() => {}}
+      title={mergeToMasterTitle}
+      aria-label={mergeToMasterTitle}
+      style={{ cursor: 'pointer' }}
+    >
+      <FiShare id="share-to-master-icon" color={mergeToMasterColor} />
+    </Button>,
+  ];
+
+  const editorProps = {
+    // repoIdStr,
+    // langIdStr,
+    bookId: data.bookId,
+    docSetId: docSetId,
+    usfmText: data.usfmText,
+    onSave: (bookCode,usfmText) => setDoSave(usfmText),
+    editable: id.endsWith(owner) ? true : false,
+    onRenderToolbar,
+    verbose: true,
+  }
 
   console.log("data:", data)
   console.log("unSavedData:", unSavedData)
   return (
     <Card title={title}
-      onRenderToolbar={onRenderToolbar}
       classes={classes}
       hideMarkdownToggle={true}
-      // closeable={true}
-      // onClose={() => removeBook(id)}
+      closeable={true}
+      onClose={() => removeBook(id)}
       key={bookId}
       disableSettingsButton={true}
     >
       {
-        // ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
         data.usfmText
         ?
-          <UsfmEditor key="1"
-            bookId={data.bookId}
-            docSetId={docSetId}
-            usfmText={data.usfmText}
-            onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
-            editable={id.endsWith(owner) ? true : false}
-            // commenting out this code for v0.9
-            // see issue 152
-            // activeReference={bibleReference}
-            // onReferenceSelected={onReferenceSelected}
-          />
+          <UsfmEditor key="1" {...editorProps} />
         :
         (
           typeof data.content === "string"
@@ -191,4 +237,16 @@ ScriptureWorkspaceCard.propTypes = {
       <Button onClick={() => setOpen(false)}>X</Button>
     </>
 
+
+              <UsfmEditor key="1"
+            bookId={data.bookId}
+            docSetId={docSetId}
+            usfmText={data.usfmText}
+            onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
+            editable={id.endsWith(owner) ? true : false}
+            // commenting out this code for v0.9
+            // see issue 152
+            // activeReference={bibleReference}
+            // onReferenceSelected={onReferenceSelected}
+          />
 */
