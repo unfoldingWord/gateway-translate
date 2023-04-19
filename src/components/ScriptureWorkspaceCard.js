@@ -182,18 +182,6 @@ export default function ScriptureWorkspaceCard({
     </Button>,
   ];
 
-  const editorProps = {
-    // repoIdStr,
-    // langIdStr,
-    bookId: data.bookId,
-    docSetId: docSetId,
-    usfmText: data.usfmText,
-    onSave: (bookCode,usfmText) => setDoSave(usfmText),
-    editable: id.endsWith(owner) ? true : false,
-    onRenderToolbar,
-    verbose: true,
-  }
-
   console.log("data:", data)
   console.log("unSavedData:", unSavedData)
   return (
@@ -215,6 +203,8 @@ export default function ScriptureWorkspaceCard({
             usfmText={data.usfmText}
             onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
             editable={id.endsWith(owner) ? true : false}
+            onRenderToolbar
+            verbose={true}
             // commenting out this code for v0.9
             // see issue 152
             // activeReference={bibleReference}
