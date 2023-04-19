@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { Card } from 'translation-helps-rcl'
-import { UsfmEditor } from 'uw-editor'
+import { PkUsfmEditor } from '@oce-editor-tools/pk'
 import { BIBLE_AND_OBS } from '@common/BooksOfTheBible'
 import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
@@ -16,7 +16,6 @@ import { saveToUserBranch } from '@utils/saveToUserBranch'
 export default function ScriptureWorkspaceCard({
   id,
   bookId,
-  docSetId,
   data,
   classes,
   onClose: removeBook,
@@ -98,7 +97,7 @@ export default function ScriptureWorkspaceCard({
     if ( doSave ) {
       saveContent()
     }
-  }, [doSave, books, setBooks, id, docSetId, data, owner, ep, authentication, repoClient, bookId])
+  }, [doSave, books, setBooks, id, data, owner, ep, authentication, repoClient, bookId])
 
   let title = '';
   if ( BIBLE_AND_OBS[bookId.toLowerCase()] ) {
@@ -209,7 +208,18 @@ export default function ScriptureWorkspaceCard({
       {
         data.usfmText
         ?
-          <UsfmEditor key="1" {...editorProps} />
+          <PkUsfmEditor key="1"
+            bookId={data.bookId}
+            repoIdStr={data.docset}
+            langIdStr={data.languageId}
+            usfmText={data.usfmText}
+            onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
+            editable={id.endsWith(owner) ? true : false}
+            // commenting out this code for v0.9
+            // see issue 152
+            // activeReference={bibleReference}
+            // onReferenceSelected={onReferenceSelected}
+          />
         :
         (
           typeof data.content === "string"
