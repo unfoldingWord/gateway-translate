@@ -114,8 +114,6 @@ export default function Header({
         if (!url) {
           return
         }
-        const _owner = randomLetters(3)
-        const _lang = randomLetters(2)
         const found = url.match(/[-_\/](?<bookId>[a-zA-Z_]*)\.usfm$/)
         if (found) {
           _entry.bookId = found.groups.bookId
@@ -123,7 +121,7 @@ export default function Header({
           _entry.bookId = url.substr(-10)
         }
         _entry.bookId = _entry.bookId.substr(-3)
-        _entry.id = `${_entry.bookId}-${_owner}-${_lang}`
+        _entry.id = url
         _entry.url = url
         _entry.readOnly = true
         break
