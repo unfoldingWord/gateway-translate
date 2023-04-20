@@ -203,7 +203,7 @@ export default function ScriptureWorkspaceCard({
             usfmText={data.usfmText}
             onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
             editable={id.endsWith(owner) ? true : false}
-            onRenderToolbar
+            onRenderToolbar={onRenderToolbar}
             verbose={true}
             // commenting out this code for v0.9
             // see issue 152
