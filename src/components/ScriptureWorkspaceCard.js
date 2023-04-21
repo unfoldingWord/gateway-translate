@@ -87,6 +87,7 @@ export default function ScriptureWorkspaceCard({
             _books[ i ].content = _content
             _books[i].trace = _trace
             _books[i].branchExists = _content.branchExists
+            _books[i].branchName = _content.branchName
             setBooks(_books)
             break
           }
@@ -108,34 +109,6 @@ export default function ScriptureWorkspaceCard({
   } else {
     title += " (" + id.substr(4) + ")"
   }
-
-  // const updateButtonDisabled = () => {
-  //   if ( unSavedData ) {
-  //     return true // disable buttons until they have saved their changes
-  //   }
-  //   if ( !data.branchExists ) {
-  //     // if there is no branch then we can't make a PR
-  //     // thus update/merge are not meaningful
-  //     return true 
-  //   }
-  // }
-  // const mergeButtonDisabled = () => {
-  //   if ( unSavedData ) {
-  //     return true // disable buttons until they have saved their changes
-  //   }
-  //   if ( !data.branchExists ) {
-  //     // if there is no branch then we can't make a PR
-  //     // thus update/merge are not meaningful
-  //     return true 
-  //   }
-  // }
-
-  // const onRenderToolbar = ({items}) =>
-  // <>
-  //   <Button disabled={() => updateButtonDisabled()}>Update</Button>
-  //   <Button disabled={() => mergeButtonDisabled() }>Merge</Button>
-  //   <Button onClick={() => removeBook(id)}>Close</Button>
-  // </>
 
   const needToMergeFromMaster = true;
   const mergeFromMasterHasConflicts = false;
@@ -228,25 +201,3 @@ ScriptureWorkspaceCard.propTypes = {
   bookId: PropTypes.string,
   classes: PropTypes.object,
 }
-
-/*
-  const onRenderToolbar = ({items}) =>
-    <>
-      {...items}
-      <Button>Another button</Button>
-      <Button onClick={() => setOpen(false)}>X</Button>
-    </>
-
-
-              <UsfmEditor key="1"
-            bookId={data.bookId}
-            docSetId={docSetId}
-            usfmText={data.usfmText}
-            onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
-            editable={id.endsWith(owner) ? true : false}
-            // commenting out this code for v0.9
-            // see issue 152
-            // activeReference={bibleReference}
-            // onReferenceSelected={onReferenceSelected}
-          />
-*/

@@ -25,6 +25,7 @@ export const fetchFromUserBranch = async (owner, repo, filename, bookId, authent
         {owner, owner,repo: repo, filepath: filename, ref:_userbranch}
     ).then(({ data }) => data)
     _content.branchExists = true
+    _content.branchName = _userbranch
   } else {
     // get data from master branch
     console.log("fetch...() branchExists is not true, fetch from master (default) branch")

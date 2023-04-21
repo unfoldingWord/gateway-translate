@@ -137,6 +137,9 @@ export default function AppContextProvider({
           }
           _books[ i ].content = _content
           _books[i].branchExists = _content.branchExists ? true : false
+          if ( _books[i].branchExists ) {
+            _books[i].branchName = _content.branchName
+          }
 
           // note that "content" is the JSON returned from DCS.
           // the actual content is base64 encoded member element "content"
