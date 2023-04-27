@@ -9,23 +9,17 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { useRef } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-export default function MergeDialog({ merge, onSubmit, onCancel, open, isLoading, loadingProps }) {
+export default function MergeDialog({ onSubmit, onCancel, open, isLoading, loadingProps }) {
   const descriptionRef = useRef(null);
-  let _title = "Merge"
-  let contentText = `Clicking submit will merge your current work with your team's work. 
-                    Please add a comment below about the changes that you are submitting.`
-  if (!merge) {
-    _title = "Update"
-    contentText = `Clicking submit will update your current work with your team's work.`
-  }
+
   return (
     <Dialog open={open} onClose={onCancel} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">{_title}</DialogTitle>
+      <DialogTitle id="form-dialog-title">Merge</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          {contentText}
+          Clicking submit will merge your current work with your team's work. Please add a comment below about the changes that you are submitting.
         </DialogContentText>
-        {merge && <TextField
+        <TextField
           inputRef={descriptionRef}
           autoFocus
           margin="dense"
@@ -36,7 +30,7 @@ export default function MergeDialog({ merge, onSubmit, onCancel, open, isLoading
           fullWidth
           multiline
           disabled={isLoading}
-        />}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={onCancel} color="primary" disabled={isLoading}>
