@@ -7,10 +7,10 @@ import { AuthContext } from '@context/AuthContext'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import React from 'react';
-import Button from '@mui/material/Button'
-import { MdUpdate } from 'react-icons/md'
-import { FiShare } from 'react-icons/fi'
 import CircularProgress from './CircularProgress'
+import { MergeBranchButton } from './branch-merger/components/MergeBranchButton'
+import { UpdateBranchButton } from './branch-merger/components/UpdateBranchButton'
+import MergeDialog from './branch-merger/components/MergeDialog'
 import { saveToUserBranch } from '@utils/saveToUserBranch'
 
 export default function ScriptureWorkspaceCard({
@@ -23,6 +23,8 @@ export default function ScriptureWorkspaceCard({
 }) {
 
   const [doSave, setDoSave] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [merge, setMerge] = useState(null)
 
   const {
     state: {
@@ -39,6 +41,10 @@ export default function ScriptureWorkspaceCard({
       onReferenceChange,
     }
   } = useContext(StoreContext)
+
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   const activeReference = {
     bookId: bookId.toLowerCase(),
@@ -110,49 +116,20 @@ export default function ScriptureWorkspaceCard({
     title += " (" + id.substr(4) + ")"
   }
 
-  const needToMergeFromMaster = true;
-  const mergeFromMasterHasConflicts = false;
-  const mergeToMasterHasConflicts = true;
-
-  // eslint-disable-next-line no-nested-ternary
-  const mergeFromMasterTitle = mergeFromMasterHasConflicts
-    ? 'Merge Conflicts for update from master'
-    : needToMergeFromMaster
-      ? 'Update from master'
-      : 'No merge conflicts for update with master';
-  // eslint-disable-next-line no-nested-ternary
-  const mergeFromMasterColor = mergeFromMasterHasConflicts
-    ? 'red'
-    : needToMergeFromMaster
-      ? 'orange'
-      : 'lightgray';
-  const mergeToMasterTitle = mergeToMasterHasConflicts
-    ? 'Merge Conflicts for share with master'
-    : 'No merge conflicts for share with master';
-  const mergeToMasterColor = mergeToMasterHasConflicts ? 'red' : 'black';
+  const handleMergeClick = () => {
+    setMerge(true)
+    setOpen(true)
+  }
+  const handleUpdateClick = () => {
+    setMerge(false)
+    setOpen(true)
+  }
+  
 
   const onRenderToolbar = ({ items }) => [
     ...items,
-    <Button
-      key="update-from-master"
-      value="update-from-master"
-      onClick={() => {}}
-      title={mergeFromMasterTitle}
-      aria-label={mergeFromMasterTitle}
-      style={{ cursor: 'pointer' }}
-    >
-      <MdUpdate id="update-from-master-icon" color={mergeFromMasterColor} />
-    </Button>,
-    <Button
-      key="share-to-master"
-      value="share-to-master"
-      onClick={() => {}}
-      title={mergeToMasterTitle}
-      aria-label={mergeToMasterTitle}
-      style={{ cursor: 'pointer' }}
-    >
-      <FiShare id="share-to-master-icon" color={mergeToMasterColor} />
-    </Button>,
+    <MergeBranchButton key="1" onClick={handleMergeClick}/>,
+    <UpdateBranchButton key="2" onClick={handleUpdateClick}/>
   ];
 
   console.log("data:", data)
@@ -192,6 +169,9 @@ export default function ScriptureWorkspaceCard({
           <CircularProgress/>
         )
 
+      }
+      {
+        <MergeDialog merge={merge} open={open} onCancel={handleClose} />
       }
     </Card>
   )
