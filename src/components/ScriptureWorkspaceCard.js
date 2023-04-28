@@ -8,6 +8,9 @@ import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import React from 'react';
 import CircularProgress from './CircularProgress'
+import { MergeBranchButton } from './branch-merger/components/MergeBranchButton'
+import { UpdateBranchButton } from './branch-merger/components/UpdateBranchButton'
+import MergeDialog from './branch-merger/components/MergeDialog'
 import { saveToUserBranch } from '@utils/saveToUserBranch'
 
 export default function ScriptureWorkspaceCard({
@@ -16,9 +19,12 @@ export default function ScriptureWorkspaceCard({
   data,
   classes,
   onClose: removeBook,
+  unSavedData,
 }) {
 
   const [doSave, setDoSave] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [merge, setMerge] = useState(null)
 
   const {
     state: {
@@ -35,6 +41,10 @@ export default function ScriptureWorkspaceCard({
       onReferenceChange,
     }
   } = useContext(StoreContext)
+
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   const activeReference = {
     bookId: bookId.toLowerCase(),
@@ -82,6 +92,8 @@ export default function ScriptureWorkspaceCard({
           if (_books[ i ].id === id) {
             _books[ i ].content = _content
             _books[i].trace = _trace
+            _books[i].branchExists = _content.branchExists
+            _books[i].branchName = _content.branchName
             setBooks(_books)
             break
           }
@@ -94,13 +106,6 @@ export default function ScriptureWorkspaceCard({
     }
   }, [doSave, books, setBooks, id, data, owner, ep, authentication, repoClient, bookId])
 
-  // const editorProps = {
-  //   onSave: (bookCode,usfmText) => setDoSave(usfmText),
-  //   docSetId,
-  //   // usfmText: data.usfmText,
-  //   bookId: data.bookId,
-  // }
-
   let title = '';
   if ( BIBLE_AND_OBS[bookId.toLowerCase()] ) {
     title += BIBLE_AND_OBS[bookId.toLowerCase()];
@@ -111,6 +116,24 @@ export default function ScriptureWorkspaceCard({
     title += " (" + id.substr(4) + ")"
   }
 
+  const handleMergeClick = () => {
+    setMerge(true)
+    setOpen(true)
+  }
+  const handleUpdateClick = () => {
+    setMerge(false)
+    setOpen(true)
+  }
+  
+
+  const onRenderToolbar = ({ items }) => [
+    ...items,
+    <MergeBranchButton key="1" onClick={handleMergeClick}/>,
+    <UpdateBranchButton key="2" onClick={handleUpdateClick}/>
+  ];
+
+  console.log("data:", data)
+  console.log("unSavedData:", unSavedData)
   return (
     <Card title={title}
       classes={classes}
@@ -121,7 +144,6 @@ export default function ScriptureWorkspaceCard({
       disableSettingsButton={true}
     >
       {
-        // ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
         data.usfmText
         ?
           <PkUsfmEditor key="1"
@@ -131,6 +153,8 @@ export default function ScriptureWorkspaceCard({
             usfmText={data.usfmText}
             onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
             editable={id.endsWith(owner) ? true : false}
+            onRenderToolbar={onRenderToolbar}
+            verbose={true}
             // commenting out this code for v0.9
             // see issue 152
             // activeReference={bibleReference}
@@ -145,6 +169,9 @@ export default function ScriptureWorkspaceCard({
           <CircularProgress/>
         )
 
+      }
+      {
+        <MergeDialog merge={merge} open={open} onCancel={handleClose} />
       }
     </Card>
   )

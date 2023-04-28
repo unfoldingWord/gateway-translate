@@ -57,6 +57,8 @@ export const saveToUserBranch = async (data, owner, content, authentication, rep
     filepath: data.content.path
   })
   console.log("saveToUserBranch() - After file updated, _data is:", _data)
+  _data.data.content.branchExists = true
+  _data.data.content.branchName = _userbranch
   return _data.data.content;
 };
 
