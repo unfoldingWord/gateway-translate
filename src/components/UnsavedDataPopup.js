@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 
 import DraggableModal from 'translation-helps-rcl/dist/components/DraggableModal'
 import Card from 'translation-helps-rcl/dist/components/Card'
-import { Button } from '@mui/material'
+import Button from '@mui/material/Button'
 import { ALL_BIBLE_BOOKS } from '@common/BooksOfTheBible'
 
 export default function UnsavedDataPopup(

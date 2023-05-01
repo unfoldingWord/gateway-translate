@@ -49,8 +49,9 @@ export default function Layout({ children, showChildren, title = APP_NAME }) {
 
     if (typeof params?.server === 'string') {
       // if URL param given
+      console.log('Server specified:',params.server)
       const serverID_ = params.server.toUpperCase() === QA ? QA : PROD
-      const server_ = serverID_ === QA ? QA_BASE_URL : BASE_URL
+      const server_ = (serverID_ === QA) ? QA_BASE_URL : BASE_URL
 
       if (server !== server_) {
         console.log(
@@ -58,6 +59,16 @@ export default function Layout({ children, showChildren, title = APP_NAME }) {
         )
         setServer(server_) // persist server selection in localstorage
         router.push(`/?server=${serverID_}`) // reload page
+      } 
+    } else {
+      console.log('No server parameter provided, set defaults')
+       
+      if ( window.location.href.includes('localhost')
+      || window.location.href.includes('develop')
+      || window.location.href.includes('deploy-preview')
+      ) {
+        console.log('local or develop or preview, defaulting to ',QA_BASE_URL)
+        setServer(QA_BASE_URL) // let this be the default
       }
     }
   }, [router?.query]) // TRICKY query property not loaded on first pass, so watch for change
