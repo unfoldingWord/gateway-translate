@@ -1,7 +1,7 @@
 import { createContext, useState } from 'react'
 import localforage from 'localforage'
 import {
-  BASE_URL,
+  BASE_URL, QA_BASE_URL,
   CLOSE,
   HTTP_GET_MAX_WAIT_TIME,
   SERVER_KEY,
@@ -17,7 +17,20 @@ export const AuthContext = createContext({})
 export default function AuthContextProvider(props) {
   const [authentication, setAuthentication] = useState(null)
   const [networkError, setNetworkError] = useState(null)
-  const [server, setServer] = useLocalStorage(SERVER_KEY, BASE_URL)
+  /*
+    Determine the default value for server here.
+    if non-prod url, then let default be qa; else prod
+  */
+  let defaultServer = BASE_URL
+  if ( window.location.href.includes('localhost')
+    || window.location.href.includes('develop')
+    || window.location.href.includes('deploy-preview')
+  ) {
+    console.log('local or develop or preview, defaulting to ',QA_BASE_URL)
+    defaultServer = QA_BASE_URL
+  }
+
+  const [server, setServer] = useLocalStorage(SERVER_KEY, defaultServer)
 
   /**
    * in the case of a network error, process and display error dialog
