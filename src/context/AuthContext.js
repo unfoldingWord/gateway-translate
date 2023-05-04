@@ -20,8 +20,9 @@ export default function AuthContextProvider(props) {
   /*
     Determine the default value for server here.
     if non-prod url, then let default be qa; else prod
-    fake change
   */
+  // Do not persist server settings across logins
+  localStorage.removeItem(SERVER_KEY);
   console.log("URL is:",window.location.href)
   let defaultServer = BASE_URL
   if ( window.location.href.includes('localhost')
