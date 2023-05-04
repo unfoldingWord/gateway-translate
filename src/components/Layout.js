@@ -45,6 +45,10 @@ export default function Layout({ children, showChildren, title = APP_NAME }) {
   }, [mainScreenRef?.current])
 
   useEffect(() => {
+    console.log("Layout/useEffect[server] changed:", server)
+  }, [server])
+
+  useEffect(() => {
     const params = router?.query
 
     if (typeof params?.server === 'string') {
