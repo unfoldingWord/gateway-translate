@@ -21,6 +21,7 @@ export default function AuthContextProvider(props) {
     Determine the default value for server here.
     if non-prod url, then let default be qa; else prod
   */
+  console.log("URL is:",window.location.href)
   let defaultServer = BASE_URL
   if ( window.location.href.includes('localhost')
     || window.location.href.includes('develop')
@@ -28,6 +29,8 @@ export default function AuthContextProvider(props) {
   ) {
     console.log('local or develop or preview, defaulting to ',QA_BASE_URL)
     defaultServer = QA_BASE_URL
+  } else {
+    console.log('production server, defaulting to ',BASE_URL)
   }
 
   const [server, setServer] = useLocalStorage(SERVER_KEY, defaultServer)
