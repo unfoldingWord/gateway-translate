@@ -9,7 +9,7 @@ import {
 } from '@common/constants'
 import { doFetch, processNetworkError, unAuthenticated } from '@utils/network'
 import NetworkErrorPopup from '@components/NetworkErrorPopUp'
-import useLocalStorage from '@hooks/useLocalStorage'
+// import useLocalStorage from '@hooks/useLocalStorage'
 import useAuthentication from '@hooks/useAuthentication'
 
 export const AuthContext = createContext({})
@@ -21,8 +21,6 @@ export default function AuthContextProvider(props) {
     Determine the default value for server here.
     if non-prod url, then let default be qa; else prod
   */
-  // Do not persist server settings across logins
-  localStorage.removeItem(SERVER_KEY);
   console.log("URL is:",window.location.href)
   let defaultServer = BASE_URL
   if ( window.location.href.includes('localhost')
@@ -35,7 +33,9 @@ export default function AuthContextProvider(props) {
     console.log('production server, defaulting to ',BASE_URL)
   }
 
-  const [server, setServer] = useLocalStorage(SERVER_KEY, defaultServer)
+  // Do not persist server settings across logins
+  // const [server, setServer] = useLocalStorage(SERVER_KEY, defaultServer)
+  const [server, setServer] = useState(defaultServer)
 
   /**
    * in the case of a network error, process and display error dialog
