@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useMemo, createElement } from 'react'
+import { useEffect, useState, useContext, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { Card, useCardState } from 'translation-helps-rcl'
 import { UsfmEditor } from 'uw-editor'
@@ -15,15 +15,6 @@ import { Grid } from "@mui/material"
 
 const CustomToolbarCloseButton = ({onClick}) => {
   return <Button style={{maxWidth: '30px', maxHeight: '54px', minWidth: '30px', minHeight: '54px'}} sx={{fontSize: 30}} variant="contained" onClick={onClick}>×</Button>
-}
-
-const CustomSettingComponent = () => {
-  return (
-    <label>
-      <p>Custom setting</p>
-      <input type="range" min="1" step="1" max="100" defaultValue="50"/>
-    </label>
-  );
 }
 
 export default function ScriptureWorkspaceCard({
@@ -109,13 +100,6 @@ export default function ScriptureWorkspaceCard({
     bookId,
   ])
 
-  // const editorProps = {
-  //   onSave: (bookCode,usfmText) => setDoSave(usfmText),
-  //   docSetId,
-  //   // usfmText: data.usfmText,
-  //   bookId: data.bookId,
-  // }
-
   let title = ''
   if (BIBLE_AND_OBS[bookId.toLowerCase()]) {
     title += BIBLE_AND_OBS[bookId.toLowerCase()]
@@ -149,12 +133,6 @@ export default function ScriptureWorkspaceCard({
     items: []
   })
 
-  //Example returning jsx
-  const onRenderSettings = ({items}) => {
-    const divider = items.find(item => item.key === "divider");
-    return <><CustomSettingComponent/>{divider}{items}</>
-  }
-
   //Example returning array
   const onRenderToolbar = ({items}) => [
     ...items,
@@ -163,7 +141,8 @@ export default function ScriptureWorkspaceCard({
       {fontSizeButton}
       {lineHeightButton}
     </Grid>,
-    <CustomToolbarCloseButton key="close"
+    <CustomToolbarCloseButton
+            key='close'
             id='card_close'
             onClick={removeBook} //Needs something else. Cannot be re-opened. Where is removeBook() defined?
           />
@@ -172,7 +151,6 @@ export default function ScriptureWorkspaceCard({
   return (
     <Card
       onRenderToolbar={onRenderToolbar}
-      onRenderSettings={onRenderSettings}
       filters={filters}
       itemIndex={itemIndex}
       setFilters={setFilters}
