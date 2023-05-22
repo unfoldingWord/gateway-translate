@@ -1,4 +1,3 @@
-/* eslint-disable test-selectors/button, test-selectors/onClick */
 import PropTypes from 'prop-types';
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
