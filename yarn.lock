@@ -6311,6 +6311,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"font-detect-rhl@npm:^1.0.5-1":
+  version: 1.0.5
+  resolution: "font-detect-rhl@npm:1.0.5"
+  dependencies:
+    prop-types: ^15.6.1
+    use-deep-compare: ^1.1.0
+  peerDependencies:
+    react: ^17.0.2
+    react-dom: ^17.0.2
+  checksum: f8e82fa179a925ea94d2bcb315cd4ef40c0fa6cfb7874946a9e90235e6dbd8cfe2c76f52af71800ff5bc1bbc2a8493f6333abfbf0e2d6ecf50356ffb4b791583
+  languageName: node
+  linkType: hard
+
 "for-each@npm:^0.3.3":
   version: 0.3.3
   resolution: "for-each@npm:0.3.3"
@@ -6619,6 +6632,7 @@ __metadata:
     electron-squirrel-startup: ^1.0.0
     eslint: ^8.17.0
     eslint-config-next: 12.1.6
+    font-detect-rhl: ^1.0.5-1
     husky: ^8.0.1
     next: ^12.0.x
     npm: ^9.6.3

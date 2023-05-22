@@ -1,12 +1,30 @@
-import { useEffect, useState, useContext, createElement } from 'react'
+import { useEffect, useState, useContext, useMemo, createElement } from 'react'
 import PropTypes from 'prop-types'
-import { Card } from 'translation-helps-rcl'
+import { Card, useCardState } from 'translation-helps-rcl'
 import { UsfmEditor } from 'uw-editor'
 import { BIBLE_AND_OBS } from '@common/BooksOfTheBible'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import React from 'react'
 import CircularProgress from './CircularProgress'
+import FontDropdown from './FontDropdown'
+import FontSizeDropdown from './FontSizeDropdown'
+import LineHeightDropdown from './LineHeightDropdown'
+import Button from '@mui/material/Button'
+import { Grid } from "@mui/material"
+
+const CustomToolbarCloseButton = ({onClick}) => {
+  return <Button style={{maxWidth: '30px', maxHeight: '54px', minWidth: '30px', minHeight: '54px'}} sx={{fontSize: 30}} variant="contained" onClick={onClick}>×</Button>
+}
+
+const CustomSettingComponent = () => {
+  return (
+    <label>
+      <p>Custom setting</p>
+      <input type="range" min="1" step="1" max="100" defaultValue="50"/>
+    </label>
+  );
+}
 
 export default function ScriptureWorkspaceCard({
   id,
@@ -108,41 +126,91 @@ export default function ScriptureWorkspaceCard({
     title += ' (' + id + ')'
   }
   console.log('owner and id:', owner, id)
+
+  const [selectedFont, setSelectedFont] = useState('monospace');
+  const fontButton = useMemo(() => <FontDropdown selectedFont={selectedFont} setSelectedFont={setSelectedFont} />, [selectedFont]);
+
+  const [selectedFontSize, setSelectedFontSize] = useState('1em');
+  const fontSizeButton = useMemo(() => <FontSizeDropdown selectedFontSize={selectedFontSize} setSelectedFontSize={setSelectedFontSize} />, [selectedFontSize]);
+
+  const [selectedLineHeight, setSelectedLineHeight] = useState('normal');
+  const lineHeightButton = useMemo(() => <LineHeightDropdown selectedLineHeight={selectedLineHeight} setSelectedLineHeight={setSelectedLineHeight} />, [selectedLineHeight]);
+
+  const {
+    state: {
+      filters,
+      itemIndex,
+    },
+    actions: {
+      setFilters,
+      setItemIndex,
+    }
+  } = useCardState({
+    items: []
+  })
+
+  //Example returning jsx
+  const onRenderSettings = ({items}) => {
+    const divider = items.find(item => item.key === "divider");
+    return <><CustomSettingComponent/>{divider}{items}</>
+  }
+
+  //Example returning array
+  const onRenderToolbar = ({items}) => [
+    ...items,
+    <Grid container spacing={0} sx={{p: 1.5}}>
+      {fontButton}
+      {fontSizeButton}
+      {lineHeightButton}
+    </Grid>,
+    <CustomToolbarCloseButton key="close"
+            id='card_close'
+            onClick={removeBook} //Needs something else. Cannot be re-opened. Where is removeBook() defined?
+          />
+  ]
+
   return (
     <Card
+      onRenderToolbar={onRenderToolbar}
+      onRenderSettings={onRenderSettings}
+      filters={filters}
+      itemIndex={itemIndex}
+      setFilters={setFilters}
+      setItemIndex={setItemIndex}
       title={title}
       classes={classes}
       hideMarkdownToggle={true}
-      closeable={true}
+      // closeable={true}
       onClose={() => removeBook(id)}
       key={bookId}
       disableSettingsButton={true}
-    >
-      {
-        // ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
-        data.usfmText
+    >  
+    {
+      // ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
+      data.usfmText
+      ?
+      <div style={{ fontFamily: selectedFont, fontSize: selectedFontSize, lineHeight: selectedLineHeight }}>
+      <UsfmEditor key="1"
+        bookId={data.bookId}
+        docSetId={docSetId}
+        usfmText={data.usfmText}
+        onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
+        editable={id.endsWith(owner) ? true : false}
+        onUnsavedData={setUnsavedData}
+        // hasInitialUnsavedData={data.unsaved}
+        activeReference={bibleReference}
+        onReferenceSelected={onReferenceSelected}
+      /></div>
+      :
+      (
+        typeof data.content === "string"
         ?
-          <UsfmEditor key="1"
-            bookId={data.bookId}
-            docSetId={docSetId}
-            usfmText={data.usfmText}
-            onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
-            editable={id.endsWith(owner) ? true : false}
-            onUnsavedData={setUnsavedData}
-            // hasInitialUnsavedData={data.unsaved}
-            activeReference={bibleReference}
-            onReferenceSelected={onReferenceSelected}
-          />
+        <div><h1>{data.content}</h1></div>
         :
-        (
-          typeof data.content === "string"
-          ?
-          <div><h1>{data.content}</h1></div>
-          :
-          <CircularProgress/>
-        )
-      }
-    </Card>
+        <CircularProgress/>
+      )
+    }
+  </Card>
   )
 }
 
