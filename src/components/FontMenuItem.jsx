@@ -52,7 +52,6 @@ export default function FontMenuItem({ font }) {
           {font.name}&nbsp;
         </Typography>
         <Typography
-          style={{ width: "100%" }}
           noWrap
           variant="body2"
           component="div"
