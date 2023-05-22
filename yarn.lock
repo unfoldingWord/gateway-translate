@@ -6641,6 +6641,7 @@ __metadata:
     prop-types: ^15.8.1
     react: ^18.2.0
     react-dom: ^18.2.0
+    react-icons: ^4.8.0
     regenerator-runtime: ^0.13.9
     resource-workspace-rcl: ^2.1.1
     scripture-resources-rcl: ^5.2.1
@@ -11973,6 +11974,15 @@ __metadata:
   peerDependencies:
     react: ^16.3.0 || ^17 || ^18
   checksum: 2c4b443543903e27b21f159c13ebc05cd2a0c70568d06ac7f9ea02b5267a0d1592c6073674e0bdbc38ade2aae3a0650f0dfecf739382efbeb13719a1e3a6ddcb
+  languageName: node
+  linkType: hard
+
+"react-icons@npm:^4.8.0":
+  version: 4.8.0
+  resolution: "react-icons@npm:4.8.0"
+  peerDependencies:
+    react: "*"
+  checksum: 4dbba7ad989c295b410e19b2a702722dae44368cb04b6515f9471353552f31ac80bd350f121d5bff79f81504b84039ede44d09e9f035f48bb1032e6eace126c4
   languageName: node
   linkType: hard
 
