@@ -30,7 +30,7 @@ export default function LineHeightDropdown(lineHeightDropdownProps) {
 
   /** Return the Dropdown */
   return (
-      <Grid item xs={2} style={{ padding: "0.25em" }}>
+      <Grid item style={{ paddingTop: "0.25em", paddingBottom: "0.25em", paddingRight: "0.25em" }}>
         <Box sx={{ minWidth: 96 }}>
           <FormControl fullWidth style={{ maxWidth: 96 }}>
             <InputLabel id="demo-simple-select-label">LineHeight</InputLabel>

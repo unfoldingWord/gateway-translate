@@ -66,7 +66,7 @@ export default function FontDropdown(fontDropdownProps) {
 
   /** Return the Dropdown */
   return (
-    <Grid item xs={6} style={{ maxWidth: 300, padding: "0.25em" }}>
+    <Grid item style={{ maxWidth: 300, paddingTop: "0.25em", paddingBottom: "0.25em" }}>
       <Box sx={{ minWidth: 220 }}>
         <FormControl fullWidth style={{ maxWidth: 250 }}>
           <InputLabel id="demo-simple-select-label">Font</InputLabel>

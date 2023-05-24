@@ -16,7 +16,7 @@ export default function FontMenuItem({ font }) {
 
   const styles = {
     menuItem: {
-      width: "14rem",
+      width: "13rem",
       display: "flex",
       justifyContent: "space-between"
     },
