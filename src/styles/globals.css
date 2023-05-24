@@ -46,9 +46,11 @@
 /*
   use Ezra for Hebrew characters and then Noto Sans for other characters
 */
+/*
 * {
   font-family: Ezra, Noto Sans;
 }
+*/
 
 @tailwind components;
 @tailwind utilities;
