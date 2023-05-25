@@ -111,7 +111,7 @@ export default function ScriptureWorkspaceCard({
   }
   console.log('owner and id:', owner, id)
 
-  const [selectedFont, setSelectedFont] = useState('monospace');
+  const [selectedFont, setSelectedFont] = useState('Ezra-shipped, Noto-Sans-shipped');
   const fontButton = useMemo(() => <FontDropdown selectedFont={selectedFont} setSelectedFont={setSelectedFont} />, [selectedFont]);
 
   const [selectedFontSize, setSelectedFontSize] = useState('1em');

@@ -4,7 +4,7 @@ import { Popover, Typography } from "@mui/material";
 
 export default function FontMenuItem({ font }) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [previewFont, setPreviewFont] = useState({ name: "Arial" });
+  const [previewFont, setPreviewFont] = useState({ name: "Ezra-shipped, Noto-Sans-shipped" });
 
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);

@@ -12,9 +12,10 @@ export default function FontSizeDropdown(fontSizeDropdownProps) {
 
   const fontSizeArray = [
     { size: '0.75em', verbose: '75%', id: '1' },
-    { size: '1.25em', verbose: '125%', id: '2' },
-    { size: '1.5em', verbose: '150%', id: '3' },
-    { size: '1em', verbose: 'default', id: '4' },
+    { size: '1em', verbose: '100%', id: '2' },
+    { size: '1.15em', verbose: '115%', id: '3' },
+    { size: '1.30em', verbose: '130%', id: '4' },
+    { size: '1.5em', verbose: '150%', id: '5' },
   ];
 
   // on click event for selecting font size
@@ -25,14 +26,14 @@ export default function FontSizeDropdown(fontSizeDropdownProps) {
   // Font Size Dropdown Items
   const FontSizes =
     fontSizeArray.map((fontSize, index) => (
-      <MenuItem key={index} value={fontSize.size}>{fontSize.verbose}</MenuItem>
+      <MenuItem key={index} value={fontSize.size} style={{fontSize: "0.95em"}} >{fontSize.verbose}</MenuItem>
     ));
 
   /** Return the Dropdown */
   return (
-    <Grid item style={{ padding: "0.25em" }}>
-      <Box sx={{ minWidth: 96 }}>
-        <FormControl fullWidth style={{ maxWidth: 96 }}>
+    <Grid item style={{ padding: "0.25em" }} >
+      <Box sx={{ minWidth: 86 }} >
+        <FormControl fullWidth style={{ maxWidth: 86 }} >
           <InputLabel id="demo-simple-select-label">FontSize</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -40,6 +41,7 @@ export default function FontSizeDropdown(fontSizeDropdownProps) {
             value={selectedFontSize}
             label="FontSize"
             onChange={handleChangeSize}
+            style={{fontSize: "0.95em", minHeight: 56, maxHeight: 56 }}
           >
             {FontSizes}
           </Select>

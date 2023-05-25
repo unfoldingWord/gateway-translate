@@ -4,7 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Grid } from "@mui/material";
+import { Grid, Typography, Divider } from "@mui/material";
 import FontMenuItem from "./FontMenuItem";
 
 import {
@@ -27,14 +27,55 @@ export default function FontDropdown(fontDropdownProps) {
 
   const styles = {
     menuItem: {
-      width: "14rem",
+      width: "13rem",
       display: "flex",
       justifyContent: "space-between"
+    },
+    fontHeading: {
+      marginLeft: 5,
+    },
+    subHeading: {
+      marginLeft: 10,
+      fontSize: "0.75em",
+      fontStyle: 'italic',
+    },
+    providedFonts: {
+      fontSize: "0.87em",
     }
   };
 
+  /** Assemble dropdown menu item buttons for Web fonts over https*/
+  const embeddedWebFonts = [
+    { name: 'roboto', id: 'roboto' },
+  ];
+  const embeddedWebFontsComponents = embeddedWebFonts.map((font, index) => (
+    <MenuItem key={index} value={font.name} dense>
+      <FontMenuItem font={font} />
+    </MenuItem>
+  ));
+
+  /** Assemble dropdown menu item buttons for embedded Graphite-Enabled TTF fonts */
+  const embeddedGEFonts = [
+    { name: 'Ezra-shipped', id: 'ezra-shipped' },
+  ];
+  const embeddedGEFontsComponents = embeddedGEFonts.map((font, index) => (
+    <MenuItem key={index} value={font.name} dense>
+      <FontMenuItem font={font} />
+    </MenuItem>
+  ));
+
+  /** Assemble dropdown menu item buttons for embedded Google TTF fonts */
+  const embeddedGoogleFonts = [
+    { name: 'Noto-Sans-shipped', id: 'noto-sans-shipped' },
+  ];
+  const embeddedGoogleFontsComponents = embeddedGoogleFonts.map((font, index) => (
+    <MenuItem key={index} value={font.name} dense>
+      <FontMenuItem font={font} />
+    </MenuItem>
+  ));
+
   // Should Graphite-enabled fonts be detected?
-  const isGraphiteAssumed = useAssumeGraphite({});
+  const isGraphiteAssumed = useAssumeGraphite({alwaysUse: true});
 
   // Detecting Graphite-enabled fonts
   const detectedGEFonts = useDetectFonts({
@@ -77,22 +118,45 @@ export default function FontDropdown(fontDropdownProps) {
             label="Font"
             onChange={handleChange}
           >
-            <MenuItem key={1} value="monospace">
-              default
+            <Typography style={styles.fontHeading}>
+              <b>
+                  Provided Fonts:{" "}
+              </b>
+            </Typography> 
+            <MenuItem key={1} value="Ezra-shipped, Noto-Sans-shipped" dense>
+              Ezra (עִבְרִית) & Noto Sans 
             </MenuItem>
-            {isGraphiteAssumed && <hr />}
-            <b>
-              {isGraphiteAssumed && "Graphite-Enabled Fonts:"}
-              {detectedGEFontsComponents.length === 0 &&
-                isGraphiteAssumed &&
-                noneDetectedGEMsg}
-            </b>
+            <MenuItem key={1} value="Noto-Sans-shipped" dense>
+              Noto Sans
+            </MenuItem>
+            <MenuItem key={1} value="Ezra-shipped" dense>
+              Ezra
+            </MenuItem>
+            <MenuItem key={1} value="roboto" dense >
+              Roboto
+            </MenuItem>
+            {isGraphiteAssumed && <Divider />}
+            <Typography style={styles.fontHeading}>
+              <b>
+                  {isGraphiteAssumed && "Local Graphite-Enabled Fonts: "}
+              </b>
+            </Typography>
+            <Typography style={styles.subHeading}>
+              {isGraphiteAssumed && "(use Firefox)"}
+            </Typography>
+              <b>
+                {detectedGEFontsComponents.length === 0 &&
+                  isGraphiteAssumed &&
+                  noneDetectedGEMsg}
+              </b>
             {detectedGEFontsComponents}
-            <hr />
-            <b>
-              Detected Fonts:{" "}
-              {detectedFontsComponents.length === 0 && noneDetectedMsg}
-            </b>
+            <Divider />
+            <Typography style={styles.fontHeading}>
+              <b>
+                Local Detected Fonts:{" "}
+              </b>
+            </Typography>
+            {detectedFontsComponents.length === 0 && noneDetectedMsg}
             {detectedFontsComponents}
           </Select>
         </FormControl>
@@ -109,5 +173,5 @@ FontDropdown.propTypes = {
 };
 
 FontDropdown.defaultProps = {
-  selectedFont: 'monospace',
+  selectedFont: 'Ezra-shipped, Noto-Sans-shipped',
 };

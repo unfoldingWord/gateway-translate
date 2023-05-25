@@ -11,10 +11,10 @@ export default function LineHeightDropdown(lineHeightDropdownProps) {
   const { selectedLineHeight, setSelectedLineHeight } = lineHeightDropdownProps;
 
   const lineHeightArray = [
-    { size: '150%', verbose: '150%', id: '1' },
-    { size: '200%', verbose: '200%', id: '2' },
-    { size: '250%', verbose: '250%', id: '3' },
-    { size: 'normal', verbose: 'default', id: '4' },
+    { size: 'normal', verbose: 'normal', id: '1' },
+    { size: '150%', verbose: '150%', id: '2' },
+    { size: '200%', verbose: '200%', id: '3' },
+    { size: '250%', verbose: '250%', id: '4' },
   ];
 
   // on click event for selecting line height
@@ -25,14 +25,14 @@ export default function LineHeightDropdown(lineHeightDropdownProps) {
   // Line Height Dropdown Items
  const LineHeights =
   lineHeightArray.map((lineHeight, index) => (
-    <MenuItem key={index} value={lineHeight.size}>{lineHeight.verbose}</MenuItem>
+    <MenuItem key={index} value={lineHeight.size} style={{fontSize: "0.95em"}} >{lineHeight.verbose}</MenuItem>
   ));
 
   /** Return the Dropdown */
   return (
       <Grid item style={{ paddingTop: "0.25em", paddingBottom: "0.25em", paddingRight: "0.25em" }}>
-        <Box sx={{ minWidth: 96 }}>
-          <FormControl fullWidth style={{ maxWidth: 96 }}>
+        <Box sx={{ minWidth: 97 }}>
+          <FormControl fullWidth style={{ maxWidth: 97 }}>
             <InputLabel id="demo-simple-select-label">LineHeight</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -40,6 +40,7 @@ export default function LineHeightDropdown(lineHeightDropdownProps) {
               value={selectedLineHeight}
               label="LineHeight"
               onChange={handleChangeLineHeight}
+              style={{fontSize: "0.95em", minHeight: 56, maxHeight: 56 }}
             >
               {LineHeights}
             </Select>

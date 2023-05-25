@@ -10,23 +10,23 @@
 }
 
 @font-face {
-  font-family: Noto Sans;
+  font-family: 'Noto-Sans-shipped';
   src: url("/static/NotoSans-Regular.ttf");
   font-weight: normal;
 }
 @font-face {
-  font-family: Noto Sans;
+  font-family: 'Noto-Sans-shipped';
   font-style: italic;
   src: url("/static/NotoSans-Italic.ttf");
 }
 @font-face {
-  font-family: Noto Sans;
+  font-family: 'Noto-Sans-shipped';
   font-weight: bold;
   src: url("/static/NotoSans-Bold.ttf");
 }
 
 @font-face {
-  font-family: Noto Sans;
+  font-family: 'Noto-Sans-shipped';
   font-style: italic;
   font-weight: bold;
   src: url("/static/NotoSans-BoldItalic.ttf");
@@ -36,21 +36,35 @@
   special font for Hebrew
 */
 @font-face {
-  font-family: Ezra;
+  font-family: 'Ezra-shipped';
   src: url("/static/SILEOTSR.ttf");
   font-weight: normal;
   unicode-range: U+0590-05FF;
   font-display: swap;
 }
 
-/*
-  use Ezra for Hebrew characters and then Noto Sans for other characters
-*/
-/*
-* {
-  font-family: Ezra, Noto Sans;
+/* Optimize a few complex fonts */
+@font-face {
+  font-family: 'Awami Nastaliq', 'Noto-Sans-shipped', 'Noto Sans';
+  src: local('Awami Nastaliq');
+  font-feature-settings: "hehk" 0, "hedo" 1, "cv78" 2, "hamz" 1, "shrt" 1;
+  /*  font-size: 115%;  */
+  line-height: initial;
+  -webkit-font-feature-settings: "hehk" 0, "hedo" 1, "cv78" 2, "hamz" 1, "shrt" 1;
+  -moz-font-feature-settings: "hehk" 0, "hedo" 1, "cv78" 2, "hamz" 1, "shrt" 1;
 }
-*/
+@font-face {
+  font-family: Padauk,  'Noto-Sans-shipped', 'Noto Sans';
+  src: local('Padauk');
+  /*  font-size: 130%;  */
+  font-feature-settings: "wtri" 1;
+}
+@font-face {
+  font-family: Scheherazade,  'Noto-Sans-shipped', 'Noto Sans';
+  src: local('Scheherazade');
+  font-feature-settings: "cv12" 0;
+  /*  font-size: 150%;  */
+}
 
 @tailwind components;
 @tailwind utilities;
