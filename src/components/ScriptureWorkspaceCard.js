@@ -1,6 +1,6 @@
-import { useEffect, useState, useContext, useCallback } from 'react'
+import { useEffect, useState, useContext, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { Card } from 'translation-helps-rcl'
+import { Card, useCardState } from 'translation-helps-rcl'
 import { PkUsfmEditor } from '@oce-editor-tools/pk'
 import { BIBLE_AND_OBS } from '@common/BooksOfTheBible'
 import { AuthContext } from '@context/AuthContext'
@@ -9,6 +9,16 @@ import { AppContext } from '@context/AppContext'
 import React from 'react';
 import CircularProgress from './CircularProgress'
 import { saveToUserBranch } from '@utils/saveToUserBranch'
+import FontDropdown from './FontDropdown'
+import FontSizeDropdown from './FontSizeDropdown'
+import LineHeightDropdown from './LineHeightDropdown'
+import Button from '@mui/material/Button'
+import { Grid } from "@mui/material"
+
+const CustomToolbarCloseButton = ({onClick}) => {
+  return <Button style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} sx={{fontSize: 30}} variant="contained" onClick={onClick}>×</Button>
+}
+
 
 export default function ScriptureWorkspaceCard({
   id,
@@ -111,11 +121,52 @@ export default function ScriptureWorkspaceCard({
     title += " (" + id.substr(4) + ")"
   }
 
+  const [selectedFont, setSelectedFont] = useState('Ezra-shipped, Noto-Sans-shipped');
+  const fontButton = useMemo(() => <FontDropdown selectedFont={selectedFont} setSelectedFont={setSelectedFont} />, [selectedFont]);
+
+  const [selectedFontSize, setSelectedFontSize] = useState('1em');
+  const fontSizeButton = useMemo(() => <FontSizeDropdown selectedFontSize={selectedFontSize} setSelectedFontSize={setSelectedFontSize} />, [selectedFontSize]);
+
+  const [selectedLineHeight, setSelectedLineHeight] = useState('normal');
+  const lineHeightButton = useMemo(() => <LineHeightDropdown selectedLineHeight={selectedLineHeight} setSelectedLineHeight={setSelectedLineHeight} />, [selectedLineHeight]);
+
+  const {
+    state: {
+      filters,
+      itemIndex,
+    },
+    actions: {
+      setFilters,
+      setItemIndex,
+    }
+  } = useCardState({
+    items: []
+  })
+
+  //Example returning array
+  const onRenderToolbar = ({items}) => [
+    ...items,
+    <Grid container spacing={0} sx={{p: 0, minWidth: 434}} key='fontsettings'>
+      {fontButton}
+      {fontSizeButton}
+      {lineHeightButton}
+    </Grid>,
+    <CustomToolbarCloseButton
+            key='close'
+            id='card_close'
+            onClick={removeBook}
+          />
+  ]
+
   return (
-    <Card title={title}
+    <Card onRenderToolbar={onRenderToolbar}
+      filters={filters}
+      itemIndex={itemIndex}
+      setFilters={setFilters}
+      setItemIndex={setItemIndex}
+      title={title}
       classes={classes}
       hideMarkdownToggle={true}
-      closeable={true}
       onClose={() => removeBook(id)}
       key={bookId}
       disableSettingsButton={true}
@@ -124,18 +175,20 @@ export default function ScriptureWorkspaceCard({
         // ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
         data.usfmText
         ?
-          <PkUsfmEditor key="1"
-            bookId={data.bookId}
-            repoIdStr={data.docset}
-            langIdStr={data.languageId}
-            usfmText={data.usfmText}
-            onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
-            editable={id.endsWith(owner) ? true : false}
-            // commenting out this code for v0.9
-            // see issue 152
-            // activeReference={bibleReference}
-            // onReferenceSelected={onReferenceSelected}
-          />
+          <div style={{ fontFamily: selectedFont, fontSize: selectedFontSize, lineHeight: selectedLineHeight }}>
+            <PkUsfmEditor key="1"
+              bookId={data.bookId}
+              repoIdStr={data.docset}
+              langIdStr={data.languageId}
+              usfmText={data.usfmText}
+              onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
+              editable={id.endsWith(owner) ? true : false}
+              // commenting out this code for v0.9
+              // see issue 152
+              // activeReference={bibleReference}
+              // onReferenceSelected={onReferenceSelected}
+            />
+          </div>
         :
         (
           typeof data.content === "string"
