@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import CircularProgress from '@components/CircularProgress'
 import styles from '../src/styles/Home.module.css'
 import useAuthContext from '@hooks/useAuthContext'
-import { Box } from '@mui/material'
+import Box from '@mui/material/Box'
 
 // import ScriptureWorkspace from '@components/ScriptureWorkspace'
 const ScriptureWorkspace = dynamic(

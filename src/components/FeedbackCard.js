@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { makeStyles } from '@mui/styles'
+import makeStyles from '@mui/styles/makeStyles'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import TextField from '@mui/material/TextField'

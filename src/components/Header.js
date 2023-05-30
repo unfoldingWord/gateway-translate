@@ -2,7 +2,7 @@ import { useState, useContext } from 'react'
 
 import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
-import { makeStyles } from '@mui/styles'
+import makeStyles from '@mui/styles/makeStyles'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import Toolbar from '@mui/material/Toolbar'

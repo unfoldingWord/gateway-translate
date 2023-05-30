@@ -4,7 +4,7 @@ import React, {
 import PropTypes from 'prop-types'
 import Paper from 'translation-helps-rcl/dist/components/Paper'
 import FormControl from '@mui/material/FormControl'
-import { makeStyles } from '@mui/styles'
+import makeStyles from '@mui/styles/makeStyles'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'

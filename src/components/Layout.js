@@ -45,12 +45,17 @@ export default function Layout({ children, showChildren, title = APP_NAME }) {
   }, [mainScreenRef?.current])
 
   useEffect(() => {
+    console.log("Layout/useEffect[server] changed:", server)
+  }, [server])
+
+  useEffect(() => {
     const params = router?.query
 
     if (typeof params?.server === 'string') {
       // if URL param given
-      const serverID_ = params.server.toUpperCase() === QA ? QA : PROD
-      const server_ = serverID_ === QA ? QA_BASE_URL : BASE_URL
+      console.log('Server specified:',params.server)
+      const serverID_ = (params.server.toUpperCase() === QA) ? QA : PROD
+      const server_ = (serverID_ === QA) ? QA_BASE_URL : BASE_URL
 
       if (server !== server_) {
         console.log(
@@ -58,7 +63,7 @@ export default function Layout({ children, showChildren, title = APP_NAME }) {
         )
         setServer(server_) // persist server selection in localstorage
         router.push(`/?server=${serverID_}`) // reload page
-      }
+      } 
     }
   }, [router?.query]) // TRICKY query property not loaded on first pass, so watch for change
 

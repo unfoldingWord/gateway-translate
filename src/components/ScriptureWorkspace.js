@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 //import useDeepEffect from 'use-deep-compare-effect';
 
 import { Workspace } from 'resource-workspace-rcl'
-import { makeStyles } from '@mui/styles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { AppContext } from '@context/AppContext'
 import CircularProgress from '@components/CircularProgress'
