@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import { makeStyles } from '@mui/styles'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import TextField from '@mui/material/TextField'
@@ -58,24 +57,25 @@ Alert.propTypes = {
   onClick: PropTypes.func,
 }
 
-const useStyles = makeStyles(theme => ({
+const sx = {
   textField: {
     display: 'flex',
     flexDirection: 'column',
-    margin: theme.spacing(4),
+    margin: theme => theme.spacing(4),
   },
   formControl: {
     display: 'flex',
     flexDirection: 'column',
-    margin: theme.spacing(4),
+    margin: theme => theme.spacing(4),
   },
   button: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+    marginTop: theme => theme.spacing(1),
+    marginBottom: theme => theme.spacing(1),
   },
-}))
-
-const helperTextStyles = makeStyles(() => ({ root: { color: 'red' } }))
+  helperText: {
+    color: 'red',
+  },
+}
 
 const FeedbackCard = ({
   open,
@@ -95,8 +95,6 @@ const FeedbackCard = ({
   setInitCard,
   onClose,
 }) => {
-  const classes = useStyles()
-  const helperTestClasses = helperTextStyles()
   const categories = ['Bug Report', 'Feedback']
   const emailEditRef = useRef(null)
   const { state, actions } = useFeedbackData(open)
@@ -297,7 +295,7 @@ const FeedbackCard = ({
             defaultValue={state.name}
             variant='outlined'
             onChange={onNameChange}
-            classes={{ root: classes.textField }}
+            sx={sx.textField}
           />
           <TextField
             id='Email-feedback-form'
@@ -307,13 +305,13 @@ const FeedbackCard = ({
             defaultValue={state.email}
             variant='outlined'
             onChange={onEmailChange}
-            classes={{ root: classes.textField }}
+            sx={sx.textField}
             error={actions.showEmailError}
             helperText={state.showEmailError ?state. emailError : null}
-            FormHelperTextProps={{ classes: helperTestClasses }}
+            FormHelperTextProps={{sx:sx.helperText}}
             inputRef={emailEditRef}
           />
-          <FormControl variant='outlined' className={classes.formControl}>
+          <FormControl variant='outlined' sx={sx.formControl}>
             <InputLabel id='categories-dropdown-label'>
               Category:
             </InputLabel>
@@ -339,7 +337,7 @@ const FeedbackCard = ({
             defaultValue={state.message}
             variant='outlined'
             onChange={onMessageChange}
-            classes={{ root: classes.textField }}
+            sx={sx.textField}
           />
           <div className='flex flex-col mx-8 mb-4'>
             <Button

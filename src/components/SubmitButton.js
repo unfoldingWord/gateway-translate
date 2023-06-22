@@ -1,8 +1,7 @@
-import { makeStyles } from '@mui/styles'
 import Button from '@mui/material/Button'
 
-const useStyles = makeStyles(theme => ({
-  root: {
+const sx = {
+  root: (props) => ({
     'color': '#ffffff',
     'backgroundColor': props => (props.active ? '#1BCC25' : 'transparent'),
     '&:hover': {
@@ -10,13 +9,12 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: props => (props.active ? '#07b811' : '#ffffff'),
     },
     'border': '1px solid #0089C7',
-  },
-}))
+  }),
+}
 
 function SubmitButton({ active, ...rest }) {
-  const classes = useStyles({ active })
   return (
-    <Button className={classes.root} {...rest}>
+    <Button sx={sx.root({active})} {...rest}>
       Submit
     </Button>
   )

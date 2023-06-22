@@ -2,7 +2,6 @@ import { useState, useContext } from 'react'
 
 import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
-import { makeStyles } from '@mui/styles'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import Toolbar from '@mui/material/Toolbar'
@@ -17,30 +16,30 @@ import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import FeedbackPopup from '@components/FeedbackPopup'
 import SelectBookPopup from './SelectBookPopup'
-import { randomLetters } from '@utils/randomLetters'
 import BibleReference from './BibleReference'
+import { Box } from '@mui/material'
 
-const useStyles = makeStyles(theme => ({
+const sx = {
   root: { flexGrow: 1 },
   button: {
     minWidth: '40px',
     padding: '5px 0px',
-    marginRight: theme.spacing(3),
+    marginRight: theme => theme.spacing(3),
   },
   icon: { width: '40px' },
-  menuButton: { marginRight: theme.spacing(1) },
+  menuButton: theme => ({ marginRight: theme.spacing(1) }),
   title: {
     flexGrow: 1,
     cursor: 'pointer',
   },
   margin: {
-    margin: theme.spacing(1),
+    margin: theme => theme.spacing(1),
   },
   extendedIcon: {
-    marginRight: theme.spacing(1),
+    marginRight: theme => theme.spacing(1),
   },
-  offset: theme.mixins.toolbar,
-}))
+  offset: theme => theme.mixins.toolbar,
+}
 
 export default function Header({
   title,
@@ -50,7 +49,6 @@ export default function Header({
   setFeedback,
 }) {
   const { user } = authentication
-  const classes = useStyles()
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
   const [alreadyOpenNotice, setAlreadyOpenNotice] = useState(false)
@@ -197,7 +195,7 @@ export default function Header({
           <div className='flex flex-1 justify-center items-center'>
             <IconButton
               edge='start'
-              className={classes.menuButton}
+              sx={sx.menuButton}
               color='inherit'
               aria-label='menu'
               onClick={handleDrawerOpen}
@@ -206,7 +204,7 @@ export default function Header({
             </IconButton>
             <Typography
               variant='h6'
-              className={classes.title}
+              sx={sx.title}
               onClick={() => router.push('/')}
             >
               {title}
@@ -228,7 +226,7 @@ export default function Header({
                   setShowModal(true)
                 }}
               >
-                <AddIcon className={classes.extendedIcon} />
+                <AddIcon sx={sx.extendedIcon} />
                 Book
               </Fab>
               </div>
@@ -263,7 +261,7 @@ export default function Header({
         message="Book is already open"
         // action={action}
       />
-      <div className={classes.offset} />
+      <Box sx={sx.offset} />
     </header>
   )
 }

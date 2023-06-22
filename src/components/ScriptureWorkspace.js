@@ -13,7 +13,7 @@ import {
   reloadApp,
 } from '@utils/network'
 import { useRouter } from 'next/router'
-import { useUnsavedDataState } from '@oce-editor-tools/pk'
+import { useUnsavedDataState } from 'oce-editor-tools-pk'
 import { HTTP_CONFIG } from '@common/constants'
 import NetworkErrorPopup from '@components/NetworkErrorPopUp'
 import ScriptureWorkspaceCard from './ScriptureWorkspaceCard'
