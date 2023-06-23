@@ -3,10 +3,10 @@ import Button from '@mui/material/Button'
 const sx = {
   root: (props) => ({
     'color': '#ffffff',
-    'backgroundColor': props => (props.active ? '#1BCC25' : 'transparent'),
+    'backgroundColor': props.active ? '#1BCC25' : 'transparent',
     '&:hover': {
-      color: props => (props.active ? '#ffffff' : theme.palette.primary.main),
-      backgroundColor: props => (props.active ? '#07b811' : '#ffffff'),
+      color: theme => (props.active ? '#ffffff' : theme.palette.primary.main),
+      backgroundColor: props.active ? '#07b811' : '#ffffff',
     },
     'border': '1px solid #0089C7',
   }),

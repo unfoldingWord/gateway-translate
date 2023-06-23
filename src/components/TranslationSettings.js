@@ -30,8 +30,8 @@ import CircularProgress from './CircularProgress'
 
 const sx = {
   formControl: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
+    marginTop: (theme) => theme.spacing(3),
+    marginBottom: (theme) => theme.spacing(3),
     minWidth: '100%',
   },
 }
