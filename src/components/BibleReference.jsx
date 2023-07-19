@@ -27,9 +27,7 @@ function BibleReferenceComponent(props) {
       // update reference if external change (such as user log in causing saved reference to be loaded)
       actions.goToBookChapterVerse(bookId, chapter, verse)
     }
-  }, [{
-    bookId, chapter, verse,
-  }])
+  }, [actions, bookId, chapter, state.bookId, state.chapter, state.verse, verse])
 
   useEffect(() => {
     if (supportedBibles?.length) {

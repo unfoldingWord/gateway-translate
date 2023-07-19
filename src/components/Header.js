@@ -185,9 +185,6 @@ export default function Header({
       setBooks(_books)
     }
   }
-  // adding this flag to disable the bible ref component
-  // for v0.9; see issue 152
-  const brFlag = false
   return (
     <header>
       <AppBar position='fixed'>
@@ -211,7 +208,7 @@ export default function Header({
             </Typography>
           </div>
           <div className='flex flex-1 justify-center items-center'>
-            {brFlag && user && owner && router.pathname === '/' && (
+            {user && owner && router.pathname === '/' && (
               <BibleReference />
             )}
           </div>
