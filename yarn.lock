@@ -2636,9 +2636,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/core@npm:0.1.14-alpha.1":
-  version: 0.1.14-alpha.1
-  resolution: "@oce-editor-tools/core@npm:0.1.14-alpha.1"
+"@oce-editor-tools/core@npm:0.1.14-alpha.3":
+  version: 0.1.14-alpha.3
+  resolution: "@oce-editor-tools/core@npm:0.1.14-alpha.3"
   dependencies:
     "@findr/mui": ^1.0.0-beta.17
     "@findr/react": ^1.0.0-beta.3
@@ -2658,15 +2658,15 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: 62e7e2abd5bf566eb81d8670997d4805c7f008fe4e165b9677a3327ed2f2c34f0b432fa2d926393a425547754e65f2018101c70a70275981ef936a57faf9dadf
+  checksum: f3e61fadfaf811472bce41a1768eb1df07fb1851b405bdcfb5fdab467fd5428e0a946e0e2318912059c1272a8aa0ce96ac4ba014cc76a97781813d0bf6da4fa9
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/pk@npm:^0.1.14-alpha.1":
-  version: 0.1.14-alpha.1
-  resolution: "@oce-editor-tools/pk@npm:0.1.14-alpha.1"
+"@oce-editor-tools/pk@npm:^0.1.14-alpha.3":
+  version: 0.1.14-alpha.3
+  resolution: "@oce-editor-tools/pk@npm:0.1.14-alpha.3"
   dependencies:
-    "@oce-editor-tools/core": 0.1.14-alpha.1
+    "@oce-editor-tools/core": 0.1.14-alpha.3
     "@xelah/type-perf-html": ^1.0.2
     dompurify: ^3.0.3
     epitelete-html: ^0.2.20-beta.7
@@ -2683,7 +2683,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: 02fc269df86b4c7b114bef5141db3a6facae5876bbd9a41f90d225ef1098a03a3a05a67dba38609071361f391223e67f2759f6ef6eefb7d30ac65b0b5970ddce
+  checksum: 25ede2386cb92c4ed0358d38ff7c600abb88deb774e7bd92f85209986a23d284d80a9f5c26fdc5d4c9ae173fdc5679e10a173e7079e56eac406d8c5faf3c1c98
   languageName: node
   linkType: hard
 
@@ -6769,7 +6769,7 @@ __metadata:
     "@mui/material": ^5.10.6
     "@mui/styles": 5.10.10
     "@netlify/plugin-nextjs": 3.9.2
-    "@oce-editor-tools/pk": ^0.1.14-alpha.1
+    "@oce-editor-tools/pk": ^0.1.14-alpha.3
     "@sendgrid/mail": ^7.7.0
     autoprefixer: ^10.4.7
     base-64: ^1.0.0
