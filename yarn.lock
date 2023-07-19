@@ -1553,7 +1553,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:^11.10.0, @emotion/react@npm:^11.11.0":
+"@emotion/react@npm:^11.10.4, @emotion/react@npm:^11.11.0":
   version: 11.11.1
   resolution: "@emotion/react@npm:11.11.1"
   dependencies:
@@ -1594,7 +1594,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/styled@npm:^11.10.0, @emotion/styled@npm:^11.11.0":
+"@emotion/styled@npm:^11.10.4, @emotion/styled@npm:^11.11.0":
   version: 11.11.0
   resolution: "@emotion/styled@npm:11.11.0"
   dependencies:
@@ -2232,7 +2232,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/lab@npm:^5.0.0-alpha.129, @mui/lab@npm:^5.0.0-alpha.134":
+"@mui/lab@npm:^5.0.0-alpha.107, @mui/lab@npm:^5.0.0-alpha.129":
   version: 5.0.0-alpha.137
   resolution: "@mui/lab@npm:5.0.0-alpha.137"
   dependencies:
@@ -2636,9 +2636,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/core@npm:0.1.13":
-  version: 0.1.13
-  resolution: "@oce-editor-tools/core@npm:0.1.13"
+"@oce-editor-tools/core@npm:0.1.14-alpha.1":
+  version: 0.1.14-alpha.1
+  resolution: "@oce-editor-tools/core@npm:0.1.14-alpha.1"
   dependencies:
     "@findr/mui": ^1.0.0-beta.17
     "@findr/react": ^1.0.0-beta.3
@@ -2658,15 +2658,15 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: 9234d5db29f497bb65c489e4feba86b9d9d70e439ad119f60a6c263a69bb3a547bc87ab423c0844a8c70f51d0861597bfb618d51955fc9976bb91388dc6770f1
+  checksum: 62e7e2abd5bf566eb81d8670997d4805c7f008fe4e165b9677a3327ed2f2c34f0b432fa2d926393a425547754e65f2018101c70a70275981ef936a57faf9dadf
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/pk@npm:^0.1.13":
-  version: 0.1.13
-  resolution: "@oce-editor-tools/pk@npm:0.1.13"
+"@oce-editor-tools/pk@npm:^0.1.14-alpha.1":
+  version: 0.1.14-alpha.1
+  resolution: "@oce-editor-tools/pk@npm:0.1.14-alpha.1"
   dependencies:
-    "@oce-editor-tools/core": 0.1.13
+    "@oce-editor-tools/core": 0.1.14-alpha.1
     "@xelah/type-perf-html": ^1.0.2
     dompurify: ^3.0.3
     epitelete-html: ^0.2.20-beta.7
@@ -2683,7 +2683,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: c5e1fa81deed3de9c418d07211d217fceb488d05315d8a0f2679b3e681c018ea80df14ad33dc88ef78199f4ce7b0c8db225609ed41270bbbff32ce8b076d9777
+  checksum: 02fc269df86b4c7b114bef5141db3a6facae5876bbd9a41f90d225ef1098a03a3a05a67dba38609071361f391223e67f2759f6ef6eefb7d30ac65b0b5970ddce
   languageName: node
   linkType: hard
 
@@ -6761,15 +6761,15 @@ __metadata:
     "@babel/plugin-proposal-optional-chaining": ^7.12.7
     "@babel/plugin-syntax-logical-assignment-operators": ^7.10.4
     "@emotion/is-prop-valid": ^1.2.0
-    "@emotion/react": ^11.10.0
-    "@emotion/styled": ^11.10.0
+    "@emotion/react": ^11.10.4
+    "@emotion/styled": ^11.10.4
     "@material-ui/lab": 4.0.0-alpha.61
     "@mui/icons-material": ^5.10.6
-    "@mui/lab": ^5.0.0-alpha.134
+    "@mui/lab": ^5.0.0-alpha.107
     "@mui/material": ^5.10.6
     "@mui/styles": 5.10.10
     "@netlify/plugin-nextjs": 3.9.2
-    "@oce-editor-tools/pk": ^0.1.13
+    "@oce-editor-tools/pk": ^0.1.14-alpha.1
     "@sendgrid/mail": ^7.7.0
     autoprefixer: ^10.4.7
     base-64: ^1.0.0
@@ -6783,7 +6783,6 @@ __metadata:
     husky: ^8.0.1
     localforage: ^1.10.0
     next: ^11.1.4
-    oce-editor-tools-pk: ^0.1.12-alpha.1
     postcss: ^8.4.14
     prettier: ^2.6.2
     prop-types: ^15.8.1
@@ -10062,54 +10061,6 @@ __metadata:
     define-properties: ^1.1.4
     es-abstract: ^1.20.4
   checksum: f6fff9fd817c24cfd8107f50fb33061d81cd11bacc4e3dbb3852e9ff7692fde4dbce823d4333ea27cd9637ef1b6690df5fbb61f1ed314fa2959598dc3ae23d8e
-  languageName: node
-  linkType: hard
-
-"oce-editor-tools-core@npm:0.1.12-alpha.9":
-  version: 0.1.12-alpha.9
-  resolution: "oce-editor-tools-core@npm:0.1.12-alpha.9"
-  dependencies:
-    "@findr/mui": ^1.0.0-beta.17
-    "@findr/react": ^1.0.0-beta.3
-    "@gwdevs/extensible-rcl": ^1.0.1
-    "@xelah/type-perf-html": ^1.0.2
-    epitelete-html: ^0.2.20-beta.7
-    pagedjs: ^0.4.1
-  peerDependencies:
-    "@emotion/react": ^11.10.0
-    "@emotion/styled": ^11.10.0
-    "@mui/icons-material": ^5.11.0
-    "@mui/lab": ^5.0.0-alpha.134
-    "@mui/material": ^5.11.0
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    translation-helps-rcl: 3.3.4-rc.2
-  checksum: ed8ed92f12a3e27e7bde7d07ae26db00ebfd15dcbdc7bd5038034fe47656cf745be940ebf845793cdb966d3e5b76238c1d5dae76f1440a628849117fe4bcf5e5
-  languageName: node
-  linkType: hard
-
-"oce-editor-tools-pk@npm:^0.1.12-alpha.1":
-  version: 0.1.12-alpha.1
-  resolution: "oce-editor-tools-pk@npm:0.1.12-alpha.1"
-  dependencies:
-    "@xelah/type-perf-html": ^1.0.2
-    dompurify: ^3.0.3
-    epitelete-html: ^0.2.20-beta.7
-    oce-editor-tools-core: 0.1.12-alpha.9
-    proskomma-core: 0.10.1
-    react-to-print: ^2.14.12
-    shorthash: ^0.0.2
-    style-to-object: ^0.4.1
-  peerDependencies:
-    "@emotion/react": ^11.10.0
-    "@emotion/styled": ^11.10.0
-    "@mui/icons-material": ^5.11.0
-    "@mui/lab": ^5.0.0-alpha.134
-    "@mui/material": ^5.11.0
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    translation-helps-rcl: 3.3.4-rc.2
-  checksum: 2eed7ae65450fd7231e2df5b44ef50b42c1476611cefd48782f4d4ada8cd80b646f8bb356e3fa8ca4b3777707f165ec1b4e166cbf7d064832af85d513a2c65b7
   languageName: node
   linkType: hard
 
