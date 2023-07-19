@@ -23,7 +23,7 @@
     "@mui/lab": "^5.0.0-alpha.107",
     "@mui/material": "^5.10.6",
     "@mui/styles": "5.10.10",
-    "@oce-editor-tools/pk": "^0.1.14-alpha.3",
+    "@oce-editor-tools/pk": "^0.1.14",
     "@sendgrid/mail": "^7.7.0",
     "autoprefixer": "^10.4.7",
     "base-64": "^1.0.0",
