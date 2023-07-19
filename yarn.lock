@@ -1540,7 +1540,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:^11.10.4, @emotion/react@npm:^11.10.5, @emotion/react@npm:^11.11.0":
+"@emotion/react@npm:^11.10.4, @emotion/react@npm:^11.11.0":
   version: 11.11.1
   resolution: "@emotion/react@npm:11.11.1"
   dependencies:
@@ -1581,7 +1581,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/styled@npm:^11.10.4, @emotion/styled@npm:^11.10.5, @emotion/styled@npm:^11.11.0":
+"@emotion/styled@npm:^11.10.4, @emotion/styled@npm:^11.11.0":
   version: 11.11.0
   resolution: "@emotion/styled@npm:11.11.0"
   dependencies:
@@ -1684,6 +1684,61 @@ __metadata:
   version: 8.43.0
   resolution: "@eslint/js@npm:8.43.0"
   checksum: 580487a09c82ac169744d36e4af77bc4f582c9a37749d1e9481eb93626c8f3991b2390c6e4e69e5642e3b6e870912b839229a0e23594fae348156ea5a8ed7e2e
+  languageName: node
+  linkType: hard
+
+"@findr/mui@npm:^1.0.0-beta.17":
+  version: 1.0.0-beta.17
+  resolution: "@findr/mui@npm:1.0.0-beta.17"
+  dependencies:
+    tslib: ^2.3.0
+  peerDependencies:
+    "@emotion/react": ^11.5.0
+    "@emotion/styled": ^11.3.0
+    "@mui/icons-material": ^5.11.0
+    "@mui/lab": 5.0.0-alpha.134
+    "@mui/material": ^5.11.0
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+    react-icons: ^4.x
+  peerDependenciesMeta:
+    "@emotion/react":
+      optional: true
+    "@emotion/styled":
+      optional: true
+    "@types/react":
+      optional: true
+  checksum: 2d206b2731aae4bb8276434680511d7938fb4de60a79d9625d582b67fcb5768adb555a4a83110cf3067530071192a6afb6b970fc33fef2689084845019c9a8c0
+  languageName: node
+  linkType: hard
+
+"@findr/perf@npm:^1.0.3-beta.17":
+  version: 1.0.3-beta.17
+  resolution: "@findr/perf@npm:1.0.3-beta.17"
+  dependencies:
+    proskomma-json-tools: ^0.7.1
+  checksum: 5ea78b80694d174a617acbe0e1094d4f68d6b30048069816bd30a15e752b47f935f76f718181b5e5874c6e7c8048438314564137b12018e923a5e3de2f93ce22
+  languageName: node
+  linkType: hard
+
+"@findr/react@npm:^1.0.0-beta.3":
+  version: 1.0.0-beta.3
+  resolution: "@findr/react@npm:1.0.0-beta.3"
+  peerDependencies:
+    react: ^18.x
+    react-dom: ^18.x
+  checksum: 89e4b096743ea7d1975af909a362e512672d627934a26cc476d9499ea6670b4235656e5326ba882f9fb2e544c21c74a44c0a6eb7893a517cde6a057475776cb0
+  languageName: node
+  linkType: hard
+
+"@findr/text@npm:^1.0.7-beta.4":
+  version: 1.0.7-beta.4
+  resolution: "@findr/text@npm:1.0.7-beta.4"
+  peerDependenciesMeta:
+    xregexp:
+      optional: true
+  checksum: 5897482157a48036c39e1b0845d7d7a86c838840458fc5d7bed844ac72605a88be9bf487b617e7b35a2ad4787d81ee7ded1183531aad50768ed6d53b758bd384
   languageName: node
   linkType: hard
 
@@ -2312,7 +2367,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/system@npm:^5.11.9, @mui/system@npm:^5.13.5":
+"@mui/system@npm:^5.13.5":
   version: 5.13.5
   resolution: "@mui/system@npm:5.13.5"
   dependencies:
@@ -2559,51 +2614,54 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/core@npm:0.1.12-alpha2":
-  version: 0.1.12-alpha2
-  resolution: "@oce-editor-tools/core@npm:0.1.12-alpha2"
+"@oce-editor-tools/core@npm:0.1.13":
+  version: 0.1.13
+  resolution: "@oce-editor-tools/core@npm:0.1.13"
   dependencies:
-    "@emotion/react": ^11.10.5
-    "@emotion/styled": ^11.10.5
+    "@findr/mui": ^1.0.0-beta.17
+    "@findr/react": ^1.0.0-beta.3
+    "@findr/text": ^1.0.7-beta.4
     "@gwdevs/extensible-rcl": ^1.0.1
-    "@mui/system": ^5.11.9
-    "@xelah/core": ^1.0.3
     "@xelah/type-perf-html": ^1.0.2
-    epitelete-html: 0.2.18
+    epitelete-html: ^0.2.20-beta.7
     pagedjs: ^0.4.1
+    proskomma-core: ^0.10.1
+    react-uuid: ^2.0.0
   peerDependencies:
-    "@mui/icons-material": ^5.10.9
-    "@mui/material": ^5.10.12
-    "@mui/styled-engine": "*"
-    "@mui/styles": ^5.10.10
+    "@emotion/react": ^11.10.0
+    "@emotion/styled": ^11.10.0
+    "@mui/icons-material": ^5.11.0
+    "@mui/lab": ^5.0.0-alpha.134
+    "@mui/material": ^5.11.0
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: 3c8e37029a15981de3af748e5b4a07f2d79bba32f70b2fe988d152d31037a6d24d7cb480714c7e1e49715931767bb63ebe2ddb4485cb54475d794364f952cf88
+  checksum: 9234d5db29f497bb65c489e4feba86b9d9d70e439ad119f60a6c263a69bb3a547bc87ab423c0844a8c70f51d0861597bfb618d51955fc9976bb91388dc6770f1
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/pk@npm:^0.1.12-alpha.10":
-  version: 0.1.12-alpha3
-  resolution: "@oce-editor-tools/pk@npm:0.1.12-alpha3"
+"@oce-editor-tools/pk@npm:^0.1.13":
+  version: 0.1.13
+  resolution: "@oce-editor-tools/pk@npm:0.1.13"
   dependencies:
-    "@oce-editor-tools/core": 0.1.12-alpha2
+    "@oce-editor-tools/core": 0.1.13
     "@xelah/type-perf-html": ^1.0.2
     dompurify: ^3.0.3
-    epitelete-html: 0.2.18
+    epitelete-html: ^0.2.20-beta.7
     proskomma-core: 0.10.1
     react-to-print: ^2.14.12
     shorthash: ^0.0.2
     style-to-object: ^0.4.1
   peerDependencies:
-    "@mui/icons-material": ^5.10.9
-    "@mui/material": ^5.10.12
-    "@mui/styled-engine": "*"
-    "@mui/styles": ^5.10.10
+    "@emotion/react": ^11.10.0
+    "@emotion/styled": ^11.10.0
+    "@mui/icons-material": ^5.11.0
+    "@mui/lab": ^5.0.0-alpha.134
+    "@mui/material": ^5.11.0
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: 835f0d33e4a80a3e290e895e252cff372c9edbc585454ba9377dece4c404a1e63a6f65c0d979ac8170d61b2e8ddde2c92a945db6a10b03f0e2fe20fa8fc13ddd
+  checksum: c5e1fa81deed3de9c418d07211d217fceb488d05315d8a0f2679b3e681c018ea80df14ad33dc88ef78199f4ce7b0c8db225609ed41270bbbff32ce8b076d9777
   languageName: node
   linkType: hard
 
@@ -2869,7 +2927,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xelah/core@npm:^1.0.2, @xelah/core@npm:^1.0.3":
+"@xelah/core@npm:^1.0.2":
   version: 1.0.3
   resolution: "@xelah/core@npm:1.0.3"
   dependencies:
@@ -4222,6 +4280,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cheerio-select@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "cheerio-select@npm:2.1.0"
+  dependencies:
+    boolbase: ^1.0.0
+    css-select: ^5.1.0
+    css-what: ^6.1.0
+    domelementtype: ^2.3.0
+    domhandler: ^5.0.3
+    domutils: ^3.0.1
+  checksum: 843d6d479922f28a6c5342c935aff1347491156814de63c585a6eb73baf7bb4185c1b4383a1195dca0f12e3946d737c7763bcef0b9544c515d905c5c44c5308b
+  languageName: node
+  linkType: hard
+
+"cheerio@npm:^1.0.0-rc.12":
+  version: 1.0.0-rc.12
+  resolution: "cheerio@npm:1.0.0-rc.12"
+  dependencies:
+    cheerio-select: ^2.1.0
+    dom-serializer: ^2.0.0
+    domhandler: ^5.0.3
+    domutils: ^3.0.1
+    htmlparser2: ^8.0.1
+    parse5: ^7.0.0
+    parse5-htmlparser2-tree-adapter: ^7.0.0
+  checksum: 5d4c1b7a53cf22d3a2eddc0aff70cf23cbb30d01a4c79013e703a012475c02461aa1fcd99127e8d83a02216386ed6942b2c8103845fd0812300dd199e6e7e054
+  languageName: node
+  linkType: hard
+
 "chokidar@npm:3.5.1":
   version: 3.5.1
   resolution: "chokidar@npm:3.5.1"
@@ -4746,6 +4833,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"css-select@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "css-select@npm:5.1.0"
+  dependencies:
+    boolbase: ^1.0.0
+    css-what: ^6.1.0
+    domhandler: ^5.0.2
+    domutils: ^3.0.1
+    nth-check: ^2.0.1
+  checksum: 2772c049b188d3b8a8159907192e926e11824aea525b8282981f72ba3f349cf9ecd523fdf7734875ee2cb772246c22117fc062da105b6d59afe8dcd5c99c9bda
+  languageName: node
+  linkType: hard
+
 "css-to-react-native@npm:^3.0.0":
   version: 3.2.0
   resolution: "css-to-react-native@npm:3.2.0"
@@ -4777,7 +4877,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-what@npm:^6.0.1":
+"css-what@npm:^6.0.1, css-what@npm:^6.1.0":
   version: 6.1.0
   resolution: "css-what@npm:6.1.0"
   checksum: b975e547e1e90b79625918f84e67db5d33d896e6de846c9b584094e529f0c63e2ab85ee33b9daffd05bff3a146a1916bec664e18bb76dd5f66cbff9fc13b2bbe
@@ -5491,25 +5591,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"epitelete-html@npm:0.2.18":
-  version: 0.2.18
-  resolution: "epitelete-html@npm:0.2.18"
+"epitelete-html@npm:^0.2.20-beta.7":
+  version: 0.2.20-beta.8
+  resolution: "epitelete-html@npm:0.2.20-beta.8"
   dependencies:
     "@babel/core": ^7.17.10
-    epitelete: ^0.2.18
+    base-64: ^1.0.0
+    epitelete: ^0.2.20
     node-html-parser: ^5.3.3
-  checksum: 9b149904726fdf25a9e8eb635bd95ef84beb4f62d1ab20cf6efe2482a2192c4d919430eac6f0890fb1f784528d161731a24760e1d7e743171466efe603bf544a
+    pure-uuid: ^1.6.3
+  checksum: 0e15a3f89e8a6662ee5729ef87b51de8f0b37ea46810978073fcd6527425a1a2f59d75323f8a16f950a307647d3d642e39039177cea99a2db82a3ce38353bfab
   languageName: node
   linkType: hard
 
-"epitelete@npm:^0.2.18":
-  version: 0.2.19
-  resolution: "epitelete@npm:0.2.19"
+"epitelete@npm:^0.2.20":
+  version: 0.2.20
+  resolution: "epitelete@npm:0.2.20"
   dependencies:
     "@babel/core": ^7.19.0
-    proskomma-json-tools: ^0.6.6
+    "@findr/perf": ^1.0.3-beta.17
+    base-64: ^1.0.0
+    proskomma-json-tools: ^0.7.1
+    pure-uuid: ^1.6.3
     rfdc: ^1.3.0
-  checksum: ac929d432d0527ab818b1371a8dd904de29f448ede2e7f4c52d3d3d99ad801009268e90455ab36ab010df2f0fb3c98342790d29358b646441aca969f5cf0acba
+  checksum: d5860ee49cd5c51d35fe1d4a7c78eec1bfb721a460bba444269bb9f6362e8a652844d8d2a1d07ef8f7ffaf1598023bf59fc1892e979f4535d1647927000772db
   languageName: node
   linkType: hard
 
@@ -6632,7 +6737,7 @@ __metadata:
     "@mui/material": ^5.10.6
     "@mui/styles": 5.10.10
     "@netlify/plugin-nextjs": 3.9.2
-    "@oce-editor-tools/pk": ^0.1.12-alpha.10
+    "@oce-editor-tools/pk": ^0.1.13
     "@sendgrid/mail": ^7.7.0
     autoprefixer: ^10.4.7
     base-64: ^1.0.0
@@ -7198,7 +7303,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"htmlparser2@npm:^8.0":
+"htmlparser2@npm:^8.0, htmlparser2@npm:^8.0.1":
   version: 8.0.2
   resolution: "htmlparser2@npm:8.0.2"
   dependencies:
@@ -10155,10 +10260,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"parse5-htmlparser2-tree-adapter@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "parse5-htmlparser2-tree-adapter@npm:7.0.0"
+  dependencies:
+    domhandler: ^5.0.2
+    parse5: ^7.0.0
+  checksum: fc5d01e07733142a1baf81de5c2a9c41426c04b7ab29dd218acb80cd34a63177c90aff4a4aee66cf9f1d0aeecff1389adb7452ad6f8af0a5888e3e9ad6ef733d
+  languageName: node
+  linkType: hard
+
 "parse5@npm:4.0.0":
   version: 4.0.0
   resolution: "parse5@npm:4.0.0"
   checksum: 2123cec690689fed44e6c76aa8a08215d2dadece7eff7b35156dda7485e6a232c9b737313688ee715eb0678b6a87a31026927dd74690154f8a0811059845ba46
+  languageName: node
+  linkType: hard
+
+"parse5@npm:^7.0.0":
+  version: 7.1.2
+  resolution: "parse5@npm:7.1.2"
+  dependencies:
+    entities: ^4.4.0
+  checksum: 59465dd05eb4c5ec87b76173d1c596e152a10e290b7abcda1aecf0f33be49646ea74840c69af975d7887543ea45564801736356c568d6b5e71792fd0f4055713
   languageName: node
   linkType: hard
 
@@ -10585,7 +10709,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"proskomma-core@npm:0.10.1":
+"proskomma-core@npm:0.10.1, proskomma-core@npm:^0.10.1":
   version: 0.10.1
   resolution: "proskomma-core@npm:0.10.1"
   dependencies:
@@ -10613,7 +10737,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"proskomma-json-tools@npm:^0.6.5, proskomma-json-tools@npm:^0.6.6":
+"proskomma-json-tools@npm:^0.6.5":
   version: 0.6.6
   resolution: "proskomma-json-tools@npm:0.6.6"
   dependencies:
@@ -10622,6 +10746,19 @@ __metadata:
     ajv: ^8.11.0
     deep-equal: ^2.0.5
   checksum: 665587b571e9411c342c9e30ec36bcafb1175db4dfede25ba9894c0ed1f14bb0d3409db1fea336cf1fc6653459abed6f9203dd1ef5ee0f318dd28d8bb15260a2
+  languageName: node
+  linkType: hard
+
+"proskomma-json-tools@npm:^0.7.1":
+  version: 0.7.2
+  resolution: "proskomma-json-tools@npm:0.7.2"
+  dependencies:
+    "@babel/core": ^7.17.10
+    "@babel/plugin-proposal-throw-expressions": ^7.18.6
+    ajv: ^8.11.0
+    cheerio: ^1.0.0-rc.12
+    deep-equal: ^2.0.5
+  checksum: f037d81c092da5bec831f9b3bd7ec82d2b87aca2e8fd411a0cdde2ef269825f1e5171d1d0e875cc32b5a94c0404ae05a2501a3284e2fc6d5f281827f72d66e16
   languageName: node
   linkType: hard
 
@@ -10674,6 +10811,13 @@ __metadata:
   version: 1.6.3
   resolution: "pure-uuid@npm:1.6.3"
   checksum: 887e1e748a9ab5c6bfb4cf733354f85c8d7fb532d4a76d3dfdb9e0acfd90c322b763665d898f62b60f7ebefe2bf2ea78a069dbb989f5478c1632e911a515acf8
+  languageName: node
+  linkType: hard
+
+"pure-uuid@npm:^1.6.3":
+  version: 1.6.4
+  resolution: "pure-uuid@npm:1.6.4"
+  checksum: e92b19fcb320e7fe9b98f3bd40637c037fd40b92d3ff3a4965ebc04e4cfd076c204873906118c885d939db31f67ff26fc85bd7c310bb8907ed32cf7baa00ce31
   languageName: node
   linkType: hard
 
@@ -11026,6 +11170,13 @@ __metadata:
     react: ">=16.6.0"
     react-dom: ">=16.6.0"
   checksum: 75602840106aa9c6545149d6d7ae1502fb7b7abadcce70a6954c4b64a438ff1cd16fc77a0a1e5197cdd72da398f39eb929ea06f9005c45b132ed34e056ebdeb1
+  languageName: node
+  linkType: hard
+
+"react-uuid@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "react-uuid@npm:2.0.0"
+  checksum: edfdd86ce5cd19da9740fae1147ed106e3090f4d9c59b4e3f0001c2dc605f63dc89e225adc5623929a8775363ab355da32adda92dd70a3bb514fff911b93da73
   languageName: node
   linkType: hard
 
@@ -13010,6 +13161,13 @@ __metadata:
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: dbe628ef87f66691d5d2959b3e41b9ca0045c3ee3c7c7b906cc1e328b39f199bb1ad9e671c39025bd56122ac57dfbf7385a94843b1cc07c60a4db74795829acd
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.3.0":
+  version: 2.6.0
+  resolution: "tslib@npm:2.6.0"
+  checksum: c01066038f950016a18106ddeca4649b4d76caa76ec5a31e2a26e10586a59fceb4ee45e96719bf6c715648e7c14085a81fee5c62f7e9ebee68e77a5396e5538f
   languageName: node
   linkType: hard
 
