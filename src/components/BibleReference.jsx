@@ -37,6 +37,8 @@ function BibleReferenceComponent(props) {
     // update reference if all books are closed
     const _enabled = (books?.length>0)
     if (enabled !== _enabled) {
+      console.log("update books found")
+      console.log(_enabled)
       setEnabled(_enabled)
     }
   }, [books, enabled])
@@ -48,7 +50,7 @@ function BibleReferenceComponent(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supportedBibles])
 
-  return (enabled) ?  <div/> : <BibleReference
+  return (!enabled) ?  <div/> : <BibleReference
       status={state}
       actions={actions}
       style={{ color: '#ffffff' }}
