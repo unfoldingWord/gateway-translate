@@ -36,15 +36,15 @@ export default function ScriptureWorkspaceCard({
     }
   } = useContext(StoreContext)
 
-  const bcvSyncRef = {
+  const reference = {
     bookId: bookId.toLowerCase(),
     chapter: Number(bibleReference.chapter),
     verse: Number(bibleReference.verse),
   }
 
-  const onReferenceSelected = ({bookIdFromEditor, chapter, verse}) => {
+  const onReferenceSelected = ({sourceId, bookId: bookIdFromEditor, chapter, verse}) => {
     const normalizedBookId = (bookIdFromEditor || bookId).toLowerCase()
-    onReferenceChange(normalizedBookId, chapter.toString(), verse.toString())
+    onReferenceChange(normalizedBookId, chapter.toString(), verse.toString(), sourceId)
   }
 
   const {
@@ -131,7 +131,7 @@ export default function ScriptureWorkspaceCard({
             usfmText={data.usfmText}
             onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
             editable={id.endsWith(owner) ? true : false}
-            bcvSyncRef={bibleReference}
+            reference={bibleReference}
             onReferenceSelected={onReferenceSelected}
           />
         :
