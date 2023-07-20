@@ -2636,16 +2636,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/core@npm:0.1.14":
-  version: 0.1.14
-  resolution: "@oce-editor-tools/core@npm:0.1.14"
+"@oce-editor-tools/core@npm:^0.1.15-beta.1":
+  version: 0.1.15-beta.1
+  resolution: "@oce-editor-tools/core@npm:0.1.15-beta.1"
   dependencies:
     "@findr/mui": ^1.0.0-beta.17
     "@findr/react": ^1.0.0-beta.3
     "@findr/text": ^1.0.7-beta.4
     "@gwdevs/extensible-rcl": ^1.0.1
     "@xelah/type-perf-html": ^1.0.2
-    epitelete-html: ^0.2.20-beta.7
+    epitelete-html: 0.2.21-beta.2
     pagedjs: ^0.4.1
     proskomma-core: ^0.10.1
     react-uuid: ^2.0.0
@@ -2658,18 +2658,18 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: cad478607910fe4919f739ed476c67fa6b9cea1c9bf49abe7670c74a8f2b1c6dde4bf8a124da0232c5bdc9a3cf798e23ecddf83530667eb8e8bc75d9f99c2636
+  checksum: fffc67de3885e48fc9cbc2accfbb34e8a2354e5f1c7506b9ceed7fefb59e8ec0ad161e62a0826918a63f348782494e3d1859a9275dcf2df830e000890380c087
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/pk@npm:^0.1.14":
-  version: 0.1.14
-  resolution: "@oce-editor-tools/pk@npm:0.1.14"
+"@oce-editor-tools/pk@npm:beta":
+  version: 0.1.15-beta.1
+  resolution: "@oce-editor-tools/pk@npm:0.1.15-beta.1"
   dependencies:
-    "@oce-editor-tools/core": 0.1.14
+    "@oce-editor-tools/core": ^0.1.15-beta.1
     "@xelah/type-perf-html": ^1.0.2
     dompurify: ^3.0.3
-    epitelete-html: ^0.2.20-beta.7
+    epitelete-html: 0.2.20-beta.8
     proskomma-core: 0.10.1
     react-to-print: ^2.14.12
     shorthash: ^0.0.2
@@ -2683,7 +2683,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: bcbf2caad8fce80a9f9d669e4f374157042119aa29a3971ac6d4a834bb26ee46677923749244b5f8bd648ce3df02658afa7f456ad9fed65f325e658b219e1025
+  checksum: 224c35aada9515a82aeef4a98a20de2fa03610fb401f13e61b71341a7774810ecad7c57b69919bedfaf4985c78bcad278cbc1f402ce75b95cad0a4a5f6f4120b
   languageName: node
   linkType: hard
 
@@ -5620,7 +5620,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"epitelete-html@npm:^0.2.20-beta.7":
+"epitelete-html@npm:0.2.20-beta.8":
   version: 0.2.20-beta.8
   resolution: "epitelete-html@npm:0.2.20-beta.8"
   dependencies:
@@ -5630,6 +5630,19 @@ __metadata:
     node-html-parser: ^5.3.3
     pure-uuid: ^1.6.3
   checksum: 0e15a3f89e8a6662ee5729ef87b51de8f0b37ea46810978073fcd6527425a1a2f59d75323f8a16f950a307647d3d642e39039177cea99a2db82a3ce38353bfab
+  languageName: node
+  linkType: hard
+
+"epitelete-html@npm:0.2.21-beta.2":
+  version: 0.2.21-beta.2
+  resolution: "epitelete-html@npm:0.2.21-beta.2"
+  dependencies:
+    "@babel/core": ^7.17.10
+    base-64: ^1.0.0
+    epitelete: ^0.2.20
+    node-html-parser: ^5.3.3
+    pure-uuid: ^1.6.3
+  checksum: 3e90654a653e177293a0897845e1c496d764c59329630003c5c8d65fb08c5b7654ded3a3aae1d1e4b56b99c50b38e4319dfbed9934a6ca58ca4d6155b34acae6
   languageName: node
   linkType: hard
 
@@ -6769,7 +6782,7 @@ __metadata:
     "@mui/material": ^5.10.6
     "@mui/styles": 5.10.10
     "@netlify/plugin-nextjs": 3.9.2
-    "@oce-editor-tools/pk": ^0.1.14
+    "@oce-editor-tools/pk": beta
     "@sendgrid/mail": ^7.7.0
     autoprefixer: ^10.4.7
     base-64: ^1.0.0
