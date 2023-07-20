@@ -9,6 +9,7 @@ import { AppContext } from '@context/AppContext'
 import React from 'react';
 import CircularProgress from './CircularProgress'
 import { saveToUserBranch } from '@utils/saveToUserBranch'
+import { Box } from '@mui/material'
 
 export default function ScriptureWorkspaceCard({
   id,
@@ -112,7 +113,8 @@ export default function ScriptureWorkspaceCard({
   }
 
   return (
-    <Card title={title}
+    <Card
+      title={title}
       classes={classes}
       hideMarkdownToggle={true}
       closeable={true}
@@ -120,30 +122,30 @@ export default function ScriptureWorkspaceCard({
       key={bookId}
       disableSettingsButton={true}
     >
-      {
-        // ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
-        data.usfmText
-        ?
-          <PkUsfmEditor key="1"
-            bookId={data.bookId}
-            repoIdStr={data.docset}
-            langIdStr={data.languageId}
-            usfmText={data.usfmText}
-            onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
-            editable={id.endsWith(owner) ? true : false}
-            reference={bibleReference}
-            onReferenceSelected={onReferenceSelected}
-          />
-        :
-        (
-          typeof data.content === "string"
-          ?
-          <div><h1>{data.content}</h1></div>
-          :
-          <CircularProgress/>
-        )
-
-      }
+      <Box sx={{ background: 'white' }}>
+        {
+          // ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
+          data.usfmText ? (
+            <PkUsfmEditor
+              key='1'
+              bookId={data.bookId}
+              repoIdStr={data.docset}
+              langIdStr={data.languageId}
+              usfmText={data.usfmText}
+              onSave={(bookCode, usfmText) => setDoSave(usfmText)}
+              editable={id.endsWith(owner) ? true : false}
+              reference={bibleReference}
+              onReferenceSelected={onReferenceSelected}
+            />
+          ) : typeof data.content === 'string' ? (
+            <div>
+              <h1>{data.content}</h1>
+            </div>
+          ) : (
+            <CircularProgress />
+          )
+        }
+      </Box>
     </Card>
   )
 }
