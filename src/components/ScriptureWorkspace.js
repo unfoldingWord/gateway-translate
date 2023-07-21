@@ -45,8 +45,8 @@ function ScriptureWorkspace() {
   const [idToClose, setIdToClose] = useState(null)
 
   const {
-    state: { books, hasOpenBook, ltStState },
-    actions: { setBooks, setHasOpenBook, setLtStState },
+    state: { books, hasOpenBook },
+    actions: { setBooks },
   } = useContext(AppContext)
 
   const { hasUnsavedData } = useUnsavedDataState( ) 
