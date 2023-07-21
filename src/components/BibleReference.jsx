@@ -35,7 +35,7 @@ function BibleReferenceComponent(props) {
 
   useEffect(() => {
     // update reference if all books are closed
-    const _enabled = (books?.length>0)
+    const _enabled = (books?.filter( b => b.showCard )?.length>0)
     if (enabled !== _enabled) {
       console.log("update books found")
       console.log(_enabled)
