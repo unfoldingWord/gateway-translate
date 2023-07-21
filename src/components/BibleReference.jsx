@@ -37,10 +37,14 @@ function BibleReferenceComponent(props) {
   useDeepEffect(() => {
     // update reference if all books are closed
     const _enabled = (books?.filter( b => b.showCard )?.length>0)
+    console.log(_enabled)
     if (enabled !== _enabled) {
       console.log("update books found")
       console.log(_enabled)
       setEnabled(_enabled)
+      if (_enabled) {
+        actions.goToBookChapterVerse(bookId, chapter, verse)
+      }
     }
   }, [books, enabled])
 
