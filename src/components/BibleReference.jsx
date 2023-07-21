@@ -3,6 +3,7 @@ import useEffect from 'use-deep-compare-effect'
 import BibleReference, { useBibleReference } from 'bible-reference-rcl'
 import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
+import useDeepEffect from 'use-deep-compare-effect'
 
 function BibleReferenceComponent(props) {
   const [enabled, setEnabled] = useState(false)
@@ -33,7 +34,7 @@ function BibleReferenceComponent(props) {
     }
   }, [actions, bookId, chapter, state.bookId, state.chapter, state.verse, verse])
 
-  useEffect(() => {
+  useDeepEffect(() => {
     // update reference if all books are closed
     const _enabled = (books?.filter( b => b.showCard )?.length>0)
     if (enabled !== _enabled) {
