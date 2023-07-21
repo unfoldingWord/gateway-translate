@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-//import useDeepEffect from 'use-deep-compare-effect';
+import useDeepEffect from 'use-deep-compare-effect';
 
 import { Workspace } from 'resource-workspace-rcl'
 import { makeStyles } from '@mui/styles'
@@ -46,8 +46,8 @@ function ScriptureWorkspace() {
   const [idToClose, setIdToClose] = useState(null)
 
   const {
-    state: { books, ltStState },
-    actions: { setBooks, setLtStState },
+    state: { books, hasOpenBook, ltStState },
+    actions: { setBooks, setHasOpenBook, setLtStState },
   } = useContext(AppContext)
 
   const { hasUnsavedData } = useUnsavedDataState( ) 
@@ -197,6 +197,20 @@ function ScriptureWorkspace() {
     } // eslint-disable-next-line
   }, [owner, languageId, appRef, server, loggedInUser])
 
+  useDeepEffect(() => {
+    // update reference if all books are closed
+    const _hasOpenBook = (books?.filter( b => b.showCard )?.length>0)
+    console.log(_hasOpenBook)
+    if (hasOpenBook !== _hasOpenBook) {
+      console.log("update books found")
+      console.log(_hasOpenBook)
+      setHasOpenBook(_hasOpenBook)
+      if (_hasOpenBook) {
+        actions.goToBookChapterVerse(bookId, chapter, verse)
+      }
+    }
+  }, [books, hasOpenBook, setHasOpenBook])
+
   const config = {
     server,
     ...HTTP_CONFIG,
@@ -208,7 +222,7 @@ function ScriptureWorkspace() {
       {showNetworkError()}
       <CircularProgress size={180} />
     </>
-  ) : !!books.filter( b => b.showCard).length ? (
+  ) : hasOpenBook ? (
     <>
       <Workspace
         layout={currentLayout}

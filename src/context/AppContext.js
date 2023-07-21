@@ -17,6 +17,7 @@ export default function AppContextProvider({
 }) {
 
   const [books, setBooks] = useState([])
+  const [hasOpenBook,setHasOpenBook] = useState(false)
   const [ltStState, setLtStState] = useState('')
   const [refresh, setRefresh] = useState(true)
   const [repoClient, setRepoClient] = useState(null)
@@ -187,12 +188,14 @@ export default function AppContextProvider({
   const context = {
     state: {
       books,
+      hasOpenBook,
       ltStState,
       repoClient,
       organizationClient,
     },
     actions: {
       setBooks: _setBooks,
+      setHasOpenBook,
       setLtStState,
     }
   };
