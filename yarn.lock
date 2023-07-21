@@ -2636,9 +2636,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/core@npm:^0.1.15-beta.1":
-  version: 0.1.15-beta.1
-  resolution: "@oce-editor-tools/core@npm:0.1.15-beta.1"
+"@oce-editor-tools/core@npm:^0.1.15-beta.2":
+  version: 0.1.15-beta.2
+  resolution: "@oce-editor-tools/core@npm:0.1.15-beta.2"
   dependencies:
     "@findr/mui": ^1.0.0-beta.17
     "@findr/react": ^1.0.0-beta.3
@@ -2658,15 +2658,15 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: fffc67de3885e48fc9cbc2accfbb34e8a2354e5f1c7506b9ceed7fefb59e8ec0ad161e62a0826918a63f348782494e3d1859a9275dcf2df830e000890380c087
+  checksum: c479aa19c42085e7aa65e8d69f4a4fe28239e86ca5d82d3dacf999117f61977165bdb99620451c7714b7c0ac5a35d41188f342d16dc7c56c8ee228c2757c3899
   languageName: node
   linkType: hard
 
 "@oce-editor-tools/pk@npm:beta":
-  version: 0.1.15-beta.1
-  resolution: "@oce-editor-tools/pk@npm:0.1.15-beta.1"
+  version: 0.1.15-beta.2
+  resolution: "@oce-editor-tools/pk@npm:0.1.15-beta.2"
   dependencies:
-    "@oce-editor-tools/core": ^0.1.15-beta.1
+    "@oce-editor-tools/core": ^0.1.15-beta.2
     "@xelah/type-perf-html": ^1.0.2
     dompurify: ^3.0.3
     epitelete-html: 0.2.20-beta.8
@@ -2683,7 +2683,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: 224c35aada9515a82aeef4a98a20de2fa03610fb401f13e61b71341a7774810ecad7c57b69919bedfaf4985c78bcad278cbc1f402ce75b95cad0a4a5f6f4120b
+  checksum: 607fc52636b1f1b5653149d560cf8edaefe8c09909bd2bcb892bab1c06fe8d542fd1118d1194ba6cea7581fb367046c9d9902160e998b26f92f7550c1140e801
   languageName: node
   linkType: hard
 
