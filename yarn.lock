@@ -2662,7 +2662,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/pk@npm:beta":
+"@oce-editor-tools/pk@npm:0.1.15-beta.2":
   version: 0.1.15-beta.2
   resolution: "@oce-editor-tools/pk@npm:0.1.15-beta.2"
   dependencies:
@@ -6782,7 +6782,7 @@ __metadata:
     "@mui/material": ^5.10.6
     "@mui/styles": 5.10.10
     "@netlify/plugin-nextjs": 3.9.2
-    "@oce-editor-tools/pk": beta
+    "@oce-editor-tools/pk": 0.1.15-beta.2
     "@sendgrid/mail": ^7.7.0
     autoprefixer: ^10.4.7
     base-64: ^1.0.0
