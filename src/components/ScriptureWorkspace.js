@@ -205,9 +205,6 @@ function ScriptureWorkspace() {
       console.log("update books found")
       console.log(_hasOpenBook)
       setHasOpenBook(_hasOpenBook)
-      if (_hasOpenBook) {
-        actions.goToBookChapterVerse(bookId, chapter, verse)
-      }
     }
   }, [books, hasOpenBook, setHasOpenBook])
 
