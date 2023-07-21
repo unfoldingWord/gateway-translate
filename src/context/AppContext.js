@@ -63,6 +63,8 @@ export default function AppContextProvider({
     // debugger
     const _trace = "AppContext.js/_setBooks()"
     console.log(_trace+":new value for books:", value)
+    const _hasOpenBook = (value?.filter( b => b.showCard )?.length>0)
+    setHasOpenBook(_hasOpenBook)
     setBooks(value)
     setRefresh(true)
     setCurrentLayout(null)
@@ -195,7 +197,6 @@ export default function AppContextProvider({
     },
     actions: {
       setBooks: _setBooks,
-      setHasOpenBook,
       setLtStState,
     }
   };

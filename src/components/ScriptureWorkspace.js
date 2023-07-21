@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react'
-import useDeepEffect from 'use-deep-compare-effect';
 
 import { Workspace } from 'resource-workspace-rcl'
 import { makeStyles } from '@mui/styles'
@@ -196,17 +195,6 @@ function ScriptureWorkspace() {
       setWorkspaceReady(true)
     } // eslint-disable-next-line
   }, [owner, languageId, appRef, server, loggedInUser])
-
-  useDeepEffect(() => {
-    // update reference if all books are closed
-    const _hasOpenBook = (books?.filter( b => b.showCard )?.length>0)
-    console.log(_hasOpenBook)
-    if (hasOpenBook !== _hasOpenBook) {
-      console.log("update books found")
-      console.log(_hasOpenBook)
-      setHasOpenBook(_hasOpenBook)
-    }
-  }, [books, hasOpenBook, setHasOpenBook])
 
   const config = {
     server,
