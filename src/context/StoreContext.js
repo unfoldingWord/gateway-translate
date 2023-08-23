@@ -4,6 +4,7 @@ import useLocalStorage from '@hooks/useLocalStorage'
 import * as useULS from '@hooks/useUserLocalStorage'
 import { AuthContext } from '@context/AuthContext'
 import useSaveChangesPrompt from '@hooks/useSaveChangesPrompt'
+import { useBibleReference } from 'bible-reference-rcl'
 
 export const StoreContext = createContext({})
 export default function StoreContextProvider(props) {
@@ -36,7 +37,8 @@ export default function StoreContextProvider(props) {
   // TODO blm: for now we use unfoldingWord for original language bibles
   const [scriptureOwner, setScriptureOwner] = useState('unfoldingWord')
   const [appRef, setAppRef] = useUserLocalStorage('appRef', 'master') // default for app
-  const [bibleReference, setBibleReference] = useUserLocalStorage(
+  let cacheBRef = {}
+  const [bibleReference, localSetBibleReference] = useUserLocalStorage(
     'bibleReference',
     {
       bookId: 'mat',
@@ -56,23 +58,41 @@ export default function StoreContextProvider(props) {
     null
   )
 
+  const onBibleRefUIChange = (bId, ch, v) => {
+    console.log(`\n### Reference changed to ${bId} - ${ch}:${v}\n\n`);
+    const bRefId = "BibleRef"
+    if (cacheBRef 
+      && (cacheBRef?.bookId?.toUpperCase() === bId?.toUpperCase())
+      && (cacheBRef.chapter === ch) 
+      && (cacheBRef.verse === v)) { // suppress cached external updates
+        cacheBRef = {}
+    } else if ((bibleReference?.bookId !== bId?.toUpperCase()) 
+      || (bibleReference.chapter !== ch) 
+      || (bibleReference.verse !== v)) { // Do not re-trigger new events
+        localSetBibleReference({ sourceId: bRefId, bookId: bId.toUpperCase(), chapter: ch, verse: v })
+    }
+  }
+
+  const { state: bRefState, actions: bRefActions } = useBibleReference({
+    initialBook: 'mat',
+    initialChapter: '1',
+    initialVerse: '1',
+    onChange: (bId, ch, v) => onBibleRefUIChange(bId, ch, v),
+    // onPreChange: () => checkUnsavedChanges(),
+    onPreChange: (bId, ch, v, p4) => true,
+  })
+
+  const setBibleReference = (obj) => {
+    cacheBRef = obj // suppress cached external updates
+    localSetBibleReference(obj)
+  }
+
   const {
     savedChanges,
     setSavedChanges,
     checkUnsavedChanges,
     showSaveChangesPrompt,
   } = useSaveChangesPrompt()
-
-  function onReferenceChange(bookId, chapter, verse, sourceId) {
-    setQuote(null)
-    setBibleReference(prevState => ({
-      ...prevState,
-      sourceId,
-      bookId,
-      chapter,
-      verse,
-    }))
-  }
 
   function updateTaDetails(supportReference) {
     if (typeof supportReference === 'string') {
@@ -113,9 +133,9 @@ export default function StoreContextProvider(props) {
     },
     actions: {
       logout,
-      onReferenceChange,
       setShowAccountSetup,
       setScriptureOwner,
+      setBibleReference,
       setLanguageId,
       setAppRef,
       setServer,
@@ -132,7 +152,10 @@ export default function StoreContextProvider(props) {
       setSavedChanges,
       checkUnsavedChanges,
       showSaveChangesPrompt,
+      
     },
+    bRefState,
+    bRefActions
   }
 
   return (

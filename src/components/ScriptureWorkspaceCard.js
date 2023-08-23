@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useCallback } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Card } from 'translation-helps-rcl'
 import { PkUsfmEditor } from '@oce-editor-tools/pk'
@@ -27,25 +27,21 @@ export default function ScriptureWorkspaceCard({
     },
   } = useContext(AuthContext)
 
-  const {
+   const {
     state: {
       owner,
       bibleReference,
     },
     actions: {
-      onReferenceChange,
-    }
+      setBibleReference,
+    },
+    bRefActions
   } = useContext(StoreContext)
 
-  const bcvSyncRef = {
-    bookId: bookId.toLowerCase(),
-    chapter: Number(bibleReference.chapter),
-    verse: Number(bibleReference.verse),
-  }
-
-  const onReferenceSelected = ({sourceId, bookId: bookIdFromEditor, chapter, verse}) => {
+  const onRefSelectClick = ({sourceId, bookId: bookIdFromEditor, chapter, verse}) => {
     const normalizedBookId = (bookIdFromEditor || bookId).toLowerCase()
-    onReferenceChange(normalizedBookId, chapter.toString(), verse.toString(), sourceId)
+    setBibleReference({ sourceId, bookId, chapter, verse })
+    bRefActions.goToBookChapterVerse(bookId.toLowerCase(), chapter.toString(), verse.toString())
   }
 
   const {
@@ -95,13 +91,6 @@ export default function ScriptureWorkspaceCard({
     }
   }, [doSave, books, setBooks, id, data, owner, ep, authentication, repoClient, bookId])
 
-  // const editorProps = {
-  //   onSave: (bookCode,usfmText) => setDoSave(usfmText),
-  //   docSetId,
-  //   // usfmText: data.usfmText,
-  //   bookId: data.bookId,
-  // }
-
   let title = '';
   if ( BIBLE_AND_OBS[bookId.toLowerCase()] ) {
     title += BIBLE_AND_OBS[bookId.toLowerCase()];
@@ -134,8 +123,8 @@ export default function ScriptureWorkspaceCard({
               usfmText={data.usfmText}
               onSave={(bookCode, usfmText) => setDoSave(usfmText)}
               editable={id.endsWith(owner) ? true : false}
-              bcvSyncRef={bibleReference}
-              onReferenceSelected={onReferenceSelected}
+              reference={bibleReference}
+              onReferenceSelected={onRefSelectClick}
             />
           ) : typeof data.content === 'string' ? (
             <div>

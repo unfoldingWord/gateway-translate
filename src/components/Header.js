@@ -16,7 +16,7 @@ import { StoreContext } from '@context/StoreContext'
 import { AppContext } from '@context/AppContext'
 import FeedbackPopup from '@components/FeedbackPopup'
 import SelectBookPopup from './SelectBookPopup'
-import BibleReference from './BibleReference'
+import BibleReference from 'bible-reference-rcl'
 import { Box } from '@mui/material'
 
 const sx = {
@@ -60,6 +60,8 @@ export default function Header({
   const {
     state: { owner },
     actions: { checkUnsavedChanges },
+    bRefState,
+    bRefActions,
   } = useContext(StoreContext)
   const {
     state: { books },
@@ -209,7 +211,11 @@ export default function Header({
           </div>
           <div className='flex flex-1 justify-center items-center'>
             {user && owner && router.pathname === '/' && (
-              <BibleReference />
+              <BibleReference 
+                status={bRefState}
+                actions={bRefActions}
+                style={{ color: '#ffffff' }}        
+              />
             )}
           </div>
           <>
