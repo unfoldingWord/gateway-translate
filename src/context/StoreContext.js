@@ -5,6 +5,7 @@ import * as useULS from '@hooks/useUserLocalStorage'
 import { AuthContext } from '@context/AuthContext'
 import useSaveChangesPrompt from '@hooks/useSaveChangesPrompt'
 import { useBibleReference } from 'bible-reference-rcl'
+import { FIRST_NT_BIBLEBOOK } from '@common/constants'
 
 export const StoreContext = createContext({})
 export default function StoreContextProvider(props) {
@@ -41,7 +42,7 @@ export default function StoreContextProvider(props) {
   const [bibleReference, localSetBibleReference] = useUserLocalStorage(
     'bibleReference',
     {
-      bookId: 'mat',
+      bookId: FIRST_NT_BIBLEBOOK,
       chapter: '1',
       verse: '1',
     }
@@ -59,7 +60,6 @@ export default function StoreContextProvider(props) {
   )
 
   const onBibleRefUIChange = (bId, ch, v) => {
-    console.log(`\n### Reference changed to ${bId} - ${ch}:${v}\n\n`);
     const bRefId = "BibleRef"
     if (cacheBRef 
       && (cacheBRef?.bookId?.toUpperCase() === bId?.toUpperCase())
@@ -74,7 +74,7 @@ export default function StoreContextProvider(props) {
   }
 
   const { state: bRefState, actions: bRefActions } = useBibleReference({
-    initialBook: 'mat',
+    initialBook: FIRST_NT_BIBLEBOOK,
     initialChapter: '1',
     initialVerse: '1',
     onChange: (bId, ch, v) => onBibleRefUIChange(bId, ch, v),
