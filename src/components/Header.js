@@ -64,7 +64,7 @@ export default function Header({
     bRefActions,
   } = useContext(StoreContext)
   const {
-    state: { books },
+    state: { books, hasOpenBook },
     actions: { setBooks, setLtStState },
   } = useContext(AppContext)
   const handleDrawerOpen = () => {
@@ -219,7 +219,7 @@ export default function Header({
             )}
           </div>
           <>
-            {user && owner && router.pathname === '/' && (
+            {user && owner && router.pathname === '/' && hasOpenBook && (
               <div className='flex flex-1 justify-end'>
               <Fab
                 color='primary'
