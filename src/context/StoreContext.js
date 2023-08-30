@@ -96,6 +96,7 @@ export default function StoreContextProvider(props) {
       _bibleRef.chapter = "1"
       _bibleRef.verse = "1"
     }
+    bRefActions.applyBooksFilter([bId?.toLowerCase()])
     bRefActions.goToBookChapterVerse(bId?.toLowerCase(), _bibleRef?.chapter?.toString(), _bibleRef?.verse?.toString())
     setBibleReference(_bibleRef)
   }
