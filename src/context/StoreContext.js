@@ -97,7 +97,6 @@ export default function StoreContextProvider(props) {
       _bibleRef.verse = "1"
     }
     bRefActions.goToBookChapterVerse(bId?.toLowerCase(), _bibleRef?.chapter?.toString(), _bibleRef?.verse?.toString())
-    console.log(_bibleRef)
     setBibleReference(_bibleRef)
   }
 
