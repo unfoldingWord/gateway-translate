@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useCallback } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Card } from 'translation-helps-rcl'
 import { PkUsfmEditor } from '@oce-editor-tools/pk'
@@ -9,6 +9,7 @@ import { AppContext } from '@context/AppContext'
 import React from 'react';
 import CircularProgress from './CircularProgress'
 import { saveToUserBranch } from '@utils/saveToUserBranch'
+import { Box } from '@mui/material'
 
 export default function ScriptureWorkspaceCard({
   id,
@@ -26,25 +27,21 @@ export default function ScriptureWorkspaceCard({
     },
   } = useContext(AuthContext)
 
-  const {
+   const {
     state: {
       owner,
       bibleReference,
     },
     actions: {
-      onReferenceChange,
-    }
+      setBibleReference,
+    },
+    bRefActions
   } = useContext(StoreContext)
 
-  const activeReference = {
-    bookId: bookId.toLowerCase(),
-    chapter: Number(bibleReference.chapter),
-    verse: Number(bibleReference.verse),
-  }
-
-  const onReferenceSelected = ({bookIdFromEditor, chapter, verse}) => {
+  const onRefSelectClick = ({sourceId, bookId: bookIdFromEditor, chapter, verse}) => {
     const normalizedBookId = (bookIdFromEditor || bookId).toLowerCase()
-    onReferenceChange(normalizedBookId, chapter.toString(), verse.toString())
+    setBibleReference({ sourceId, bookId, chapter, verse })
+    bRefActions.goToBookChapterVerse(bookId.toLowerCase(), chapter.toString(), verse.toString())
   }
 
   const {
@@ -94,13 +91,6 @@ export default function ScriptureWorkspaceCard({
     }
   }, [doSave, books, setBooks, id, data, owner, ep, authentication, repoClient, bookId])
 
-  // const editorProps = {
-  //   onSave: (bookCode,usfmText) => setDoSave(usfmText),
-  //   docSetId,
-  //   // usfmText: data.usfmText,
-  //   bookId: data.bookId,
-  // }
-
   let title = '';
   if ( BIBLE_AND_OBS[bookId.toLowerCase()] ) {
     title += BIBLE_AND_OBS[bookId.toLowerCase()];
@@ -112,7 +102,8 @@ export default function ScriptureWorkspaceCard({
   }
 
   return (
-    <Card title={title}
+    <Card
+      title={title}
       classes={classes}
       hideMarkdownToggle={true}
       closeable={true}
@@ -120,32 +111,30 @@ export default function ScriptureWorkspaceCard({
       key={bookId}
       disableSettingsButton={true}
     >
-      {
-        // ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
-        data.usfmText
-        ?
-          <PkUsfmEditor key="1"
-            bookId={data.bookId}
-            repoIdStr={data.docset}
-            langIdStr={data.languageId}
-            usfmText={data.usfmText}
-            onSave={ (bookCode,usfmText) => setDoSave(usfmText) }
-            editable={id.endsWith(owner) ? true : false}
-            // commenting out this code for v0.9
-            // see issue 152
-            // activeReference={bibleReference}
-            // onReferenceSelected={onReferenceSelected}
-          />
-        :
-        (
-          typeof data.content === "string"
-          ?
-          <div><h1>{data.content}</h1></div>
-          :
-          <CircularProgress/>
-        )
-
-      }
+      <Box sx={{ background: 'white' }}>
+        {
+          // ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
+          data.usfmText ? (
+            <PkUsfmEditor
+              key='1'
+              bookId={data.bookId}
+              repoIdStr={data.docset}
+              langIdStr={data.languageId}
+              usfmText={data.usfmText}
+              onSave={(bookCode, usfmText) => setDoSave(usfmText)}
+              editable={id.endsWith(owner) ? true : false}
+              reference={bibleReference}
+              onReferenceSelected={onRefSelectClick}
+            />
+          ) : typeof data.content === 'string' ? (
+            <div>
+              <h1>{data.content}</h1>
+            </div>
+          ) : (
+            <CircularProgress />
+          )
+        }
+      </Box>
     </Card>
   )
 }

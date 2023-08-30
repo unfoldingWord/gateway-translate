@@ -4,7 +4,6 @@ import React, {
 import PropTypes from 'prop-types'
 import Paper from 'translation-helps-rcl/dist/components/Paper'
 import FormControl from '@mui/material/FormControl'
-import { makeStyles } from '@mui/styles'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
@@ -29,18 +28,17 @@ import { AuthContext } from '@context/AuthContext'
 import NetworkErrorPopup from '@components/NetworkErrorPopUp'
 import CircularProgress from './CircularProgress'
 
-const useStyles = makeStyles(theme => ({
+const sx = {
   formControl: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
+    marginTop: (theme) => theme.spacing(3),
+    marginBottom: (theme) => theme.spacing(3),
     minWidth: '100%',
   },
-}))
+}
 
 export default function TranslationSettings({ authentication }) {
   const router = useRouter()
   const { actions: { logout } } = useContext(AuthContext)
-  const classes = useStyles()
   const [organizations, setOrganizations] = useState([])
   const [orgErrorMessage, setOrgErrorMessage] = useState(null)
   const [languages, setLanguages] = useState([])
@@ -150,7 +148,7 @@ export default function TranslationSettings({ authentication }) {
         <Paper className='flex flex-col h-80 w-full p-6 pt-3 my-2'>
           <h5>Translation Settings</h5>
           <div className='flex flex-col justify-between my-4'>
-            <FormControl variant='outlined' className={classes.formControl} error={!!orgErrorMessage}>
+            <FormControl variant='outlined' sx={sx.formControl} error={!!orgErrorMessage}>
               <InputLabel id='demo-simple-select-outlined-label'>
                 Organization
               </InputLabel>
@@ -170,7 +168,7 @@ export default function TranslationSettings({ authentication }) {
               <FormHelperText id='organization-select-message'>{orgErrorMessage}</FormHelperText>
             </FormControl>
             <br />
-            <FormControl variant='outlined' className={classes.formControl}>
+            <FormControl variant='outlined' sx={sx.formControl}>
               <InputLabel id='demo-simple-select-outlined-label'>
                 Primary Translating Language
               </InputLabel>

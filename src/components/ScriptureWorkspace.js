@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react'
-//import useDeepEffect from 'use-deep-compare-effect';
 
 import { Workspace } from 'resource-workspace-rcl'
 import { makeStyles } from '@mui/styles'
@@ -46,8 +45,8 @@ function ScriptureWorkspace() {
   const [idToClose, setIdToClose] = useState(null)
 
   const {
-    state: { books, ltStState },
-    actions: { setBooks, setLtStState },
+    state: { books, hasOpenBook },
+    actions: { setBooks },
   } = useContext(AppContext)
 
   const { hasUnsavedData } = useUnsavedDataState( ) 
@@ -208,7 +207,7 @@ function ScriptureWorkspace() {
       {showNetworkError()}
       <CircularProgress size={180} />
     </>
-  ) : !!books.filter( b => b.showCard).length ? (
+  ) : hasOpenBook ? (
     <>
       <Workspace
         layout={currentLayout}
