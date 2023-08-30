@@ -102,6 +102,7 @@ export default function ScriptureWorkspaceCard({
     title += " (" + id.substr(4) + ")"
   }
 
+  console.log(data)
   return (
     <Card
       title={title}
