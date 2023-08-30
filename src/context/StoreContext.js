@@ -87,6 +87,20 @@ export default function StoreContextProvider(props) {
     localSetBibleReference(obj)
   }
 
+  const setNewBibleBook = (bId) => {
+    const newBibleBookSourceId = "new-Biblebook"
+    const _bibleRef = bibleReference
+    _bibleRef.sourceId = newBibleBookSourceId
+    if (_bibleRef?.bookId?.toUpperCase() !== bId?.toUpperCase()) {
+      _bibleRef.bookId = bId?.toUpperCase()
+      _bibleRef.chapter = "1"
+      _bibleRef.verse = "1"
+    }
+    console.log(_bibleRef)
+    bRefActions.goToBookChapterVerse(bId?.toLowerCase(), _bibleRef?.chapter?.toString(), _bibleRef?.verse?.toString())
+    setBibleReference(_bibleRef)
+  }
+
   const {
     savedChanges,
     setSavedChanges,
@@ -136,6 +150,7 @@ export default function StoreContextProvider(props) {
       setShowAccountSetup,
       setScriptureOwner,
       setBibleReference,
+      setNewBibleBook,
       setLanguageId,
       setAppRef,
       setServer,
