@@ -110,7 +110,7 @@ export default function ScriptureWorkspaceCard({
       hideMarkdownToggle={true}
       closeable={true}
       onClose={() => removeBook(id)}
-      key={bookId}
+      key={data.id}
       disableSettingsButton={true}
     >
       <Box sx={{ background: 'white' }}>
@@ -118,7 +118,6 @@ export default function ScriptureWorkspaceCard({
           // ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
           data.usfmText ? (
             <PkUsfmEditor
-              key='1'
               bookId={data.bookId}
               repoIdStr={data.docset}
               langIdStr={data.languageId}

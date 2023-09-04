@@ -2627,9 +2627,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/core@npm:^0.1.15-beta.3":
-  version: 0.1.15-beta.3
-  resolution: "@oce-editor-tools/core@npm:0.1.15-beta.3"
+"@oce-editor-tools/core@npm:^0.1.16":
+  version: 0.1.16
+  resolution: "@oce-editor-tools/core@npm:0.1.16"
   dependencies:
     "@findr/mui": ^1.0.0-beta.17
     "@findr/react": ^1.0.0-beta.3
@@ -2649,16 +2649,17 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: 6c25ad853313f07ee1392f71693b99432f46fafef76f041d40b476cd5a390ca9e72cf5056e42481572f34609a70e77db612ee00e56395db345eaabe6b1b662d9
+  checksum: e5d65fd77feb7fb71511871cd79bd2563354ad77e48769790a8e6195ae09535bf1802396d63dbbe3ee31d63ff4d19180ca5c547ea517e8edb02d1f3eb7529156
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/pk@npm:0.1.15-beta.3":
-  version: 0.1.15-beta.3
-  resolution: "@oce-editor-tools/pk@npm:0.1.15-beta.3"
+"@oce-editor-tools/pk@npm:0.1.16":
+  version: 0.1.16
+  resolution: "@oce-editor-tools/pk@npm:0.1.16"
   dependencies:
-    "@oce-editor-tools/core": ^0.1.15-beta.3
+    "@oce-editor-tools/core": ^0.1.16
     "@xelah/type-perf-html": ^1.0.2
+    bible-reference-rcl: ^1.2.2
     dompurify: ^3.0.3
     epitelete-html: 0.2.21-beta.2
     proskomma-core: 0.10.1
@@ -2674,7 +2675,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: 9e016bc1ae93adcded9f6e22415caf62ddead7668de589e7bb0a7ffb3cfe858b9672e084137a0e91220c4463cf4541cef2df7a279cf581d9e4c431f57e5f1560
+  checksum: b3eb6bf7b0efb627c3d2f087303bbab2abbd00f1541ccb627d16f3eb2f31f037d27f8b5ab28bea824642b498d9119dafdc849a031fdcbddf72543124186cc715
   languageName: node
   linkType: hard
 
@@ -3794,7 +3795,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bible-reference-rcl@npm:^1.1.0":
+"bible-reference-rcl@npm:^1.1.0, bible-reference-rcl@npm:^1.2.2":
   version: 1.2.2
   resolution: "bible-reference-rcl@npm:1.2.2"
   dependencies:
@@ -6760,7 +6761,7 @@ __metadata:
     "@mui/material": ^5.10.6
     "@mui/styles": 5.10.10
     "@netlify/plugin-nextjs": 3.9.2
-    "@oce-editor-tools/pk": 0.1.15-beta.3
+    "@oce-editor-tools/pk": 0.1.16
     "@sendgrid/mail": ^7.7.0
     autoprefixer: ^10.4.7
     base-64: ^1.0.0

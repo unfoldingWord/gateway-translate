@@ -70,22 +70,22 @@ export default function Application({ Component, pageProps }) {
   return (
     <div>
       <NonSSRWrapper>
-      <ThemeProvider theme={theme}>
-      <AppHead title={APP_NAME} />
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <AuthContextProvider>
-          <StoreContextProvider>
-              <PkCacheProvider>
+        <ThemeProvider theme={theme}>
+          <AppHead title={APP_NAME} />
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <AuthContextProvider>
+            <PkCacheProvider>
+              <StoreContextProvider>
                 <AppContextProvider>
                   <Layout>
                     <Component {...pageProps} />
                   </Layout>
-                  </AppContextProvider>
-              </PkCacheProvider>
-          </StoreContextProvider>
-        </AuthContextProvider>
-      </ThemeProvider>
+                </AppContextProvider>
+              </StoreContextProvider>
+            </PkCacheProvider>
+          </AuthContextProvider>
+        </ThemeProvider>
       </NonSSRWrapper>
     </div>
   )
