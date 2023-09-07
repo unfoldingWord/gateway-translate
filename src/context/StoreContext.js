@@ -87,8 +87,11 @@ export default function StoreContextProvider(props) {
     localSetBibleReference(obj)
   }
 
-  const setNewBibleBook = (bId) => {
-    const newBibleBookSourceId = "new-Biblebook"
+  // This changes the bibleReference and set it to the first chapter and verse 
+  // of a new Bible book (bId)
+  const setNewBibleBook = (bId) => { 
+    // This (somewhat meaningful) below ID string is used as a means to differentiate changes coming from editor panes, which are calculated unique IDs
+    const newBibleBookSourceId = "new-Biblebook" 
     const _bibleRef = bibleReference
     _bibleRef.sourceId = newBibleBookSourceId
     if (_bibleRef?.bookId?.toUpperCase() !== bId?.toUpperCase()) {
