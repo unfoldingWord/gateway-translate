@@ -41,8 +41,8 @@ export default function ScriptureWorkspaceCard({
   const onRefSelectClick = ({sourceId, bookId: bookIdFromEditor, chapter, verse}) => {
     const normalizedBookId = (bookIdFromEditor || bookId).toLowerCase()
     setBibleReference({ sourceId, bookId, chapter, verse })
-    bRefActions.applyBooksFilter([bookId?.toLowerCase()])
-    bRefActions.goToBookChapterVerse(bookId?.toLowerCase(), chapter?.toString(), verse?.toString())
+    bRefActions.applyBooksFilter([normalizedBookId])
+    bRefActions.goToBookChapterVerse(normalizedBookId, chapter?.toString(), verse?.toString())
   }
 
   const {
@@ -102,7 +102,6 @@ export default function ScriptureWorkspaceCard({
     title += " (" + id.substr(4) + ")"
   }
 
-  console.log(data)
   return (
     <Card
       title={title}
