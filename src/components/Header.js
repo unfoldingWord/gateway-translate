@@ -175,15 +175,12 @@ export default function Header({
     }
     setNewBibleBook(_entry.bookId)
     if ( found > -1 ) {
-      console.log(_trace+": book already loaded:", _entry.id)
       if ( showCardChange ) {
-        console.log(_trace+": showCard change")
         setBooks(_books) // update to reflect change above
       } else {
         setAlreadyOpenNotice(true)
       }
     } else {
-      console.log(_trace+": adding book:", _entry.id)
       _books.push(_entry)
       setBooks(_books)
     }
