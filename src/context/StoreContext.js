@@ -97,6 +97,11 @@ export default function StoreContextProvider(props) {
       * How is the sourceId generated?
       * If you're manually setting the sourceId here will this sourceId be updated in the future?
       * Does this ID need to be unique (what happens if this hook is called multiple times?)
+
+      Lars: 
+        The sourceId is for other cases generated for each Edito Pane, each having
+        its own unique ID. In this case there is a need to have a manually
+        unique ID, different from the automatically generated unique IDs
     */
     const newBibleBookSourceId = "new-Biblebook" 
     /*
@@ -112,8 +117,12 @@ export default function StoreContextProvider(props) {
       _bibleRef.chapter = "1"
       _bibleRef.verse = "1"
     }
-    // See discussion here:
-    // https://github.com/unfoldingWord/gateway-translate/pull/197#discussion_r1318956950
+    /* 
+      Lars:
+      bibleReference is a React state variable, which can only be set through setBibleReference.
+      - in _bibleReference each key can be set directly
+      - and at the end setBibleReference is called
+    */
     bRefActions.applyBooksFilter([bId?.toLowerCase()])
     /*
       Noah:
@@ -157,6 +166,19 @@ export default function StoreContextProvider(props) {
 
         PS: I realize I'm being a bit preachy and long winded here but I think this note could
         be useful for other team members.
+
+      Lars:
+        As already mentioned, the RCL is bible-reference-rcl and I would very much like to have 
+        that RCL refactored and including what you mention here above.
+        Right now we need to get gT to QA and also I don't think that gT would be the right place
+        to implement this.
+
+        I actually also do not know how to add this as an issue to bible-reference-rcl, in such 
+        a way that it later on will be seen and dealt with. But I think that is what you could do.
+        Seems good to mention this at next stand-up.
+
+        As for now, I suggest we leave gT with such additional (maybe unneeded) safe-guarding
+
     */
     bRefActions.goToBookChapterVerse(bId?.toLowerCase(), _bibleRef?.chapter?.toString(), _bibleRef?.verse?.toString())
     setBibleReference(_bibleRef)
