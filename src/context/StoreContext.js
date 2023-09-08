@@ -99,6 +99,8 @@ export default function StoreContextProvider(props) {
       _bibleRef.chapter = "1"
       _bibleRef.verse = "1"
     }
+    // See discussion here:
+    // https://github.com/unfoldingWord/gateway-translate/pull/197#discussion_r1318956950
     bRefActions.applyBooksFilter([bId?.toLowerCase()])
     bRefActions.goToBookChapterVerse(bId?.toLowerCase(), _bibleRef?.chapter?.toString(), _bibleRef?.verse?.toString())
     setBibleReference(_bibleRef)
