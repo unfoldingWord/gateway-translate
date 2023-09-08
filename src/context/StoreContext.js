@@ -108,26 +108,6 @@ export default function StoreContextProvider(props) {
         What's the need you speak of here?
     */
     const newBibleBookSourceId = "new-Biblebook" 
-    /*
-      Noah: `_bibleRef` is only creating a soft copy of bibleReference in which
-      code below will modify both _bibleRef and bibleReference.
-      Is that what you intended to do? If so could we remove the
-      _bibleRef variable and use bibleReference instead to make this more apparent?
-
-      Lars:
-      bibleReference is a React state variable, which can only be set through setBibleReference.
-      - in _bibleReference each key can be set directly
-      - and at the end setBibleReference is called
-
-      Noah: 
-        According to https://react.dev/learn/updating-objects-in-state#copying-objects-with-the-spread-syntax
-        we should be creating a copy of bibleReference.
-
-        const _bibleRef = bibleReference
-
-        is only creating a pointer copy of bibleReference.
-        @Lars could you run a test on this?
-    */
     const _bibleRef = {...bibleReference}
     _bibleRef.sourceId = newBibleBookSourceId
     if (_bibleRef?.bookId?.toUpperCase() !== bId?.toUpperCase()) {
