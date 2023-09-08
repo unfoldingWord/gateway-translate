@@ -55,6 +55,16 @@ export default function ScriptureWorkspaceCard({
     const normalizedBookId = (bookIdFromEditor || bookId).toLowerCase()
     setBibleReference({ sourceId, bookId, chapter, verse })
     bRefActions.applyBooksFilter([normalizedBookId])
+    /*
+      Noah:
+        See my comment in src/context/StoreContext.js about `chapter?.toString()`.
+
+        We're repeating ourselves here... and so I'd like to submit this as evidence
+        to strengthen the case I am making in that comment.
+
+        This is also a great place to maybe do a small refactor across the app (if not
+        now then at least we have this comment).
+    */
     bRefActions.goToBookChapterVerse(normalizedBookId, chapter?.toString(), verse?.toString())
   }
 
