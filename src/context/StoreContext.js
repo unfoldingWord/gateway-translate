@@ -1,3 +1,9 @@
+/**
+@module
+@description
+This module is used to create and manage global state for the application.
+*/
+
 import React, { createContext, useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import useLocalStorage from '@hooks/useLocalStorage'
@@ -87,22 +93,19 @@ export default function StoreContextProvider(props) {
     localSetBibleReference(obj)
   }
 
-  // This changes the bibleReference and set it to the first chapter and verse 
-  // of a new Bible book (bId)
-  //Noah: is the the bibleReference of the entire app or just a particular card/editor pane?
-  // Lars: Since this is in the StoreContext, yes, this is valid for the whole app
+  /* 
+    This changes the bibleReference (reminder: there's only one for the entire application) 
+    and sets it to the first chapter and verse of a new Bible book (bId).
+  */
   const setNewBibleBook = (bId) => { 
-    // This (somewhat meaningful) below ID string is used as a means to differentiate changes coming from editor panes, which are calculated unique IDs
     /*
-      Noah: I'm not sure I follow; I have a few more questions:
-      * How is the sourceId generated?
-      * If you're manually setting the sourceId here will this sourceId be updated in the future?
-      * Does this ID need to be unique (what happens if this hook is called multiple times?)
-
-      Lars: 
-        The sourceId is for other cases generated for each Edito Pane, each having
-        its own unique ID. In this case there is a need to have a manually
+      Lars (cleaned up by Noah):
+        The bibleReference.sourceId is for other cases generated for each editor pane, each having
+        its own unique ID. For setNewBibleBook to work there is a need to have a manually
         unique ID, different from the automatically generated unique IDs
+
+      Noah:
+        What's the need you speak of here?
     */
     const newBibleBookSourceId = "new-Biblebook" 
     /*
