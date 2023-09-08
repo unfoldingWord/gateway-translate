@@ -137,60 +137,11 @@ export default function StoreContextProvider(props) {
     }
     bRefActions.applyBooksFilter([bId?.toLowerCase()])
     /*
-      Noah:
-        Can we get rid of .toString() since it seems redundant?
-
-      Lars:
-        Since we are using an RCL here, which I have not taken the time to improve,
-        we have had errors happening, due to chapter and verse not having the right
-        type. So this here is just safeguarding against this - due to that chapter and
-        verse might be coming in through the current bibleReference state. In other
-        words, until the bible-reference-rcl has ben fixed (the right place to safe
-        guard), then I prefer to safe guard here - based on previous experience...
-
-      Noah:
-        Which RCL are you referring to? translation-helps-rcl?
-
-        What are the other possible values could chapter be? My main concern here
-        is that, for example chapter, could be null (as per the ? syntax) in which
-        case does goToBookChapterVerse have well defined behavior for every combination
-        of arguments:
-
-          goToBookChapterVerse(null, null, null)
-          goToBookChapterVerse(<some-id>, null, null)
-          goToBookChapterVerse(<some-id>, object, null)
-          ...
-
-        So even having `chapter?.toString()` only solves the problem where chapter could be
-        a String object (and maybe not even a valid chapter string, e.g: "adf")
-
-        I would suggest writing a parser (I'll explain below) for the _bibleRef data. Said parser
-        should be written as close to where that data is being fetched and any assumptions
-        about what to do when data is missing etc. should be handled there.
-
-        By a parser I don't mean a parser that parses from a string but from any "raw" data (e.g
-        JSON returned from an API call etc.). The idea is that instead of validating data further
-        down the call chain, you parse the data for all the assumptions the code needs to make
-        and then at points like this you only need to thread the valid data around.
-        There's a great article on this[^1].
-
-        [^1]: https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/
-
-        PS: I realize I'm being a bit preachy and long winded here but I think this note could
-        be useful for other team members.
-
-      Lars:
-        As already mentioned, the RCL is bible-reference-rcl and I would very much like to have 
-        that RCL refactored and including what you mention here above.
-        Right now we need to get gT to QA and also I don't think that gT would be the right place
-        to implement this.
-
-        I actually also do not know how to add this as an issue to bible-reference-rcl, in such 
-        a way that it later on will be seen and dealt with. But I think that is what you could do.
-        Seems good to mention this at next stand-up.
-
-        As for now, I suggest we leave gT with such additional (maybe unneeded) safe-guarding
-
+      TODO:
+        bible-reference-rcl is where the code exists for constructing the bibleReference data.
+        And we need to add parsing that data so that gT and other apps don't have to manually
+        perfom runtime checks everytime they wish to consume a bibleReference. For now, however,
+        we are left to such hacks as .toString(). 
     */
     bRefActions.goToBookChapterVerse(bId?.toLowerCase(), _bibleRef?.chapter?.toString(), _bibleRef?.verse?.toString())
     setBibleReference(_bibleRef)
