@@ -106,6 +106,14 @@ export default function StoreContextProvider(props) {
 
       Noah:
         What's the need you speak of here?
+
+      Lars:
+        There is quite a bit of "hidden" communication going on, by using this sourceId 
+        - this makes it possible to filter out what bcvReference change to ignore and which to act on.
+        This is needed in three or more places, for example in two or more Editor panes
+        when they are dealing with the same Bible book + adjusting the Bible navigation UI
+        in the app bar. All of these have to filter in different ways in order for all of 
+        this to be intuitive to use. Such filtering is often based on this sourceId.
     */
     const newBibleBookSourceId = "new-Biblebook" 
     const _bibleRef = {...bibleReference}
