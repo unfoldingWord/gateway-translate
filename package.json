@@ -1,6 +1,6 @@
 {
   "name": "gateway-translate",
-  "version": "0.9.2",
+  "version": "1.0-alpha.1",
   "engines": {
     "node": "16"
   },
