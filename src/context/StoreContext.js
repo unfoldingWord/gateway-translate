@@ -90,6 +90,7 @@ export default function StoreContextProvider(props) {
   // This changes the bibleReference and set it to the first chapter and verse 
   // of a new Bible book (bId)
   //Noah: is the the bibleReference of the entire app or just a particular card/editor pane?
+  // Lars: Since this is in the StoreContext, yes, this is valid for the whole app
   const setNewBibleBook = (bId) => { 
     // This (somewhat meaningful) below ID string is used as a means to differentiate changes coming from editor panes, which are calculated unique IDs
     /*
