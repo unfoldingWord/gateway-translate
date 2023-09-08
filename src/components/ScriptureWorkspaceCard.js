@@ -14,6 +14,19 @@ import { Box } from '@mui/material'
 export default function ScriptureWorkspaceCard({
   id,
   bookId,
+  /*
+    Noah:
+      I'm being kinda picky here. `data` is a very ambiguous variable name
+      and as I'm new to the code base it makes it really hard to understand
+      the code here. I understand renaming the variable would be out of
+      scope here (this would break this functions API), but would we either:
+
+        - alias its name using `{a: aAlias}` syntax
+        - use a `const <better-name> = data` at the top of this function.
+
+      Either way, at least the locally scoped `data` references would be renamed
+      so I can follow the code.
+  */
   data,
   classes,
   onClose: removeBook,
