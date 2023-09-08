@@ -110,6 +110,11 @@ export default function StoreContextProvider(props) {
       code below will modify both _bibleRef and bibleReference.
       Is that what you intended to do? If so could we remove the
       _bibleRef variable and use bibleReference instead to make this more apparent?
+
+      Lars:
+      bibleReference is a React state variable, which can only be set through setBibleReference.
+      - in _bibleReference each key can be set directly
+      - and at the end setBibleReference is called
     */
     const _bibleRef = bibleReference
     _bibleRef.sourceId = newBibleBookSourceId
@@ -118,12 +123,6 @@ export default function StoreContextProvider(props) {
       _bibleRef.chapter = "1"
       _bibleRef.verse = "1"
     }
-    /* 
-      Lars:
-      bibleReference is a React state variable, which can only be set through setBibleReference.
-      - in _bibleReference each key can be set directly
-      - and at the end setBibleReference is called
-    */
     bRefActions.applyBooksFilter([bId?.toLowerCase()])
     /*
       Noah:
