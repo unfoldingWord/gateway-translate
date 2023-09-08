@@ -26,8 +26,12 @@ export default function ScriptureWorkspaceCard({
 
       Either way, at least the locally scoped `data` references would be renamed
       so I can follow the code.
+    Lars:
+      I am myself also not quite certain about the background here, but I agree 
+      it is a good idea to alias it. At least I have some more experience with this code, 
+      so here below is my attempt...
   */
-  data,
+  data: cardParams,
   classes,
   onClose: removeBook,
 }) {
@@ -64,6 +68,10 @@ export default function ScriptureWorkspaceCard({
 
         This is also a great place to maybe do a small refactor across the app (if not
         now then at least we have this comment).
+
+      Lars:
+        Like in my comment in StoreContext.js I agree in principle about the need,
+        but the proper place to do this is in bible-reference-rcl, not here
     */
     bRefActions.goToBookChapterVerse(normalizedBookId, chapter?.toString(), verse?.toString())
   }
@@ -82,7 +90,7 @@ export default function ScriptureWorkspaceCard({
   // Save Feature
   useEffect(() => {
     async function saveContent() {
-      if ( data.readOnly ) {
+      if ( cardParams.readOnly ) {
         const url = URL.createObjectURL(new Blob([doSave]))
         const a = document.createElement('a')
         a.href = url
@@ -91,8 +99,8 @@ export default function ScriptureWorkspaceCard({
         URL.revokeObjectURL(url)
       } else {
         const _content = await saveToUserBranch(
-          data,
-          data.owner,
+          cardParams,
+          cardParams.owner,
           doSave,
           authentication,
           repoClient
@@ -113,14 +121,14 @@ export default function ScriptureWorkspaceCard({
     if ( doSave ) {
       saveContent()
     }
-  }, [doSave, books, setBooks, id, data, owner, ep, authentication, repoClient, bookId])
+  }, [doSave, books, setBooks, id, cardParams, owner, ep, authentication, repoClient, bookId])
 
   let title = '';
   if ( BIBLE_AND_OBS[bookId.toLowerCase()] ) {
     title += BIBLE_AND_OBS[bookId.toLowerCase()];
   }
-  if ( data.url ) {
-    title += " (" + data.url + ")"
+  if ( cardParams.url ) {
+    title += " (" + cardParams.url + ")"
   } else {
     title += " (" + id.substr(4) + ")"
   }
@@ -132,26 +140,26 @@ export default function ScriptureWorkspaceCard({
       hideMarkdownToggle={true}
       closeable={true}
       onClose={() => removeBook(id)}
-      key={data.id}
+      key={cardParams.id}
       disableSettingsButton={true}
     >
       <Box sx={{ background: 'white' }}>
         {
           // ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
-          data.usfmText ? (
+          cardParams.usfmText ? (
             <PkUsfmEditor
-              bookId={data.bookId}
-              repoIdStr={data.docset}
-              langIdStr={data.languageId}
-              usfmText={data.usfmText}
+              bookId={cardParams.bookId}
+              repoIdStr={cardParams.docset}
+              langIdStr={cardParams.languageId}
+              usfmText={cardParams.usfmText}
               onSave={(bookCode, usfmText) => setDoSave(usfmText)}
               editable={id.endsWith(owner) ? true : false}
               reference={bibleReference}
               onReferenceSelected={onRefSelectClick}
             />
-          ) : typeof data.content === 'string' ? (
+          ) : typeof cardParams.content === 'string' ? (
             <div>
-              <h1>{data.content}</h1>
+              <h1>{cardParams.content}</h1>
             </div>
           ) : (
             <CircularProgress />
