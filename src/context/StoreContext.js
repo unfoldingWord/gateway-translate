@@ -89,9 +89,22 @@ export default function StoreContextProvider(props) {
 
   // This changes the bibleReference and set it to the first chapter and verse 
   // of a new Bible book (bId)
+  //Noah: is the the bibleReference of the entire app or just a particular card/editor pane?
   const setNewBibleBook = (bId) => { 
     // This (somewhat meaningful) below ID string is used as a means to differentiate changes coming from editor panes, which are calculated unique IDs
+    /*
+      Noah: I'm not sure I follow; I have a few more questions:
+      * How is the sourceId generated?
+      * If you're manually setting the sourceId here will this sourceId be updated in the future?
+      * Does this ID need to be unique (what happens if this hook is called multiple times?)
+    */
     const newBibleBookSourceId = "new-Biblebook" 
+    /*
+      Noah: `_bibleRef` is only creating a soft copy of bibleReference in which
+      code below will modify both _bibleRef and bibleReference.
+      Is that what you intended to do? If so could we remove the
+      _bibleRef variable and use bibleReference instead to make this more apparent?
+    */
     const _bibleRef = bibleReference
     _bibleRef.sourceId = newBibleBookSourceId
     if (_bibleRef?.bookId?.toUpperCase() !== bId?.toUpperCase()) {
@@ -102,6 +115,49 @@ export default function StoreContextProvider(props) {
     // See discussion here:
     // https://github.com/unfoldingWord/gateway-translate/pull/197#discussion_r1318956950
     bRefActions.applyBooksFilter([bId?.toLowerCase()])
+    /*
+      Noah:
+        Can we get rid of .toString() since it seems redundant?
+
+      Lars:
+        Since we are using an RCL here, which I have not taken the time to improve,
+        we have had errors happening, due to chapter and verse not having the right
+        type. So this here is just safeguarding against this - due to that chapter and
+        verse might be coming in through the current bibleReference state. In other
+        words, until the bible-reference-rcl has ben fixed (the right place to safe
+        guard), then I prefer to safe guard here - based on previous experience...
+
+      Noah:
+        Which RCL are you referring to? translation-helps-rcl?
+
+        What are the other possible values could chapter be? My main concern here
+        is that, for example chapter, could be null (as per the ? syntax) in which
+        case does goToBookChapterVerse have well defined behavior for every combination
+        of arguments:
+
+          goToBookChapterVerse(null, null, null)
+          goToBookChapterVerse(<some-id>, null, null)
+          goToBookChapterVerse(<some-id>, object, null)
+          ...
+
+        So even having `chapter?.toString()` only solves the problem where chapter could be
+        a String object (and maybe not even a valid chapter string, e.g: "adf")
+
+        I would suggest writing a parser (I'll explain below) for the _bibleRef data. Said parser
+        should be written as close to where that data is being fetched and any assumptions
+        about what to do when data is missing etc. should be handled there.
+
+        By a parser I don't mean a parser that parses from a string but from any "raw" data (e.g
+        JSON returned from an API call etc.). The idea is that instead of validating data further
+        down the call chain, you parse the data for all the assumptions the code needs to make
+        and then at points like this you only need to thread the valid data around.
+        There's a great article on this[^1].
+
+        [^1]: https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/
+
+        PS: I realize I'm being a bit preachy and long winded here but I think this note could
+        be useful for other team members.
+    */
     bRefActions.goToBookChapterVerse(bId?.toLowerCase(), _bibleRef?.chapter?.toString(), _bibleRef?.verse?.toString())
     setBibleReference(_bibleRef)
   }
