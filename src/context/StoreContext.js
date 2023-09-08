@@ -115,8 +115,17 @@ export default function StoreContextProvider(props) {
       bibleReference is a React state variable, which can only be set through setBibleReference.
       - in _bibleReference each key can be set directly
       - and at the end setBibleReference is called
+
+      Noah: 
+        According to https://react.dev/learn/updating-objects-in-state#copying-objects-with-the-spread-syntax
+        we should be creating a copy of bibleReference.
+
+        const _bibleRef = bibleReference
+
+        is only creating a pointer copy of bibleReference.
+        @Lars could you run a test on this?
     */
-    const _bibleRef = bibleReference
+    const _bibleRef = {...bibleReference}
     _bibleRef.sourceId = newBibleBookSourceId
     if (_bibleRef?.bookId?.toUpperCase() !== bId?.toUpperCase()) {
       _bibleRef.bookId = bId?.toUpperCase()
