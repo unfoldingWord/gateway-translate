@@ -22,10 +22,6 @@ export default function AppContextProvider({
   const [refresh, setRefresh] = useState(true)
   const [repoClient, setRepoClient] = useState(null)
   const [organizationClient, setOrganizationClient] = useState(null)
-  // const [ep, /*setEp*/] = useState(new EpiteletePerfHtml({
-  //   proskomma: null, docSetId: "unfoldingWord/en_ltst", options: { historySize: 100 }
-  // }))
-  // const [ep, setEp] = useState({})
 
   const {
     state: {

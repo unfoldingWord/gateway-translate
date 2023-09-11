@@ -1,3 +1,9 @@
+/**
+@module
+@description
+This module is used to create and manage global state for the application.
+*/
+
 import React, { createContext, useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import useLocalStorage from '@hooks/useLocalStorage'
@@ -87,6 +93,48 @@ export default function StoreContextProvider(props) {
     localSetBibleReference(obj)
   }
 
+  /* 
+    This changes the bibleReference (reminder: there's only one for the entire application) 
+    and sets it to the first chapter and verse of a new Bible book (bId).
+  */
+  const setNewBibleBook = (bId) => { 
+    /*
+      Lars (cleaned up by Noah):
+        The bibleReference.sourceId is for other cases generated for each editor pane, each having
+        its own unique ID. For setNewBibleBook to work there is a need to have a manually
+        unique ID, different from the automatically generated unique IDs
+
+      Noah:
+        What's the need you speak of here?
+
+      Lars:
+        There is quite a bit of "hidden" communication going on, by using this sourceId 
+        - this makes it possible to filter out what bcvReference change to ignore and which to act on.
+        This is needed in three or more places, for example in two or more Editor panes
+        when they are dealing with the same Bible book + adjusting the Bible navigation UI
+        in the app bar. All of these have to filter in different ways in order for all of 
+        this to be intuitive to use. Such filtering is often based on this sourceId.
+    */
+    const newBibleBookSourceId = "new-Biblebook" 
+    const _bibleRef = {...bibleReference}
+    _bibleRef.sourceId = newBibleBookSourceId
+    if (_bibleRef?.bookId?.toUpperCase() !== bId?.toUpperCase()) {
+      _bibleRef.bookId = bId?.toUpperCase()
+      _bibleRef.chapter = "1"
+      _bibleRef.verse = "1"
+    }
+    bRefActions.applyBooksFilter([bId?.toLowerCase()])
+    /*
+      TODO:
+        bible-reference-rcl is where the code exists for constructing the bibleReference data.
+        And we need to add parsing that data so that gT and other apps don't have to manually
+        perfom runtime checks everytime they wish to consume a bibleReference. For now, however,
+        we are left to such hacks as .toString(). 
+    */
+    bRefActions.goToBookChapterVerse(bId?.toLowerCase(), _bibleRef?.chapter?.toString(), _bibleRef?.verse?.toString())
+    setBibleReference(_bibleRef)
+  }
+
   const {
     savedChanges,
     setSavedChanges,
@@ -136,6 +184,7 @@ export default function StoreContextProvider(props) {
       setShowAccountSetup,
       setScriptureOwner,
       setBibleReference,
+      setNewBibleBook,
       setLanguageId,
       setAppRef,
       setServer,

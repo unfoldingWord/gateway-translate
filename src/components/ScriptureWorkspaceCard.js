@@ -14,7 +14,7 @@ import { Box } from '@mui/material'
 export default function ScriptureWorkspaceCard({
   id,
   bookId,
-  data,
+  data: cardParams,
   classes,
   onClose: removeBook,
 }) {
@@ -41,7 +41,22 @@ export default function ScriptureWorkspaceCard({
   const onRefSelectClick = ({sourceId, bookId: bookIdFromEditor, chapter, verse}) => {
     const normalizedBookId = (bookIdFromEditor || bookId).toLowerCase()
     setBibleReference({ sourceId, bookId, chapter, verse })
-    bRefActions.goToBookChapterVerse(bookId.toLowerCase(), chapter.toString(), verse.toString())
+    bRefActions.applyBooksFilter([normalizedBookId])
+    /*
+      Noah:
+        See my comment in src/context/StoreContext.js about `chapter?.toString()`.
+
+        We're repeating ourselves here... and so I'd like to submit this as evidence
+        to strengthen the case I am making in that comment.
+
+        This is also a great place to maybe do a small refactor across the app (if not
+        now then at least we have this comment).
+
+      Lars:
+        Like in my comment in StoreContext.js I agree in principle about the need,
+        but the proper place to do this is in bible-reference-rcl, not here
+    */
+    bRefActions.goToBookChapterVerse(normalizedBookId, chapter?.toString(), verse?.toString())
   }
 
   const {
@@ -58,7 +73,7 @@ export default function ScriptureWorkspaceCard({
   // Save Feature
   useEffect(() => {
     async function saveContent() {
-      if ( data.readOnly ) {
+      if ( cardParams.readOnly ) {
         const url = URL.createObjectURL(new Blob([doSave]))
         const a = document.createElement('a')
         a.href = url
@@ -67,8 +82,8 @@ export default function ScriptureWorkspaceCard({
         URL.revokeObjectURL(url)
       } else {
         const _content = await saveToUserBranch(
-          data,
-          data.owner,
+          cardParams,
+          cardParams.owner,
           doSave,
           authentication,
           repoClient
@@ -89,14 +104,14 @@ export default function ScriptureWorkspaceCard({
     if ( doSave ) {
       saveContent()
     }
-  }, [doSave, books, setBooks, id, data, owner, ep, authentication, repoClient, bookId])
+  }, [doSave, books, setBooks, id, cardParams, owner, ep, authentication, repoClient, bookId])
 
   let title = '';
   if ( BIBLE_AND_OBS[bookId.toLowerCase()] ) {
     title += BIBLE_AND_OBS[bookId.toLowerCase()];
   }
-  if ( data.url ) {
-    title += " (" + data.url + ")"
+  if ( cardParams.url ) {
+    title += " (" + cardParams.url + ")"
   } else {
     title += " (" + id.substr(4) + ")"
   }
@@ -108,27 +123,26 @@ export default function ScriptureWorkspaceCard({
       hideMarkdownToggle={true}
       closeable={true}
       onClose={() => removeBook(id)}
-      key={bookId}
+      key={cardParams.id}
       disableSettingsButton={true}
     >
       <Box sx={{ background: 'white' }}>
         {
           // ep[docSetId]?.localBookCodes().includes(bookId.toUpperCase())
-          data.usfmText ? (
+          cardParams.usfmText ? (
             <PkUsfmEditor
-              key='1'
-              bookId={data.bookId}
-              repoIdStr={data.docset}
-              langIdStr={data.languageId}
-              usfmText={data.usfmText}
+              bookId={cardParams.bookId}
+              repoIdStr={cardParams.docset}
+              langIdStr={cardParams.languageId}
+              usfmText={cardParams.usfmText}
               onSave={(bookCode, usfmText) => setDoSave(usfmText)}
               editable={id.endsWith(owner) ? true : false}
               reference={bibleReference}
               onReferenceSelected={onRefSelectClick}
             />
-          ) : typeof data.content === 'string' ? (
+          ) : typeof cardParams.content === 'string' ? (
             <div>
-              <h1>{data.content}</h1>
+              <h1>{cardParams.content}</h1>
             </div>
           ) : (
             <CircularProgress />

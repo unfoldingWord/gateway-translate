@@ -2627,9 +2627,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/core@npm:^0.1.15-beta.3":
-  version: 0.1.15-beta.3
-  resolution: "@oce-editor-tools/core@npm:0.1.15-beta.3"
+"@oce-editor-tools/core@npm:^0.1.17-beta.1":
+  version: 0.1.17-beta.1
+  resolution: "@oce-editor-tools/core@npm:0.1.17-beta.1"
   dependencies:
     "@findr/mui": ^1.0.0-beta.17
     "@findr/react": ^1.0.0-beta.3
@@ -2649,16 +2649,17 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: 6c25ad853313f07ee1392f71693b99432f46fafef76f041d40b476cd5a390ca9e72cf5056e42481572f34609a70e77db612ee00e56395db345eaabe6b1b662d9
+  checksum: cfc0c042896630e929f7de08bcf45e11f3ba7b20db91861cad320e3547f30be056427494bb3dabc75581ae4721453fefa86a441c90f8ee89f548b9650da6bb81
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/pk@npm:0.1.15-beta.3":
-  version: 0.1.15-beta.3
-  resolution: "@oce-editor-tools/pk@npm:0.1.15-beta.3"
+"@oce-editor-tools/pk@npm:0.1.17-beta.1":
+  version: 0.1.17-beta.1
+  resolution: "@oce-editor-tools/pk@npm:0.1.17-beta.1"
   dependencies:
-    "@oce-editor-tools/core": ^0.1.15-beta.3
+    "@oce-editor-tools/core": ^0.1.17-beta.1
     "@xelah/type-perf-html": ^1.0.2
+    bible-reference-rcl: ^1.2.2
     dompurify: ^3.0.3
     epitelete-html: 0.2.21-beta.2
     proskomma-core: 0.10.1
@@ -2674,7 +2675,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: 9e016bc1ae93adcded9f6e22415caf62ddead7668de589e7bb0a7ffb3cfe858b9672e084137a0e91220c4463cf4541cef2df7a279cf581d9e4c431f57e5f1560
+  checksum: f280377d73daebccd43474447c2f1b2d06507662eea60b0ce07e82f2401123548a285f684c8ddafba9bce0ae27ecba49d3c336efe821421d6882978e51ab3774
   languageName: node
   linkType: hard
 
@@ -3794,7 +3795,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bible-reference-rcl@npm:^1.1.0":
+"bible-reference-rcl@npm:^1.1.0, bible-reference-rcl@npm:^1.2.2":
   version: 1.2.2
   resolution: "bible-reference-rcl@npm:1.2.2"
   dependencies:
@@ -6760,7 +6761,7 @@ __metadata:
     "@mui/material": ^5.10.6
     "@mui/styles": 5.10.10
     "@netlify/plugin-nextjs": 3.9.2
-    "@oce-editor-tools/pk": 0.1.15-beta.3
+    "@oce-editor-tools/pk": 0.1.17-beta.1
     "@sendgrid/mail": ^7.7.0
     autoprefixer: ^10.4.7
     base-64: ^1.0.0
