@@ -2627,9 +2627,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/core@npm:^0.1.16":
-  version: 0.1.16
-  resolution: "@oce-editor-tools/core@npm:0.1.16"
+"@oce-editor-tools/core@npm:^0.1.17-beta.1":
+  version: 0.1.17-beta.1
+  resolution: "@oce-editor-tools/core@npm:0.1.17-beta.1"
   dependencies:
     "@findr/mui": ^1.0.0-beta.17
     "@findr/react": ^1.0.0-beta.3
@@ -2649,15 +2649,15 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: e5d65fd77feb7fb71511871cd79bd2563354ad77e48769790a8e6195ae09535bf1802396d63dbbe3ee31d63ff4d19180ca5c547ea517e8edb02d1f3eb7529156
+  checksum: cfc0c042896630e929f7de08bcf45e11f3ba7b20db91861cad320e3547f30be056427494bb3dabc75581ae4721453fefa86a441c90f8ee89f548b9650da6bb81
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/pk@npm:0.1.16":
-  version: 0.1.16
-  resolution: "@oce-editor-tools/pk@npm:0.1.16"
+"@oce-editor-tools/pk@npm:0.1.17-beta.1":
+  version: 0.1.17-beta.1
+  resolution: "@oce-editor-tools/pk@npm:0.1.17-beta.1"
   dependencies:
-    "@oce-editor-tools/core": ^0.1.16
+    "@oce-editor-tools/core": ^0.1.17-beta.1
     "@xelah/type-perf-html": ^1.0.2
     bible-reference-rcl: ^1.2.2
     dompurify: ^3.0.3
@@ -2675,7 +2675,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     translation-helps-rcl: 3.3.4-rc.2
-  checksum: b3eb6bf7b0efb627c3d2f087303bbab2abbd00f1541ccb627d16f3eb2f31f037d27f8b5ab28bea824642b498d9119dafdc849a031fdcbddf72543124186cc715
+  checksum: f280377d73daebccd43474447c2f1b2d06507662eea60b0ce07e82f2401123548a285f684c8ddafba9bce0ae27ecba49d3c336efe821421d6882978e51ab3774
   languageName: node
   linkType: hard
 
@@ -6761,7 +6761,7 @@ __metadata:
     "@mui/material": ^5.10.6
     "@mui/styles": 5.10.10
     "@netlify/plugin-nextjs": 3.9.2
-    "@oce-editor-tools/pk": 0.1.16
+    "@oce-editor-tools/pk": 0.1.17-beta.1
     "@sendgrid/mail": ^7.7.0
     autoprefixer: ^10.4.7
     base-64: ^1.0.0
