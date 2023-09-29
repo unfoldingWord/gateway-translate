@@ -286,7 +286,6 @@ function ScriptureWorkspace() {
             id={data.id}
             bookId={data.bookId}
             data={data}
-            classes={classes}
             onClose={() => onClose(data.id)}
           />
         ))}
