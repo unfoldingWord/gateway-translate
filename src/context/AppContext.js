@@ -17,14 +17,11 @@ export default function AppContextProvider({
 }) {
 
   const [books, setBooks] = useState([])
+  const [hasOpenBook,setHasOpenBook] = useState(false)
   const [ltStState, setLtStState] = useState('')
   const [refresh, setRefresh] = useState(true)
   const [repoClient, setRepoClient] = useState(null)
   const [organizationClient, setOrganizationClient] = useState(null)
-  // const [ep, /*setEp*/] = useState(new EpiteletePerfHtml({
-  //   proskomma: null, docSetId: "unfoldingWord/en_ltst", options: { historySize: 100 }
-  // }))
-  // const [ep, setEp] = useState({})
 
   const {
     state: {
@@ -60,8 +57,8 @@ export default function AppContextProvider({
 
   const _setBooks = (value) => {
     // debugger
-    const _trace = "AppContext.js/_setBooks()"
-    console.log(_trace+":new value for books:", value)
+    const _hasOpenBook = (value?.filter( b => b.showCard )?.length>0)
+    setHasOpenBook(_hasOpenBook)
     setBooks(value)
     setRefresh(true)
     setCurrentLayout(null)
@@ -187,6 +184,7 @@ export default function AppContextProvider({
   const context = {
     state: {
       books,
+      hasOpenBook,
       ltStState,
       repoClient,
       organizationClient,

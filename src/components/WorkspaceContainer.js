@@ -4,7 +4,6 @@ import {
   useState,
 } from 'react'
 import { Workspace } from 'resource-workspace-rcl'
-import { makeStyles } from '@mui/styles'
 
 import { StoreContext } from '@context/StoreContext'
 import CircularProgress from '@components/CircularProgress'
@@ -19,22 +18,8 @@ import { HTTP_CONFIG } from '@common/constants'
 import NetworkErrorPopup from '@components/NetworkErrorPopUp'
 import { Card, useResourceClickListener } from 'translation-helps-rcl'
 
-const useStyles = makeStyles(() => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: 0,
-    margin: '0 1px !important',
-    height: '100%',
-    width: '100%',
-    backgroundColor: 'transparent',
-  },
-  dragIndicator: {},
-}))
-
 function WorkspaceContainer() {
   const router = useRouter()
-  const classes = useStyles()
   const [workspaceReady, setWorkspaceReady] = useState(false)
   const [networkError, setNetworkError] = useState(null)
   const {
