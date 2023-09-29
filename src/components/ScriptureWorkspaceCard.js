@@ -15,6 +15,7 @@ export default function ScriptureWorkspaceCard({
   id,
   bookId,
   data: cardParams,
+  classes,
   onClose: removeBook,
 }) {
 
@@ -118,6 +119,7 @@ export default function ScriptureWorkspaceCard({
   return (
     <Card
       title={title}
+      classes={classes}
       hideMarkdownToggle={true}
       closeable={true}
       onClose={() => removeBook(id)}
@@ -152,5 +154,6 @@ export default function ScriptureWorkspaceCard({
 }
 
 ScriptureWorkspaceCard.propTypes = {
-  bookId: PropTypes.string
+  bookId: PropTypes.string,
+  classes: PropTypes.object,
 }
