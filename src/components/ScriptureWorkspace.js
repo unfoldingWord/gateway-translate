@@ -28,7 +28,6 @@ const useStyles = makeStyles(() => ({
     margin: '0 1px !important',
     height: '100%',
     width: '100%',
-    backgroundColor: 'transparent',
   },
   dragIndicator: {},
   label: {
