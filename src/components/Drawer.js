@@ -8,6 +8,7 @@ import ListItemText from '@mui/material/ListItemText'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import SettingsIcon from '@mui/icons-material/Settings'
 import BugReportIcon from '@mui/icons-material/BugReport'
+import PrintIcon from '@mui/icons-material/Print'
 import IconButton from '@mui/material/IconButton'
 import ListItem from '@mui/material/ListItem'
 import List from '@mui/material/List'
@@ -59,6 +60,11 @@ export default function Drawer({
     onClose()
   }
 
+  function onPrintAll() {
+    alert("Not yet supported")
+    onClose()
+  }
+
   return (
     <SwipeableDrawer
       anchor='left'
@@ -103,6 +109,14 @@ export default function Drawer({
             <DashboardOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary={'Reset Resource Layout'} />
+        </ListItem>
+      </List>
+      <List disablePadding>
+        <ListItem button key={'Print All'} onClick={onPrintAll}>
+          <ListItemIcon>
+            <PrintIcon />
+          </ListItemIcon>
+          <ListItemText primary={'Print All'} />
         </ListItem>
       </List>
       {/* <div className='mx-4 mt-2 m-1'>

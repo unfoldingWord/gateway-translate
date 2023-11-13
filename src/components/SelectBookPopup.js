@@ -59,6 +59,12 @@ export default function SelectBookPopup(
   const [addDisabled, setAddDisabled] = useState(true)
   const [repos, setRepos] = useState([])
   const [selectedRepository, setSelectedRepository] = useState('')
+  const [repository, setRepository] = useState(null)
+  const [catalogProd, setCatalogProd] = useState(null)
+  const [catalogLatest, setCatalogLatest] = useState(null)
+  const [refTypeChoice, setRefTypeChoice] = useState('')
+  const [availableRefs, setAvailableRefs] = useState(null)
+  const [selectedRef, setSelectedRef] = useState(null)
   const [availableBooks, setAvailableBooks] = useState(null)
   const [selectedBook, setSelectedBook] = useState(null)
   const [usfmSource, setUsfmSource] = useState('dcs')
@@ -75,6 +81,12 @@ export default function SelectBookPopup(
 
   const handleSourceChange = event => {
     setUsfmSource(event.target.value)
+  }
+
+  const handleRefTypeChange = event => {
+    console.log(event.target.value)
+    setSelectedRef('')
+    setRefTypeChoice(event.target.value)
   }
 
   useEffect( () => {
@@ -94,7 +106,12 @@ export default function SelectBookPopup(
         setAddDisabled(true)
         return
       }
-  
+
+      if ( selectedRef === null ) {
+        setAddDisabled(true)
+        return
+      }
+
       // all inputs are present, make the button active
       setAddDisabled(false)
     } else if ( usfmSource === 'url' ) {
@@ -129,17 +146,18 @@ export default function SelectBookPopup(
   }
 
   const handleOrgChange = event => {
+    setRepos([])
     setSelectedOrganization(event.target.value)
   }
 
   const handleClickNext = () => {
-    onNext({pushAccess, usfmData, uploadedFilename, usfmSource, selectedBook, url, languageId, repository: selectedRepository, owner: selectedOrganization})
+    onNext({pushAccess, usfmData, uploadedFilename, usfmSource, selectedBook, url, languageId, repository: selectedRepository, owner: selectedOrganization, ref: selectedRef})
     handleClickClose()
     setUrl('')
   }
 
   useEffect(() => {
-    async function getLanguages() {
+    async function getRepos() {
       setLoading(true)
       const response = await repoClient.repoSearch({owner: selectedOrganization, subject:bibleSubjects.join(',')})
       if ( 200 === response.status ) {
@@ -147,18 +165,80 @@ export default function SelectBookPopup(
       }
       setLoading(false)
     }
-    if ( repoClient ) {
-      getLanguages().catch(console.error)
+    if ( repoClient && selectedOrganization) {
+      getRepos().catch(console.error)
+    } else {
+      setRepos([])
     }
   }, [repoClient, selectedOrganization])
 
   const handleRepositoryChange = event => {
     setSelectedRepository(event.target.value)
-    const repository = repos.find((repo) => repo.name === event.target.value)
-    setLanguageId(repository.language)
-    setAvailableBooks(repository.books)
-    setPushAccess(repository?.permissions?.push)
   }
+
+  useEffect(() => {
+    if (selectedOrganization && selectedRepository) {
+      console.log("repos size: ", repos.length, selectedOrganization, selectedRepository)
+      console.log(repos)
+      const repo = repos.find((repo) => repo.name === selectedRepository && repo.owner.username == selectedOrganization)
+      console.log("REPO", repo)
+      setAvailableRefs(null)
+      if (repo) {
+        setRepository(repo)
+        setLanguageId(repo.language)
+        setAvailableBooks(repo.ingredients.map(ingredient => ingredient.identifier))
+        if (repo.catalog ) {
+          setCatalogProd(repo.catalog.prod)
+          setCatalogLatest(repo.catalog.latest)
+        } else {
+          setCatalogProd(null)
+          setCatalogLatest(null)
+        }
+        setPushAccess(repo?.permissions?.push)
+      } else {
+        setRepository(null)
+        setLanguageId(null)
+        setAvailableBooks(null)
+        setCatalogProd(null)
+        setCatalogLatest(null)
+        setPushAccess(false)
+      }
+    }
+  }, [selectedRepository, selectedOrganization])
+
+  useEffect(() => {
+    const fetchBranches = async () => {
+      const branches = await repoClient.repoListBranches({owner: selectedOrganization, repo: selectedRepository}).then(({data}) => data).catch(console.error)
+      console.log("BRANCHES", branches)
+      if (branches.length)
+        setAvailableRefs(branches.map(branch => {return {id: branch.name, name: branch.name}}))
+      else
+        setAvailableRefs(null)
+    }
+
+    const fetchTags = async () => {
+      const tags = await repoClient.repoListTags({owner: selectedOrganization, repo: selectedRepository}).then(({data}) => data).catch(console.error)
+      console.log("TAGS", tags)
+      if (tags.length)
+        setAvailableRefs(tags.map(tag => {return {id: tag.name, name: tag.name}}))
+      else
+        setAvailableRefs(null)
+    }
+
+    if (selectedOrganization && selectedRepository) {
+      console.log(selectedOrganization, selectedRepository, refTypeChoice)
+      switch (refTypeChoice) {
+        case "branch":
+          fetchBranches()
+          break
+        case "tag":
+          fetchTags()
+          break
+        default:
+          setAvailableRefs(null)
+      }
+    }
+  }, [selectedRepository, selectedOrganization, refTypeChoice, repoClient])
 
   useEffect(() => {
     async function getOrgs() {
@@ -183,7 +263,6 @@ export default function SelectBookPopup(
     }
 
   }, [authentication, showAll, organizationClient])
-
 
   const handleFileUpload = (e ) => {
     if (!e.target.files) {
@@ -273,6 +352,41 @@ export default function SelectBookPopup(
             ))}
           </Select>
         </FormControl>
+        {repository ?
+        <FormControl>
+          <FormLabel id="ref">Release or Branch</FormLabel>
+          <RadioGroup
+            aria-labelledby="ref-radio-buttons-group-label"
+            defaultValue="prod"
+            name="ref-radio-buttons-group"
+            row
+            value={refTypeChoice}
+            onChange={handleRefTypeChange}
+          >
+            <div>
+              {catalogProd?<FormControlLabel value="prod" control={<Radio />} label={"Latest Release ("+catalogProd.branch_or_tag_name+")"} />:""}
+            <FormControlLabel value="tag" control={<Radio />} label="Tag" />
+            </div>
+            <div>
+              {catalogLatest?<FormControlLabel value="latest" control={<Radio />} label={"Default Branch ("+catalogLatest.branch_or_tag_name+")"} />:""}
+            <FormControlLabel value="branch" control={<Radio />} label="Branch" />
+            </div>
+          </RadioGroup>
+        </FormControl>: ""}
+        {console.log("AR:", availableRefs)}
+        {availableRefs ? <Autocomplete
+          id="select-ref"
+          value={selectedRef}
+          options={ availableRefs }
+          getOptionLabel={option => {console.log(option); return option.name}}
+          isOptionEqualToValue={(option, value) => {console.log("op", option.id, "val", value, option.id===value); return option.id === value}}
+          onChange={(event, ref) => {
+            console.log("SELECTED REF", ref)
+            setSelectedRef(ref)
+          }}
+          renderInput={(params) => <TextField {...params} label={refTypeChoice} margin="normal" />}
+        />: ""}
+        {availableBooks ?
         <Autocomplete
           id="select-book"
           value={selectedBook}
@@ -280,10 +394,10 @@ export default function SelectBookPopup(
           getOptionLabel={(option) => option.name}
           isOptionEqualToValue={(option, value) => option.id === value.id}
           onChange={(event, book) => {
-            setSelectedBook(book);
+            setSelectedBook(book)
           }}
-          renderInput={(params) => <TextField {...params} label="Select" margin="normal" />}
-        />
+          renderInput={(params) => <TextField {...params} label="Book" margin="normal" />}
+        /> : ""}
       </>
       break;
   }

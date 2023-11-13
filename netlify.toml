@@ -10,3 +10,8 @@
 
 [[plugins]]
   package = "/scripts/zulip-notification"
+
+[[redirects]]
+  from = "u/*"
+  to = "u/index.html"
+  status = 200
