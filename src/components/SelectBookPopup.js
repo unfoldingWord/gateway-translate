@@ -54,13 +54,15 @@ export default function SelectBookPopup(
     state: {
       repoClient,
       organizationClient,
-    }
+    },
+    bRefActions
   } = useContext(AppContext)
+
   const [addDisabled, setAddDisabled] = useState(true)
   const [repos, setRepos] = useState([])
   const [selectedRepository, setSelectedRepository] = useState('')
-  const [availableBooks, setAvailableBooks] = useState(null)
   const [selectedBook, setSelectedBook] = useState(null)
+  const [availableBooks, setAvailableBooks] = useState(null)
   const [usfmSource, setUsfmSource] = useState('dcs')
   const [url, setUrl] = useState('')
   const [organizations, setOrganizations] = useState([])
@@ -133,7 +135,18 @@ export default function SelectBookPopup(
   }
 
   const handleClickNext = () => {
-    onNext({pushAccess, usfmData, uploadedFilename, usfmSource, selectedBook, url, languageId, repository: selectedRepository, owner: selectedOrganization})
+    onNext({
+      pushAccess, 
+      usfmData, 
+      uploadedFilename, 
+      usfmSource,
+      availableBooks,
+      selectedBook, 
+      url, 
+      languageId, 
+      repository: selectedRepository,
+      owner: selectedOrganization
+    })
     handleClickClose()
     setUrl('')
   }
@@ -152,11 +165,23 @@ export default function SelectBookPopup(
     }
   }, [repoClient, selectedOrganization])
 
+  const getBooksFromIngredients = (arr) => {
+    const retArr = []
+    arr?.forEach(item => {
+      if (item?.identifier) {
+        retArr.push(item?.identifier)
+      }
+    })
+    return retArr
+  }
+
   const handleRepositoryChange = event => {
     setSelectedRepository(event.target.value)
     const repository = repos.find((repo) => repo.name === event.target.value)
-    setLanguageId(repository.language)
-    setAvailableBooks(repository.books)
+    setLanguageId(repository?.language)
+    const bookArr = getBooksFromIngredients(repository?.ingredients)
+    setAvailableBooks(bookArr)
+    bRefActions.applyBooksFilter(bookArr)
     setPushAccess(repository?.permissions?.push)
   }
 
