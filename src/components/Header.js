@@ -209,7 +209,7 @@ export default function Header({
             </Typography>
           </div>
           <div className='flex flex-1 justify-center items-center'>
-            {user && owner && router.pathname === '/' && hasOpenBook && (
+            {user && owner && (router.pathname.startsWith('/preview/') || router.pathname === '/') && hasOpenBook && (
               <BibleReference 
                 status={bRefState}
                 actions={bRefActions}
@@ -218,7 +218,7 @@ export default function Header({
             )}
           </div>
           <>
-            {user && owner && router.pathname.startsWith('/preview/') && (
+            {user && owner && (router.pathname.startsWith('/preview/') || router.pathname === '/') && (
               <div className='flex flex-1 justify-end'>
               <Fab
                 color='primary'
