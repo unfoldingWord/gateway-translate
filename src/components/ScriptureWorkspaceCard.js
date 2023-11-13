@@ -30,18 +30,31 @@ export default function ScriptureWorkspaceCard({
    const {
     state: {
       owner,
+    },
+  } = useContext(StoreContext)
+
+  const {
+    state: {
       bibleReference,
+      books,
+      repoClient,
+      ep,
     },
     actions: {
+      setBooks,
       setBibleReference,
+      setFocusedBookParams,
     },
     bRefActions
-  } = useContext(StoreContext)
+  } = useContext(AppContext)
 
   const onRefSelectClick = ({sourceId, bookId: bookIdFromEditor, chapter, verse}) => {
     const normalizedBookId = (bookIdFromEditor || bookId).toLowerCase()
     setBibleReference({ sourceId, bookId, chapter, verse })
-    bRefActions.applyBooksFilter([normalizedBookId])
+    console.log(cardParams)
+    setFocusedBookParams(cardParams)
+    const bookFilter = cardParams?.availableBooks || [normalizedBookId]
+    bRefActions.applyBooksFilter(bookFilter)
     /*
       Noah:
         See my comment in src/context/StoreContext.js about `chapter?.toString()`.
@@ -58,17 +71,6 @@ export default function ScriptureWorkspaceCard({
     */
     bRefActions.goToBookChapterVerse(normalizedBookId, chapter?.toString(), verse?.toString())
   }
-
-  const {
-    state: {
-        books,
-        repoClient,
-        ep,
-    },
-    actions: {
-      setBooks,
-    }
-  } = useContext(AppContext)
 
   // Save Feature
   useEffect(() => {

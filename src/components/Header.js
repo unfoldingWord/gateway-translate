@@ -51,7 +51,6 @@ export default function Header({
   const { user } = authentication
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
-  const [alreadyOpenNotice, setAlreadyOpenNotice] = useState(false)
 
   const [drawerOpen, setOpen] = useState(false)
   const {
@@ -59,13 +58,18 @@ export default function Header({
   } = useContext(AuthContext)
   const {
     state: { owner },
-    actions: { checkUnsavedChanges, setNewBibleBook },
-    bRefState,
-    bRefActions,
+    actions: { checkUnsavedChanges },
   } = useContext(StoreContext)
   const {
-    state: { books, hasOpenBook },
-    actions: { setBooks, setLtStState },
+    state: { books, hasOpenBook, alreadyOpenNotice },
+    actions: { 
+      setBooks, 
+      addNewBookIfNotExists, 
+      setNewBibleBook,
+      setAlreadyOpenNotice 
+    },
+    bRefState,
+    bRefActions,
   } = useContext(AppContext)
   const handleDrawerOpen = () => {
     if (!drawerOpen) {
@@ -93,6 +97,7 @@ export default function Header({
 
   const onNext = ({
     pushAccess,
+    availableBooks,
     selectedBook,
     usfmSource,
     owner,
@@ -105,7 +110,6 @@ export default function Header({
     if (!books || !setBooks) {
       return
     }
-    let _books = [...books]
     let _entry = { id: null, bookId: null, source: usfmSource, content: null, showCard: true }
     const _trace = "Header.js/onNext()"
     _entry.trace = _trace
@@ -151,39 +155,16 @@ export default function Header({
         }
         _entry.id = `${selectedBook.id}-${repository}-${owner}`
         _entry.repo = repository
+        _entry.availableBooks = availableBooks
         _entry.owner = owner
         _entry.languageId = languageId
         _entry.bookId = selectedBook.id
         _entry.readOnly = !pushAccess
         break
     }
-    let found = -1
-    let showCardChange = false
-    for (let i=0; i<_books.length; i++) {
-      if ( _books[i].id === _entry.id ) {
-        if ( _books[i].showCard ) {
-          found = i
-        } else { 
-          if (_books[i]?.showCard === false ) {
-            found = i 
-            _books[i].showCard = true
-            showCardChange = true
-          }
-        }
-        break
-      }
-    }
     setNewBibleBook(_entry.bookId)
-    if ( found > -1 ) {
-      if ( showCardChange ) {
-        setBooks(_books) // update to reflect change above
-      } else {
-        setAlreadyOpenNotice(true)
-      }
-    } else {
-      _books.push(_entry)
-      setBooks(_books)
-    }
+    console.log("onNext")
+    addNewBookIfNotExists(_entry)
   }
   return (
     <header>
