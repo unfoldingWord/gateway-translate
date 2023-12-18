@@ -2667,9 +2667,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/base@npm:^0.1.26":
-  version: 0.1.26
-  resolution: "@oce-editor-tools/base@npm:0.1.26"
+"@oce-editor-tools/base@npm:^0.1.27":
+  version: 0.1.27
+  resolution: "@oce-editor-tools/base@npm:0.1.27"
   dependencies:
     "@findr/react": ^1.0.0-beta.3
     "@findr/text": ^1.0.7-beta.4
@@ -2677,18 +2677,18 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 080d9733f81a3aff474fc74e59a38611b421559079d6156c70800bf08e47b9d05298a46d0998397b1ed356bb6e1f624e8920ecf94487b195655f8b75355d5519
+  checksum: aa0d8cd7b891918e0be216fc5b220146e617a3d2f54285c5cccb98712897f533977897f388a4cab40b65f5ba27eb7749129d6ac294be7e1919670cd14d9f19e4
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/mui-core@npm:^0.1.27-alpha.1":
-  version: 0.1.27-alpha.1
-  resolution: "@oce-editor-tools/mui-core@npm:0.1.27-alpha.1"
+"@oce-editor-tools/mui-core@npm:^0.1.27":
+  version: 0.1.27
+  resolution: "@oce-editor-tools/mui-core@npm:0.1.27"
   dependencies:
     "@findr/mui": ^1.0.0-beta.17
     "@findr/react": ^1.0.0-beta.3
     "@gwdevs/extensible-rcl": ^1.0.1
-    "@oce-editor-tools/base": ^0.1.26
+    "@oce-editor-tools/base": ^0.1.27
     "@xelah/type-perf-html": ^1.0.3
     epitelete-html: 0.2.21-beta.2
     pagedjs: ^0.4.3
@@ -2702,15 +2702,15 @@ __metadata:
     "@mui/material": ^5.14.12
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 02ffb2e2b6ad58d5e398c7e0ac5ff066900edcc5050e289973855d27a42203aa659c4ba347f7d3ad38840fae6cc581400d4b3e2756d0968704c2a2105d355b52
+  checksum: 02b71934e80699ff34da706b1facc7ed5dc4194bf94b1aceb5a982eb469501f6d357396c0ad3fdefc36a81ae76acc28dc8c844b84033299fe3dbc12ca15c7a2c
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/mui-pk@npm:^0.1.27-alpha.1":
-  version: 0.1.27-alpha.1
-  resolution: "@oce-editor-tools/mui-pk@npm:0.1.27-alpha.1"
+"@oce-editor-tools/mui-pk@npm:^0.1.27":
+  version: 0.1.27
+  resolution: "@oce-editor-tools/mui-pk@npm:0.1.27"
   dependencies:
-    "@oce-editor-tools/mui-core": ^0.1.27-alpha.1
+    "@oce-editor-tools/mui-core": ^0.1.27
     "@xelah/type-perf-html": ^1.0.3
     bible-reference-rcl: ^1.2.2
     dompurify: ^3.0.6
@@ -2727,7 +2727,7 @@ __metadata:
     "@mui/material": ^5.11.0
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: b0741444fc2ac5217645ad83594532a035ef7135593101bf249de1b716bd37971fffdcfc37210994171dec628bb89419a4ec105132332d73a53ca69039307e1b
+  checksum: 405b61f2b87b28a3b56cec42a4c6f6265c17c14fb868b2145d2f59731a69f2274eab72887c3404393706ac5734e978092696ae0457f63652a46cffc41efea542
   languageName: node
   linkType: hard
 
@@ -6825,9 +6825,9 @@ __metadata:
     "@mui/material": ^5.10.6
     "@mui/styles": 5.10.10
     "@netlify/plugin-nextjs": 3.9.2
-    "@oce-editor-tools/base": ^0.1.26
-    "@oce-editor-tools/mui-core": ^0.1.27-alpha.1
-    "@oce-editor-tools/mui-pk": ^0.1.27-alpha.1
+    "@oce-editor-tools/base": ^0.1.27
+    "@oce-editor-tools/mui-core": ^0.1.27
+    "@oce-editor-tools/mui-pk": ^0.1.27
     "@sendgrid/mail": ^7.7.0
     autoprefixer: ^10.4.7
     base-64: ^1.0.0
