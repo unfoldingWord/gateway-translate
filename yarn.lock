@@ -1690,10 +1690,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:8.55.0":
-  version: 8.55.0
-  resolution: "@eslint/js@npm:8.55.0"
-  checksum: fa33ef619f0646ed15649b0c2e313e4d9ccee8425884bdbfc78020d6b6b64c0c42fa9d83061d0e6158e1d4274f03f0f9008786540e2efab8fcdc48082259908c
+"@eslint/js@npm:8.56.0":
+  version: 8.56.0
+  resolution: "@eslint/js@npm:8.56.0"
+  checksum: 5804130574ef810207bdf321c265437814e7a26f4e6fac9b496de3206afd52f533e09ec002a3be06cd9adcc9da63e727f1883938e663c4e4751c007d5b58e539
   languageName: node
   linkType: hard
 
@@ -2681,9 +2681,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/mui-core@npm:^0.1.27":
-  version: 0.1.27
-  resolution: "@oce-editor-tools/mui-core@npm:0.1.27"
+"@oce-editor-tools/mui-core@npm:^0.1.28-alpha.1":
+  version: 0.1.28-alpha.1
+  resolution: "@oce-editor-tools/mui-core@npm:0.1.28-alpha.1"
   dependencies:
     "@findr/mui": ^1.0.0-beta.17
     "@findr/react": ^1.0.0-beta.3
@@ -2702,15 +2702,15 @@ __metadata:
     "@mui/material": ^5.14.12
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 02b71934e80699ff34da706b1facc7ed5dc4194bf94b1aceb5a982eb469501f6d357396c0ad3fdefc36a81ae76acc28dc8c844b84033299fe3dbc12ca15c7a2c
+  checksum: 1dd7c0e5e5da4c6bbc298510196f5456351e41abbd1be0aaf96077ce9ad3663b50a4e082737178d399e8f805f56c74bb312c32d8f6be8a3fd960188ca93489ff
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/mui-pk@npm:^0.1.27":
-  version: 0.1.27
-  resolution: "@oce-editor-tools/mui-pk@npm:0.1.27"
+"@oce-editor-tools/mui-pk@npm:^0.1.28-alpha.1":
+  version: 0.1.28-alpha.1
+  resolution: "@oce-editor-tools/mui-pk@npm:0.1.28-alpha.1"
   dependencies:
-    "@oce-editor-tools/mui-core": ^0.1.27
+    "@oce-editor-tools/mui-core": ^0.1.28-alpha.1
     "@xelah/type-perf-html": ^1.0.3
     bible-reference-rcl: ^1.2.2
     dompurify: ^3.0.6
@@ -2727,7 +2727,7 @@ __metadata:
     "@mui/material": ^5.11.0
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 405b61f2b87b28a3b56cec42a4c6f6265c17c14fb868b2145d2f59731a69f2274eab72887c3404393706ac5734e978092696ae0457f63652a46cffc41efea542
+  checksum: 586efb11740553a305701651b7f941071dac996c5d506e0a6820e2ee3527c0f1e3709ca8813e044b9af1903e03910fbe5ad7aed61140454d62fa92354b3f74f6
   languageName: node
   linkType: hard
 
@@ -6077,14 +6077,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.38.0":
-  version: 8.55.0
-  resolution: "eslint@npm:8.55.0"
+"eslint@npm:^8.56.0":
+  version: 8.56.0
+  resolution: "eslint@npm:8.56.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.6.1
     "@eslint/eslintrc": ^2.1.4
-    "@eslint/js": 8.55.0
+    "@eslint/js": 8.56.0
     "@humanwhocodes/config-array": ^0.11.13
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
@@ -6121,7 +6121,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 83f82a604559dc1faae79d28fdf3dfc9e592ca221052e2ea516e1b379b37e77e4597705a16880e2f5ece4f79087c1dd13fd7f6e9746f794a401175519db18b41
+  checksum: 883436d1e809b4a25d9eb03d42f584b84c408dbac28b0019f6ea07b5177940bf3cca86208f749a6a1e0039b63e085ee47aca1236c30721e91f0deef5cc5a5136
   languageName: node
   linkType: hard
 
@@ -6826,8 +6826,8 @@ __metadata:
     "@mui/styles": 5.10.10
     "@netlify/plugin-nextjs": 3.9.2
     "@oce-editor-tools/base": ^0.1.27
-    "@oce-editor-tools/mui-core": ^0.1.27
-    "@oce-editor-tools/mui-pk": ^0.1.27
+    "@oce-editor-tools/mui-core": ^0.1.28-alpha.1
+    "@oce-editor-tools/mui-pk": ^0.1.28-alpha.1
     "@sendgrid/mail": ^7.7.0
     autoprefixer: ^10.4.7
     base-64: ^1.0.0
@@ -6836,7 +6836,7 @@ __metadata:
     cross-env: ^7.0.3
     dcs-js: ^1.4.1
     deep-equal: ^2.0.5
-    eslint: ^8.38.0
+    eslint: ^8.56.0
     eslint-config-next: 12.1.6
     husky: ^8.0.1
     localforage: ^1.10.0
