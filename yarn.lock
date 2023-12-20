@@ -2681,9 +2681,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/mui-core@npm:^0.1.28-alpha.1":
-  version: 0.1.28-alpha.1
-  resolution: "@oce-editor-tools/mui-core@npm:0.1.28-alpha.1"
+"@oce-editor-tools/mui-core@npm:^0.1.28-alpha.2":
+  version: 0.1.28-alpha.2
+  resolution: "@oce-editor-tools/mui-core@npm:0.1.28-alpha.2"
   dependencies:
     "@findr/mui": ^1.0.0-beta.17
     "@findr/react": ^1.0.0-beta.3
@@ -2702,15 +2702,15 @@ __metadata:
     "@mui/material": ^5.14.12
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 1dd7c0e5e5da4c6bbc298510196f5456351e41abbd1be0aaf96077ce9ad3663b50a4e082737178d399e8f805f56c74bb312c32d8f6be8a3fd960188ca93489ff
+  checksum: 9f188345aaadb1276bed5cb1da21d1af526277c9a3350087cd810f17528a6900a7372a2054d14ea02ffc4fefcad8602f9b88f72520c6017905a29d22a94dd186
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/mui-pk@npm:^0.1.28-alpha.1":
-  version: 0.1.28-alpha.1
-  resolution: "@oce-editor-tools/mui-pk@npm:0.1.28-alpha.1"
+"@oce-editor-tools/mui-pk@npm:^0.1.28-alpha.2":
+  version: 0.1.28-alpha.2
+  resolution: "@oce-editor-tools/mui-pk@npm:0.1.28-alpha.2"
   dependencies:
-    "@oce-editor-tools/mui-core": ^0.1.28-alpha.1
+    "@oce-editor-tools/mui-core": ^0.1.28-alpha.2
     "@xelah/type-perf-html": ^1.0.3
     bible-reference-rcl: ^1.2.2
     dompurify: ^3.0.6
@@ -2727,7 +2727,7 @@ __metadata:
     "@mui/material": ^5.11.0
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 586efb11740553a305701651b7f941071dac996c5d506e0a6820e2ee3527c0f1e3709ca8813e044b9af1903e03910fbe5ad7aed61140454d62fa92354b3f74f6
+  checksum: 2800db4890ede988bd922ffd5ca5443f9625fcb64f5c096089b392aa8a8c5c7490f00814d2b49b94cfa836efa3c17045c827369353898980845279303c9c38f7
   languageName: node
   linkType: hard
 
@@ -6826,8 +6826,8 @@ __metadata:
     "@mui/styles": 5.10.10
     "@netlify/plugin-nextjs": 3.9.2
     "@oce-editor-tools/base": ^0.1.27
-    "@oce-editor-tools/mui-core": ^0.1.28-alpha.1
-    "@oce-editor-tools/mui-pk": ^0.1.28-alpha.1
+    "@oce-editor-tools/mui-core": ^0.1.28-alpha.2
+    "@oce-editor-tools/mui-pk": ^0.1.28-alpha.2
     "@sendgrid/mail": ^7.7.0
     autoprefixer: ^10.4.7
     base-64: ^1.0.0
