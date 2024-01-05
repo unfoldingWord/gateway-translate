@@ -1426,6 +1426,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.23.6":
+  version: 7.23.7
+  resolution: "@babel/runtime@npm:7.23.7"
+  dependencies:
+    regenerator-runtime: ^0.14.0
+  checksum: eba85bd24d250abb5ae19b16cffc15a54d3894d8228ace40fa4c0e2f1938f28b38ad3e3430ebff9a1ef511eeb8c527e36044ac19076d6deafa52cef35d8624b9
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.22.15, @babel/template@npm:^7.4.0":
   version: 7.22.15
   resolution: "@babel/template@npm:7.22.15"
@@ -1697,21 +1706,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@findr/mui@npm:^1.0.0-beta.17":
-  version: 1.0.0-beta.17
-  resolution: "@findr/mui@npm:1.0.0-beta.17"
-  dependencies:
-    tslib: ^2.3.0
+"@findr/mui@npm:^1.0.0-beta.18":
+  version: 1.0.0-beta-18
+  resolution: "@findr/mui@npm:1.0.0-beta-18"
   peerDependencies:
     "@emotion/react": ^11.5.0
     "@emotion/styled": ^11.3.0
     "@mui/icons-material": ^5.11.0
-    "@mui/lab": 5.0.0-alpha.134
     "@mui/material": ^5.11.0
+    "@mui/x-tree-view": ^6.17.0
     "@types/react": ^17.0.0 || ^18.0.0
     react: ^17.0.0 || ^18.0.0
     react-dom: ^17.0.0 || ^18.0.0
     react-icons: ^4.x
+    tslib: 2.5.0
   peerDependenciesMeta:
     "@emotion/react":
       optional: true
@@ -1719,7 +1727,7 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: 2d206b2731aae4bb8276434680511d7938fb4de60a79d9625d582b67fcb5768adb555a4a83110cf3067530071192a6afb6b970fc33fef2689084845019c9a8c0
+  checksum: ce7e7e80abaebace4d8536bb7e6d31d0eafb711babd288d875f1678e69026bb5cfbb8e138c4f95e32d793313a8e343d676e74c1159251399720e522268c10128
   languageName: node
   linkType: hard
 
@@ -2236,6 +2244,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mui/base@npm:^5.0.0-beta.20":
+  version: 5.0.0-beta.30
+  resolution: "@mui/base@npm:5.0.0-beta.30"
+  dependencies:
+    "@babel/runtime": ^7.23.6
+    "@floating-ui/react-dom": ^2.0.4
+    "@mui/types": ^7.2.12
+    "@mui/utils": ^5.15.3
+    "@popperjs/core": ^2.11.8
+    clsx: ^2.0.0
+    prop-types: ^15.8.1
+  peerDependencies:
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 2e2a42f47f1996469c2dd1f5301eba7c8532cf6d91b2ba53271da287cab1f18a44f23f00b552838691bc763f09f9820399bbbf4a89b5f7bc5ae55e61fd2b73c8
+  languageName: node
+  linkType: hard
+
 "@mui/core-downloads-tracker@npm:^5.14.20":
   version: 5.14.20
   resolution: "@mui/core-downloads-tracker@npm:5.14.20"
@@ -2444,6 +2474,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mui/types@npm:^7.2.12":
+  version: 7.2.12
+  resolution: "@mui/types@npm:7.2.12"
+  peerDependencies:
+    "@types/react": ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 031b7a4750abb3c5abfd20587113521f70cb3449a8c7b2855a3bd110c6935945c1586ec427287ad9c7f397fe0f8176af08494d9a0c497d88d8bd6ab5626b15d5
+  languageName: node
+  linkType: hard
+
 "@mui/utils@npm:^5.10.9, @mui/utils@npm:^5.14.20":
   version: 5.14.20
   resolution: "@mui/utils@npm:5.14.20"
@@ -2459,6 +2501,46 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 72db14bb3d53c3a66f3051c479a1abaa6d39682f788ea3d43127f68d92a84b369cadbc2cb5e5f40e2f0005363042057ff0f34bcd30c0047c617bfd1d6021391e
+  languageName: node
+  linkType: hard
+
+"@mui/utils@npm:^5.14.14, @mui/utils@npm:^5.15.3":
+  version: 5.15.3
+  resolution: "@mui/utils@npm:5.15.3"
+  dependencies:
+    "@babel/runtime": ^7.23.6
+    "@types/prop-types": ^15.7.11
+    prop-types: ^15.8.1
+    react-is: ^18.2.0
+  peerDependencies:
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 2a5efd0fd9508c3dff9261b0a6f2801b47cc19dac04e9a79a55449162606a79a86e7e23e7d282f68843b1f8f860341549c893024c57f3380e2315de211e14e2a
+  languageName: node
+  linkType: hard
+
+"@mui/x-tree-view@npm:^6.17.0":
+  version: 6.17.0
+  resolution: "@mui/x-tree-view@npm:6.17.0"
+  dependencies:
+    "@babel/runtime": ^7.23.2
+    "@mui/base": ^5.0.0-beta.20
+    "@mui/utils": ^5.14.14
+    "@types/react-transition-group": ^4.4.8
+    clsx: ^2.0.0
+    prop-types: ^15.8.1
+    react-transition-group: ^4.4.5
+  peerDependencies:
+    "@emotion/react": ^11.9.0
+    "@emotion/styled": ^11.8.1
+    "@mui/material": ^5.8.6
+    "@mui/system": ^5.8.0
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+  checksum: 725ce597a0c452367d2229a0fac97647ba8a13f2c17a72c75e515b48ba25fb22dd1753f9b5f951728af5e2108def86815d401d0ed5d16d66329926c9de4b68db
   languageName: node
   linkType: hard
 
@@ -2667,9 +2749,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/base@npm:^0.1.28":
-  version: 0.1.28
-  resolution: "@oce-editor-tools/base@npm:0.1.28"
+"@oce-editor-tools/base@npm:^0.1.29":
+  version: 0.1.29
+  resolution: "@oce-editor-tools/base@npm:0.1.29"
   dependencies:
     "@findr/react": ^1.0.0-beta.3
     "@findr/text": ^1.0.7-beta.4
@@ -2677,18 +2759,18 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 853e255e826d71d7e526b83e0d88f741bce6c2768cc83aa1d3fea87a8f502ce54d56daf973d8a7d0e1575515386bd336e4fa87a4105a097ba73052fe286aa0d5
+  checksum: 5ac974de55fed252f9549509b38a9969caa969bfa160c6abc07d614ab1f462d782077104b0c510482ba7a889b67b4e544297e7974e0d11960917b7055306297c
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/mui-core@npm:^0.1.28":
-  version: 0.1.28
-  resolution: "@oce-editor-tools/mui-core@npm:0.1.28"
+"@oce-editor-tools/mui-core@npm:^0.1.29":
+  version: 0.1.29
+  resolution: "@oce-editor-tools/mui-core@npm:0.1.29"
   dependencies:
-    "@findr/mui": ^1.0.0-beta.17
+    "@findr/mui": ^1.0.0-beta.18
     "@findr/react": ^1.0.0-beta.3
     "@gwdevs/extensible-rcl": ^1.0.1
-    "@oce-editor-tools/base": ^0.1.28
+    "@oce-editor-tools/base": ^0.1.29
     "@xelah/type-perf-html": ^1.0.3
     epitelete-html: 0.2.21-beta.2
     pagedjs: ^0.4.3
@@ -2700,17 +2782,18 @@ __metadata:
     "@mui/icons-material": ^5.14.12
     "@mui/lab": ^5.0.0-alpha.147
     "@mui/material": ^5.14.12
+    "@mui/x-tree-view": ^6.17.0
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: e6eea709b53b6b00f9be06463474bcae18021a2e1e95dd4367602a706ee4f82f34a7506ebff4fce309f38b263a84566e5fde27731f4f8615e6aae2137dc508d5
+  checksum: 6091e55ed74c7ac5977db535f70eff11783102bfcab15dcf3fdbde4ce00a2932d1dd0329b968d539c3bae055691808912a14abd6d0e84641a34c938edb3d8b91
   languageName: node
   linkType: hard
 
-"@oce-editor-tools/mui-pk@npm:^0.1.28":
-  version: 0.1.28
-  resolution: "@oce-editor-tools/mui-pk@npm:0.1.28"
+"@oce-editor-tools/mui-pk@npm:^0.1.29":
+  version: 0.1.29
+  resolution: "@oce-editor-tools/mui-pk@npm:0.1.29"
   dependencies:
-    "@oce-editor-tools/mui-core": ^0.1.28
+    "@oce-editor-tools/mui-core": ^0.1.29
     "@xelah/type-perf-html": ^1.0.3
     bible-reference-rcl: ^1.2.2
     dompurify: ^3.0.6
@@ -2727,7 +2810,7 @@ __metadata:
     "@mui/material": ^5.11.0
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 143ff238f67d0dea96ab7be22d41ae8a191bb5aa223d2bea5d36bd955cd6f64192bfb7a0cabb72a473b019fac151819655d60da10aee78d23828561934cf88e1
+  checksum: a3fd99cd89efc519d7ee64f92185c41152cb6a1e8db1e72ab79a73a7ffc2e9a0144b9ee2bca3b527c221ef4b8eb159faf35205a389aff9c88a2942368d4f851e
   languageName: node
   linkType: hard
 
@@ -2860,7 +2943,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-transition-group@npm:^4.2.0, @types/react-transition-group@npm:^4.4.9":
+"@types/react-transition-group@npm:^4.2.0, @types/react-transition-group@npm:^4.4.8, @types/react-transition-group@npm:^4.4.9":
   version: 4.4.10
   resolution: "@types/react-transition-group@npm:4.4.10"
   dependencies:
@@ -6824,10 +6907,11 @@ __metadata:
     "@mui/lab": ^5.0.0-alpha.107
     "@mui/material": ^5.10.6
     "@mui/styles": 5.10.10
+    "@mui/x-tree-view": ^6.17.0
     "@netlify/plugin-nextjs": 3.9.2
-    "@oce-editor-tools/base": ^0.1.28
-    "@oce-editor-tools/mui-core": ^0.1.28
-    "@oce-editor-tools/mui-pk": ^0.1.28
+    "@oce-editor-tools/base": ^0.1.29
+    "@oce-editor-tools/mui-core": ^0.1.29
+    "@oce-editor-tools/mui-pk": ^0.1.29
     "@sendgrid/mail": ^7.7.0
     autoprefixer: ^10.4.7
     base-64: ^1.0.0
@@ -13293,7 +13377,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.3.0, tslib@npm:^2.4.0":
+"tslib@npm:^2.4.0":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
   checksum: 329ea56123005922f39642318e3d1f0f8265d1e7fcb92c633e0809521da75eeaca28d2cf96d7248229deb40e5c19adf408259f4b9640afd20d13aecc1430f3ad
