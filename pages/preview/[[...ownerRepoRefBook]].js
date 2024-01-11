@@ -15,7 +15,7 @@ const ScriptureWorkspace = dynamic(
   }
 )
 
-function Home() {
+function PreviewPage() {
   const {
     state: { authentication: auth },
   } = useAuthContext()
@@ -29,7 +29,7 @@ function Home() {
       }}
     >
       <Head>
-        <title>Door43 Preview - Home</title>
+        <title>Door43 Preview</title>
         <meta name='description' content='gatewayTranslate' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
@@ -38,4 +38,4 @@ function Home() {
   )
 }
 
-export default Home
+export default PreviewPage

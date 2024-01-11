@@ -17,11 +17,11 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]](https://github.com/unfoldingWord/gateway-translate/graphs/contributors)
-[![Forks][forks-shield]](https://github.com/unfoldingWord/gateway-translate/network/members)
-[![Stargazers][stars-shield]](https://github.com/unfoldingWord/gateway-translate/stargazers)
-[![Issues][issues-shield]](https://github.com/unfoldingWord/gateway-translate/issues)
-[![MIT License][license-shield]](https://github.com/unfoldingWord/gateway-translate/blob/main/LICENSE)
+[![Contributors][contributors-shield]](https://github.com/unfoldingWord/door43-preview-app/graphs/contributors)
+[![Forks][forks-shield]](https://github.com/unfoldingWord/door43-preview-app/network/members)
+[![Stargazers][stars-shield]](https://github.com/unfoldingWord/door43-preview-app/stargazers)
+[![Issues][issues-shield]](https://github.com/unfoldingWord/door43-preview-app/issues)
+[![MIT License][license-shield]](https://github.com/unfoldingWord/door43-preview-app/blob/main/LICENSE)
 [![LinkedIn][linkedin-shield]](https://www.linkedin.com/company/unfoldingword/)
 
 
@@ -29,23 +29,23 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://gateway-translate.netlify.app/">
+  <a href="https://door43-preview-app.netlify.app/">
     <img src="images/uW.png" alt="Logo" width="300" height="50">
   </a>
 
-<h3 align="center">gatewaytranslate</h3>
+<h3 align="center">Door43 Preview App</h3>
 
   <p align="center">
-    This application is for use by Gateway Language translators.
+    This application is for viewing rendered resources from DCS
     <br />
-    <a href="https://github.com/unfoldingword/gateway-translate"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/unfoldingword/door43-preview-app"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://gateway-translate.netlify.app/">Go to Application</a>
+    <a href="https://door43-preview.netlify.app/">Go to Application</a>
     ·
-    <a href="https://github.com/unfoldingword/gateway-translate/issues">Report Bug</a>
+    <a href="https://github.com/unfoldingword/door43-preview-app/issues">Report Bug</a>
     ·
-    <a href="https://github.com/unfoldingword/gateway-translate/issues">Request Feature</a>
+    <a href="https://github.com/unfoldingword/door43-preview-app/issues">Request Feature</a>
   </p>
 </div>
 
@@ -124,24 +124,28 @@ This project uses components from the Open Components Ecosystem (OCE) extensivel
 1. Get a [DCS](https://git.door43.org) account
 2. Clone the repo
    ```sh
-   git clone https://github.com/unfoldingword/gateway-translate.git
+   git clone https://github.com/unfoldingword/door43-preview-app.git
    ```
 3. Install NPM packages
    ```sh
    yarn install
    ```
+3. Build the Next.js app
+   ```sh
+   yarn build
+   ```
 4. Start the local server 
    ```sh
    yarn dev
    ```
-5. Visit <a href="http://localhost:3000">localhost:3000</a>  
+5. Visit <a href="http://localhost:3333">localhost:3333</a>  
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/unfoldingword/gateway-translate/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/unfoldingword/door43-preview-app/issues) for a full list of proposed features (and known issues).
 
 This project uses Zenhub to manage the roadmap.
 
@@ -168,12 +172,12 @@ If you would like to fork the repo and create a pull request.
 Finally, you can point the application to either the QA or Production servers this way:
 
 To use QA add the "server=qa" parameter to the URL:
-`https://gateway-edit.netlify.app/?server=qa`.  
+`https://door43-preview.netlify.app/?server=qa`.  
 
 This is a toggle and will stay pointed at QA until another setting is applied.
 
 To point to production:
-`https://gateway-edit.netlify.app/?server=prod`
+`https://door43-preview.netlify.app/?server=prod`
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -195,7 +199,7 @@ Cecil New
 - Twitter [@mandolyte](https://twitter.com/@mandolyte)
 - Discord [Cecil#5551](tbd)
 
-Project Link: [https://github.com/unfoldingword/gateway-translate](https://github.com/unfoldingword/gateway-translate)
+Project Link: [https://github.com/unfoldingword/door43-preview-app](https://github.com/unfoldingword/door43-preview-app)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -214,16 +218,16 @@ Project Link: [https://github.com/unfoldingword/gateway-translate](https://githu
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/unfoldingword/gateway-translate.svg?style=for-the-badge
-[contributors-url]: https://github.com/unfoldingword/gateway-translate/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/unfoldingword/gateway-translate.svg?style=for-the-badge
-[forks-url]: https://github.com/unfoldingword/gateway-translate/network/members
-[stars-shield]: https://img.shields.io/github/stars/unfoldingword/gateway-translate.svg?style=for-the-badge
-[stars-url]: https://github.com/unfoldingword/gateway-translate/stargazers
-[issues-shield]: https://img.shields.io/github/issues/unfoldingword/gateway-translate.svg?style=for-the-badge
-[issues-url]: https://github.com/unfoldingword/gateway-translate/issues
-[license-shield]: https://img.shields.io/github/license/unfoldingword/gateway-translate.svg?style=for-the-badge
-[license-url]: https://github.com/unfoldingword/gateway-translate/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/unfoldingword/door43-preview-app.svg?style=for-the-badge
+[contributors-url]: https://github.com/unfoldingword/door43-preview-app/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/unfoldingword/door43-preview-app.svg?style=for-the-badge
+[forks-url]: https://github.com/unfoldingword/door43-preview-app/network/members
+[stars-shield]: https://img.shields.io/github/stars/unfoldingword/door43-preview-app.svg?style=for-the-badge
+[stars-url]: https://github.com/unfoldingword/door43-preview-app/stargazers
+[issues-shield]: https://img.shields.io/github/issues/unfoldingword/door43-preview-app.svg?style=for-the-badge
+[issues-url]: https://github.com/unfoldingword/door43-preview-app/issues
+[license-shield]: https://img.shields.io/github/license/unfoldingword/door43-preview-app.svg?style=for-the-badge
+[license-url]: https://github.com/unfoldingword/door43-preview-app/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/company/unfoldingword
 

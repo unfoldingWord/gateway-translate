@@ -150,8 +150,9 @@ export default function Header({
           return
         }
         _entry.id = `${selectedBook.id}-${repository}-${owner}`
-        _entry.repo = repository
         _entry.owner = owner
+        _entry.repo = repository
+        _entry.ref = "master"
         _entry.languageId = languageId
         _entry.bookId = selectedBook.id
         _entry.readOnly = !pushAccess
@@ -208,7 +209,7 @@ export default function Header({
             </Typography>
           </div>
           <div className='flex flex-1 justify-center items-center'>
-            {user && owner && router.pathname === '/' && hasOpenBook && (
+            {user && owner && (router.pathname.startsWith('/preview/') || router.pathname === '/') && hasOpenBook && (
               <BibleReference 
                 status={bRefState}
                 actions={bRefActions}
@@ -217,7 +218,7 @@ export default function Header({
             )}
           </div>
           <>
-            {user && owner && router.pathname === '/' && (
+            {user && owner && (router.pathname.startsWith('/preview/') || router.pathname === '/') && (
               <div className='flex flex-1 justify-end'>
               <Fab
                 color='primary'

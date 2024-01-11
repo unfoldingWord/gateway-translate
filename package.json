@@ -5,9 +5,9 @@
     "node": "16"
   },
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS=--max_old_space_size=4096 next",
+    "dev": "cross-env NODE_OPTIONS=--max_old_space_size=4096 next -p 3333",
     "build": "next build --debug",
-    "start": "next start",
+    "start": "next start -p 3333",
     "lint": "next lint",
     "export": "next export",
     "postinstall": "husky install",
