@@ -1,6 +1,6 @@
 {
   "name": "gateway-translate",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "engines": {
     "node": "16"
   },
@@ -23,7 +23,10 @@
     "@mui/lab": "^5.0.0-alpha.107",
     "@mui/material": "^5.10.6",
     "@mui/styles": "5.10.10",
-    "@oce-editor-tools/pk": "0.1.19",
+    "@mui/x-tree-view": "^6.17.0",
+    "@oce-editor-tools/base": "^0.1.30",
+    "@oce-editor-tools/mui-core": "^0.1.30",
+    "@oce-editor-tools/mui-pk": "^0.1.30",
     "@sendgrid/mail": "^7.7.0",
     "autoprefixer": "^10.4.7",
     "base-64": "^1.0.0",
@@ -52,7 +55,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.12.7",
     "@babel/plugin-syntax-logical-assignment-operators": "^7.10.4",
     "@netlify/plugin-nextjs": "3.9.2",
-    "eslint": "^8.38.0",
+    "eslint": "^8.56.0",
     "eslint-config-next": "12.1.6",
     "husky": "^8.0.1",
     "prettier": "^2.6.2",
